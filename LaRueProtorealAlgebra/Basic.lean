@@ -16,6 +16,9 @@ import LaRueProtorealAlgebra.EulerPerception
 import LaRueProtorealAlgebra.MayerVietoris
 import LaRueProtorealAlgebra.StructuralHeterogeneity
 import LaRueProtorealAlgebra.SpectralFiber
+import LaRueProtorealAlgebra.CommutatorGap
+import LaRueProtorealAlgebra.MassGap
+import LaRueProtorealAlgebra.SpectralTrinity
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
