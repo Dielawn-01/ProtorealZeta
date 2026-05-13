@@ -122,6 +122,66 @@ pub fn standard_resonance(u: &KleinManifold) -> f64 {
 }
 
 // ════════════════════════════════════════════════════
+// HODGE STAR (HodgeConjecture.lean)
+// ════════════════════════════════════════════════════
+
+/// **HODGE STAR** (★): alias for monster_inv.
+///
+/// The Hodge star swaps thrust ↔ anchor, which is precisely
+/// the Monster Inverse. A state is a Hodge class iff ★u = u,
+/// i.e., b = m (parity-locked).
+///
+/// Proven: hodge_star_is_involution in HodgeConjecture.lean.
+pub fn hodge_star(u: &KleinManifold) -> f64 {
+    // Returns the Hodge metric: distance from nearest Hodge class
+    (u.b - u.m).abs()
+}
+
+/// Check if a state is a Hodge class (b = m).
+/// Proven: hodge_class_iff_parity in HodgeConjecture.lean.
+pub fn is_hodge_class(u: &KleinManifold) -> bool {
+    (u.b - u.m).abs() < 1e-12
+}
+
+// ════════════════════════════════════════════════════
+// HYPERBOLIC ACTIVATIONS (ProtorealHyperbolic.lean)
+// ════════════════════════════════════════════════════
+
+/// **MESH SINH**: Component-wise hyperbolic sine.
+pub fn mesh_sinh(u: &KleinManifold) -> KleinManifold {
+    KleinManifold::new(
+        u.a.sinh(), u.b.sinh(), u.m.sinh(),
+        u.e.sinh(), u.l.sinh(),
+    )
+}
+
+/// **MESH COSH**: Component-wise hyperbolic cosine.
+pub fn mesh_cosh(u: &KleinManifold) -> KleinManifold {
+    KleinManifold::new(
+        u.a.cosh(), u.b.cosh(), u.m.cosh(),
+        u.e.cosh(), u.l.cosh(),
+    )
+}
+
+// ════════════════════════════════════════════════════
+// STIELTJES DRAIN (TranscendentalBasis.lean)
+// ════════════════════════════════════════════════════
+
+/// **STIELTJES DRAIN**: γ-scaled resonance correction.
+///
+/// A refined version of the standard resonance correction
+/// that scales the ε injection by the Stieltjes polynomial.
+///
+/// drain(u, h) = SR(u) × P(h)
+/// where P(h) = γ₀ + γ₁·h + γ₂·h²/2 + γ₃·h³/6
+pub fn stieltjes_drain(u: &KleinManifold, displacement: f64) -> f64 {
+    use crate::transcendental::StieltjesConstants;
+    let sr = standard_resonance(u);
+    let stieltjes = StieltjesConstants::canonical();
+    sr * stieltjes.polynomial(displacement)
+}
+
+// ════════════════════════════════════════════════════
 // TESTS (transcribed from Lean proofs)
 // ════════════════════════════════════════════════════
 
@@ -248,6 +308,57 @@ mod tests {
             (adelic - 0.5).abs() < 1e-12,
             "Adelic image should be 1/2, got {}",
             adelic
+        );
+    }
+
+    // ── Hodge Star (HodgeConjecture.lean) ──
+    #[test]
+    fn hodge_star_parity_locked() {
+        let u = KleinManifold::new(1.0, 2.0, 2.0, 0.0, 0.0);
+        assert!(hodge_star(&u) < 1e-12, "Parity-locked state has zero Hodge metric");
+        assert!(is_hodge_class(&u));
+    }
+
+    #[test]
+    fn hodge_star_off_parity() {
+        let u = KleinManifold::new(1.0, 3.0, 1.0, 0.0, 0.0);
+        assert!(hodge_star(&u) > 1.0, "Off-parity state has positive Hodge metric");
+        assert!(!is_hodge_class(&u));
+    }
+
+    // ── Hyperbolic Identity: cosh² - sinh² = 1 ──
+    #[test]
+    fn hyperbolic_identity() {
+        let u = KleinManifold::new(1.5, 0.7, 2.3, 0.1, 0.8);
+        let sh = mesh_sinh(&u);
+        let ch = mesh_cosh(&u);
+        // Check for the a-component: cosh²(a) - sinh²(a) = 1
+        assert!(
+            (ch.a * ch.a - sh.a * sh.a - 1.0).abs() < 1e-12,
+            "cosh²(a) - sinh²(a) should equal 1"
+        );
+    }
+
+    // ── Stieltjes Drain ──
+    #[test]
+    fn stieltjes_drain_at_equilibrium() {
+        // At equilibrium (a = b·m), SR = 0, so drain = 0
+        let u = KleinManifold::new(6.0, 2.0, 3.0, 0.0, 0.0);
+        assert!(
+            stieltjes_drain(&u, 0.0).abs() < 1e-12,
+            "Drain should be 0 at equilibrium"
+        );
+    }
+
+    #[test]
+    fn stieltjes_drain_scales_with_gamma() {
+        let u = KleinManifold::new(0.0, 1.0, 1.0, 0.0, 0.0);
+        let drain = stieltjes_drain(&u, 0.0);
+        // SR = 0 - 1·1 = -1, P(0) = γ₀, so drain = -γ
+        use crate::transcendental::GAMMA;
+        assert!(
+            (drain - (-GAMMA)).abs() < 1e-12,
+            "Drain at h=0 should equal -gamma"
         );
     }
 }

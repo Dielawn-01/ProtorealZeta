@@ -97,6 +97,55 @@ pub fn converge(
     (trajectory, state)
 }
 
+/// **GOLDEN CONVERGENCE**: Uses φ as the convergence threshold.
+///
+/// Like `converge`, but terminates when metric < φ (golden threshold)
+/// instead of an arbitrary tolerance. Also applies golden consolidation
+/// on Fibonacci steps.
+pub fn golden_converge(
+    initial: &KleinManifold,
+    max_steps: usize,
+) -> (Vec<KleinManifold>, KleinManifold) {
+    use crate::transcendental::{PHI, is_fibonacci};
+    use crate::glial::golden_consolidation;
+
+    let mut trajectory = vec![*initial];
+    let mut state = *initial;
+
+    for step in 1..=max_steps {
+        let resonance = standard_resonance(&state);
+        let corrected = KleinManifold::new(
+            state.a, state.b, state.m, -resonance, state.l,
+        );
+        state = funct(&corrected);
+
+        // Golden consolidation on Fibonacci steps
+        if is_fibonacci(step) {
+            state = golden_consolidation(&state);
+        }
+
+        state = parity_projection(&state);
+        trajectory.push(state);
+
+        if convergence_metric(&state) < PHI {
+            break;
+        }
+    }
+
+    (trajectory, state)
+}
+
+/// **HODGE CONVERGENCE METRIC**: Distance from nearest Hodge class.
+///
+/// Extends convergence_metric with parity tension (b - m).
+/// A state is fully converged when BOTH the standard metric
+/// AND the Hodge metric are below φ⁻¹ ≈ 0.618.
+pub fn hodge_convergence_metric(u: &KleinManifold) -> f64 {
+    let standard = convergence_metric(u);
+    let parity_tension = (u.b - u.m).abs();
+    (standard * standard + parity_tension * parity_tension).sqrt()
+}
+
 // ════════════════════════════════════════════════════
 // TESTS
 // ════════════════════════════════════════════════════
@@ -186,6 +235,33 @@ mod tests {
         assert!(
             convergence_metric(&u) < 1e-12,
             "Fixed point should have zero metric"
+        );
+    }
+
+    #[test]
+    fn golden_converge_from_fiber() {
+        let t = 14.134;
+        let u = KleinManifold::new(0.0, t, 1.0 / t, 0.0, 0.0);
+        let (trajectory, final_state) = golden_converge(&u, 20);
+        assert!(trajectory.len() > 1, "Should have trajectory");
+        assert!(final_state.a.is_finite(), "Final state should be finite");
+    }
+
+    #[test]
+    fn hodge_convergence_at_fixed_point() {
+        let u = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 0.0);
+        assert!(
+            hodge_convergence_metric(&u) < 1e-12,
+            "Fixed point should have zero Hodge convergence"
+        );
+    }
+
+    #[test]
+    fn hodge_convergence_off_parity() {
+        let u = KleinManifold::new(1.0, 3.0, 1.0, 0.0, 0.0);
+        assert!(
+            hodge_convergence_metric(&u) > 1.0,
+            "Off-parity should have large Hodge convergence"
         );
     }
 }
