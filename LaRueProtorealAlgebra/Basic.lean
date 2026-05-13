@@ -15,6 +15,7 @@ import LaRueProtorealAlgebra.ProtorealGraph
 import LaRueProtorealAlgebra.EulerPerception
 import LaRueProtorealAlgebra.MayerVietoris
 import LaRueProtorealAlgebra.StructuralHeterogeneity
+import LaRueProtorealAlgebra.SpectralFiber
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
