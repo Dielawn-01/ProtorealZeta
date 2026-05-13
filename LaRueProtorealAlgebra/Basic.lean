@@ -2,8 +2,11 @@ import LaRueProtorealAlgebra.ProtorealManifold
 import LaRueProtorealAlgebra.ProtorealMesh
 import LaRueProtorealAlgebra.ProtorealNorm
 import LaRueProtorealAlgebra.HyperbolicIdentity
+import LaRueProtorealAlgebra.HyperbolicGeneralization
 import LaRueProtorealAlgebra.CollatzResonance
 import LaRueProtorealAlgebra.MonsterLattice
+import LaRueProtorealAlgebra.ParityStability
+import LaRueProtorealAlgebra.SyntheticIntegration
 import LaRueProtorealAlgebra.GeneralInversion
 import LaRueProtorealAlgebra.RiemannSolution
 

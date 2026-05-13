@@ -58,6 +58,17 @@ instance : HMul ProtorealManifold ℝ ProtorealManifold where
 instance : HMul ℝ ProtorealManifold ProtorealManifold where
   hMul r u := { a := r * u.a, b := r * u.b, m := r * u.m, e := r * u.e, l := r * u.l }
 
+@[simp] lemma rhmul_a (r : ℝ) (u : ProtorealManifold) :
+    (r * u).a = r * u.a := rfl
+@[simp] lemma rhmul_b (r : ℝ) (u : ProtorealManifold) :
+    (r * u).b = r * u.b := rfl
+@[simp] lemma rhmul_m (r : ℝ) (u : ProtorealManifold) :
+    (r * u).m = r * u.m := rfl
+@[simp] lemma rhmul_e (r : ℝ) (u : ProtorealManifold) :
+    (r * u).e = r * u.e := rfl
+@[simp] lemma rhmul_l (r : ℝ) (u : ProtorealManifold) :
+    (r * u).l = r * u.l := rfl
+
 /-- Adding a Real to the a-component -/
 instance : HAdd ProtorealManifold ℝ ProtorealManifold where
   hAdd u r := { a := u.a + r, b := u.b, m := u.m, e := u.e, l := u.l }
@@ -134,6 +145,17 @@ instance : Sub ProtorealManifold where
     (u - r).e = u.e := rfl
 @[simp] lemma hsub_l (u : ProtorealManifold) (r : ℝ) :
     (u - r).l = u.l := rfl
+
+@[simp] lemma sub_a (u v : ProtorealManifold) :
+    (u - v).a = u.a - v.a := rfl
+@[simp] lemma sub_b (u v : ProtorealManifold) :
+    (u - v).b = u.b - v.b := rfl
+@[simp] lemma sub_m (u v : ProtorealManifold) :
+    (u - v).m = u.m - v.m := rfl
+@[simp] lemma sub_e (u v : ProtorealManifold) :
+    (u - v).e = u.e - v.e := rfl
+@[simp] lemma sub_l (u v : ProtorealManifold) :
+    (u - v).l = u.l - v.l := rfl
 
 @[simp] lemma neg_a (u : ProtorealManifold) :
     (-u).a = -u.a := rfl
