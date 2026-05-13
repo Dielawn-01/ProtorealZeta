@@ -8,3 +8,4 @@ venv/
 .DS_Store
 data/zeta_zeros_2m.txt
 SpectralObservatory/data/*.csv
+zProto/target/
