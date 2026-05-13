@@ -5,6 +5,7 @@ import LaRueProtorealAlgebra.HyperbolicIdentity
 import LaRueProtorealAlgebra.HyperbolicGeneralization
 import LaRueProtorealAlgebra.CollatzResonance
 import LaRueProtorealAlgebra.MonsterLattice
+import LaRueProtorealAlgebra.HodgeDecomposition
 import LaRueProtorealAlgebra.ParityStability
 import LaRueProtorealAlgebra.SyntheticIntegration
 import LaRueProtorealAlgebra.GeneralInversion

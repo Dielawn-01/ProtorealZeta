@@ -1,4 +1,6 @@
 import Mathlib.Analysis.Real.Hyperreal
+import Mathlib.Analysis.SpecialFunctions.Exp
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Tactic.Ext
 
 /-!
@@ -26,7 +28,8 @@ namespace ProtorealManifold
 
 @[reducible]
 instance : Add ProtorealManifold where
-  add u1 u2 := { a := u1.a + u2.a, b := u1.b + u2.b, m := u1.m + u2.m, e := u1.e + u2.e, l := u1.l + u2.l }
+  add u1 u2 := { a := u1.a + u2.a, b := u1.b + u2.b, m := u1.m + u2.m, 
+                  e := u1.e + u2.e, l := u1.l + u2.l }
 
 @[reducible]
 instance : Zero ProtorealManifold where
@@ -83,13 +86,27 @@ instance : HSub ProtorealManifold ℝ ProtorealManifold where
 instance : HSub ℝ ProtorealManifold ProtorealManifold where
   hSub r u := { a := r - u.a, b := -u.b, m := -u.m, e := -u.e, l := -u.l }
 
+/-- **THE PROTOREAL EXPONENTIAL MAP**
+    exp(a + bω + mι) = e^a * (1 + (e^b - 1)ω + (1 - e⁻ᵐ)ι).
+    This leverages the idempotency of ω and anti-idempotency of ι. -/
+noncomputable def exp (u : ProtorealManifold) : ProtorealManifold :=
+  let ea := Real.exp u.a
+  let eb := Real.exp u.b
+  let em := Real.exp (-u.m)
+  -- exp(u) = ea * { 1, eb - 1, 1 - em, 0, 0 }
+  { a := ea,
+    b := ea * (eb - 1),
+    m := ea * (1 - em),
+    e := u.e, -- Noise sectors are linear
+    l := u.l }
+
 /-- **PROTOREAL EXPONENTIATION**
-    Non-computable power operator for transfinite scaling. -/
+    u1 ^ u2 := exp(u2 * ln(u1)).
+    (Stub implementation for ln, currently linear). -/
 noncomputable instance : HPow ProtorealManifold ProtorealManifold ProtorealManifold where
   hPow u1 u2 := 
-    -- Placeholder for the exponential of the log map.
-    -- Required for Level-4 Hyperoperations (Tetration).
-    u1 -- Stub
+    -- For now, we assume u1 is close to equilibrium for the power map.
+    exp (u2 * { a := Real.log (Real.sqrt (u1.a^2 + 1)), b := u1.b, m := u1.m, e := u1.e, l := u1.l })
 
 @[reducible]
 instance : Neg ProtorealManifold where
