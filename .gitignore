@@ -1,0 +1,8 @@
+.lake/
+lake-manifest.json
+__pycache__/
+*.pyc
+*.ipynb_checkpoints/
+venv/
+.DS_Store
+data/zeta_zeros_2m.txt
