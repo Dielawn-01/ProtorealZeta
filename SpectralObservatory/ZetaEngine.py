@@ -24,7 +24,7 @@ def load_heavy_assets():
     """Loads 2M Zeta zeros into memory once."""
     KNOWN_ZEROS = []
     # Search paths: parent, local, or absolute
-    paths = ["zeta_zeros_2m.txt", "../zeta_zeros_2m.txt", "data/zeta_zeros_2m.txt", "/home/phrxmaz/Documents/Prime Search/zeta_zeros_2m.txt"]
+    paths = ["zeta_zeros_2m.txt", "../zeta_zeros_2m.txt", "data/zeta_zeros_2m.txt", "data/zeta_zeros_100k_sample.txt", "/home/phrxmaz/Documents/Prime Search/zeta_zeros_2m.txt"]
     for p in paths:
         if os.path.exists(p):
             zeros = []
