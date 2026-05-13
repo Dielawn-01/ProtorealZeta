@@ -3,6 +3,7 @@ import LaRueProtorealAlgebra.ProtorealMesh
 import LaRueProtorealAlgebra.ProtorealNorm
 import LaRueProtorealAlgebra.HyperbolicIdentity
 import LaRueProtorealAlgebra.CollatzResonance
+import LaRueProtorealAlgebra.MonsterLattice
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

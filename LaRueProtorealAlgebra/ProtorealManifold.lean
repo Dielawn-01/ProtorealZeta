@@ -72,6 +72,14 @@ instance : HSub ProtorealManifold ℝ ProtorealManifold where
 instance : HSub ℝ ProtorealManifold ProtorealManifold where
   hSub r u := { a := r - u.a, b := -u.b, m := -u.m, e := -u.e, l := -u.l }
 
+/-- **PROTOREAL EXPONENTIATION**
+    Non-computable power operator for transfinite scaling. -/
+noncomputable instance : HPow ProtorealManifold ProtorealManifold ProtorealManifold where
+  hPow u1 u2 := 
+    -- Placeholder for the exponential of the log map.
+    -- Required for Level-4 Hyperoperations (Tetration).
+    u1 -- Stub
+
 @[reducible]
 instance : Neg ProtorealManifold where
   neg u := { a := -u.a, b := -u.b, m := -u.m, e := -u.e, l := -u.l }
