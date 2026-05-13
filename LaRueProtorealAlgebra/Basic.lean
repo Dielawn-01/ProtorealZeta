@@ -4,6 +4,7 @@ import LaRueProtorealAlgebra.ProtorealNorm
 import LaRueProtorealAlgebra.HyperbolicIdentity
 import LaRueProtorealAlgebra.CollatzResonance
 import LaRueProtorealAlgebra.MonsterLattice
+import LaRueProtorealAlgebra.RiemannSolution
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
