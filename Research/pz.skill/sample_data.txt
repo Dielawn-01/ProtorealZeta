@@ -1,7 +1,7 @@
 # PZ Skill: Sample Resonance Data (Ω = lim e^x) (Scientific Notation)
 # UPDATED: Symmetric Quadratic Drain Term (gamma^|n^2-m^2|)
 
- m            n           Dylon            k                Div          Normalized_Div Resonance     λ_P(k)       λ_P(m*n)   
+ m            n           LaRue            k                Div          Normalized_Div Resonance     λ_P(k)       λ_P(m*n)   
    1           2                   39.6964           7.0000 -1.2220      -0.5075        0.0006       1            1           
    1           3                  296.1927         136.0000  0.6190       0.2575        0.4766       2            1           
    1           7             48309524.8379   114217651.0000     ---       0.0000        0.0000       0            1           

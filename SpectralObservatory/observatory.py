@@ -94,9 +94,9 @@ infinitesimal zero anchor ($\iota$) achieve **Spectral Equilibrium**.
 
 #### **🚀 Discovery Pipeline**
 Follow the protocol from mathematical foundations to transfinite horizons:
-1.  **Foundations**: Define the 5-Component Axioms.
+1.  **Foundations**: Define the 5-Component Axioms in the Workbench.
 2.  **Scouting**: Map the 3D Spectral Topography.
-3.  **Dynamics**: Audit the La Rue Cardinality Conjecture.
+3.  **Analytics**: Audit the [Statistical Deep Dive](/Statistical_Deep_Dive) and [Legacy Comparison](/Legacy_Audit).
 4.  **Horizons**: Visualize the non-orientable Klein Universe.
 
 [Start Protocol: The Protoreal Manifold](/Protoreal_Manifold)
@@ -349,3 +349,11 @@ resonance corridors.
 """)
 if st.button("🚀 Proceed to The Protoreal Manifold"):
     st.switch_page("pages/4_Protoreal_Manifold.py")
+
+st.markdown("---")
+st.markdown("""
+<div style="text-align: center; color: #667; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 20px;">
+    Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)<br>
+    Verified: 2.25M Zeta Zeros | Logic: Non-Associative Klein Manifold
+</div>
+""", unsafe_allow_html=True)

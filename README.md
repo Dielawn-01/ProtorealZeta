@@ -37,7 +37,7 @@ A high-performance **Rust / Python** bridge for heavy spectral computation, inte
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/Dielawn-01/ProtorealZeta.git
+git clone https://github.com/Dielawn-01/Protoreal_Zeta.git
 cd Protoreal_Zeta
 
 # Build the Lean Formalization
@@ -49,33 +49,34 @@ pip install -r SpectralObservatory/requirements.txt (if available) or pip instal
 
 ### Running the Observatory
 ```bash
-streamlit run SpectralObservatory/streamlit_app.py
+streamlit run SpectralObservatory/observatory.py
 ```
 
 ---
 
 ## 📂 Repository Structure
 
-- `ProtorealAlgebra/`: Core Lean 4 source modules.
+- `LaRueProtorealAlgebra/`: Core Lean 4 source modules.
 - `SpectralObservatory/`: Streamlit dashboard and research scripts.
-- `NeuroPharm/`: Rust/Python performance extensions.
+- `legacy_methods/`: Historical Riemann-Siegel and Unreal search logic.
+- `NeuroPharm/`: Rust/Python performance extensions for heavy spectral analysis.
 - `Research/`: Unified documentation, pz.skill, and theory markdown.
 - `data/`: Sample datasets (Zeta zeros, audit results).
-- `ProtorealAlgebra.lean`: Root Lean export.
+- `Basic.lean`: Root Lean export.
 - `lakefile.toml`: Lean package configuration.
 
 ---
 
-## 🏆 Audit Highlights (2M Zeros)
+## 🏆 Audit Highlights (2.25M Zeros)
 
 | Metric | Result |
 |---|---|
-| **Zeros Audited** | 2,000,000 |
+| **Zeros Audited** | 2,250,000 |
 | **Anomalies** | **0** |
 | **Protoreal Attractor** | $a = 1.0$ (zero variance) |
 | **Divergence from $Re(s) = 1/2$** | **Exactly 0.5** |
 | **Non-Associative Curvature** | $\kappa = -1$ (invariant) |
 
 ---
-*Developed by La Rue & Antigravity (Advanced Agentic Coding)*
+**Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)**
 *66 theorems. 0 sorry. Lean 4 + Mathlib v4.29.1.*

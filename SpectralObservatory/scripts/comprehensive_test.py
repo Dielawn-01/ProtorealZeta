@@ -25,7 +25,7 @@ def run_comprehensive_test():
     test_coords = [(1, 1), (5, 7), (13, 17), (24, 24)]
     
     engines = {
-        "D_m_n (Dylon)": ze.D_m_n,
+        "D_m_n (LaRue)": ze.D_m_n,
         "S_m_n (Adelic)": ze.S_m_n,
         "T_m_n (T-Series)": ze.T_m_n,
         "test_function (Hybrid/Exp)": ze.test_function

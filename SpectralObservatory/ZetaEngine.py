@@ -24,7 +24,7 @@ def load_heavy_assets():
     """Loads 2M Zeta zeros into memory once."""
     KNOWN_ZEROS = []
     # Search paths: parent, local, or absolute
-    paths = ["zeta_zeros_2m.txt", "../zeta_zeros_2m.txt", "data/zeta_zeros_2m.txt", "data/zeta_zeros_100k_sample.txt", "/home/phrxmaz/Documents/Prime Search/zeta_zeros_2m.txt"]
+    paths = ["zeta_zeros_2m.txt", "../zeta_zeros_2m.txt", "data/zeta_zeros_2m.txt", "../data/zeta_zeros_2m.txt", "data/zeta_zeros_100k_sample.txt"]
     for p in paths:
         if os.path.exists(p):
             zeros = []
@@ -98,7 +98,7 @@ def get_zero_spacing(T):
     return (2 * math.pi) / math.log(T_f / (2 * math.pi))
 
 def D_m_n(m, n):
-    """Dylon-Stieltjes Prime Antenna (V6).
+    """LaRue-Stieltjes Prime Antenna (V6).
     Mangoldt-reduced base with Stieltjes polynomial Drain.
     Formula: p_m · e · p_n - Modulator - Stieltjes_Drain
     """

@@ -46,7 +46,7 @@ def load_divergence_data():
     df = pd.read_csv(CSV_PATH)
     df = df[df['Div'] != '---'].copy()
     
-    numeric_cols = ['k', 'Div', 'Dylon', 'Base', 'Modulator', 'Drain', 'Λ Ratio',
+    numeric_cols = ['k', 'Div', 'LaRue', 'Base', 'Modulator', 'Drain', 'Λ Ratio',
                     'Nearest Zero', 'Resonance', 'λ_P(k)', 'λ_P(m*n)', 'Normalized_Div']
     for col in numeric_cols:
         if col in df.columns:
@@ -64,7 +64,7 @@ if df.empty:
 # ════════════════════════════════════════════════════
 
 st.sidebar.header("🔧 Data Controls")
-sort_col = st.sidebar.selectbox("Sort By", options=['m', 'n', 'Div', 'Dylon', 'Resonance', 'Normalized_Div'],
+sort_col = st.sidebar.selectbox("Sort By", options=['m', 'n', 'Div', 'LaRue', 'Resonance', 'Normalized_Div'],
                                  index=0)
 sort_order = st.sidebar.radio("Order", ["Ascending", "Descending"])
 show_only_resonant = st.sidebar.checkbox("Show only resonant (ε < 0.1)", False)
@@ -197,9 +197,9 @@ with lk_col2:
         c2.metric("p_n", f"{int(row['p_n'])}" if 'p_n' in row else "—")
         c3.metric("Divergence (ε)", f"{row['Div']:.6f}" if 'Div' in row else "—")
         
-        if 'Dylon' in row:
+        if 'LaRue' in row:
             c4, c5, c6 = st.columns(3)
-            c4.metric("Antenna Output", f"{row['Dylon']:.2e}")
+            c4.metric("Antenna Output", f"{row['LaRue']:.2e}")
             c5.metric("Nearest Zero", f"γ_{int(row['k'])}" if 'k' in row else "—")
             c6.metric("Resonance", f"{row['Resonance']:.4f}" if 'Resonance' in row else "—")
     else:

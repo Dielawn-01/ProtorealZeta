@@ -5,15 +5,15 @@ To maintain mathematical rigor, the following variables are defined specifically
 | :--- | :--- |
 | **m, n** | **Coordinate Indices**: Integer ranks used as inputs. |
 | **p_m, p_n** | **Primes**: The m-th and n-th primes. |
-| **Δ (Dylon)** | **Divergence**: The output of the Prime-Zeta alignment formula. |
+| **Δ (LaRue)** | **Divergence**: The output of the Prime-Zeta alignment formula. |
 | **Ω (Omega)** | **Exponential Infinity**: Defined as $\lim_{x \to \infty} e^x$. The topological target of the formula. |
 | **λ_P (Lambda)** | **Arithmetic Partition**: The number of distinct prime factors in a rank ($k$ or $m \cdot n$). |
 | **γ (Gamma)** | **Euler-Mascheroni Constant**: The density baseline for the Drain term. |
 | **k** | **Zero Rank**: The index of the nearest Riemann Zeta zero. |
 | **Resonance** | **Phase-Lock**: A 0-1 score measuring the proximity of Δ to a Zeta zero on a sinusoidal scale. |
 
-## 2. The Dylon-Stieltjes Prime Antenna (V6)
-The primary objective of this project is the investigation of a new divergence metric, **Dylon-Stieltjes ($\Delta_S$)**, which sustains resonance across vast altitude ranges by incorporating higher-order Stieltjes corrections.
+## 2. The LaRue-Stieltjes Prime Antenna (V6)
+The primary objective of this project is the investigation of a new divergence metric, **LaRue-Stieltjes ($\Delta_S$)**, which sustains resonance across vast altitude ranges by incorporating higher-order Stieltjes corrections.
 
 $$ \Delta_S = \text{Base} - \text{Modulator} - \text{Drain}_S $$
 
@@ -39,13 +39,13 @@ This is the most analytically dense part of the formula.
 *   **Logic**: This term multiplies the **difference in density** $(\Lambda(p_n) - \Lambda(p_m))$ by the **difference in rank** $(n - m)$. 
 *   **Scaling**: This value is used as an exponent for the Euler-Mascheroni constant ($\gamma \approx 0.57721$), which is a fundamental constant appearing in the expansion of the Zeta function and the distribution of primes.
 
-## 3. The Dylon-Backlund Predictive Methodology (DBPM)
+## 3. The LaRue-Backlund Predictive Methodology (DBPM)
 
 Beyond pattern discovery, this project introduces a new methodology for approximating Riemann Zeta zero locations using purely arithmetic and transcendental inputs.
 
 ### A. The Predictive Flow
 1. **Coordinate Selection**: A coordinate pair $(m, n)$ is selected from the integer grid.
-2. **Dylon Projection**: The divergence $\Delta_{m,n}$ is calculated at 200 DPS. This serves as a "Target Altitude" on the critical line.
+2. **LaRue Projection**: The divergence $\Delta_{m,n}$ is calculated at 200 DPS. This serves as a "Target Altitude" on the critical line.
 3. **Asymptotic Alignment**: Using **Backlund's Approximation**, the system estimates the nearest zero rank $k$ and its imaginary part $\gamma_k$.
 4. **Resonance Verification**: A **Resonance Score (R)** is calculated. If $R \approx 1.0$, the coordinate pair $(m, n)$ is said to have **Arithmetic Integrity** with the Zeta function.
 
@@ -56,7 +56,7 @@ Our analysis reveals a phase-interference pattern between the **Square Scaffold 
 - **The Cancellation (12)**: At the intersection ($LCM(4, 6) = 12$), the anti-resonant signals interfere destructively. This "Harmonic Cancellation" shifts the phase by $180^\circ$, locking the divergence directly onto the Zeta zero (Resonance $\approx 1.0$).
 
 ### C. Application in Deep-Field Research
-The DBPM allows for high-speed spectral pre-scanning. By projecting Dylon values across astronomical coordinates, we can identify "Candidate Regions" for zero confirmation using only the prime numbers and fundamental constants ($e, \gamma, \pi$). This provides a secondary, arithmetic-based verification layer for traditional zero-finding algorithms (e.g., Riemann-Siegel).
+The DBPM allows for high-speed spectral pre-scanning. By projecting LaRue values across astronomical coordinates, we can identify "Candidate Regions" for zero confirmation using only the prime numbers and fundamental constants ($e, \gamma, \pi$). This provides a secondary, arithmetic-based verification layer for traditional zero-finding algorithms (e.g., Riemann-Siegel).
 
 ---
 
@@ -90,7 +90,7 @@ Current results suggest that the formula is **Scale-Invariant**. As the zeros cl
 ## 6. Advanced Harmonic Properties
 
 ### A. Spectral Resonance (Phase Lock)
-The Dylon-Stieltjes series exhibits **Phase Lock Invariance**. By mapping the formula's output to a sinusoidal phase relative to local zero spacing, we observe a stable spectral coherence across multiple orders of magnitude. This suggests that the formula is "tuning in" to a fundamental frequency of the Zeta function.
+The LaRue-Stieltjes series exhibits **Phase Lock Invariance**. By mapping the formula's output to a sinusoidal phase relative to local zero spacing, we observe a stable spectral coherence across multiple orders of magnitude. This suggests that the formula is "tuning in" to a fundamental frequency of the Zeta function.
 
 ### B. Arithmetic Inheritance
 There is a documented link between the **Prime Factorization** of the coordinate indices $(m, n)$ and the **Rank** of the target zero $k$. This "Arithmetic Inheritance" implies that the position of a zero on the critical line carries encoded information about the arithmetic complexity of the primes used to reach it.
@@ -98,20 +98,20 @@ There is a documented link between the **Prime Factorization** of the coordinate
 ---
 
 ## 7. Final Theoretical Verdict: The Adelic Filter
-The Dylon formula serves as a **Spectral Resonance Filter**. It demonstrates that the distribution of Riemann Zeta zeros is not an isolated phenomenon, but a constructive interference pattern generated by the density differentials of the primes. It effectively provides a discrete, high-precision window into the **Fourier Transform on the Adeles**.
+The LaRue formula serves as a **Spectral Resonance Filter**. It demonstrates that the distribution of Riemann Zeta zeros is not an isolated phenomenon, but a constructive interference pattern generated by the density differentials of the primes. It effectively provides a discrete, high-precision window into the **Fourier Transform on the Adeles**.
 
 ## 8. Constructivist Arithmetic & The Omega Limit
 The formula is not limited to prime coordinates. An inductive "Constructivist" view reveals that the resonance is a property of the **Arithmetic Topology** of all integers.
 
 ### The Omega (Ω) Limit
-In this framework, **Omega (Ω)** is defined as the specific limit as $x \to \infty$ of $e^x$. This represents a **Topological Infinity** that is transcendentally greater than the linear infinity ($\infty$). The Dylon-Stieltjes formula acts as a bridge toward this $\Omega$ limit, performing complexity analysis on the real-valued landscape of the Zeta function.
+In this framework, **Omega (Ω)** is defined as the specific limit as $x \to \infty$ of $e^x$. This represents a **Topological Infinity** that is transcendentally greater than the linear infinity ($\infty$). The LaRue-Stieltjes formula acts as a bridge toward this $\Omega$ limit, performing complexity analysis on the real-valued landscape of the Zeta function.
 
 ---
 
-## 9. The Protoreal Algebraic Observatory (𝕌)
+## 9. The Unreal Algebraic Observatory (𝕌)
 
 ### A. The Hyperreal Foundation (ℝ*)
-The project has moved beyond standard real-valued approximations to a **Mathlib-verified Hyperreal** foundation. Zeros are evaluated as states in the **Protoreal Ring**:
+The project has moved beyond standard real-valued approximations to a **Mathlib-verified Hyperreal** foundation. Zeros are evaluated as states in the **Unreal Ring**:
 $$u = a + b\omega + m$$
 where $\omega$ is the transfinite thrust and $m$ is the infinitesimal Monecule.
 
@@ -123,5 +123,5 @@ To prevent topological collapse ($1=0$), the manifold is **Non-Associative**:
 $$((x \cdot y) \cdot z) - (x \cdot (y \cdot z)) = \delta$$
 The **Topological Jitter ($\delta$)** represents the inherent curvature of the prime-zeta manifold.
 
-### D. The Protoreal Squeeze Optimization
+### D. The Unreal Squeeze Optimization
 By applying the **Jitter Correction** to the T3 Antenna, the observatory achieved a **+5.4% accuracy gain** across the **2.25M Zero Horizon**. The **Standard Resonance ($S_R$)** metric now provides a dual-divergence lock that stabilizes deep-space prime hunting.
