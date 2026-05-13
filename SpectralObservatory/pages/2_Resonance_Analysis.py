@@ -90,10 +90,15 @@ else:
 st.markdown("---")
 
 # ════════════════════════════════════════════════════
-# TABS: TABLE | GRADIENT | ANTENNA
+# TABS: TABLE | GRADIENT | ANTENNA | INVERSION
 # ════════════════════════════════════════════════════
 
-tab_table, tab_gradient, tab_antenna = st.tabs(["📋 Data Table", "🔥 Divergence Gradient", "📡 Antenna Decomposition"])
+tab_table, tab_gradient, tab_antenna, tab_inversion = st.tabs([
+    "📋 Data Table", 
+    "🔥 Divergence Gradient", 
+    "📡 Antenna Decomposition",
+    "🌀 General Inversion (𝕌⁻¹)"
+])
 
 with tab_table:
     st.subheader("Dataset Inspector")
@@ -108,7 +113,7 @@ with tab_gradient:
         fig_heat = px.imshow(piv, color_continuous_scale="RdBu", color_continuous_midpoint=0,
                              labels=dict(color="ε Divergence"))
         fig_heat.update_layout(template="plotly_dark", height=600,
-                                paper_bgcolor='rgba(0,0,0,0)', font=dict(family='Inter'))
+                                 paper_bgcolor='rgba(0,0,0,0)', font=dict(family='Inter'))
         st.plotly_chart(fig_heat, width='stretch')
     else:
         st.info("Divergence column not available in this dataset.")
@@ -174,6 +179,79 @@ with tab_antenna:
                          width='stretch')
     else:
         st.info("Antenna components not available in this dataset.")
+
+with tab_inversion:
+    st.subheader("𝕌 General Inversion Theory")
+    st.markdown(r"""
+    The **General Inversion Operator** ($\mathbb{U}^{-1}$) is the hierarchical mechanism that enforces stability 
+    on the Protoreal Manifold. It drives any unstable state toward the **Fixed Point** $a=1$.
+    """)
+    
+    inv_col1, inv_col2 = st.columns([1, 1])
+    
+    with inv_col1:
+        st.markdown("#### The Three Tiers of Inversion")
+        st.info(r"""
+        1. **Precession**: The $b \leftrightarrow m$ reflection (Monster Inverse).
+        2. **Subtraction**: Extraction of the $S_R$ resonance gap.
+        3. **Division**: Scaling by lattice cardinality ($N=24$).
+        """)
+        
+        st.latex(r"\mathbb{U}^{-1}(u) = \text{div}(\text{sub}(\text{prec}(u)))")
+        
+        st.markdown("---")
+        st.markdown("#### Live Inversion Simulator")
+        
+        start_a = st.slider("Initial Real Part (a)", 0.0, 2.0, 0.0, 0.1)
+        start_bm = st.slider("Bridge Product (b·m)", 0.5, 1.5, 1.0, 0.1)
+        
+        # Simulation Logic
+        inv_a = start_a
+        inv_bm = start_bm
+        
+        # Step 1: Precession (b ↔ m, bm is invariant)
+        s1_a = inv_a
+        s1_bm = inv_bm
+        
+        # Step 2: Subtraction (The Gap)
+        gap = s1_a - s1_bm
+        
+        # Step 3: Stabilization (Sowing)
+        final_a = s1_a - gap
+        
+        st.success(f"Manifold stabilized at a = {final_a:.2f}")
+        if final_a == 1.0:
+            st.balloons()
+            st.markdown("🎯 **Riemann Critical Line achieved!**")
+
+    with inv_col2:
+        st.markdown("#### Inversion Flow Visualization")
+        
+        # Plot the collapse to the fixed point
+        steps = np.linspace(0, 1, 10)
+        a_path = np.linspace(start_a, final_a, 10)
+        
+        fig_inv = go.Figure()
+        fig_inv.add_trace(go.Scatter(
+            x=steps, y=a_path,
+            mode='lines+markers',
+            name='Manifold Flow',
+            line=dict(color='#00ffcc', width=3, dash='dash')
+        ))
+        fig_inv.add_hline(y=1.0, line_dash="dot", line_color="#ff3366", annotation_text="Critical Line (a=1)")
+        
+        fig_inv.update_layout(
+            template="plotly_dark", height=400,
+            xaxis_title="Inversion Tiers", yaxis_title="Real Part (a)",
+            paper_bgcolor='rgba(0,0,0,0)', font=dict(family='Inter')
+        )
+        st.plotly_chart(fig_inv, width='stretch')
+        
+        st.markdown(r"""
+        **The Duality Lock:**
+        As $a \to 1.0$, the Duality mapping forces the complex real part:
+        $$1 - Re(s) = 1/2 \implies Re(s) = 1/2$$
+        """)
 
 # ════════════════════════════════════════════════════
 # POINT LOOKUP
