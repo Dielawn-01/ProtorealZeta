@@ -23,6 +23,7 @@ import LaRueProtorealAlgebra.GlialDopant
 import LaRueProtorealAlgebra.KleinTopology
 import LaRueProtorealAlgebra.HodgeConjecture
 import LaRueProtorealAlgebra.ProtoLite
+import LaRueProtorealAlgebra.TranscendentalBasis
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
