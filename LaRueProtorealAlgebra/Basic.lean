@@ -20,6 +20,7 @@ import LaRueProtorealAlgebra.CommutatorGap
 import LaRueProtorealAlgebra.MassGap
 import LaRueProtorealAlgebra.SpectralTrinity
 import LaRueProtorealAlgebra.GlialDopant
+import LaRueProtorealAlgebra.KleinTopology
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
