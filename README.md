@@ -37,7 +37,7 @@ A high-performance **Rust / Python** bridge for heavy spectral computation, inte
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/Dielawn-01/Protoreal_Zeta.git
+git clone https://github.com/Dielawn-01/ProtorealZeta.git
 cd Protoreal_Zeta
 
 # Build the Lean Formalization
