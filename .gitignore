@@ -1,6 +1,8 @@
 .lake/
 lake-manifest.json
 __pycache__/
+GEMINI.md
+skill.md
 *.pyc
 *.ipynb_checkpoints/
 venv/
