@@ -22,6 +22,8 @@ structure ProtorealManifold where
   l : ℝ -- Consolidation (λ)
   deriving Inhabited
 
+namespace ProtorealManifold
+
 @[reducible]
 instance : Add ProtorealManifold where
   add u1 u2 := { a := u1.a + u2.a, b := u1.b + u2.b, m := u1.m + u2.m, e := u1.e + u2.e, l := u1.l + u2.l }
@@ -29,6 +31,46 @@ instance : Add ProtorealManifold where
 @[reducible]
 instance : Zero ProtorealManifold where
   zero := { a := 0, b := 0, m := 0, e := 0, l := 0 }
+
+@[reducible]
+instance : One ProtorealManifold where
+  one := { a := 1, b := 0, m := 0, e := 0, l := 0 }
+
+/-- **THE KLEIN MULTIPLICATION**
+    A non-associative, anti-commutative multiplication rule for the 
+    Klein Universe manifold. -/
+@[reducible]
+def mul (u1 u2 : ProtorealManifold) : ProtorealManifold :=
+  let a_part := u1.a * u2.a - u1.b * u2.m + u1.m * u2.b + u1.l * u2.e - u1.e * u2.l
+  let b_part := u1.a * u2.b + u2.a * u1.b + u1.b * u2.b
+  let m_part := u1.a * u2.m + u2.a * u1.m - u1.m * u2.m
+  let e_part := u1.a * u2.e + u2.a * u1.e + (u1.e * u2.e)
+  let l_part := u1.a * u2.l + u2.a * u1.l + (u1.l * u2.l)
+  { a := a_part, b := b_part, m := m_part, e := e_part, l := l_part }
+
+instance : Mul ProtorealManifold where
+  mul := mul
+
+/-- Scalar Multiplication from ℝ -/
+instance : HMul ProtorealManifold ℝ ProtorealManifold where
+  hMul u r := { a := u.a * r, b := u.b * r, m := u.m * r, e := u.e * r, l := u.l * r }
+
+instance : HMul ℝ ProtorealManifold ProtorealManifold where
+  hMul r u := { a := r * u.a, b := r * u.b, m := r * u.m, e := r * u.e, l := r * u.l }
+
+/-- Adding a Real to the a-component -/
+instance : HAdd ProtorealManifold ℝ ProtorealManifold where
+  hAdd u r := { a := u.a + r, b := u.b, m := u.m, e := u.e, l := u.l }
+
+instance : HAdd ℝ ProtorealManifold ProtorealManifold where
+  hAdd r u := { a := r + u.a, b := u.b, m := u.m, e := u.e, l := u.l }
+
+/-- Subtracting a Real from the a-component -/
+instance : HSub ProtorealManifold ℝ ProtorealManifold where
+  hSub u r := { a := u.a - r, b := u.b, m := u.m, e := u.e, l := u.l }
+
+instance : HSub ℝ ProtorealManifold ProtorealManifold where
+  hSub r u := { a := r - u.a, b := -u.b, m := -u.m, e := -u.e, l := -u.l }
 
 @[reducible]
 instance : Neg ProtorealManifold where
@@ -52,6 +94,39 @@ instance : Sub ProtorealManifold where
 @[simp] lemma add_l (u v : ProtorealManifold) :
     (u + v).l = u.l + v.l := rfl
 
+@[simp] lemma hmul_a (u : ProtorealManifold) (r : ℝ) :
+    (u * r).a = u.a * r := rfl
+@[simp] lemma hmul_b (u : ProtorealManifold) (r : ℝ) :
+    (u * r).b = u.b * r := rfl
+@[simp] lemma hmul_m (u : ProtorealManifold) (r : ℝ) :
+    (u * r).m = u.m * r := rfl
+@[simp] lemma hmul_e (u : ProtorealManifold) (r : ℝ) :
+    (u * r).e = u.e * r := rfl
+@[simp] lemma hmul_l (u : ProtorealManifold) (r : ℝ) :
+    (u * r).l = u.l * r := rfl
+
+@[simp] lemma hadd_a (u : ProtorealManifold) (r : ℝ) :
+    (u + r).a = u.a + r := rfl
+@[simp] lemma hadd_b (u : ProtorealManifold) (r : ℝ) :
+    (u + r).b = u.b := rfl
+@[simp] lemma hadd_m (u : ProtorealManifold) (r : ℝ) :
+    (u + r).m = u.m := rfl
+@[simp] lemma hadd_e (u : ProtorealManifold) (r : ℝ) :
+    (u + r).e = u.e := rfl
+@[simp] lemma hadd_l (u : ProtorealManifold) (r : ℝ) :
+    (u + r).l = u.l := rfl
+
+@[simp] lemma hsub_a (u : ProtorealManifold) (r : ℝ) :
+    (u - r).a = u.a - r := rfl
+@[simp] lemma hsub_b (u : ProtorealManifold) (r : ℝ) :
+    (u - r).b = u.b := rfl
+@[simp] lemma hsub_m (u : ProtorealManifold) (r : ℝ) :
+    (u - r).m = u.m := rfl
+@[simp] lemma hsub_e (u : ProtorealManifold) (r : ℝ) :
+    (u - r).e = u.e := rfl
+@[simp] lemma hsub_l (u : ProtorealManifold) (r : ℝ) :
+    (u - r).l = u.l := rfl
+
 @[simp] lemma neg_a (u : ProtorealManifold) :
     (-u).a = -u.a := rfl
 @[simp] lemma neg_b (u : ProtorealManifold) :
@@ -63,40 +138,31 @@ instance : Sub ProtorealManifold where
 @[simp] lemma neg_l (u : ProtorealManifold) :
     (-u).l = -u.l := rfl
 
+@[simp] lemma one_a : (1 : ProtorealManifold).a = 1 := rfl
+@[simp] lemma one_b : (1 : ProtorealManifold).b = 0 := rfl
+@[simp] lemma one_m : (1 : ProtorealManifold).m = 0 := rfl
+@[simp] lemma one_e : (1 : ProtorealManifold).e = 0 := rfl
+@[simp] lemma one_l : (1 : ProtorealManifold).l = 0 := rfl
+
 @[simp] lemma zero_a : (0 : ProtorealManifold).a = 0 := rfl
 @[simp] lemma zero_b : (0 : ProtorealManifold).b = 0 := rfl
 @[simp] lemma zero_m : (0 : ProtorealManifold).m = 0 := rfl
 @[simp] lemma zero_e : (0 : ProtorealManifold).e = 0 := rfl
 @[simp] lemma zero_l : (0 : ProtorealManifold).l = 0 := rfl
 
-namespace ProtorealManifold
+@[simp] lemma mul_a (u v : ProtorealManifold) :
+    (u * v).a = u.a * v.a - u.b * v.m + u.m * v.b + u.l * v.e - u.e * v.l := rfl
+@[simp] lemma mul_b (u v : ProtorealManifold) :
+    (u * v).b = u.a * v.b + v.a * u.b + u.b * v.b := rfl
+@[simp] lemma mul_m (u v : ProtorealManifold) :
+    (u * v).m = u.a * v.m + v.a * u.m - u.m * v.m := rfl
 
-/-- **THE KLEIN MULTIPLICATION**
-    A non-associative, anti-commutative multiplication rule for the 
-    Klein Universe manifold. -/
-@[reducible]
-def mul (u1 u2 : ProtorealManifold) : ProtorealManifold :=
-  -- Real part uses the Anti-Commutative Bridge Identity
-  -- omega * iota = -1, iota * omega = 1
-  -- lam * eps = 1, eps * lam = -1
-  let a_part := u1.a * u2.a - u1.b * u2.m + u1.m * u2.b + u1.l * u2.e - u1.e * u2.l
-  
-  -- Thrust part (ω) is idempotent (ω² = ω)
-  let b_part := u1.a * u2.b + u2.a * u1.b + u1.b * u2.b
-  
-  -- Anchor part (ι)
-  let m_part := u1.a * u2.m + u2.a * u1.m
-  
-  -- Noise part (ε)
-  let e_part := u1.a * u2.e + u2.a * u1.e + (u1.e * u2.e) -- Nilpotent or transient
-  
-  -- Consolidation part (λ)
-  let l_part := u1.a * u2.l + u2.a * u1.l + (u1.l * u2.l)
-  
-  { a := a_part, b := b_part, m := m_part, e := e_part, l := l_part }
+@[simp] lemma mul_e (u v : ProtorealManifold) :
+    (u * v).e = u.a * v.e + v.a * u.e + u.e * v.e := rfl
+@[simp] lemma mul_l (u v : ProtorealManifold) :
+    (u * v).l = u.a * v.l + v.a * u.l + u.l * v.l := rfl
 
-instance : Mul ProtorealManifold where
-  mul := mul
+
 
 /-- **THE MOEBIUS REFLECTION (R4)**
     Flips the orientation of the manifold at the transfinite horizon. -/

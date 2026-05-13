@@ -1,6 +1,8 @@
 import LaRueProtorealAlgebra.ProtorealManifold
 import LaRueProtorealAlgebra.ProtorealMesh
 import LaRueProtorealAlgebra.ProtorealNorm
+import LaRueProtorealAlgebra.HyperbolicIdentity
+import LaRueProtorealAlgebra.CollatzResonance
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

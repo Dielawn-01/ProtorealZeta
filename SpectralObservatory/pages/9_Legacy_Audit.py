@@ -49,40 +49,83 @@ if LEGACY_AVAILABLE:
         margin = st.slider("Squeeze Window Margin", 0.05, 1.0, 0.15)
         
     if st.button("🚀 Run Comparative Audit"):
-        # Run Legacy Scout
-        st.write("### 📜 Legacy Scout Results")
-        start_legacy = time.time()
-        try:
-            t_est_legacy = lrs_opt.scout_antenna(l, m, n)
-            legacy_time = time.time() - start_legacy
-            st.write(f"**Estimated Height (t_est):** {t_est_legacy}")
-            st.write(f"**Latency:** {legacy_time:.6f}s")
-            
-            # Get actual zero for reference
-            rank, db_zero = ze.get_nearest_zero(float(t_est_legacy))
-            st.write(f"**Nearest Database Zero (γ_{rank}):** {db_zero}")
-            
-            err_legacy = abs(float(t_est_legacy) - db_zero)
-            st.metric("Legacy Error (Absolute)", f"{err_legacy:.6f}")
-        except Exception as e:
-            st.error(f"Legacy run failed: {e}")
+        col_res1, col_res2 = st.columns(2)
+        
+        with col_res1:
+            st.write("### 📜 Legacy Scout Results")
+            start_legacy = time.time()
+            try:
+                t_est_legacy = lrs_opt.scout_antenna(l, m, n)
+                legacy_time = time.time() - start_legacy
+                st.write(f"**Estimated Height (t_est):** {t_est_legacy}")
+                st.write(f"**Latency:** {legacy_time:.6f}s")
+                
+                # Get actual zero for reference
+                rank, db_zero = ze.get_nearest_zero(float(t_est_legacy))
+                st.write(f"**Nearest Database Zero (γ_{rank}):** {db_zero}")
+                
+                err_legacy = abs(float(t_est_legacy) - db_zero)
+                st.metric("Legacy Error (Absolute)", f"{err_legacy:.6f}")
+            except Exception as e:
+                st.error(f"Legacy run failed: {e}")
+
+        with col_res2:
+            st.write("### 🏹 Protoreal T3 Scout Results")
+            start_proto = time.time()
+            try:
+                val_proto, eps_proto, norm_proto, rank_proto = ze.T3_l_m_n(l, m, n)
+                proto_time = time.time() - start_proto
+                st.write(f"**Estimated Height (t_est):** {val_proto}")
+                st.write(f"**Latency:** {proto_time:.6f}s")
+                st.metric("Protoreal Error (Absolute)", f"{eps_proto:.6f}", 
+                          delta=f"{eps_proto - err_legacy:.6f}" if 'err_legacy' in locals() else None, 
+                          delta_color="inverse")
+                st.metric("Standard Resonance ($S_R$)", f"{norm_proto:.6f} δ")
+            except Exception as e:
+                st.error(f"Protoreal run failed: {e}")
 
         st.markdown("---")
+        st.subheader("🕳️ LRS Divergence: The Anti-Anchor Scan")
+        st.markdown("""
+        Legacy analysis focused on **Repulsion Zones** (where $S_R \\approx 0.5$). 
+        These "Anti-Anchors" represent the maximum topological tension in the manifold.
+        """)
         
-        # Run Protoreal Scout
-        st.write("### 🏹 Protoreal T3 Scout Results")
-        start_proto = time.time()
-        try:
-            val_proto, eps_proto, norm_proto, rank_proto = ze.T3_l_m_n(l, m, n)
-            proto_time = time.time() - start_proto
-            st.write(f"**Estimated Height (t_est):** {val_proto}")
-            st.write(f"**Latency:** {proto_time:.6f}s")
-            st.metric("Protoreal Error (Absolute)", f"{eps_proto:.6f}", 
-                      delta=f"{eps_proto - err_legacy:.6f}" if 'err_legacy' in locals() else None, 
-                      delta_color="inverse")
-            st.metric("Standard Resonance ($S_R$)", f"{norm_proto:.6f} δ")
-        except Exception as e:
-            st.error(f"Protoreal run failed: {e}")
+        if st.checkbox("🔍 Initiate Mass Divergence Audit (Budget: 500)"):
+            import pandas as pd
+            import plotly.express as px
+            
+            with st.spinner("Scanning for Anti-Anchors..."):
+                results = []
+                for i in range(1, 15):
+                    for j in range(1, 15):
+                        for k in range(1, 15):
+                            v, e, n_eps, r = ze.T3_l_m_n(i, j, k)
+                            results.append({
+                                'l': i, 'm': j, 'n': k,
+                                'norm': float(n_eps),
+                                'mod24': (i + j + k) % 24,
+                                'repulsion': abs(float(n_eps) - 0.5)
+                            })
+                df = pd.DataFrame(results)
+                anti_anchors = df.sort_values('repulsion').head(20)
+                
+                c1, c2 = st.columns([1, 2])
+                with c1:
+                    st.write("**Top Anti-Anchors**")
+                    st.dataframe(anti_anchors[['l', 'm', 'n', 'norm', 'mod24']], hide_index=True)
+                
+                with c2:
+                    fig = px.bar(df.groupby('mod24')['repulsion'].mean().reset_index(), 
+                                 x='mod24', y='repulsion', 
+                                 title="Mod-24 Repulsion Distribution",
+                                 color_continuous_scale="Magma")
+                    fig.update_layout(template="plotly_dark", height=300)
+                    st.plotly_chart(fig, use_container_width=True)
 
 else:
     st.warning("Legacy methods are not available. Please ensure `legacy_methods/` contains the necessary files.")
+
+st.markdown("---")
+if st.button("🏠 Return to Mission Control"):
+    st.switch_page("observatory.py")

@@ -96,7 +96,7 @@ infinitesimal zero anchor ($\iota$) achieve **Spectral Equilibrium**.
 Follow the protocol from mathematical foundations to transfinite horizons:
 1.  **Foundations**: Define the 5-Component Axioms in the Workbench.
 2.  **Scouting**: Map the 3D Spectral Topography.
-3.  **Analytics**: Audit the [Statistical Deep Dive](/Statistical_Deep_Dive) and [Legacy Comparison](/Legacy_Audit).
+3.  **Analytics**: Audit the [Statistical Deep Dive](/Statistical_Deep_Dive) and [Protoreal Mechanics](/Protoreal_Mechanics).
 4.  **Horizons**: Visualize the non-orientable Klein Universe.
 
 [Start Protocol: The Protoreal Manifold](/Protoreal_Manifold)
