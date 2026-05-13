@@ -34,8 +34,7 @@ def load_heavy_assets():
             return sorted(zeros)
     return []
 
-# --- NeuroPharm Integration ---
-try:
+# --- Zero Database Initialization ---
 KNOWN_ZEROS = load_heavy_assets()
 
 def approx_k(T):
