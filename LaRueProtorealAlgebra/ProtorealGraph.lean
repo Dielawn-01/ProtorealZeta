@@ -128,7 +128,7 @@ def observation_graph : SimpleGraph (Fin 5) :=
 instance : DecidableRel observation_graph.Adj := by
   intro i j
   unfold observation_graph
-  simp [SimpleGraph.mk']
+  simp only [SimpleGraph.mk'_apply_adj]
   exact inferInstanceAs (Decidable (klein_adj_bool i j = true))
 
 -- ════════════════════════════════════════════════════

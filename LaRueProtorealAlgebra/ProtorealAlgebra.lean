@@ -35,7 +35,7 @@ namespace ProtorealAlgebra
 
 /-- **THE TOPOLOGICAL DRIFT**
     Measures the deviation from the real axis in an ProtorealAlgebra. -/
-def topological_drift [ProtorealAlgebra α] (x : α) : Prop :=
+def topological_drift [ProtorealAlgebra α] (_ : α) : Prop :=
   True -- Abstract placeholder
 
 end ProtorealAlgebra

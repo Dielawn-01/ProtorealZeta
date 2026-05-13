@@ -67,7 +67,8 @@ theorem zeta_energy_gap (t : ℝ) (ht : t ≠ 0) :
 /-- **STABILITY CORRESPONDENCE**
     If a manifold state u is parity-stable (b=m) and satisfies 
     the Bridge Identity (b·m=1), then its energy is zero iff a = 1. -/
-theorem parity_stability_implies_rh (u : ProtorealManifold) (hBridge : u.b * u.m = 1) (hParity : u.b = u.m) :
+theorem parity_stability_implies_rh (u : ProtorealManifold)
+    (hBridge : u.b * u.m = 1) (hParity : u.b = u.m) :
     spectral_energy u = 0 ↔ u.a = 1 := by
   rw [zero_energy_iff]
   constructor

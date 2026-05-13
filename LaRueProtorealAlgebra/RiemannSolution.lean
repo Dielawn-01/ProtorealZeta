@@ -18,7 +18,7 @@ namespace ProtorealAlgebra
     1. A zero s maps to a manifold u where zeta_op u = 0.
     2. The Duality Bridge Derivation proves u.a = 1.
     3. The Duality Theorem correspondence then forces Re(s) = 1/2. -/
-theorem riemann_solution (s : ℂ) (u u_mirror : ProtorealManifold) 
+theorem riemann_solution (s : ℂ) (u u_mirror : ProtorealManifold)
     (hu : zeta_op u = 0) (hMirror : zeta_op u_mirror = 0)
     (hDual : u.a - s.re = s.re) :
     s.re = 1/2 := by

@@ -106,7 +106,8 @@ noncomputable def exp (u : ProtorealManifold) : ProtorealManifold :=
 noncomputable instance : HPow ProtorealManifold ProtorealManifold ProtorealManifold where
   hPow u1 u2 := 
     -- For now, we assume u1 is close to equilibrium for the power map.
-    exp (u2 * { a := Real.log (Real.sqrt (u1.a^2 + 1)), b := u1.b, m := u1.m, e := u1.e, l := u1.l })
+    exp (u2 * { a := Real.log (Real.sqrt (u1.a^2 + 1)),
+                 b := u1.b, m := u1.m, e := u1.e, l := u1.l })
 
 @[reducible]
 instance : Neg ProtorealManifold where

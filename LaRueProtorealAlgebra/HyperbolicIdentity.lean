@@ -31,6 +31,6 @@ noncomputable def U : ProtorealManifold := (omega + iota) * (1/2 : ℝ)
 -/
 theorem cubic_hyperbolic_identity :
     (U * U) * U = U * (1/4 : ℝ) - (1/4 : ℝ) := by
-  ext <;> dsimp [U, omega, iota] <;> simp [mul_a, mul_b, mul_m, mul_e, mul_l, add_a, add_b, add_m, add_e, add_l, hmul_a, hmul_b, hmul_m, hmul_e, hmul_l, hadd_a, hadd_b, hadd_m, hadd_e, hadd_l, hsub_a, hsub_b, hsub_m, hsub_e, hsub_l, zero_a, zero_b, zero_m, zero_e, zero_l, one_a, one_b, one_m, one_e, one_l] <;> norm_num <;> ring
+  ext <;> dsimp [U, omega, iota] <;> simp <;> norm_num
 
 end ProtorealAlgebra

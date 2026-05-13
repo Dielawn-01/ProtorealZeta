@@ -70,7 +70,7 @@ theorem zeta_zero_correspondence (s : ℂ) (u : ProtorealManifold) :
     The mapping from the complex plane to the Protoreal manifold 
     must preserve the functional equation symmetry s ↔ 1-s.
     This forces δ = σ = 1/2. -/
-theorem adelic_offset_symmetry (s : ℂ) (u u_mirror : ProtorealManifold) (hu : zeta_op u = 0) 
+theorem adelic_offset_symmetry (s : ℂ) (u u_mirror : ProtorealManifold) (hu : zeta_op u = 0)
     (hMirror : zeta_op u_mirror = 0) (hDual : u.a - s.re = s.re) :
     s.re = 1/2 := by
   have ha1 := duality_bridge_derivation u hu

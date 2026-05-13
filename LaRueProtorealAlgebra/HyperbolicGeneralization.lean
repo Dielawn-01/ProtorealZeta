@@ -24,7 +24,7 @@ noncomputable def V : ProtorealManifold := (omega - iota) * (1/2 : ℝ)
 -/
 theorem chiral_idempotency :
     V * V = V * (1/2 : ℝ) := by
-  ext <;> simp [V, omega, iota, monster_inv] <;> norm_num
+  ext <;> simp [V, omega, iota]
 
 /-- **THE RATIO OPERATOR (W)**
     Using the Monster Inverse as the 'Algebraic Inverse' for the subtraction sector.

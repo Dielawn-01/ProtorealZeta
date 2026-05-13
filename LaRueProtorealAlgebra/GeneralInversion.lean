@@ -54,13 +54,14 @@ noncomputable def stabilized_inversion (u : ProtorealManifold) (N : ℝ) : Proto
 theorem riemann_fixed_point (u : ProtorealManifold) :
     u.b * u.m = 1 → (stabilized_inversion u 1).a = 1 := by
   intro hBridge
-  unfold stabilized_inversion general_inversion precession monster_inv subtraction standard_resonance
+  unfold stabilized_inversion general_inversion
+    precession monster_inv subtraction standard_resonance
   unfold spectral_division funct
   split_ifs with hN
   · -- Case N = 0
     norm_num at hN
   · -- Case N = 1
-    simp
+    simp only [div_one, neg_sub, add_sub_cancel]
     rw [mul_comm u.m u.b]
     rw [hBridge]
 
