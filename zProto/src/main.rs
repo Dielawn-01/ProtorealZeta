@@ -123,7 +123,7 @@ fn train_cmb() -> Result<(), Box<dyn Error>> {
     println!("\n  PHASE 2: Planck 2018 CMB Power Spectrum");
     println!("  ----------------------------------------");
 
-    let cmb_path = Path::new("/home/phrxmaz/Singularity/cmb/planck_2018/planck_2018_combined.csv");
+    let cmb_path = Path::new("data/cmb/planck_2018/planck_2018_combined.csv");
     if !cmb_path.exists() {
         println!("  [!] CMB data not found. Run: python3 zProto/scripts/prepare_cmb.py");
         return Ok(());
@@ -170,7 +170,7 @@ fn train_spin_chains() -> Result<(), Box<dyn Error>> {
     println!("\n  PHASE 3: Spin Chain Spectral Gaps (Neutron Scattering)");
     println!("  -------------------------------------------------------");
 
-    let path = Path::new("/home/phrxmaz/Singularity/spin_chains/spectral_gaps_experimental.csv");
+    let path = Path::new("data/spin_chains/spectral_gaps_experimental.csv");
     if !path.exists() {
         println!("  [!] Spin chain data not found");
         return Ok(());
@@ -245,7 +245,7 @@ fn train_glueball() -> Result<(), Box<dyn Error>> {
     println!("\n  PHASE 4: Glueball Mass Spectrum (Lattice QCD)");
     println!("  -----------------------------------------------");
 
-    let path = Path::new("/home/phrxmaz/Singularity/yang_mills/glueball_spectrum_morningstar1999.csv");
+    let path = Path::new("data/yang_mills/glueball_spectrum_morningstar1999.csv");
     if !path.exists() {
         println!("  [!] Glueball data not found");
         return Ok(());

@@ -12,3 +12,9 @@ SpectralObservatory/data/*.csv
 zProto/target/
 zProto/data/random_matrix/*.csv
 zProto/data/random_matrix/*.json
+zProto/data/three_body/*.csv
+zProto/data/cmb/
+zProto/data/spin_chains/
+zProto/data/yang_mills/
+zProto/models/**/*.pt
+data/zeta_zeros_100k_sample.txt

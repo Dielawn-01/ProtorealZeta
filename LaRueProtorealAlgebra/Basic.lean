@@ -19,6 +19,7 @@ import LaRueProtorealAlgebra.SpectralFiber
 import LaRueProtorealAlgebra.CommutatorGap
 import LaRueProtorealAlgebra.MassGap
 import LaRueProtorealAlgebra.SpectralTrinity
+import LaRueProtorealAlgebra.GlialDopant
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

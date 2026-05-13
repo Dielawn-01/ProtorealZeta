@@ -14,8 +14,9 @@ import struct
 import os
 import sys
 
-DATA_DIR = "/home/phrxmaz/Singularity/cmb/planck_2018"
-ZPROTO_DIR = "/home/phrxmaz/Documents/Protoreal_Zeta/zProto"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ZPROTO_DIR = os.path.dirname(SCRIPT_DIR)  # zProto/
+DATA_DIR = os.path.join(ZPROTO_DIR, "data", "cmb", "planck_2018")
 
 def parse_planck_spectrum(filename):
     """Parse Planck power spectrum text file.
