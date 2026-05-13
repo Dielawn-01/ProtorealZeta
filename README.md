@@ -85,3 +85,9 @@ streamlit run SpectralObservatory/observatory.py
 ---
 **Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)**
 *66 theorems. 0 sorry. Lean 4 + Mathlib v4.29.1.*
+
+---
+
+## 📜 License
+
+This project is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** license. See the [LICENSE](LICENSE) file for details.
