@@ -22,6 +22,7 @@ import LaRueProtorealAlgebra.SpectralTrinity
 import LaRueProtorealAlgebra.GlialDopant
 import LaRueProtorealAlgebra.KleinTopology
 import LaRueProtorealAlgebra.HodgeConjecture
+import LaRueProtorealAlgebra.ProtoLite
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
