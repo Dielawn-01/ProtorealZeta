@@ -11,6 +11,9 @@ import LaRueProtorealAlgebra.SyntheticIntegration
 import LaRueProtorealAlgebra.GeneralInversion
 import LaRueProtorealAlgebra.RiemannFunctionalEquation
 import LaRueProtorealAlgebra.RiemannSolution
+import LaRueProtorealAlgebra.ProtorealGraph
+import LaRueProtorealAlgebra.EulerPerception
+import LaRueProtorealAlgebra.MayerVietoris
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

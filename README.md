@@ -27,6 +27,9 @@ A premium **Streamlit-powered** research environment for visual exploration of p
 - **Resonance Topography**: 3D mapping of the prime-zeta manifold.
 - **Audit Logs**: High-precision analysis of 2M+ Zeta zeros with 0 anomalies.
 
+> [!NOTE]
+> **Precision Statement**: While the underlying theoretical work and Lean 4 formalization leverage 200-digit precision (mpmath/symbolic), this Observatory utilizes standard float64 (numpy) for real-time visual performance. The formal proofs remain the ground truth for spectral stability.
+
 ---
 
 ## 🏗️ Getting Started
