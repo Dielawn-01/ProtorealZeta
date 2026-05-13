@@ -14,6 +14,7 @@ import LaRueProtorealAlgebra.RiemannSolution
 import LaRueProtorealAlgebra.ProtorealGraph
 import LaRueProtorealAlgebra.EulerPerception
 import LaRueProtorealAlgebra.MayerVietoris
+import LaRueProtorealAlgebra.StructuralHeterogeneity
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
