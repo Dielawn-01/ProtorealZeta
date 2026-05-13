@@ -9,3 +9,5 @@ venv/
 data/zeta_zeros_2m.txt
 SpectralObservatory/data/*.csv
 zProto/target/
+zProto/data/random_matrix/*.csv
+zProto/data/random_matrix/*.json
