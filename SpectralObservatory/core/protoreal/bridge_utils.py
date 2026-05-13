@@ -18,7 +18,7 @@ try:
 except ImportError:
     ze = None
 
-from protoreal.ring import ProtorealElement
+from .ring import ProtorealElement
 
 class ZetaBridge:
     """
@@ -40,7 +40,7 @@ class ZetaBridge:
         if not self.engine:
             raise RuntimeError("ZetaEngine not found in Prime Search path.")
             
-        val, eps, norm, rank = self.engine.T3_l_m_n(l, m, n)
+        val, eps, norm, rank, energy = self.engine.T3_l_m_n(l, m, n)
         
         # We model the resonant state as:
         # u = nearest_zero + epsilon*ω - norm_eps*ι
@@ -57,8 +57,8 @@ class ZetaBridge:
         General lift for D or T series.
         """
         if mode == 'D':
-            val, eps, norm, rank = self.engine.D_m_n(m, n)
+            val, eps, norm, rank, energy = self.engine.D_m_n(m, n)
         else:
-            val, eps, norm, rank = self.engine.T_m_n(m, n)
+            val, eps, norm, rank, energy = self.engine.T_m_n(m, n)
             
         return ProtorealElement(a=float(val), b=float(eps), c=-float(norm))

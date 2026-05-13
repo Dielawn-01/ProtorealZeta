@@ -1,5 +1,6 @@
 import os
 import sys
+import math
 import numpy as np
 from sympy import sieve
 import bisect
@@ -20,8 +21,16 @@ pio.renderers.default = "iframe"
 def load_heavy_assets():
     """Loads 2M Zeta zeros into memory once."""
     KNOWN_ZEROS = []
-    # Search paths: parent, local, or absolute
-    paths = ["zeta_zeros_2m.txt", "../zeta_zeros_2m.txt", "data/zeta_zeros_2m.txt", "../data/zeta_zeros_2m.txt", "data/zeta_zeros_100k_sample.txt"]
+    # Resolve search paths relative to this file's location for CWD-independence
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(base_dir)
+    paths = [
+        os.path.join(base_dir, "zeta_zeros_2m.txt"),
+        os.path.join(project_root, "data", "zeta_zeros_2m.txt"),
+        os.path.join(base_dir, "data", "zeta_zeros_2m.txt"),
+        os.path.join(project_root, "data", "zeta_zeros_100k_sample.txt"),
+        os.path.join(base_dir, "data", "zeta_zeros_100k_sample.txt"),
+    ]
     for p in paths:
         if os.path.exists(p):
             zeros = []
@@ -39,7 +48,6 @@ KNOWN_ZEROS = load_heavy_assets()
 
 def approx_k(T):
     if T < 14.13: return 1
-    import math
     T_f = float(T)
     return round((T_f / (2 * math.pi)) * math.log(T_f / (2 * math.pi * math.e)) + 1.44)
 
@@ -60,7 +68,6 @@ def get_nearest_zero(t):
         else: return idx + 1, after
     else:
         k = float(approx_k(t))
-        import math
         def backlund(rank):
             rank_eff = float(rank) - 0.1375
             return (2 * math.pi * rank_eff) / (math.log(rank_eff / math.e))
@@ -76,7 +83,6 @@ def get_nearest_zero(t):
 
 def get_zero_spacing(T):
     """Returns the average local spacing of Zeta zeros at height T."""
-    import math
     T_f = max(float(T), 14.2)
     return (2 * math.pi) / math.log(T_f / (2 * math.pi))
 
@@ -245,12 +251,12 @@ def T3_Protoreal(l, m, n):
     T3 Antenna with formal ProtorealState mapping.
     Calculates transfinite thrust and spectral pull for curvature analysis.
     """
-    val, eps, norm, rank = T3_l_m_n(l, m, n)
+    val, eps, norm, rank, energy = T3_l_m_n(l, m, n)
     
     # Thrust b corresponds to the altitude-based exponential growth
     # Pull c corresponds to the spectral distance (epsilon)
     # We lift these into the formal U ring: u = a + bw + ci
-    return val, eps, -norm, rank
+    return val, eps, -norm, rank, energy
 
 def T_Generic(indices):
     """

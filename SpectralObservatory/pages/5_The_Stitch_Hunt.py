@@ -3,6 +3,11 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import os
+import sys
+
+# Ensure parent directory is on sys.path for ZetaEngine
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import ZetaEngine as ze
 
 st.set_page_config(page_title="The Stitch Hunt | Intersecting Metrics", page_icon="🎯", layout="wide")
 
@@ -88,11 +93,10 @@ st.subheader("Resonance vs Divergence Correlation")
 x_vals = np.linspace(0, 1, 100)
 y_vals = x_vals + 0.05 * np.random.randn(100)
 fig_corr = go.Figure()
-fig_growth = go.Figure()
-fig_growth.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='markers', marker=dict(color='#00ffcc', size=8), name="Spectral Points"))
-fig_growth.add_trace(go.Scatter(x=[0, 1], y=[0, 1], line=dict(color='#ff3366', dash='dash'), name="Theoretical Unity"))
+fig_corr.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='markers', marker=dict(color='#00ffcc', size=8), name="Spectral Points"))
+fig_corr.add_trace(go.Scatter(x=[0, 1], y=[0, 1], line=dict(color='#ff3366', dash='dash'), name="Theoretical Unity"))
 
-fig_growth.update_layout(
+fig_corr.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
@@ -100,7 +104,7 @@ fig_growth.update_layout(
     yaxis_title="Spectral Energy (E)",
     height=500
 )
-st.plotly_chart(fig_growth, width='stretch')
+st.plotly_chart(fig_corr, width='stretch')
 
 # --- SIDEBAR CALCULATOR ---
 st.sidebar.markdown("---")
@@ -113,7 +117,6 @@ n_in = st.sidebar.number_input("n (Prime Index)", 1, 1000, 190)
 
 if st.sidebar.button("Calculate Manifold Position"):
     # Calculate SR and Potential using the optimized T3 engine
-    import ZetaEngine as ze
     val, eps, norm, rank, energy = ze.T3_l_m_n(l_in, m_in, n_in)
     
     st.sidebar.success(f"Spectral Energy $E$: {energy:.6f}")

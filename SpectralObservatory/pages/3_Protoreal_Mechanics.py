@@ -114,7 +114,7 @@ if st.button("🛰️ Deploy Multi-Index Antenna", type="primary"):
                 template="plotly_dark", height=200, margin=dict(l=20,r=20,t=20,b=20),
                 yaxis=dict(range=[0, 1]), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
             )
-            st.plotly_chart(fig_hodge, use_container_width=True)
+            st.plotly_chart(fig_hodge, width='stretch')
             
             if energy < 1e-4:
                 st.success(f"**SPECTRAL LOCK DETECTED** — Energy minimized at Cardinality {N}.")
@@ -242,7 +242,7 @@ with collatz_col2:
         paper_bgcolor='rgba(0,0,0,0)',
         font=dict(family='Inter')
     )
-    st.plotly_chart(fig_collatz, use_container_width=True)
+    st.plotly_chart(fig_collatz, width='stretch')
 
 st.markdown(r"""
 <div style="background: rgba(255, 51, 102, 0.05); border: 1px solid rgba(255, 51, 102, 0.15); padding: 20px; border-radius: 12px;">
@@ -258,5 +258,5 @@ st.markdown("#### **Next Step: The Protoreal Manifold**")
 st.markdown(r"""
 Observe how these mechanics manifest in 3D phase-space.
 """)
-if st.button("🪐 Proceed to The Protoreal Manifold"):
-    st.switch_page("pages/4_Protoreal_Manifold.py")
+if st.button("🪐 Proceed to Monster Lattice"):
+    st.switch_page("pages/4_Monster_Lattice.py")

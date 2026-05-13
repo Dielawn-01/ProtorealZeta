@@ -163,13 +163,13 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.markdown("#### **🚀 Quick Access: Research Tiers**")
 nav1, nav2, nav3 = st.columns(3)
 
-if nav1.button("🌌 Spectral Topography", use_container_width=True):
+if nav1.button("🌌 Spectral Topography", width='stretch'):
     st.switch_page("pages/1_Spectral_Topography.py")
 
-if nav2.button("🎯 Resonance Analysis", use_container_width=True):
+if nav2.button("🎯 Resonance Analysis", width='stretch'):
     st.switch_page("pages/2_Resonance_Analysis.py")
 
-if nav3.button("⚙️ Protoreal Mechanics", use_container_width=True):
+if nav3.button("⚙️ Protoreal Mechanics", width='stretch'):
     st.switch_page("pages/3_Protoreal_Mechanics.py")
 
 # --- Manifold Identity ---
@@ -227,7 +227,7 @@ with col_right:
         margin=dict(l=0,r=0,t=0,b=0), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
     )
     fig_p.update_traces(marker_line_width=0)
-    st.plotly_chart(fig_p, use_container_width=True)
+    st.plotly_chart(fig_p, width='stretch')
     st.caption("Bimodal Phase Lock: Resonance (0.0) vs Repulsion (0.5).")
 
 st.markdown("---")
@@ -279,7 +279,7 @@ with w1:
         template="plotly_dark", height=200, margin=dict(l=20,r=20,t=20,b=20),
         yaxis=dict(range=[0, 1]), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
     )
-    st.plotly_chart(fig_hodge, use_container_width=True)
+    st.plotly_chart(fig_hodge, width='stretch')
 
 with w2:
     st.markdown("#### **Spectral Energy ($E$)**")
@@ -296,7 +296,7 @@ with w2:
         }
     ))
     fig_energy.update_layout(template="plotly_dark", height=250, margin=dict(l=20,r=20,t=50,b=20))
-    st.plotly_chart(fig_energy, use_container_width=True)
+    st.plotly_chart(fig_energy, width='stretch')
     
     if energy < 1e-4:
         st.success("🎯 **SPECTRAL LOCK DETECTED**")
@@ -328,7 +328,7 @@ with col_exp:
     fig_growth.add_trace(go.Scatter(x=t_series, y=np.exp(t_series), line=dict(color='#00ffcc', dash='dot'), opacity=0.3, name="Thrust Horizon"))
     
     fig_growth.update_layout(template="plotly_dark", height=350, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-    st.plotly_chart(fig_growth, use_container_width=True)
+    st.plotly_chart(fig_growth, width='stretch')
 
 with col_math:
     st.markdown("#### **Growth Identity**")
@@ -348,6 +348,7 @@ st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #667; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 20px;">
     Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)<br>
-    Status: <b>Total Formalization Verified</b> | Zeros: 2.25M | Sorry: 0
+    Status: <b>Total Formalization Verified</b> | Zeros: 2.25M | Sorry: 0<br>
+    <span style="opacity: 0.6;">Visual Engine: Float64 Preview | Formal Truth: 200-Digit Verified</span>
 </div>
 """, unsafe_allow_html=True)

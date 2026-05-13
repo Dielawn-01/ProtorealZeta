@@ -102,7 +102,7 @@ fig.update_layout(
     height=700
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width='stretch')
 
 # --- Metrics ---
 st.markdown("---")

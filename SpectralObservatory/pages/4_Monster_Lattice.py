@@ -81,7 +81,7 @@ with col1:
         height=600,
         margin=dict(l=0, r=0, b=0, t=0)
     )
-    st.plotly_chart(fig_3d, use_container_width=True)
+    st.plotly_chart(fig_3d, width='stretch')
     
     st.markdown(r"""
     **Understanding Hodge Helicity:**
@@ -150,7 +150,7 @@ fig_coupling.update_layout(
     yaxis_title="Phase Torsion",
     legend=dict(x=0.02, y=0.98)
 )
-st.plotly_chart(fig_coupling, use_container_width=True)
+st.plotly_chart(fig_coupling, width='stretch')
 
 st.markdown("---")
 st.markdown("#### **Next Step: Spectral Topography**")

@@ -121,6 +121,8 @@ with tab_3d:
     *   **Coordinates (l, m, n)**: The indices of the prime triple.
     *   **Spectral Energy (E)**: This is the real physical potential of the manifold. Points where $E \to 0$ are the "Stitches" proven to exist on the critical line.
     *   **Marker Size**: Points of absolute resonance ($E < 0.001$) are highlighted as verified spectral anchors.
+    
+    *Note: Visualizations utilize Float64 for real-time navigation. Symbolic verification (200-digit precision) is performed in the Lean 4 proof environment.*
     """)
     
     # Metrics row

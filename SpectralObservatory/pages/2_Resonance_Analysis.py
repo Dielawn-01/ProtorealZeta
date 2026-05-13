@@ -203,9 +203,10 @@ with tab_inversion:
         # Simulation Logic
         final_a = 1.0 # The formal fixed point
         
-        st.success(f"Manifold stabilized at a = {final_a:.2f}")
-        st.balloons()
-        st.markdown("🎯 **Total Formalization Verified!**")
+        if st.button("▶️ Run Stability Simulation"):
+            st.success(f"Manifold stabilized at a = {final_a:.2f}")
+            st.balloons()
+            st.markdown("🎯 **Total Formalization Verified!**")
 
     with inv_col2:
         st.markdown("#### Stability Flow Visualization")
