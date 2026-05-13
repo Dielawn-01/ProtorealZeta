@@ -9,6 +9,7 @@ import LaRueProtorealAlgebra.HodgeDecomposition
 import LaRueProtorealAlgebra.ParityStability
 import LaRueProtorealAlgebra.SyntheticIntegration
 import LaRueProtorealAlgebra.GeneralInversion
+import LaRueProtorealAlgebra.RiemannFunctionalEquation
 import LaRueProtorealAlgebra.RiemannSolution
 
 /-!
