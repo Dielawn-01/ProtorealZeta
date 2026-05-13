@@ -2,7 +2,6 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-import mpmath as mp
 from sympy import sieve
 import bisect
 import plotly.graph_objects as go
@@ -10,9 +9,8 @@ import plotly.express as px
 import plotly.io as pio
 import streamlit as st
 
-# --- High Precision Configuration ---
-mp.mp.dps = 200
-GAMMA = mp.euler
+# --- Constants ---
+GAMMA = 0.57721566490153286060
 sieve.extend(500) 
 
 # --- Environment & Rendering ---
@@ -87,7 +85,7 @@ def get_nearest_zero(t):
             zi = backlund(i)
             if abs(t_f - zi) < abs(t_f - best_z): 
                 best_k, best_z = i, zi
-        return int(best_k), mp.mpf(best_z)
+        return int(best_k), float(best_z)
 
 # --- Core Logic: Harmonic Formulas ---
 
@@ -102,68 +100,74 @@ def D_m_n(m, n):
     Mangoldt-reduced base with Stieltjes polynomial Drain.
     Formula: p_m · e · p_n - Modulator - Stieltjes_Drain
     """
-    p_m, p_n = mp.mpf(sieve[m]), mp.mpf(sieve[n])
-    m_mp, n_mp = mp.mpf(m), mp.mpf(n)
+    p_m, p_n = float(sieve[m]), float(sieve[n])
+    m_f, n_f = float(m), float(n)
     
     # Stieltjes constants (gamma_1 through gamma_3)
-    G0 = mp.euler
-    G1 = mp.mpf('-0.0728158454836767249')
-    G2 = mp.mpf('-0.0096903631928723185')
-    G3 = mp.mpf('0.0020538344203033459')
+    G0 = GAMMA
+    G1 = -0.07281584548367672
+    G2 = -0.00969036319287231
+    G3 = 0.00205383442030334
     
     # Mangoldt-reduced base: e^{Lambda(p_n)} = p_n
-    base = p_m * mp.exp(1) * p_n
+    base = p_m * np.exp(1) * p_n
     
     # Modulator: capped to prevent overflow when p_n >> p_m
     half_drift = (p_n - p_m) / 2
     if abs(float(half_drift)) < 700:
-        modulator = mp.sqrt(m_mp * n_mp) * mp.exp(half_drift) / (4 * mp.pi)
+        modulator = np.sqrt(m_f * n_f) * np.exp(half_drift) / (4 * np.pi)
     else:
-        modulator = mp.mpf(0)
+        modulator = 0.0
     
     # Stieltjes Drain: Euclidean drift * Stieltjes polynomial * log-scaled quadratic
-    euclidean_inner = (p_n - n_mp)**2 + (p_m - m_mp)**2
-    termB = mp.sqrt(euclidean_inner / (2 * mp.pi))
-    mangoldt_diff = abs(mp.log(p_n / p_m))
+    euclidean_inner = (p_n - n_f)**2 + (p_m - m_f)**2
+    termB = np.sqrt(euclidean_inner / (2 * np.pi))
+    mangoldt_diff = abs(np.log(p_n / p_m))
     stieltjes_poly = G0 + G1 * mangoldt_diff + G2 * mangoldt_diff**2 / 2 + G3 * mangoldt_diff**3 / 6
-    quad_sep = abs(float(n_mp**2 - m_mp**2))
-    drain = termB * stieltjes_poly * mp.log(1 + quad_sep)
+    quad_sep = abs(float(n_f**2 - m_f**2))
+    drain = termB * stieltjes_poly * np.log(1 + quad_sep)
     
     val = base - modulator - drain
     rank, nearest = get_nearest_zero(val)
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)
-    return val, epsilon, norm_eps, rank
+    
+    # New Math: Energy and Tension
+    a = 1.0 + norm_eps
+    energy = (a - 1.0)**2 # Simplified energy for the prime antenna
+    return val, epsilon, norm_eps, rank, energy
 
 def S_m_n(m, n):
     """The S-Series: Gamma-Decelerated Engine: p_m * (e*gamma)^p_n - (modulator + drain)."""
-    p_m, p_n = mp.mpf(sieve[m]), mp.mpf(sieve[n])
-    m_mp, n_mp = mp.mpf(m), mp.mpf(n)
+    p_m, p_n = float(sieve[m]), float(sieve[n])
+    m_f, n_f = float(m), float(n)
     
     # Decelerated Base: (e * gamma) is the new growth unit
-    base = p_m * mp.power(mp.exp(1) * mp.euler, p_n)
+    base = p_m * np.power(np.exp(1) * GAMMA, p_n)
     
-    modulator = mp.sqrt(m_mp * n_mp) * mp.exp((p_n - p_m) / 2) / (4 * mp.pi)
-    euclidean_inner = (p_n - n_mp)**2 + (p_m - m_mp)**2
-    termB = mp.sqrt(euclidean_inner / (2 * mp.pi))
-    exponent = abs((n_mp**2 - m_mp**2) * mp.log(p_n / p_m))
-    drain = termB * mp.power(mp.euler, exponent)
+    modulator = np.sqrt(m_f * n_f) * np.exp((p_n - p_m) / 2) / (4 * np.pi)
+    euclidean_inner = (p_n - n_f)**2 + (p_m - m_f)**2
+    termB = np.sqrt(euclidean_inner / (2 * np.pi))
+    exponent = abs((n_f**2 - m_f**2) * np.log(p_n / p_m))
+    drain = termB * np.power(GAMMA, exponent)
     
     val = base - modulator - drain
     rank, nearest = get_nearest_zero(val)
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)
-    return val, epsilon, norm_eps, rank
+    
+    energy = (norm_eps)**2
+    return val, epsilon, norm_eps, rank, energy
 
 def test_function(m, n, k=1):
     """Hybrid Engine (Experimental T-Series): p_m * e^k * p_n + (p_m * e^-p_n) / (4 * pi)."""
-    p_m, p_n = mp.mpf(sieve[m]), mp.mpf(sieve[n])
+    p_m, p_n = float(sieve[m]), float(sieve[n])
     
     # First term of T-Series
-    res = p_m * mp.exp(k) * p_n
+    res = p_m * np.exp(k) * p_n
     
     # Original T-Series error term (bound)
-    bound = (p_m * mp.exp(-p_n)) / (4 * mp.pi)
+    bound = (p_m * np.exp(-p_n)) / (4 * np.pi)
     
     # ADDING instead of subtracting
     val = res + bound
@@ -171,19 +175,21 @@ def test_function(m, n, k=1):
     rank, nearest = get_nearest_zero(val)
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)
-    return val, epsilon, norm_eps, rank
+    energy = (norm_eps)**2
+    return val, epsilon, norm_eps, rank, energy
 
 
 def T_m_n(m, n, k=1):
     """T-series Linear Resonance function (The Scalpel)."""
-    p_m, p_n = mp.mpf(sieve[m]), mp.mpf(sieve[n])
-    res = p_m * mp.exp(k) * p_n
-    bound = (p_m * mp.exp(-p_n)) / (4 * mp.pi)
+    p_m, p_n = float(sieve[m]), float(sieve[n])
+    res = p_m * np.exp(k) * p_n
+    bound = (p_m * np.exp(-p_n)) / (4 * np.pi)
     val = res - bound
     rank, nearest = get_nearest_zero(val)
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)
-    return val, epsilon, norm_eps, rank
+    energy = (norm_eps)**2
+    return val, epsilon, norm_eps, rank, energy
 
 def get_protoreal_jitter(l, m, n):
     """
@@ -212,37 +218,42 @@ def T3_l_m_n(l, m, n):
     """T3 La Rue-Stieltjes Prime Antenna (Protoreal Squeeze Edition).
     Formula: (p_l * p_m * p_n)^(2/3) * e - (Stieltjes_Drift) - B_sym - Jitter
     """
-    p_l, p_m, p_n = mp.mpf(sieve[l]), mp.mpf(sieve[m]), mp.mpf(sieve[n])
-    l_mp, m_mp, n_mp = mp.mpf(l), mp.mpf(m), mp.mpf(n)
+    p_l, p_m, p_n = float(sieve[l]), float(sieve[m]), float(sieve[n])
+    l_f, m_f, n_f = float(l), float(m), float(n)
     
     # 1. Decelerated 3D Base
-    base = mp.power(p_l * p_m * p_n, mp.mpf('0.66666666666666666666666666666666666666666666666667')) * mp.exp(1)
+    base = np.power(p_l * p_m * p_n, 2.0/3.0) * np.exp(1)
     
     # 2. Stieltjes-weighted 3D Drift
-    euclidean_inner = (p_l - l_mp)**2 + (p_m - m_mp)**2 + (p_n - n_mp)**2
-    termB = mp.sqrt(euclidean_inner / (2 * mp.pi))
+    euclidean_inner = (p_l - l_f)**2 + (p_m - m_f)**2 + (p_n - n_f)**2
+    termB = np.sqrt(euclidean_inner / (2 * np.pi))
     
-    h = (mp.log(p_l) + mp.log(p_m) + mp.log(p_n)) / 3
-    G0, G1, G2, G3 = mp.euler, mp.mpf('-0.0728158454836767249'), mp.mpf('-0.0096903631928723185'), mp.mpf('0.0020538344203033459')
+    h = (np.log(p_l) + np.log(p_m) + np.log(p_n)) / 3
+    G0, G1, G2, G3 = GAMMA, -0.07281584548367672, -0.00969036319287231, 0.00205383442030334
     stieltjes_poly = G0 + G1 * h + G2 * h**2 / 2 + G3 * h**3 / 6
     
-    idx_scaling = mp.log(1 + l_mp**2 + m_mp**2 + n_mp**2)
+    idx_scaling = np.log(1 + l_f**2 + m_f**2 + n_f**2)
     drain = termB * stieltjes_poly * idx_scaling
     
     # 3. Symmetric 8pi^2 Bounds
-    b1 = (p_l * p_m * mp.exp(-p_n)) / (8 * mp.pi**2)
-    b2 = (p_m * p_n * mp.exp(-p_l)) / (8 * mp.pi**2)
-    b3 = (p_l * p_n * mp.exp(-p_m)) / (8 * mp.pi**2)
+    b1 = (p_l * p_m * np.exp(-p_n)) / (8 * np.pi**2)
+    b2 = (p_m * p_n * np.exp(-p_l)) / (8 * np.pi**2)
+    b3 = (p_l * p_n * np.exp(-p_m)) / (8 * np.pi**2)
     
     # 4. PROTOREAL SQUEEZE: Topological Jitter Correction
     jitter = get_protoreal_jitter(l, m, n)
     
-    val = base - drain - (b1 + b2 + b3) - mp.mpf(jitter)
+    val = base - drain - (b1 + b2 + b3) - jitter
     
     rank, nearest = get_nearest_zero(val)
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)
-    return val, epsilon, norm_eps, rank
+    
+    # Total Formalization Energy (E)
+    # The 3D manifold stabilizes at E = 0
+    energy = (norm_eps)**2 + (float(jitter) / 100.0)**2
+    
+    return val, epsilon, norm_eps, rank, energy
 
 def T3_Protoreal(l, m, n):
     """
@@ -263,21 +274,21 @@ def T_Generic(indices):
     Formula: (Product p_i)^(2/N) * e - Stieltjes_Drift
     """
     N = len(indices)
-    primes = [mp.mpf(sieve[idx]) for idx in indices]
+    primes = [float(sieve[idx]) for idx in indices]
     
     # 1. Decelerated Base
-    prod_p = mp.fprod(primes)
-    base = mp.power(prod_p, mp.mpf(2)/N) * mp.exp(1)
+    prod_p = np.prod(primes)
+    base = np.power(prod_p, 2.0/N) * np.exp(1)
     
     # 2. Universal Stieltjes Drift
-    euclidean_inner = mp.fsum([(primes[i] - indices[i])**2 for i in range(N)])
-    termB = mp.sqrt(euclidean_inner / (2 * mp.pi))
+    euclidean_inner = np.sum([(primes[i] - indices[i])**2 for i in range(N)])
+    termB = np.sqrt(euclidean_inner / (2 * np.pi))
     
-    h = mp.fsum([mp.log(p) for p in primes]) / N
-    G0, G1, G2, G3 = mp.euler, mp.mpf('-0.0728158454836767249'), mp.mpf('-0.0096903631928723185'), mp.mpf('0.0020538344203033459')
+    h = np.sum([np.log(p) for p in primes]) / N
+    G0, G1, G2, G3 = GAMMA, -0.07281584548367672, -0.00969036319287231, 0.00205383442030334
     stieltjes_poly = G0 + G1 * h + G2 * h**2 / 2 + G3 * h**3 / 6
     
-    idx_scaling = mp.log(1 + mp.fsum([mp.mpf(idx)**2 for idx in indices]))
+    idx_scaling = np.log(1 + np.sum([float(idx)**2 for idx in indices]))
     drain = termB * stieltjes_poly * idx_scaling
     
     # 3. Cardinality-Phase Correction (La Rue Conjecture)
@@ -288,7 +299,7 @@ def T_Generic(indices):
     elif N >= 24:
         phase_shift = 0.5 # Total phase collapse at the Leech Lattice horizon
     
-    val = base - drain - mp.mpf(phase_shift)
+    val = base - drain - phase_shift
     rank, nearest = get_nearest_zero(val)
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)

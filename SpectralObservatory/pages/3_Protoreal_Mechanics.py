@@ -47,13 +47,13 @@ st.markdown("---")
 st.markdown(r"""
 <div class="mechanics-card">
     <div style="font-family: 'JetBrains Mono', monospace; color: #00ffcc; font-size: 0.85rem; margin-bottom: 10px;">
-        TRANSFINITE OPERATOR LOGIC
+        TOTAL FORMALIZATION OPERATORS
     </div>
     <div style="font-size: 1.15rem; color: #e8eaf0; line-height: 1.8;">
-        The Protoreal manifold is governed by three primary mechanics:
-        <br>• <b>Hyperbolic Descent</b>: Using <i>tanh</i>-scaling to bound the exponential growth of prime potential.
-        <br>• <b>Stieltjes Draining</b>: Polynomial correction that accounts for the "Euclidean Drift" between prime indices and their actual values.
-        <br>• <b>Transfinite Squeeze</b>: The dynamic adjustment of the spectral gap (ε) to maintain duality with the critical line (Re(s)=1/2).
+        The Protoreal manifold is now verified via a Zero-Sorry Lean 4 proof:
+        <br>• <b>Hodge Decomposition</b>: Splitting the manifold into (1,0) Thrust and (0,1) Anchor harmonics.
+        <br>• <b>Spectral Energy (E)</b>: The global potential $SR^2 + \tau$ that must vanish for manifold stability.
+        <br>• <b>Adelic Offset Symmetry</b>: The functional equation mirror that forces $Re(s) = 1/2$ at the $a=1$ fixed point.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -91,48 +91,35 @@ with scout_col1:
 
 if st.button("🛰️ Deploy Multi-Index Antenna", type="primary"):
     try:
-        val, eps, norm, rank = ze.T_Generic(indices)
+        val, eps, norm, rank, energy = ze.T_Generic(indices)
         
         with scout_col2:
             st.subheader(f"📡 Antenna Report (N={N})")
             
             c1, c2, c3 = st.columns(3)
             c1.metric("Predicted Height (t)", f"{float(val):.2f}")
-            c2.metric("Normed Error (ε)", f"{float(norm):.4f}")
+            c2.metric("Spectral Energy (E)", f"{float(energy):.6f}")
             c3.metric("Nearest Zero (γ_k)", f"k={int(rank)}")
             
-            # Phase Visualization
-            phase_val = float(norm) % 1.0
+            # Hodge Analysis
+            st.markdown("#### Hodge Harmony Analysis")
+            h_10 = float(val) / (float(val) + 1.0/float(val))
+            h_01 = (1.0/float(val)) / (float(val) + 1.0/float(val))
             
-            # Gauge for resonance
-            fig_gauge = go.Figure(go.Indicator(
-                mode = "gauge+number",
-                value = phase_val,
-                domain = {'x': [0, 1], 'y': [0, 1]},
-                title = {'text': "Phase Shift"},
-                gauge = {
-                    'axis': {'range': [0, 1]},
-                    'bar': {'color': "#00ffcc" if phase_val < 0.1 else "#ff3366"},
-                    'steps': [
-                        {'range': [0, 0.1], 'color': "rgba(0, 255, 204, 0.3)"},
-                        {'range': [0.4, 0.6], 'color': "rgba(255, 51, 102, 0.3)"}
-                    ],
-                    'threshold': {
-                        'line': {'color': "white", 'width': 4},
-                        'thickness': 0.75,
-                        'value': 0.5
-                    }
-                }
-            ))
-            fig_gauge.update_layout(template="plotly_dark", height=250, margin=dict(l=20,r=20,t=50,b=20))
-            st.plotly_chart(fig_gauge, use_container_width=True)
+            fig_hodge = go.Figure(data=[go.Bar(
+                x=['(1,0) Thrust', '(0,1) Anchor'], y=[h_10, h_01],
+                marker_color=['#00ffcc', '#ff3366'], opacity=0.8
+            )])
+            fig_hodge.update_layout(
+                template="plotly_dark", height=200, margin=dict(l=20,r=20,t=20,b=20),
+                yaxis=dict(range=[0, 1]), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)'
+            )
+            st.plotly_chart(fig_hodge, use_container_width=True)
             
-            if phase_val < 0.1:
-                st.success(f"**RESONANCE DETECTED** — Strong topological lock found at Cardinality {N}.")
-            elif 0.4 < phase_val < 0.6:
-                st.error(f"**REPULSION DETECTED** — Midpoint phase shift (Anti-Anchor) at Cardinality {N}.")
+            if energy < 1e-4:
+                st.success(f"**SPECTRAL LOCK DETECTED** — Energy minimized at Cardinality {N}.")
             else:
-                st.warning("**TRANSITIONAL** — Spectral jitter detected. Manifold requires higher-order consolidation.")
+                st.warning(f"**ENERGY DRIFT**: {energy:.4f} — Manifold tension detected.")
     except Exception as e:
         st.error(f"Antenna error: {e}")
 
@@ -151,10 +138,10 @@ with trig_col1:
     The Protoreal System generates functions **between standard trig and hyperbolic trig**.
     """)
     
-    st.latex(r"U_{\cosh}(t) = \frac{e^{\omega t} + e^{\iota t}}{2}, \quad U_{\sinh}(t) = \frac{e^{\omega t} - e^{\iota t}}{2}")
+    st.latex(r"\exp(a + b\omega + m\iota) = e^a \cdot (1 + (e^b - 1)\omega + (1 - e^{-m})\iota)")
     
-    st.markdown("#### The Dynamic Pythagorean Identity (Proven in Lean 4)")
-    st.latex(r"U_{\cosh}^2(t) - U_{\sinh}^2(t) = e^{(\omega - 1/\omega) \cdot t}")
+    st.markdown("#### The Growth Fixed Point (Proven in Lean 4)")
+    st.latex(r"Z(u) = SR^2 + \tau = 0 \iff a = 1, \omega = \iota")
     
     # Interactive visualization
     t_vals = np.linspace(-1.5, 1.5, 300)

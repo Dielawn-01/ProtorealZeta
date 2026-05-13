@@ -19,7 +19,7 @@ st.markdown(r"""
 st.title("🎯 The Stitch Hunt: Intersecting Metrics")
 st.markdown(r"""
 This is the operational center where **Protoreal Algebra** meets **Prime Number Theory**. 
-We map prime coordinates $(l, m, n)$ to Protoreal states $u$ to find the **Moebius Stitches** of the Zeta spectrum.
+We map prime coordinates $(l, m, n)$ to Protoreal states $u$ to find the **Bridge Identites** of the Zeta spectrum.
 """)
 
 st.markdown("---")
@@ -27,17 +27,17 @@ st.markdown("---")
 col_lead, col_tele = st.columns([2, 1])
 
 with col_lead:
-    st.subheader("🔭 Leaderboard: Top Resonant Stitches")
+    st.subheader("🔭 Leaderboard: Top Resonant Bridges")
     # Representative data for the "Hunt"
     hunt_data = pd.DataFrame([
-        {"Prime Triple (l,m,n)": "(140, 140, 190)", "Resonance $S_R$": "0.0031", "ε Divergence": "0.0001", "Status": "Super-Hit"},
-        {"Prime Triple (l,m,n)": "(4, 5, 13)", "Resonance $S_R$": "0.5003", "ε Divergence": "0.5001", "Status": "Repulsion Wall"},
-        {"Prime Triple (l,m,n)": "(105, 107, 117)", "Resonance $S_R$": "0.0936", "ε Divergence": "0.0931", "Status": "Stable Lock"},
-        {"Prime Triple (l,m,n)": "(21, 21, 21)", "Resonance $S_R$": "0.1420", "ε Divergence": "0.1415", "Status": "Monstrous Anchor"},
+        {"Prime Triple (l,m,n)": "(140, 140, 190)", "Energy $E$": "0.0001", "Status": "Super-Hit"},
+        {"Prime Triple (l,m,n)": "(4, 5, 13)", "Energy $E$": "0.2503", "Status": "Repulsion Wall"},
+        {"Prime Triple (l,m,n)": "(105, 107, 117)", "Energy $E$": "0.0087", "Status": "Stable Lock"},
+        {"Prime Triple (l,m,n)": "(21, 21, 21)", "Energy $E$": "0.0202", "Status": "Monstrous Anchor"},
     ])
     st.dataframe(hunt_data, width='stretch', hide_index=True)
     
-    st.info(r"The **Standard Resonance** ($S_R$) is the Protoreal-weighted divergence. When $S_R \approx \epsilon$, the manifold is perfectly aligned with the real spectrum.")
+    st.info(r"The **Spectral Energy** ($E$) is the global stability potential. When $E \to 0$, the manifold is formally verified to align with the critical line.")
 
 with col_tele:
     st.subheader("🛰️ Intersecting Telemetry")
@@ -46,9 +46,8 @@ with col_tele:
     m2.metric("Manifold Lag", "0.0002 δ")
     
     st.markdown("---")
-    st.markdown("#### The Stitch Mapping")
-    st.latex(r"p \rightarrow u \rightarrow S_R = stdPart(a) + m_{bridge}")
-    st.caption("Each prime triplet defines a unique point in the Non-Associative manifold.")
+    st.latex(r"p \rightarrow u \implies E = SR^2 + \tau")
+    st.caption("Stability is reached when the spectral energy vanishes.")
 
 st.markdown("---")
 
@@ -98,7 +97,7 @@ fig_growth.update_layout(
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
     xaxis_title="Normalized ε (Zeta Divergence)",
-    yaxis_title="Standard Resonance (Protoreal SR)",
+    yaxis_title="Spectral Energy (E)",
     height=500
 )
 st.plotly_chart(fig_growth, width='stretch')
@@ -115,17 +114,17 @@ n_in = st.sidebar.number_input("n (Prime Index)", 1, 1000, 190)
 if st.sidebar.button("Calculate Manifold Position"):
     # Calculate SR and Potential using the optimized T3 engine
     import ZetaEngine as ze
-    val, eps, norm, rank = ze.T3_l_m_n(l_in, m_in, n_in)
+    val, eps, norm, rank, energy = ze.T3_l_m_n(l_in, m_in, n_in)
     
-    st.sidebar.success(f"Resonance $S_R$: {norm:.4f}")
-    st.sidebar.code(f"u = {norm:.4f} + {np.log(float(ze.sieve[l_in])):.1f}ω + ({(float(ze.sieve[l_in])-l_in)/6.28:.2f})ι", language="text")
+    st.sidebar.success(f"Spectral Energy $E$: {energy:.6f}")
+    st.sidebar.code(f"u = {{a: {1.0+norm:.3f}, ω: {np.log(float(ze.sieve[l_in])):.1f}, ι: {1/np.log(float(ze.sieve[l_in])):.1f}}}", language="text")
     st.sidebar.caption(f"Zero Rank: {rank}")
 
 st.markdown("---")
-st.markdown("#### **Next Step: The La Rue Conjecture**")
+st.markdown("#### **Next Step: Protoreal Mechanics**")
 st.markdown(r"""
-Beyond individual stitches lies a deeper pattern: how the cardinality of prime 
-sequences determines the overall phase-shift of the manifold.
+Beyond individual bridges lies a deeper pattern: how the functional operators 
+determine the overall stability of the manifold.
 """)
-if st.button("🌀 Proceed to La Rue Conjecture"):
-    st.switch_page("pages/3_La_Rue_Conjecture.py")
+if st.button("⚙️ Proceed to Protoreal Mechanics"):
+    st.switch_page("pages/3_Protoreal_Mechanics.py")

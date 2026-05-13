@@ -27,9 +27,6 @@ A premium **Streamlit-powered** research environment for visual exploration of p
 - **Resonance Topography**: 3D mapping of the prime-zeta manifold.
 - **Audit Logs**: High-precision analysis of 2M+ Zeta zeros with 0 anomalies.
 
-### 3. 🧪 NeuroPharm Extension (Performance)
-A high-performance **Rust / Python** bridge for heavy spectral computation, integrating the Protoreal elements directly into agentic AI frameworks.
-
 ---
 
 ## 🏗️ Getting Started
@@ -37,7 +34,6 @@ A high-performance **Rust / Python** bridge for heavy spectral computation, inte
 ### Prerequisites
 - **Lean 4**: Install via `elan` (v4.29.1).
 - **Python 3.10+**: For the Spectral Observatory.
-- **Rust**: For the NeuroPharm core.
 
 ### Installation
 ```bash
@@ -49,7 +45,7 @@ cd Protoreal_Zeta
 lake build
 
 # Install Python dependencies
-pip install -r SpectralObservatory/requirements.txt (if available) or pip install streamlit numpy scipy pandas
+pip install streamlit numpy scipy pandas plotly
 ```
 
 ### Running the Observatory
@@ -64,7 +60,6 @@ streamlit run SpectralObservatory/observatory.py
 - `LaRueProtorealAlgebra/`: Core Lean 4 source modules.
 - `SpectralObservatory/`: Streamlit dashboard and research scripts.
 - `legacy_methods/`: Historical Riemann-Siegel and Unreal search logic.
-- `NeuroPharm/`: Rust/Python performance extensions for heavy spectral analysis.
 - `Research/`: Unified documentation, pz.skill, and theory markdown.
 - `data/`: Sample datasets (Zeta zeros, audit results).
 - `Basic.lean`: Root Lean export.

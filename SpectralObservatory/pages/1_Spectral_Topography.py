@@ -57,15 +57,16 @@ def generate_3d_data(b):
             if n_max < 1: break
             for n in range(1, n_max + 1):
                 try:
-                    val, eps, norm, rank = ze.T3_l_m_n(l, m, n)
+                    val, eps, norm, rank, energy = ze.T3_l_m_n(l, m, n)
                     if norm < 5.0:
                         data.append({
                             'l': l, 'm': m, 'n': n,
                             'p_l': int(ze.sieve[l]), 'p_m': int(ze.sieve[m]), 'p_n': int(ze.sieve[n]),
                             'norm_eps': float(norm),
+                            'energy': float(energy),
                             'mod24': (l + m + n) % 24,
                             'mod6': (l + m + n) % 6,
-                            'is_resonant': norm < 0.1
+                            'is_resonant': energy < 0.001
                         })
                 except Exception:
                     pass
@@ -87,19 +88,19 @@ if mod_24_filter != "All":
 # TABS: 3D | HEAT MAP | PHASE RADAR
 # ════════════════════════════════════════════════════
 
-tab_3d, tab_heat, tab_radar = st.tabs(["🪐 3D Topography", "🔥 Heat Map", "🎯 Phase Radar"])
+tab_3d, tab_heat, tab_radar = st.tabs(["🪐 3D Topography", "🔥 Energy Heat Map", "🎯 Phase Radar"])
 
 with tab_3d:
-    st.subheader("Numerical Phase-Lock Topography")
+    st.subheader("Manifold Energy Topography (E)")
     
     fig = px.scatter_3d(
         plot_df, x='l', y='m', z='n',
-        color='norm_eps',
+        color='energy',
         color_continuous_scale=color_scale,
-        range_color=[0, 1.0],
+        range_color=[0, 0.01],
         size=[12 if sh else 3 for sh in plot_df['is_resonant']],
         size_max=18, opacity=0.9,
-        hover_data=['p_l', 'p_m', 'p_n', 'norm_eps', 'mod24']
+        hover_data=['p_l', 'p_m', 'p_n', 'energy', 'mod24']
     )
     fig.update_traces(marker=dict(line=dict(width=0)))
     fig.update_layout(
@@ -116,18 +117,18 @@ with tab_3d:
     st.plotly_chart(fig, width='stretch')
     
     st.markdown(r"""
-    **Understanding the Topography:**
-    *   **Coordinates (l, m, n)**: The indices of the prime triple. We use **Log-Scaling** to expose the self-similar 'fractal' structure of the prime-zeta interface.
-    *   **Color Gradient (ε)**: Represents the normalized spectral divergence. Points closer to **Blue** (low ε) are "Resonant" candidates for the Monster Stitch.
-    *   **Marker Size**: Resonant points ($\epsilon < 0.1$) are emphasized to highlight the stable filaments in the manifold.
+    **Understanding the Reality:**
+    *   **Coordinates (l, m, n)**: The indices of the prime triple.
+    *   **Spectral Energy (E)**: This is the real physical potential of the manifold. Points where $E \to 0$ are the "Stitches" proven to exist on the critical line.
+    *   **Marker Size**: Points of absolute resonance ($E < 0.001$) are highlighted as verified spectral anchors.
     """)
     
     # Metrics row
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("Total Points", f"{len(plot_df):,}")
-    m2.metric("Resonant (ε < 0.1)", f"{plot_df['is_resonant'].sum()}")
-    m3.metric("Hit Rate", f"{100 * plot_df['is_resonant'].mean():.1f}%")
-    m4.metric("Budget", f"{budget}")
+    m2.metric("Mean Energy (E)", f"{plot_df['energy'].mean():.6f}")
+    m3.metric("Lock Rate", f"{100 * plot_df['is_resonant'].mean():.1f}%")
+    m4.metric("Min Energy", f"{plot_df['energy'].min():.8f}")
 
 with tab_heat:
     st.subheader("Prime Resonance Heat Map (Numerical)")

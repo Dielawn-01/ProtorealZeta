@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 import sys
-import mpmath as mp
 import time
 
 # Ensure legacy_methods and SpectralObservatory are in the path
@@ -73,14 +72,14 @@ if LEGACY_AVAILABLE:
             st.write("### 🏹 Protoreal T3 Scout Results")
             start_proto = time.time()
             try:
-                val_proto, eps_proto, norm_proto, rank_proto = ze.T3_l_m_n(l, m, n)
+                val_proto, eps_proto, norm_proto, rank_proto, energy_proto = ze.T3_l_m_n(l, m, n)
                 proto_time = time.time() - start_proto
                 st.write(f"**Estimated Height (t_est):** {val_proto}")
                 st.write(f"**Latency:** {proto_time:.6f}s")
                 st.metric("Protoreal Error (Absolute)", f"{eps_proto:.6f}", 
                           delta=f"{eps_proto - err_legacy:.6f}" if 'err_legacy' in locals() else None, 
                           delta_color="inverse")
-                st.metric("Standard Resonance ($S_R$)", f"{norm_proto:.6f} δ")
+                st.metric("Spectral Energy (E)", f"{energy_proto:.6f} potential")
             except Exception as e:
                 st.error(f"Protoreal run failed: {e}")
 
@@ -100,10 +99,11 @@ if LEGACY_AVAILABLE:
                 for i in range(1, 15):
                     for j in range(1, 15):
                         for k in range(1, 15):
-                            v, e, n_eps, r = ze.T3_l_m_n(i, j, k)
+                            v, e, n_eps, r, energy = ze.T3_l_m_n(i, j, k)
                             results.append({
                                 'l': i, 'm': j, 'n': k,
                                 'norm': float(n_eps),
+                                'energy': float(energy),
                                 'mod24': (i + j + k) % 24,
                                 'repulsion': abs(float(n_eps) - 0.5)
                             })
