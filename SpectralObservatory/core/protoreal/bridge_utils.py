@@ -9,7 +9,7 @@ import sys
 import os
 
 # Add Prime Search to path
-PRIME_SEARCH_PATH = "/home/phrxmaz/Documents/Prime Search"
+PRIME_SEARCH_PATH = "."
 sys.path.append(PRIME_SEARCH_PATH)
 sys.path.append(os.path.join(PRIME_SEARCH_PATH, "TheLab"))
 

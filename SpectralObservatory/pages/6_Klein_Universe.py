@@ -122,10 +122,10 @@ infinitesimal anchor. This doubling-and-averaging mirrors the relationship betwe
 """)
 
 st.markdown("---")
-st.markdown("#### **Next Step: High-Throughput Pharming**")
+st.markdown("#### **Next Step: Statistical Deep Dive**")
 st.markdown(r"""
-The global manifold is now visible. To scale our search, we employ the NeuroPharm 
-engine for high-throughput batch resonance scouting.
+The global manifold is now visible. To verify our results across the 2.25M zero 
+horizon, we proceed to the full statistical analysis of the manifold resonance.
 """)
-if st.button("💊 Proceed to NeuroPharm Scan"):
-    st.switch_page("pages/7_NeuroPharm_Scan.py")
+if st.button("📊 Proceed to Statistical Deep Dive"):
+    st.switch_page("pages/8_Statistical_Deep_Dive.py")

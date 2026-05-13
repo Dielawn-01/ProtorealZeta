@@ -5,15 +5,13 @@ Analyzes 2,001,052 Zeta zeros using the 4-component Protoreal Engine.
 Searches for Epsilon-Potent drift and Non-commutative phase anomalies.
 """
 
-import sys
 import os
 import pandas as pd
 import numpy as np
-import mpmath as mp
 
 # Setup paths
-BASE_PATH = "/home/phrxmaz/Documents/Prime Search"
-SAGE_PATH = "/home/phrxmaz/Documents/Sage"
+BASE_PATH = "."
+SAGE_PATH = "."
 sys.path.append(BASE_PATH)
 sys.path.append(os.path.join(BASE_PATH, "TheLab"))
 sys.path.append(SAGE_PATH)
@@ -24,7 +22,7 @@ from protoreal.autolift import autolift
 
 def test_func(indices):
     """The Protoreal Test Function: Lifts antenna resonance to 4-component space."""
-    val, eps, norm, rank = ze.T_Generic(indices)
+    val, eps, norm, rank, energy = ze.T_Generic(indices)
     # Lift to Protoreal space based on the normalized jitter
     # We use 'norm' as the base for the infinitesimal anchor
     u = ProtorealElement(a=float(val), c=float(norm))

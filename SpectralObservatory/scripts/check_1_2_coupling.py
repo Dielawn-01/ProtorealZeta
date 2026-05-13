@@ -18,7 +18,7 @@ def check_1_2_coupling(samples=50000):
         m = random.randint(1, 100)
         n = random.randint(1, 100)
         try:
-            val, eps, norm, rank = ze.T3_l_m_n(l, m, n)
+            val, eps, norm, rank, energy = ze.T3_l_m_n(l, m, n)
             results.append(float(norm))
         except: pass
         

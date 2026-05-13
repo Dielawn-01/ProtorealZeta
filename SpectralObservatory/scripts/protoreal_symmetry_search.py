@@ -19,7 +19,7 @@ def search_structural_similarity(n_zeros=20000):
     # Search for known zeros asset
     data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'zeta_zeros_2m.txt')
     if not os.path.exists(data_path):
-        data_path = "/home/phrxmaz/Documents/Prime Search/zeta_zeros_2m.txt"
+        data_path = "./zeta_zeros_2m.txt"
     
     if not os.path.exists(data_path):
         print(f"❌ Dataset not found at {data_path}.")

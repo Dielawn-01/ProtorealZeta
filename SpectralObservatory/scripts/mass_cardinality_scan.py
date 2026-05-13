@@ -14,7 +14,7 @@ import mpmath as mp
 import pandas as pd
 
 # Add workspace paths
-BASE_PATH = "/home/phrxmaz/Documents/Prime Search"
+BASE_PATH = "."
 sys.path.append(BASE_PATH)
 sys.path.append(os.path.join(BASE_PATH, "TheLab"))
 

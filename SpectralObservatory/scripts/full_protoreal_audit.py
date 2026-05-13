@@ -2,16 +2,12 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-import mpmath as mp
 from multiprocessing import Pool, cpu_count
 import time
 
 # Ensure ZetaEngine can be imported
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import ZetaEngine as ze
-
-# High precision
-mp.mp.dps = 100 # Slightly lower for mass audit speed, still higher than float64
 
 def process_batch(start_idx, end_idx):
     """Processes a batch of zeros."""
@@ -60,7 +56,7 @@ def run_full_protoreal_audit():
         m = np.random.randint(1, 1000)
         n = np.random.randint(1, 1000)
         
-        val, eps, norm, rank = ze.T3_l_m_n(l, m, n)
+        val, eps, norm, rank, energy = ze.T3_l_m_n(l, m, n)
         
         # Calculate Protoreal Jitter
         jitter = ze.get_protoreal_jitter(l, m, n)
@@ -69,6 +65,7 @@ def run_full_protoreal_audit():
             'l': l, 'm': m, 'n': n,
             'eps': eps,
             'norm_eps': norm,
+            'energy': energy,
             'rank': rank,
             'protoreal_jitter': jitter,
             'mod24': (l + m + n) % 24
@@ -80,7 +77,7 @@ def run_full_protoreal_audit():
     df = pd.DataFrame(results)
     
     # Save results to Global Resonance Data
-    OUT_PATH = "/home/phrxmaz/Documents/Prime Search/TheLab/data/global_resonance_data.csv"
+    OUT_PATH = "./TheLab/data/global_resonance_data.csv"
     df.to_csv(OUT_PATH, index=False)
     
     end_time = time.time()

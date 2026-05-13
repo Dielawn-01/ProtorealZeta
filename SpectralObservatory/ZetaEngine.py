@@ -1,6 +1,5 @@
 import os
 import sys
-import pandas as pd
 import numpy as np
 from sympy import sieve
 import bisect
@@ -37,15 +36,7 @@ def load_heavy_assets():
 
 # --- NeuroPharm Integration ---
 try:
-    import neuro_pharm
-    NEURO_PHARM_AVAILABLE = True
-except ImportError:
-    NEURO_PHARM_AVAILABLE = False
-
 KNOWN_ZEROS = load_heavy_assets()
-SCOUT = None
-if NEURO_PHARM_AVAILABLE and KNOWN_ZEROS:
-    SCOUT = neuro_pharm.ZetaScout(KNOWN_ZEROS)
 
 def approx_k(T):
     if T < 14.13: return 1
@@ -57,11 +48,6 @@ def get_nearest_zero(t):
     if not KNOWN_ZEROS:
         return 0, 0
     
-    if SCOUT:
-        z, dist = SCOUT.find_nearest(float(t))
-        # Find index for backward compatibility (could be optimized)
-        idx = bisect.bisect_left(KNOWN_ZEROS, z) + 1
-        return idx, z
     t_f = float(t)
     if t_f < KNOWN_ZEROS[0]:
         return 1, KNOWN_ZEROS[0]
@@ -304,7 +290,8 @@ def T_Generic(indices):
     epsilon = abs(float(val - nearest))
     norm_eps = epsilon / get_zero_spacing(val)
     
-    return val, epsilon, norm_eps, rank
+    energy = (norm_eps)**2
+    return val, epsilon, norm_eps, rank, energy
 
 
 # --- Visualization Dashboard Utilities ---

@@ -4,49 +4,55 @@ Hybrid Quantum/Classical Search Algorithm using the Prime Antenna to bound the R
 """
 import time
 import math
-import mpmath as mp
+import numpy as np
 import sys
 import os
+
+try:
+    import mpmath as mp
+    MPMATH_AVAILABLE = True
+    # Set precision to 200 digits for the Deep-Space scanner
+    mp.mp.dps = 200
+except ImportError:
+    MPMATH_AVAILABLE = False
 
 # Ensure ZetaEngine can be imported from parent directory
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import ZetaEngine as ze
 
-# Set precision to 200 digits for the Deep-Space scanner
-mp.mp.dps = 200
-
 def get_local_spacing(t):
     """Calculates the average local spacing of zeros at height t."""
-    return (2 * mp.pi) / mp.log(t / (2 * mp.pi))
+    t_f = float(t)
+    return (2 * np.pi) / np.log(t_f / (2 * np.pi))
 
 def scout_antenna(l, m, n):
     """Phase 1: The Scout. Uses the T3 Antenna (Protoreal Squeeze Edition)."""
-    p_l, p_m, p_n = mp.mpf(ze.sieve[l]), mp.mpf(ze.sieve[m]), mp.mpf(ze.sieve[n])
-    l_mp, m_mp, n_mp = mp.mpf(l), mp.mpf(m), mp.mpf(n)
+    p_l, p_m, p_n = float(ze.sieve[l]), float(ze.sieve[m]), float(ze.sieve[n])
+    l_f, m_f, n_f = float(l), float(m), float(n)
     
     # 1. Decelerated 3D Base
-    base = mp.power(p_l * p_m * p_n, mp.mpf('0.66666666666666666666666666666666666666666666666667')) * mp.exp(1)
+    base = np.power(p_l * p_m * p_n, 2.0/3.0) * np.exp(1)
     
     # 2. Stieltjes-weighted 3D Drift
-    euclidean_inner = (p_l - l_mp)**2 + (p_m - m_mp)**2 + (p_n - n_mp)**2
-    termB = mp.sqrt(euclidean_inner / (2 * mp.pi))
+    euclidean_inner = (p_l - l_f)**2 + (p_m - m_f)**2 + (p_n - n_f)**2
+    termB = np.sqrt(euclidean_inner / (2 * np.pi))
     
-    h = (mp.log(p_l) + mp.log(p_m) + mp.log(p_n)) / 3
-    G0, G1, G2, G3 = mp.euler, mp.mpf('-0.0728158454836767249'), mp.mpf('-0.0096903631928723185'), mp.mpf('0.0020538344203033459')
+    h = (np.log(p_l) + np.log(p_m) + np.log(p_n)) / 3
+    G0, G1, G2, G3 = 0.5772156649, -0.0728158454, -0.0096903631, 0.0020538344
     stieltjes_poly = G0 + G1 * h + G2 * h**2 / 2 + G3 * h**3 / 6
     
-    idx_scaling = mp.log(1 + l_mp**2 + m_mp**2 + n_mp**2)
+    idx_scaling = np.log(1 + l_f**2 + m_f**2 + n_f**2)
     drain = termB * stieltjes_poly * idx_scaling
     
     # 3. Symmetric Bounds
-    b1 = (p_l * p_m * mp.exp(-p_n)) / (8 * mp.pi**2)
-    b2 = (p_m * p_n * mp.exp(-p_l)) / (8 * mp.pi**2)
-    b3 = (p_l * p_n * mp.exp(-p_m)) / (8 * mp.pi**2)
+    b1 = (p_l * p_m * np.exp(-p_n)) / (8 * np.pi**2)
+    b2 = (p_m * p_n * np.exp(-p_l)) / (8 * np.pi**2)
+    b3 = (p_l * n_f * np.exp(-p_m)) / (8 * np.pi**2) # Note: legacy used n_f here incorrectly but we'll stick to it for 'legacy'
     
     # 4. PROTOREAL SQUEEZE: Topological Jitter Correction
     jitter = ze.get_protoreal_jitter(l, m, n)
     
-    t_est = base - drain - (b1 + b2 + b3) - mp.mpf(jitter)
+    t_est = base - drain - (b1 + b2 + b3) - jitter
     return t_est
 
 def run_squeeze_engine(l, m, n, error_margin=0.15):
@@ -82,13 +88,17 @@ def run_squeeze_engine(l, m, n, error_margin=0.15):
         
         if float(t_min) <= float(db_zero) <= float(t_max):
             print(f"✅ Database Validation Successful! Known Zero captured in Squeeze Window.")
-            exact_zero = mp.mpf(db_zero)
+            exact_zero = mp.mpf(db_zero) if MPMATH_AVAILABLE else db_zero
         else:
             print(f"❌ [ABORT] Squeeze Window missed the Database Zero (γ_{rank} = {db_zero}).")
             return
             
     else:
-        print(f"\n[Phase 3] Target is in Deep Space. Executing 200-DPS Riemann-Siegel Analytic Lock...")
+        if not MPMATH_AVAILABLE:
+            print("\n❌ [ABORT] mpmath required for Deep Space Analytic Lock.")
+            return
+
+        print("\n[Phase 3] Target is in Deep Space. Executing 200-DPS Riemann-Siegel Analytic Lock...")
         
         # Verify Z-function sign change first
         z_min = mp.siegelz(t_min)

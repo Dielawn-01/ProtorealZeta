@@ -18,7 +18,7 @@ def analyze_lrs_divergence(budget=500):
         for m in range(1, 20):
             for n in range(1, 20):
                 try:
-                    val, eps, norm, rank = ze.T3_l_m_n(l, m, n)
+                    val, eps, norm, rank, energy = ze.T3_l_m_n(l, m, n)
                     results.append({
                         'l': l, 'm': m, 'n': n,
                         'norm': float(norm),

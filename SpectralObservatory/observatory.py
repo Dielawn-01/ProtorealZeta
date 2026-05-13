@@ -159,6 +159,19 @@ with col_prof:
     """, unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
+# --- Mission Navigation ---
+st.markdown("#### **🚀 Quick Access: Research Tiers**")
+nav1, nav2, nav3 = st.columns(3)
+
+if nav1.button("🌌 Spectral Topography", use_container_width=True):
+    st.switch_page("pages/1_Spectral_Topography.py")
+
+if nav2.button("🎯 Resonance Analysis", use_container_width=True):
+    st.switch_page("pages/2_Resonance_Analysis.py")
+
+if nav3.button("⚙️ Protoreal Mechanics", use_container_width=True):
+    st.switch_page("pages/3_Protoreal_Mechanics.py")
+
 # --- Manifold Identity ---
 st.markdown(r"""
 <div class="hunt-card">

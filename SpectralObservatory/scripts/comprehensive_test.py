@@ -35,16 +35,16 @@ def run_comprehensive_test():
         print(f"  Scanning {name}:")
         for m, n in test_coords:
             try:
-                val, eps, norm, rank = func(m, n)
-                print(f"    ({m}, {n}) -> Norm: {float(norm):.6f}, Rank: {int(rank)}")
+                val, eps, norm, rank, energy = func(m, n)
+                print(f"    ({m}, {n}) -> Norm: {float(norm):.6f}, Energy: {float(energy):.6f}, Rank: {int(rank)}")
             except Exception as e:
                 print(f"    ❌ ({m}, {n}) failed: {e}")
 
     print("  Scanning T3_l_m_n (3D):")
     for l, m, n in [(1,1,1), (5,7,11)]:
         try:
-            val, eps, norm, rank = ze.T3_l_m_n(l, m, n)
-            print(f"    ({l}, {m}, {n}) -> Norm: {float(norm):.6f}, Rank: {int(rank)}")
+            val, eps, norm, rank, energy = ze.T3_l_m_n(l, m, n)
+            print(f"    ({l}, {m}, {n}) -> Norm: {float(norm):.6f}, Energy: {float(energy):.6f}, Rank: {int(rank)}")
         except Exception as e:
             print(f"    ❌ ({l}, {m}, {n}) failed: {e}")
 

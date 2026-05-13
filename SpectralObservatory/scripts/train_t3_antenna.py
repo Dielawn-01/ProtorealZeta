@@ -40,7 +40,7 @@ def train_t3_antenna():
             n = random.randint(r_min, r_max)
             
             try:
-                val, eps, norm, rank = ze.T3_l_m_n(l, m, n)
+                val, eps, norm, rank, energy = ze.T3_l_m_n(l, m, n)
                 results.append({
                     'tier': tier['name'],
                     'l': l, 'm': m, 'n': n,
