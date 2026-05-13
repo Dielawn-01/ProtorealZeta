@@ -1,0 +1,10 @@
+[package]
+name = "zproto"
+version = "0.1.0"
+edition = "2021"
+description = "Synthetic intelligence grounded in formally verified Protoreal Algebra"
+license = "MIT"
+
+[dependencies]
+
+[dev-dependencies]
