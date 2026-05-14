@@ -646,7 +646,7 @@ with col_bottle:
 
     # ── Simulation particle endpoints ──
     final_sr = [abs(history[i]['sr'][-1]) for i in range(n_particles)]
-    marker_size = [max(3, min(12, 4 + final_particles[i].l * 0.3)) for i in range(n_particles)]
+    marker_size = [max(2, min(6, 2 + final_particles[i].l * 0.15)) for i in range(n_particles)]
     sim_x, sim_y, sim_z = [], [], []
     for i in range(n_particles):
         px, py, pz = project_point_to_bottle(
