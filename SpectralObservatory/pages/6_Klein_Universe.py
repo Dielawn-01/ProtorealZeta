@@ -350,16 +350,72 @@ Write a **custom Protoreal function** below. It receives a `ProtorealElement` `u
 a transformed element. The output orbits are traced on the Klein bottle alongside the simulation particles.
 """)
 
-# ── Presets ──
+# ── Rules & Reference (collapsible) ──
+with st.expander("📖 Rules for Writing Protoreal Functions", expanded=False):
+    st.markdown(r"""
+### Syntax
+
+Your function is a single **Python expression** that receives `u` (a `ProtorealElement` with fields
+`u.a`, `u.b`, `u.c`, `u.e`, `u.l`) and returns a new element via `P(a=..., b=..., c=..., e=..., l=...)`.
+You can also use `u * u` for Klein multiplication.
+
+### Available Symbols
+
+| Symbol | Meaning | Value |
+|--------|---------|-------|
+| `u` | Current state | `ProtorealElement` |
+| `P(...)` | Constructor | `ProtorealElement(a, b, c, e, l)` |
+| `u * u` | Klein product | Non-commutative, non-associative |
+| `phi` | Golden ratio φ | 1.618... |
+| `gamma` | Euler–Mascheroni γ₀ | 0.5772... |
+| `pi` | π | 3.1415... |
+| Math | `sin, cos, tan, exp, log, sqrt, tanh, sinh, cosh, abs, atan2` | |
+
+### Component Rules
+
+| Component | Field | Algebraic Law | Physics Role |
+|-----------|-------|--------------|-------------|
+| **a** (Real) | `u.a` | Observable base | Position / energy / metric |
+| **ω** (Thrust) | `u.b` | Idempotent: ω·ω = ω | Momentum / frequency / spatial curvature |
+| **ι** (Anchor) | `u.c` | Contraction: ι·ι = −ι | Potential / damping / temporal curvature |
+| **ε** (Noise) | `u.e` | Nilpotent: ε² = 0 | Perturbation / velocity / quantum fluctuation |
+| **λ** (Level) | `u.l` | Accumulating: λ·λ = λ | Proper time / iteration count / action |
+
+### Physics ↔ Protoreal Dictionary
+
+| Physics Concept | Protoreal Expression |
+|----------------|---------------------|
+| **Kinetic energy** | ε² → 0 (nilpotent, so kinetic energy is *transient*) |
+| **Potential energy** | Bearing: ω · ι (the Bridge gives V = −1 at equilibrium) |
+| **Force / acceleration** | Δa = ε (sowing converts noise to reality) |
+| **Mass / inertia** | λ (consolidation level resists change) |
+| **Gravitational coupling** | ω · ι (bearing = topological "mass") |
+| **Curvature** | κ = −1 (the non-associativity invariant) |
+| **Geodesic deviation** | (ω·ω)·ι − ω·(ω·ι) = κ (association failure = tidal force) |
+| **Time reversal** | Monster Inverse: swap ω ↔ ι |
+| **Lorentz boost** | Hyperbolic rotation in (ω, ι) plane |
+| **Metric signature** | SR = a − ω·ι (Standard Resonance = signature trace) |
+| **Fixed point** | a = 1 ↔ Re(s) = 1/2 (Duality Theorem) |
+""")
+
+# ── Presets: Physics first, then algebraic ──
 PRESETS = {
+    # ── Physics-Inspired ──
+    "⚛ Harmonic Oscillator": "P(a=u.a + u.e, b=u.b, c=u.c, e=-u.b*u.c*(u.a - 1)*0.1, l=u.l + 1)",
+    "🪐 Kepler Orbit": "P(a=u.a, b=u.b*cos(0.08) - u.c*sin(0.08), c=u.b*sin(0.08) + u.c*cos(0.08), e=u.e*0.99, l=u.l + 1)",
+    "🌀 Geodesic Flow (κ = −1)": "P(a=u.a + u.e + 0.01*u.b*u.c, b=u.b - 0.005*u.b*u.b, c=u.c + 0.005*u.c, e=u.e*0.98, l=u.l + 1)",
+    "🕳 Schwarzschild Redshift": "P(a=u.a*sqrt(abs(1 - 2*u.b*u.c/(u.a+0.01))), b=u.b*0.999, c=u.c*1.001, e=u.e*sqrt(abs(1-2*u.b*u.c/(u.a+0.01))), l=u.l+1)",
+    "🔴 Friedmann Expansion": "P(a=u.a*(1 + u.e/(u.a+0.01)), b=u.b*(1+u.e/(3*u.a+0.01)), c=u.c*(1+u.e/(3*u.a+0.01)), e=sqrt(abs(u.a - u.b*u.c))*0.05, l=u.l+1)",
+    "🌊 Damped Wave": "P(a=u.a + u.e, b=u.b + 0.1*sin(u.l*0.3), c=u.c + 0.1*cos(u.l*0.3), e=(1-u.a)*0.2 - u.e*gamma, l=u.l+1)",
+    # ── Algebraic ──
     "Sowing (funct)": "P(a=u.a + u.e, b=u.b, c=u.c, e=0, l=u.l + 1)",
-    "Consolidation": "P(a=u.a * 2, b=u.b, c=u.c * 2, e=u.e + 1, l=u.l)",
+    "Consolidation": "P(a=u.a + 0.1, b=u.b, c=u.c, e=u.e + 0.2, l=u.l)",
     "Monster Inverse (R4)": "P(a=u.a, b=u.c, c=u.b, e=u.e, l=u.l)",
     "Klein Self-Product": "u * u",
     "Parity Lock": "P(a=u.a, b=(u.b+u.c)/2, c=(u.b+u.c)/2, e=u.e, l=u.l)",
     "Bridge Projection": "P(a=1, b=u.b, c=1/u.b if u.b != 0 else 1, e=0, l=u.l)",
     "Stieltjes Drain": "P(a=u.a - gamma * u.e, b=u.b * 0.99, c=u.c * 1.01, e=u.e * 0.5, l=u.l + 1)",
-    "Hyperbolic Rotation": "P(a=u.a, b=u.b*cosh(0.1)+u.c*sinh(0.1), c=u.b*sinh(0.1)+u.c*cosh(0.1), e=u.e, l=u.l)",
+    "Lorentz Boost": "P(a=u.a, b=u.b*cosh(0.1)+u.c*sinh(0.1), c=u.b*sinh(0.1)+u.c*cosh(0.1), e=u.e, l=u.l)",
     "Custom": "",
 }
 
