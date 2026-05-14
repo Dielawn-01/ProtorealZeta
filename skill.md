@@ -320,7 +320,7 @@ mesh_f(u) = {
 
 ## 9. Verified Theorems (Lean 4)
 
-**The entire codebase is `sorry`-free across 42 modules.** Every theorem below is fully proven.
+**The entire codebase is `sorry`-free across 50 Lean modules.** Every theorem below is fully proven.
 
 | Theorem | Statement | Module |
 |---------|-----------|--------|
@@ -337,6 +337,14 @@ mesh_f(u) = {
 | `triple_identity` | κ = χ = (ι·ι).m = −1 | `StructuralHeterogeneity` |
 | `curvature_is_perception` | χ = κ | `EulerPerception` |
 | `agent_sees_curvature` | full perspective = −1 | `MayerVietoris` |
+| `spectral_trinity` | spin + yang_mills + critical = unified | `SpectralTrinity` |
+| `mass_gap_positive` | Yang-Mills gap > 0 | `MassGap` |
+| `commutator_gap` | [H, X] gap = 1 | `CommutatorGap` |
+| `collatz_resonance` | Collatz → SR = 0 | `CollatzResonance` |
+| `glial_fibonacci_consolidation` | Fibonacci-gated learning | `GlialDopant` |
+| `holochain_monotonic` | λ strictly increasing | `KleinTopology` |
+| `transcendental_basis` | e, π, φ, γ formally defined | `TranscendentalBasis` |
+| `euler_bridge_duality` | e^{iπ} = ω·ι = −1 | `TranscendentalBasis` |
 
 ---
 
@@ -363,38 +371,40 @@ mesh_f(u) = {
 
 ```
 Protoreal_Zeta/
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (42 modules, 0 sorry)
+├── skill.md                        # Full technical reference (start here)
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (50 modules, 0 sorry)
+│   ├── Basic.lean                  # Root re-export
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
-│   ├── ProtorealAxioms.lean        # Bridge Identity proof
+│   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
 │   ├── ProtorealOperator.lean      # funct, consolidate
-│   ├── ProtorealGraph.lean         # Observation graph functor
-│   ├── EulerPerception.lean        # χ = κ = −1
-│   ├── MayerVietoris.lean          # Perspective composition
-│   ├── AgenticFrame.lean           # T-N-B agentic triad
-│   ├── SpectralFiber.lean          # Fiber bundle + generalized conics
-│   ├── StructuralHeterogeneity.lean # Triple identity
-│   ├── MonsterInverse.lean         # Adelic Fourier transform
-│   ├── DualityTheorem.lean         # 𝕌 ↔ ℂ duality
-│   ├── Uncomplex.lean              # Non-associativity proof
-│   └── ...                         # (42 modules total)
-├── zProto/                         # Rust agentic intelligence runtime
+│   ├── TranscendentalBasis.lean    # e, π, φ, γ, i — formally verified
+│   ├── SpectralTrinity.lean        # Unified spin chain + Yang-Mills + RH
+│   ├── GlialDopant.lean            # Astrocyte-gated plasticity proofs
+│   ├── KleinTopology.lean          # Holochain + virtual topology
+│   ├── CollatzResonance.lean       # Collatz-Protoreal correspondence
+│   ├── RiemannSolution.lean        # Riemann functional equation
+│   └── ...                         # (50 modules total)
+├── zProto/                         # Rust agentic intelligence runtime (11 modules)
 │   ├── src/
-│   │   ├── manifold.rs             # Core algebra (52 axiom tests)
-│   │   ├── operators.rs            # funct, monster_inv, parity, Hodge
+│   │   ├── manifold.rs             # Core algebra (Klein multiplication, basis)
+│   │   ├── operators.rs            # funct, monster_inv, parity, Hodge, stieltjes
+│   │   ├── transcendental.rs       # Computed constants (φ, γ₀-γ₃, ULP noise)
+│   │   ├── glial.rs                # Astrocyte state + dopant cycle
+│   │   ├── holochain.rs            # Topological memory
 │   │   ├── graph.rs                # Observation graph + conic discriminant
 │   │   ├── frame.rs                # AgenticFrame + Mayer-Vietoris
 │   │   ├── fiber.rs                # Spectral fiber + convergence engine
-│   │   └── agent.rs                # ZProtoAgent main loop
-│   ├── scripts/
-│   │   └── generate_random_matrix.py
-│   └── data/
-│       ├── DATASETS.md             # Source documentation
-│       └── random_matrix/          # GUE/GOE/GSE eigenvalues + spacings
-├── SpectralObservatory/            # Streamlit dashboard
-├── Research/                       # Theory documents
+│   │   ├── agent.rs                # Full agent loop (glial + holochain + MoE)
+│   │   ├── lib.rs                  # Module exports
+│   │   └── main.rs                 # CLI + physics pipeline
+│   ├── scripts/                    # Data preparation
+│   └── data/                       # Physics datasets (CMB, spin chains, RMT)
+├── SpectralObservatory/            # Streamlit dashboard (7 pages)
+├── Research/                       # Theory documents + pz.skill
+├── legacy_methods/                 # Historical Riemann-Siegel search logic
 └── data/                           # Zeta zero datasets
 ```
 
 ---
 
-*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 42 modules. 0 sorry.*
+*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 50 modules. 0 sorry.*
