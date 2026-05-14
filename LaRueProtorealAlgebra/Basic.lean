@@ -24,6 +24,7 @@ import LaRueProtorealAlgebra.KleinTopology
 import LaRueProtorealAlgebra.HodgeConjecture
 import LaRueProtorealAlgebra.ProtoLite
 import LaRueProtorealAlgebra.TranscendentalBasis
+import LaRueProtorealAlgebra.NilradicalGeneralization
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
