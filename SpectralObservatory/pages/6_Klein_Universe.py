@@ -640,7 +640,7 @@ with col_bottle:
                 x=trail_x, y=trail_y, z=trail_z,
                 mode='lines',
                 line=dict(width=1.5, color=c),
-                opacity=0.25,
+                opacity=0.6,
                 showlegend=False, hoverinfo='skip'
             ))
 
