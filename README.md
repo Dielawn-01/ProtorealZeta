@@ -113,8 +113,4 @@ cargo run --manifest-path zProto/Cargo.toml
 **Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)**
 *45 modules. 0 sorry. 3337 build jobs. Lean 4 + Mathlib v4.29.1 + Rust.*
 
----
 
-## 📜 License
-
-This project is licensed under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** license. See the [LICENSE](LICENSE) file for details.
