@@ -9,6 +9,7 @@ venv/
 .DS_Store
 data/zeta_zeros_2m.txt
 SpectralObservatory/data/*.csv
+!SpectralObservatory/data/zeta_divergence_analysis.csv
 zProto/target/
 zProto/data/random_matrix/*.csv
 zProto/data/random_matrix/*.json

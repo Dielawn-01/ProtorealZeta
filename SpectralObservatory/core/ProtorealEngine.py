@@ -10,7 +10,7 @@ class ProtorealElement:
         self.b = float(b) # Thrust (ω)
         self.c = float(c) # Anchor (ι)
         self.e = float(e) # Noise (ε)
-        self.l = int(l)   # Level (λ)
+        self.l = float(l)  # Level (λ)
 
     def __str__(self):
         return f"{{a: {self.a:.4f}, ω: {self.b:.4f}, ι: {self.c:.4f}, ε: {self.e:.4f}, λ: {self.l}}}"
