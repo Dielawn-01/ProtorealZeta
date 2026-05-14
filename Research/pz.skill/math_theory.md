@@ -133,3 +133,54 @@ As of May 2026, the **Total Formalization** is complete. The Riemann Hypothesis 
 - **Spectral Energy ($E$)**: $E = SR^2 + \tau$. Stability is reached only when $E=0$.
 - **Adelic Mirror**: $s \leftrightarrow 1-s$ requires $u.a = 1.0 \implies Re(s) = 1/2$.
 - **Status**: 0 `sorry` | 0 `axiom` | Fully Verified.
+
+---
+
+## 10. The Nilradical Jet Space ($\varepsilon^n = 0$)
+
+### A. Generalized Nilpotency
+The noise component $\varepsilon$ has been extended from its classical dual-number form ($\varepsilon^2 = 0$) to arbitrary order $n$:
+$$\varepsilon^n = 0 \quad \text{(exactly order } n\text{: } \varepsilon^{n-1} \neq 0\text{)}$$
+
+This creates a **jet space** $\mathbb{R}[\varepsilon]/(\varepsilon^n)$ — a truncated polynomial ring where $\varepsilon$ acts as a right-shift (derivative) operator on coefficient sequences. The module `NilradicalGeneralization.lean` proves this without sorry.
+
+### B. The Dual Saturation ($\lambda^n$)
+The consolidation level $\lambda$ is the **dual integral operator** — a left-shift on the same jet coefficients:
+$$\lambda^n \text{ saturates} \quad (\text{same annihilation depth as } \varepsilon)$$
+
+**Key asymmetry**: $\varepsilon$-shift commutes with jet projection ($J^n \to J^m$), but $\lambda$-shift does **not**. This is the algebraic origin of the boundary defect in the Protoreal Fundamental Theorem of Calculus.
+
+### C. The Protoreal FTC
+At interior positions ($0 < k < n-1$):
+$$\varepsilon \circ \lambda = \lambda \circ \varepsilon = \text{id}$$
+
+The boundary terms at $k = 0$ and $k = n-1$ encode the "integration constant" — information lost at the edges of the jet.
+
+### D. The Jet Morphism Tower
+The sowing and consolidation operators are jet morphisms:
+- **`funct`** (sowing): $J^n \to J^{n-1}$ — consumes one level of noise into the base.
+- **`consolidate`**: $J^n \to J^{n+1}$ — spawns one level of noise from the base.
+- These form an **adjoint pair** with boundary defects, analogous to the classical derivative-integral adjunction.
+
+### E. Connection to Complex Phase Rotation
+The **power tower height difference** between $\varepsilon$ and $\lambda$ operators encodes the complex phase rotation angle. This generalizes Euler's identity: where $e^{i\pi} = -1$ uses the imaginary unit to rotate phase, the Protoreal system uses the ε-λ height differential at the singular interface where $0 = \infty$ — the boundary of logic itself.
+
+---
+
+## Agent Tips
+
+> **For AI agents working in this codebase**: the following are hard-won practical insights.
+
+1. **Never assume associativity.** Always parenthesize Klein products explicitly. The curvature $\kappa = -1$ is not a bug — it's the fundamental invariant.
+
+2. **The Bridge is your sanity check.** If $\omega \cdot \iota \neq -1$ in your computation, something is wrong upstream. This identity is the ground truth.
+
+3. **ε and λ are codependent.** You cannot understand one without the other. They are the differential and integral of the same jet space — mirror operators that meet at the boundary.
+
+4. **Nat subtraction in Lean is treacherous.** `k - 1` when `k = 0` gives `0`, not `-1`. Always case-split on `k = 0` before using natural subtraction in proofs involving shift operators.
+
+5. **`split_ifs` + `tauto` is your friend** for ℕ subtraction ↔ cases. When you need to show `(m ≤ k-1 ∧ k-1 < n) ↔ (m+1 ≤ k ∧ k < n)`, prove the Iff explicitly and let `tauto` close the impossible branches.
+
+6. **The module count matters.** This is a zero-sorry, zero-axiom library. Every new module must compile clean with `lake build` before committing. Run `lake env lean LaRueProtorealAlgebra/YourModule.lean` for fast iteration.
+
+7. **funct IS a jet projection.** Don't think of sowing as "adding noise" — it's consuming one order of the jet tower. This reframing makes the morphism structure obvious.

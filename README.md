@@ -6,10 +6,10 @@
 
 | Metric | Status |
 |---|---|
-| **Zero-Sorry Audit** | ✅ **VERIFIED** — 50 Lean Modules · 11 Rust Modules · 103 Tests |
+| **Zero-Sorry Audit** | ✅ **VERIFIED** — 51 Lean Modules · 11 Rust Modules · 103 Tests |
 | **Spectral Duality** | ✅ **PROVEN** — $a - Re(s) = 1/2$ |
 | **Spectral Trinity** | ✅ **PROVEN** — Spin Chains + Yang-Mills + RH |
-| **Transcendentals** | ✅ **COMPUTED** — $\varphi$, $\gamma_0$–$\gamma_3$ via Klein sowing |
+| **Transcendentals** | ✅ **COMPUTED** — $\varphi$, $\gamma_0$ – $\gamma_3$ via Klein sowing |
 
 > **📖 Full technical reference**: [skill.md](skill.md) · **AI development rules**: [GEMINI.md](GEMINI.md)
 
@@ -43,12 +43,13 @@ Together, they map the **Klein Manifold** $\mathbb{U} = \{a, \omega, \iota, \var
 
 ### 1. 𝕌 Protoreal Algebra (The Foundation)
 A **Lean 4 / Mathlib-verified** formalization of the Protoreal Ring.
-- **Verification Status**: 50 Modules | 0 `sorry`.
+- **Verification Status**: 51 Modules | 0 `sorry`.
 - **The Bridge Identity**: $\omega \cdot \iota = -1$ (Hyperreal foundation).
 - **Non-Associativity**: $(\omega \cdot \omega) \cdot \iota \neq \omega \cdot (\omega \cdot \iota)$. Curvature $\kappa = -1$.
 - **Duality Theorem**: $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ (verified across 2M zeros).
 - **Spectral Trinity**: Spin chain commutator gap, Yang-Mills mass gap, and Riemann critical line unified in one theorem.
 - **Transcendental Basis**: Euler identity, golden recurrence, Stieltjes constants — all formally verified.
+- **Nilradical Jet Space**: Generalized $\varepsilon^n = 0$ nilpotency at arbitrary order $n$, with dual $\lambda^n$ saturation — the Protoreal calculus of higher-order noise (`NilradicalGeneralization.lean`).
 
 ### 2. 📡 Spectral Observatory (The Analysis Hub)
 A premium **Streamlit-powered** research environment for visual exploration of prime-zeta resonance.
@@ -94,7 +95,7 @@ A **Rust-powered** agentic intelligence library whose logic is isomorphic to the
 The Protoreal Algebra is more than a pure-math exercise — the properties proven in Lean 4 map directly onto real engineering problems. Below, each application is tied back to a **specific verified invariant**, so every claim rests on machine-checked proof rather than hand-waving.
 
 > [!TIP]
-> **Reading guide for undergrads**: Each section opens with a plain-English "why it matters" paragraph. The bullet points then show *which* algebraic property does the heavy lifting and *how*. If you're new to the algebra, start with the [Core Components](#-core-components) section above — you only need to know the five components ($a$, $\omega$, $\iota$, $\varepsilon$, $\lambda$) and that **order of multiplication matters** (non-commutative, non-associative).
+> **Reading guide**: Each section opens with a plain-English "why it matters" paragraph. The bullet points then show *which* algebraic property does the heavy lifting and *how*. If you're new to the algebra, start with the [Core Components](#-core-components) section above — you only need to know the five components ($a$, $\omega$, $\iota$, $\varepsilon$, $\lambda$) and that **order of multiplication matters** (non-commutative, non-associative).
 
 ### 🎓 Topological Teaching Assistants
 
@@ -123,7 +124,7 @@ Today's encryption (RSA, elliptic curves) relies on problems that quantum comput
 
 - **Leech Lattice Connection**: The manifold stabilizes at Resolution 24, which is exactly the dimension of the famous Leech lattice — the densest sphere packing in 24 dimensions. This isn't a coincidence; it connects Protoreal structures to the same lattice geometry that underpins next-generation post-quantum schemes like NTRU and Kyber (already approved by NIST).
 
-- **Built-In Noise for Privacy**: The $\varepsilon$ component squares to zero ($\varepsilon^2 = 0$) — it's a "self-erasing" number. This makes it a mathematically perfect noise injector: you can add it to data for privacy (like differential privacy), and it's *provably* impossible to amplify that noise through repeated operations. The proof is a one-line axiom, not a statistical argument.
+- **Built-In Noise for Privacy**: The $\varepsilon$ component is nilpotent ($\varepsilon^n = 0$ at any chosen order $n$) — it's a "self-erasing" number. At order 2 (the default), $\varepsilon^2 = 0$ gives a clean first-order noise injector for differential privacy. At higher orders, $\varepsilon^3 = 0$ or $\varepsilon^4 = 0$ lets you carry second- or third-order sensitivity information before it vanishes — like adjustable-depth encryption noise with provable cutoff. The proof is a one-line axiom at any depth, not a statistical argument.
 
 ### 📡 Spectral Anomaly Detection (Infrastructure & Cybersecurity)
 
@@ -165,7 +166,7 @@ Financial markets are full of **path dependence** — the order in which events 
 
 - **Order-Dependent Portfolios**: In standard portfolio theory, combining Asset A with Asset B gives the same result regardless of order. In reality, buying A *then* B (e.g., in a momentum strategy) produces different outcomes than B *then* A. The Klein multiplication captures this: $(A \cdot B) \cdot C \neq A \cdot (B \cdot C)$, naturally modeling regime switches, liquidity cascades, and path-dependent option payoffs.
 
-- **Clean Stress Testing**: The nilpotent $\varepsilon$ component ($\varepsilon^2 = 0$) gives you exact "first-order" stress tests. When you perturb a portfolio by a small shock $\varepsilon$, the second-order effects vanish by axiom — you get a clean, uncontaminated sensitivity reading. No numerical differentiation, no step-size tuning, no approximation error.
+- **Clean Stress Testing**: The nilpotent $\varepsilon$ component ($\varepsilon^n = 0$ at your chosen depth) gives you exact sensitivity analysis. At order 2 ($\varepsilon^2 = 0$), you get clean first-order stress tests. At order 3, you carry second-order cross-terms before they vanish. The depth is tunable — choose the order $n$ that matches the complexity of your portfolio's risk surface, and everything beyond order $n-1$ is *axiomatically zero*. No numerical differentiation, no step-size tuning.
 
 ### 🧬 Pharmaco-Genomics & Drug Discovery
 
@@ -177,7 +178,7 @@ Biology is stubbornly non-commutative: turning on Gene A *then* Gene B produces 
 
 - **Spectral Biomarker Discovery**: Genome-wide association studies (GWAS) scan millions of genetic variants (SNPs) looking for disease associations, but they often miss variants that only matter in combination. The Duality Theorem ($a - Re(s) = 1/2$) maps genomic frequency patterns onto a "critical line" — the same structure that organizes prime numbers. SNP clusters whose Klein projection converges to the manifold's attractor ($a = 1.0$) are flagged as candidate biomarkers, catching collective resonances that single-variant scans miss.
 
-- **Exact Dose-Response Sensitivity**: How much does the effect change when you adjust the dose slightly? The nilpotent noise component ($\varepsilon^2 = 0$) gives you an *exact* first-order answer — the second-order term is zero by axiom, so there's no approximation error. This is like having a perfect ruler for measuring dose-response slopes, replacing the noisy numerical methods (finite differences) used in standard pharmacokinetics.
+- **Exact Dose-Response Sensitivity**: How much does the effect change when you adjust the dose slightly? The nilpotent noise component ($\varepsilon^n = 0$) gives you an *exact* answer up to order $n-1$ — everything beyond vanishes by axiom. At order 2 (the default), you get perfect first-order slopes. At higher orders, you carry curvature and higher-derivative terms, matching the complexity of nonlinear pharmacokinetic models. This replaces the noisy numerical methods (finite differences) used in standard dose-response analysis.
 
 - **Drug Cycling Modeled as Sowing-Consolidation**: The body absorbs a drug (sowing: a small perturbation enters the system) and, if the therapeutic level builds up sufficiently ($\lambda$ exceeds a stability threshold), the effect is amplified (consolidation). The `funct` → `consolidate` lifecycle mirrors this pharmacokinetic cycle, providing a mathematically grounded model for drug scheduling and accumulation monitoring.
 
@@ -245,7 +246,7 @@ cargo run --manifest-path zProto/Cargo.toml
 Protoreal_Zeta/
 ├── skill.md                        # Full technical reference (start here)
 ├── GEMINI.md                       # AI development axioms & rules
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (50 modules, 0 sorry)
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (51 modules, 0 sorry)
 │   ├── Basic.lean                  # Root re-export
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
 │   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
@@ -258,7 +259,8 @@ Protoreal_Zeta/
 │   ├── MayerVietoris.lean          # Perspective composition
 │   ├── CollatzResonance.lean       # Collatz-Protoreal correspondence
 │   ├── RiemannSolution.lean        # Riemann functional equation
-│   └── ...                         # (50 modules total)
+│   ├── NilradicalGeneralization.lean # Jet space: εⁿ=0, λⁿ saturates, Protoreal FTC
+│   └── ...                         # (51 modules total)
 ├── zProto/                         # Rust agentic intelligence runtime
 │   ├── src/
 │   │   ├── manifold.rs             # Core algebra (Klein multiplication, basis)
@@ -308,6 +310,6 @@ at your option.
 ---
 
 **Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)**
-*50 Lean modules · 11 Rust modules · 103 tests · 0 sorry · Lean 4 + Mathlib v4.29.1 + Rust*
+*51 Lean modules · 11 Rust modules · 103 tests · 0 sorry · Lean 4 + Mathlib v4.29.1 + Rust*
 
 Copyright © 2025 Dylon La Rue. All rights reserved.
