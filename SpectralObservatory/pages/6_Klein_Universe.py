@@ -302,22 +302,21 @@ st.markdown("---")
 
 st.markdown(r"""
 <div class="sim-card">
-<h4 style="color: #00ffcc; margin-top: 0;">🧬 What You're Seeing</h4>
+<h4 style="color: #00ffcc; margin-top: 0;">🧬 How the Klein Universe Works</h4>
 
-<p>Each particle is a <b>5-component Klein manifold element</b> $u = \{a, \omega, \iota, \varepsilon, \lambda\}$.
-At each time step:</p>
+<p>The <b>Klein bottle</b> is the manifold itself — a figure-8 immersion parameterized by
+thrust phase (ω) and anchor phase (ι). The Monster Inverse identification
+$(ω, ι) ↔ (ι, ω)$ creates the non-orientable twist.</p>
 
-<ol>
-<li><b>Sowing</b> (<code>funct</code>): Noise ε is converted to reality → $a \leftarrow a + \varepsilon$, $\varepsilon \leftarrow 0$, $\lambda \leftarrow \lambda + 1$</li>
-<li><b>Klein Interaction</b>: Each particle multiplies with its neighbor using the <b>non-commutative, non-associative</b> Klein product</li>
-<li><b>Parity Damping</b>: The system nudges toward the Hodge class ($\omega = \iota$)</li>
-<li><b>Consolidation</b>: On Fibonacci steps, the manifold doubles ($a \leftarrow 2a$)</li>
-<li><b>Convergence</b>: The fixed point $a = 1$ attracts all states → $Re(s) = 1/2$</li>
-</ol>
+<p>Two layers are overlaid on this surface:</p>
+<ul>
+<li><b>Simulation particles</b> (small dots): N-body Klein elements undergoing sowing, interaction, and parity damping. They converge toward $a = 1$.</li>
+<li><b>Function orbits</b> (colored trails): Your custom Protoreal function applied iteratively from multiple seeds.</li>
+</ul>
 
-<p><b>Color</b> = Standard Resonance $|SR| = |a - \omega \cdot \iota|$. Cyan = equilibrium. Red = tension.<br>
-<b>Size</b> = Consolidation level λ (how many times the particle has been sown).<br>
-<b>Trails</b> = Holochain trajectory memory.</p>
+<p><b>Dot color</b> = Standard Resonance $|SR| = |a - ω · ι|$ — cyan = equilibrium, red = tension.<br>
+<b>Trail color</b> = orbit identity. <b>Circle</b> = start, <b>diamond</b> = end.<br>
+<b>Reference curves</b> (phase portrait): dotted = Bridge ($ωι = 1$), dashed = Hodge ($ω = ι$).</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -345,14 +344,10 @@ with col_id3:
 
 st.markdown("---")
 st.markdown(r"""
-## 🧊 Projective Klein Bottle — Function Explorer
+## 🧊 Function Explorer
 
-The Klein bottle below is parameterized by the **Protoreal conic structure** in the $(ω, ι)$ plane.
-The surface is the projective identification of the thrust-anchor torus under the Monster Inverse 
-$(ω, ι) \mapsto (ι, ω)$, creating a non-orientable manifold whose twist IS the Bridge Identity $ωι = -1$.
-
-**Write a custom Protoreal function** below. The function receives a `ProtorealElement` `u` and returns
-a transformed `ProtorealElement`. The output path is traced across the Klein bottle surface.
+Write a **custom Protoreal function** below. It receives a `ProtorealElement` `u` and returns
+a transformed element. The output orbits are traced on the Klein bottle alongside the simulation particles.
 """)
 
 # ── Presets ──
@@ -771,15 +766,12 @@ st.dataframe(pd.DataFrame(endpoint_data), hide_index=True, use_container_width=T
 
 st.markdown(r"""
 <div class="sim-card">
-<h4 style="color: #7c4dff; margin-top: 0;">📐 How It Works</h4>
-<p>The <b>Klein bottle surface</b> is a figure-8 immersion parameterized by thrust phase (ω) and anchor phase (ι).
-The Monster Inverse identification $(ω, ι) \leftrightarrow (ι, ω)$ creates the non-orientable twist —
-this is the same involution that swaps the hyperbolic fiber ($ωι = 1$) with the elliptic fiber ($ω = ι$).</p>
-<p>Your function is applied iteratively. Each orbit starts at a different point and traces its path
-across the bottle. <b>Fixed points</b> appear as clusters. <b>Attractors</b> appear as spiraling convergences.
-<b>Chaos</b> appears as space-filling curves.</p>
-<p><b>Try it:</b> Start with "Klein Self-Product" to see the non-associative algebra in action,
-then switch to "Hyperbolic Rotation" to watch orbits flow along the Bridge Identity curve $ωι = 1$.</p>
+<h4 style="color: #7c4dff; margin-top: 0;">📐 Interpreting the Results</h4>
+<p><b>Fixed points</b> appear as clusters where orbits converge.
+<b>Attractors</b> appear as spiraling convergences — most Protoreal functions attract to $a = 1$.
+<b>Chaos</b> appears as space-filling curves (try "Klein Self-Product" with 500 iterations).</p>
+<p>The <b>Hodge check</b> (ω ≈ ι) tells you if the orbit reached parity equilibrium.
+The <b>convergence check</b> (a ≈ 1) tells you if it reached the Duality fixed point $Re(s) = 1/2$.</p>
 </div>
 """, unsafe_allow_html=True)
 
