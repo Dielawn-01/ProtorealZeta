@@ -396,6 +396,8 @@ You can also use `u * u` for Klein multiplication.
 | **Lorentz boost** | Hyperbolic rotation in (ω, ι) plane |
 | **Metric signature** | SR = a − ω·ι (Standard Resonance = signature trace) |
 | **Fixed point** | a = 1 ↔ Re(s) = 1/2 (Duality Theorem) |
+| **Thermal noise** | ε ~ exp(−\|SR\|/T) where T = \|ω·ι\| (Boltzmann ↔ Unruh bridge) |
+| **Partition function** | Z = Σ exp(−λ·SR²) (consolidation level = inverse temperature) |
 """)
 
 # ── Presets: Physics first, then algebraic ──
@@ -404,7 +406,7 @@ PRESETS = {
     "⚛ Harmonic Oscillator": "P(a=u.a + u.e, b=u.b, c=u.c, e=-u.b*u.c*(u.a - 1)*0.1, l=u.l + 1)",
     "🪐 Kepler Orbit": "P(a=u.a, b=u.b*cos(0.08) - u.c*sin(0.08), c=u.b*sin(0.08) + u.c*cos(0.08), e=u.e*0.99, l=u.l + 1)",
     "🌀 Geodesic Flow (κ = −1)": "P(a=u.a + u.e + 0.01*u.b*u.c, b=u.b - 0.005*u.b*u.b, c=u.c + 0.005*u.c, e=u.e*0.98, l=u.l + 1)",
-    "🕳 Schwarzschild Redshift": "P(a=u.a*sqrt(abs(1 - 2*u.b*u.c/(u.a+0.01))), b=u.b*0.999, c=u.c*1.001, e=u.e*sqrt(abs(1-2*u.b*u.c/(u.a+0.01))), l=u.l+1)",
+    "🌡 Thermal Geodesic": "P(a=u.a + u.e + 0.01*u.b*u.c, b=u.b - 0.01*u.b*(u.b - u.c), c=u.c + 0.01*u.c*(u.b - u.c), e=0.1*exp(-abs(u.a - u.b*u.c)/(abs(u.b*u.c)+0.01)) - u.e*0.3, l=u.l+1)",
     "🔴 Friedmann Expansion": "P(a=u.a*(1 + u.e/(u.a+0.01)), b=u.b*(1+u.e/(3*u.a+0.01)), c=u.c*(1+u.e/(3*u.a+0.01)), e=sqrt(abs(u.a - u.b*u.c))*0.05, l=u.l+1)",
     "🌊 Damped Wave": "P(a=u.a + u.e, b=u.b + 0.1*sin(u.l*0.3), c=u.c + 0.1*cos(u.l*0.3), e=(1-u.a)*0.2 - u.e*gamma, l=u.l+1)",
     # ── Algebraic ──
@@ -615,21 +617,30 @@ with col_bottle:
         name='Klein Bottle'
     ))
 
-    # ── Simulation particle trails ──
+    # ── Simulation particle trails (stochastic colors, recent only) ──
+    sim_palette = [
+        '#00ffcc', '#ff3366', '#feca57', '#7c4dff',
+        '#00e5ff', '#ff6e40', '#69f0ae', '#ea80fc',
+        '#80deea', '#f48fb1', '#fff176', '#b388ff',
+    ]
+    trail_start = max(0, n_steps - int(n_steps * 0.35))  # last ~35%
+
     if show_trails:
         for i in range(n_particles):
             trail_x, trail_y, trail_z = [], [], []
-            for t in range(len(history[i]['a'])):
+            steps = list(range(trail_start, len(history[i]['a'])))
+            for t in steps:
                 px, py, pz = project_point_to_bottle(
                     history[i]['b'][t], history[i]['c'][t], history[i]['a'][t])
                 trail_x.append(px)
                 trail_y.append(py)
                 trail_z.append(pz)
-            opacity_val = 0.1 + 0.08 * (i / n_particles)
+            c = sim_palette[i % len(sim_palette)]
             fig_kb.add_trace(go.Scatter3d(
                 x=trail_x, y=trail_y, z=trail_z,
                 mode='lines',
-                line=dict(width=1, color=f'rgba(0,255,204,{opacity_val})'),
+                line=dict(width=1.5, color=c),
+                opacity=0.25,
                 showlegend=False, hoverinfo='skip'
             ))
 
