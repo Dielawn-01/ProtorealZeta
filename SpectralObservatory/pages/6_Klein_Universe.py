@@ -74,6 +74,34 @@ show_trails = st.sidebar.checkbox("Show Holochain Trails", True,
 consolidation_mode = st.sidebar.radio("Consolidation", ["Fibonacci", "Every 10 steps", "Off"])
 
 st.sidebar.markdown("---")
+st.sidebar.header("🧊 Bottle Appearance")
+bottle_opacity = st.sidebar.slider("Surface Opacity", 0.05, 0.8, 0.35, 0.05,
+                                    help="Transparency of the Klein bottle surface")
+
+BOTTLE_COLORSCALES = {
+    "Spectral Resonance": [[0, '#00ffcc'], [0.5, '#1a1a2e'], [1, '#ff3366']],
+    "Viridis": 'Viridis',
+    "Plasma": 'Plasma',
+    "Twilight": [[0, '#e2d1c3'], [0.25, '#5e4fa2'], [0.5, '#0d0d1a'], [0.75, '#9e0142'], [1, '#e2d1c3']],
+    "Deep Ocean": [[0, '#0a1628'], [0.3, '#0d47a1'], [0.6, '#00bcd4'], [1, '#e0f7fa']],
+    "Solar Flare": [[0, '#0d0221'], [0.3, '#cc5803'], [0.6, '#fca311'], [1, '#fffbf0']],
+    "Monochrome": [[0, '#1a1a2e'], [0.5, '#404060'], [1, '#8888aa']],
+}
+bottle_colorscale_name = st.sidebar.selectbox("Color Theme", list(BOTTLE_COLORSCALES.keys()), index=0)
+bottle_colorscale = BOTTLE_COLORSCALES[bottle_colorscale_name]
+
+bottle_lighting = st.sidebar.select_slider("Lighting", 
+    options=["Matte", "Soft", "Glossy"],
+    value="Soft")
+
+LIGHTING_PRESETS = {
+    "Matte": dict(ambient=0.8, diffuse=0.3, roughness=0.9, specular=0.1),
+    "Soft": dict(ambient=0.6, diffuse=0.5, roughness=0.5, specular=0.4),
+    "Glossy": dict(ambient=0.4, diffuse=0.6, roughness=0.1, specular=1.2),
+}
+bottle_light = LIGHTING_PRESETS[bottle_lighting]
+
+st.sidebar.markdown("---")
 st.sidebar.markdown(f"""
 **Computed Constants**
 - γ₀ = `{GAMMA:.15f}`
@@ -199,100 +227,35 @@ history, metrics, final_particles = run_simulation(
 )
 
 # ════════════════════════════════════════════════════
-# VISUALIZATION: 3D MANIFOLD SCATTER
+# SIMULATION METRICS
 # ════════════════════════════════════════════════════
 
-col_3d, col_metrics = st.columns([2, 1])
+def project_point_to_bottle(b_val, c_val, a_val=1.0):
+    """Project a single (ω, ι, a) point onto the Klein bottle."""
+    r, a_c = 2.0, 2.0
+    u_p = math.atan2(b_val, abs(b_val) + 0.5) * 2.0
+    v_p = math.atan2(c_val, abs(c_val) + 0.5) * 2.0
+    x = (r + a_c * math.cos(v_p / 2) * math.sin(u_p)
+         - a_c * math.sin(v_p / 2) * math.sin(2 * u_p)) * math.cos(v_p)
+    y = (r + a_c * math.cos(v_p / 2) * math.sin(u_p)
+         - a_c * math.sin(v_p / 2) * math.sin(2 * u_p)) * math.sin(v_p)
+    z = (a_c * math.sin(v_p / 2) * math.sin(u_p)
+         + a_c * math.cos(v_p / 2) * math.sin(2 * u_p))
+    z += (a_val - 1.0) * 0.3
+    return x, y, z
 
-with col_3d:
-    st.markdown("#### Manifold State Space (a, ω, ι)")
+mc1, mc2, mc3, mc4, mc5, mc6 = st.columns(6)
+mc1.metric("Mean |SR|", f"{metrics['mean_sr'][-1]:.4f}",
+           delta=f"{metrics['mean_sr'][-1] - metrics['mean_sr'][0]:.4f}")
+mc2.metric("κ (Curvature)", "-1.0", help="Non-associative invariant")
+mc3.metric("Convergence", f"{metrics['convergence'][-1]:.4f}", delta="→ 0 target")
+mc4.metric("χ (Euler)", "-1", help="Topological invariant")
+mc5.metric("Particles", str(n_particles))
+mc6.metric("Steps", str(n_steps))
 
-    fig = go.Figure()
+col_conv, col_energy = st.columns(2)
 
-    # Trails
-    if show_trails:
-        for i in range(n_particles):
-            opacity = 0.15 + 0.1 * (i / n_particles)
-            fig.add_trace(go.Scatter3d(
-                x=history[i]['a'], y=history[i]['b'], z=history[i]['c'],
-                mode='lines',
-                line=dict(width=1.5, color=f'rgba(0,255,204,{opacity})'),
-                showlegend=False,
-                hoverinfo='skip'
-            ))
-
-    # Final positions
-    final_a = [history[i]['a'][-1] for i in range(n_particles)]
-    final_b = [history[i]['b'][-1] for i in range(n_particles)]
-    final_c = [history[i]['c'][-1] for i in range(n_particles)]
-    final_sr = [abs(history[i]['sr'][-1]) for i in range(n_particles)]
-    final_energy = [history[i]['energy'][-1] for i in range(n_particles)]
-
-    # Size by λ (consolidation level), color by SR
-    marker_size = [max(4, min(20, 6 + final_particles[i].l * 0.5)) for i in range(n_particles)]
-
-    fig.add_trace(go.Scatter3d(
-        x=final_a, y=final_b, z=final_c,
-        mode='markers',
-        marker=dict(
-            size=marker_size,
-            color=final_sr,
-            colorscale=[[0, '#00ffcc'], [0.5, '#feca57'], [1, '#ff3366']],
-            colorbar=dict(title="| SR |", len=0.5),
-            opacity=0.9,
-            line=dict(width=1, color='rgba(255,255,255,0.3)')
-        ),
-        text=[f"Particle {i}<br>a={final_a[i]:.3f}<br>ω={final_b[i]:.3f}<br>ι={final_c[i]:.3f}<br>SR={final_sr[i]:.4f}"
-              for i in range(n_particles)],
-        hoverinfo='text',
-        showlegend=False
-    ))
-
-    # Fixed point marker
-    fig.add_trace(go.Scatter3d(
-        x=[1.0], y=[1.0], z=[1.0],
-        mode='markers+text',
-        marker=dict(size=10, color='white', symbol='diamond', opacity=0.8),
-        text=["a=1 (Fixed Point)"],
-        textposition="top center",
-        textfont=dict(size=10, color='white'),
-        showlegend=False
-    ))
-
-    fig.update_layout(
-        scene=dict(
-            xaxis=dict(title="a (Real Base)", gridcolor='rgba(255,255,255,0.05)'),
-            yaxis=dict(title="ω (Thrust)", gridcolor='rgba(255,255,255,0.05)'),
-            zaxis=dict(title="ι (Anchor)", gridcolor='rgba(255,255,255,0.05)'),
-            bgcolor='rgba(0,0,0,0)',
-        ),
-        template="plotly_dark",
-        margin=dict(l=0, r=0, b=0, t=10),
-        height=600,
-        paper_bgcolor='rgba(0,0,0,0)',
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-with col_metrics:
-    st.markdown("#### Simulation Metrics")
-
-    # Final state
-    mc1, mc2 = st.columns(2)
-    mc1.metric("Mean |SR|", f"{metrics['mean_sr'][-1]:.4f}",
-               delta=f"{metrics['mean_sr'][-1] - metrics['mean_sr'][0]:.4f}")
-    mc2.metric("κ (Curvature)", "-1.0", help="Non-associative invariant")
-
-    mc3, mc4 = st.columns(2)
-    mc3.metric("Convergence", f"{metrics['convergence'][-1]:.4f}",
-               delta=f"→ 0 target")
-    mc4.metric("χ (Euler)", "-1", help="Topological invariant")
-
-    mc5, mc6 = st.columns(2)
-    mc5.metric("Particles", str(n_particles))
-    mc6.metric("Steps", str(n_steps))
-
-    # Convergence plot
-    st.markdown("#### Convergence to a = 1")
+with col_conv:
     fig_conv = go.Figure()
     fig_conv.add_trace(go.Scatter(
         x=metrics['step'], y=metrics['convergence'],
@@ -306,16 +269,15 @@ with col_metrics:
         name='Mean |SR|'
     ))
     fig_conv.update_layout(
-        template="plotly_dark", height=250,
+        template="plotly_dark", height=200,
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
         legend=dict(orientation="h", yanchor="top", y=1.15),
-        yaxis=dict(title="Deviation")
+        yaxis=dict(title="Convergence")
     )
     st.plotly_chart(fig_conv, use_container_width=True)
 
-    # Energy decay
-    st.markdown("#### Energy Dissipation")
+with col_energy:
     fig_energy = go.Figure()
     fig_energy.add_trace(go.Scatter(
         x=metrics['step'], y=metrics['mean_energy'],
@@ -585,24 +547,67 @@ def project_path_to_bottle(path, res=60):
 col_bottle, col_phase = st.columns([3, 2])
 
 with col_bottle:
-    st.markdown("#### Klein Bottle with Function Orbits")
+    st.markdown("#### 𝕌 Klein Manifold")
 
     x_kb, y_kb, z_kb, sr_kb = klein_bottle_surface(res=50)
 
     fig_kb = go.Figure()
 
-    # Surface
+    # Surface — uses shared appearance controls
     fig_kb.add_trace(go.Surface(
         x=x_kb, y=y_kb, z=z_kb,
         surfacecolor=sr_kb,
-        colorscale=[[0, 'rgba(0,255,204,0.15)'], [0.5, 'rgba(50,50,80,0.1)'], [1, 'rgba(255,51,102,0.15)']],
+        colorscale=bottle_colorscale,
         showscale=False,
-        opacity=0.25,
-        lighting=dict(ambient=0.6, diffuse=0.4, roughness=0.5, specular=0.3),
+        opacity=bottle_opacity,
+        lighting=bottle_light,
         name='Klein Bottle'
     ))
 
-    # Paths
+    # ── Simulation particle trails ──
+    if show_trails:
+        for i in range(n_particles):
+            trail_x, trail_y, trail_z = [], [], []
+            for t in range(len(history[i]['a'])):
+                px, py, pz = project_point_to_bottle(
+                    history[i]['b'][t], history[i]['c'][t], history[i]['a'][t])
+                trail_x.append(px)
+                trail_y.append(py)
+                trail_z.append(pz)
+            opacity_val = 0.1 + 0.08 * (i / n_particles)
+            fig_kb.add_trace(go.Scatter3d(
+                x=trail_x, y=trail_y, z=trail_z,
+                mode='lines',
+                line=dict(width=1, color=f'rgba(0,255,204,{opacity_val})'),
+                showlegend=False, hoverinfo='skip'
+            ))
+
+    # ── Simulation particle endpoints ──
+    final_sr = [abs(history[i]['sr'][-1]) for i in range(n_particles)]
+    marker_size = [max(3, min(12, 4 + final_particles[i].l * 0.3)) for i in range(n_particles)]
+    sim_x, sim_y, sim_z = [], [], []
+    for i in range(n_particles):
+        px, py, pz = project_point_to_bottle(
+            history[i]['b'][-1], history[i]['c'][-1], history[i]['a'][-1])
+        sim_x.append(px)
+        sim_y.append(py)
+        sim_z.append(pz)
+
+    fig_kb.add_trace(go.Scatter3d(
+        x=sim_x, y=sim_y, z=sim_z,
+        mode='markers',
+        marker=dict(
+            size=marker_size, color=final_sr,
+            colorscale=[[0, '#00ffcc'], [0.5, '#feca57'], [1, '#ff3366']],
+            colorbar=dict(title="| SR |", len=0.4, y=0.8),
+            opacity=0.9,
+            line=dict(width=1, color='rgba(255,255,255,0.3)')
+        ),
+        text=[f"Sim {i}<br>SR={final_sr[i]:.4f}" for i in range(n_particles)],
+        hoverinfo='text', name='Sim Particles',
+    ))
+
+    # ── Function explorer orbits ──
     path_colors = [
         '#00ffcc', '#ff3366', '#feca57', '#7c4dff',
         '#00e5ff', '#ff6e40', '#69f0ae', '#ea80fc',
