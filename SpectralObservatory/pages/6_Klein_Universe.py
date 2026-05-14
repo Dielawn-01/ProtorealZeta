@@ -708,17 +708,19 @@ with col_bottle:
             hoverinfo='text',
         ))
 
-    wire_axis = dict(
+    wire_common = dict(
         showgrid=True, gridcolor='rgba(255,255,255,0.06)',
         showline=True, linecolor='rgba(255,255,255,0.12)',
         showbackground=False,
-        showticklabels=False, showspikes=True,
+        showticklabels=True, tickfont=dict(size=9, color='rgba(255,255,255,0.4)'),
+        showspikes=True,
         spikecolor='rgba(255,255,255,0.15)', spikethickness=1,
-        title='',
     )
     fig_kb.update_layout(
         scene=dict(
-            xaxis=wire_axis, yaxis=wire_axis, zaxis=wire_axis,
+            xaxis=dict(**wire_common, title=dict(text='ω (Thrust)', font=dict(size=11, color='#00ffcc'))),
+            yaxis=dict(**wire_common, title=dict(text='ι (Anchor)', font=dict(size=11, color='#ff3366'))),
+            zaxis=dict(**wire_common, title=dict(text='a (Real)', font=dict(size=11, color='#feca57'))),
             bgcolor='rgba(0,0,0,0)',
             camera=dict(eye=dict(x=1.5, y=1.5, z=0.8)),
         ),
