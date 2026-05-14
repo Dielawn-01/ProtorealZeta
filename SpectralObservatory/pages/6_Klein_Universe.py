@@ -708,11 +708,17 @@ with col_bottle:
             hoverinfo='text',
         ))
 
+    wire_axis = dict(
+        showgrid=True, gridcolor='rgba(255,255,255,0.06)',
+        showline=True, linecolor='rgba(255,255,255,0.12)',
+        showbackground=False,
+        showticklabels=False, showspikes=True,
+        spikecolor='rgba(255,255,255,0.15)', spikethickness=1,
+        title='',
+    )
     fig_kb.update_layout(
         scene=dict(
-            xaxis=dict(visible=False),
-            yaxis=dict(visible=False),
-            zaxis=dict(visible=False),
+            xaxis=wire_axis, yaxis=wire_axis, zaxis=wire_axis,
             bgcolor='rgba(0,0,0,0)',
             camera=dict(eye=dict(x=1.5, y=1.5, z=0.8)),
         ),
