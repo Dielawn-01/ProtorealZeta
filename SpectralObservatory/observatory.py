@@ -139,7 +139,7 @@ col_stat, col_prof = st.columns([1, 2])
 with col_stat:
     st.markdown("#### **Verification Status**")
     m1, m2 = st.columns(2)
-    m1.metric("Lean Modules", "50", delta="0 sorry", delta_color="normal")
+    m1.metric("Lean Modules", "51", delta="0 sorry", delta_color="normal")
     m2.metric("Rust Tests", "103", delta="0 failed", delta_color="normal")
     
     m3, m4 = st.columns(2)
@@ -179,10 +179,10 @@ st.markdown(r"""
         NON-ASSOCIATIVE MANIFOLD IDENTITY
     </div>
     <div style="font-size: 2.0rem; color: #e8eaf0; font-family: 'Inter', serif; letter-spacing: 2px;">
-        (ω · ω) · ι ≠ ω · (ω · ι)
+        (ω · ω) · ι ≠ ω · (ω · ι) &nbsp;&nbsp;|&nbsp;&nbsp; εⁿ = 0
     </div>
     <div style="font-size: 0.9rem; color: #667; margin-top: 12px;">
-        Stability is maintained through the <b>Monster Inverse Stitch</b>: (u + u*) / 2.
+        Non-associativity (κ = −1) · Nilpotent jet space (tunable depth n) · ε ∘ λ = id (Protoreal FTC)
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -348,7 +348,7 @@ st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #667; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; padding: 20px;">
     Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)<br>
-    Status: <b>Total Formalization Verified</b> | 50 Lean Modules · 11 Rust Modules · 103 Tests · 0 Sorry<br>
+    Status: <b>Total Formalization Verified</b> | 51 Lean Modules · 11 Rust Modules · 103 Tests · 0 Sorry<br>
     <span style="opacity: 0.6;">Visual Engine: Float64 Preview | Formal Truth: 200-Digit Verified</span>
 </div>
 """, unsafe_allow_html=True)

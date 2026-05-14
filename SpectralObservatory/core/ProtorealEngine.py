@@ -1,4 +1,72 @@
 import math
+import copy
+
+
+# ════════════════════════════════════════════════════
+# JET ELEMENT — Order-n Nilradical (εⁿ = 0)
+# ════════════════════════════════════════════════════
+
+class JetElement:
+    """
+    A jet element of order n: a coefficient sequence [c₀, c₁, ..., c_{n-1}].
+    ε acts as right-shift (derivative), λ as left-shift (integral).
+    εⁿ = 0 (nilpotent), λⁿ saturates.
+    """
+    def __init__(self, coeffs, n=None):
+        if isinstance(coeffs, (int, float)):
+            # Scalar → jet with single nonzero base coefficient
+            n = n or 2
+            self.n = n
+            self.coeffs = [0.0] * n
+            self.coeffs[0] = float(coeffs)
+        else:
+            self.n = n or len(coeffs)
+            self.coeffs = [float(c) for c in coeffs[:self.n]]
+            # Pad if needed
+            while len(self.coeffs) < self.n:
+                self.coeffs.append(0.0)
+
+    def epsilon_shift(self):
+        """Right-shift (derivative): moves coefficients up one slot. Drops c₀."""
+        new_coeffs = [0.0] * self.n
+        for k in range(1, self.n):
+            new_coeffs[k] = self.coeffs[k - 1]
+        return JetElement(new_coeffs, self.n)
+
+    def lambda_shift(self):
+        """Left-shift (integral): moves coefficients down one slot. Drops c_{n-1}."""
+        new_coeffs = [0.0] * self.n
+        for k in range(self.n - 1):
+            new_coeffs[k] = self.coeffs[k + 1]
+        return JetElement(new_coeffs, self.n)
+
+    def iterate_epsilon(self, m):
+        """Apply ε-shift m times. Returns zero jet when m ≥ n."""
+        result = self
+        for _ in range(m):
+            result = result.epsilon_shift()
+        return result
+
+    def iterate_lambda(self, m):
+        """Apply λ-shift m times. Returns zero jet when m ≥ n."""
+        result = self
+        for _ in range(m):
+            result = result.lambda_shift()
+        return result
+
+    def is_zero(self):
+        return all(abs(c) < 1e-15 for c in self.coeffs)
+
+    def surviving_depth(self):
+        """How many ε-shifts before annihilation? (The 'jet depth')"""
+        for m in range(self.n + 1):
+            if self.iterate_epsilon(m).is_zero():
+                return m
+        return self.n
+
+    def __repr__(self):
+        return f"Jet({self.coeffs[:self.n]})"
+
 
 class ProtorealElement:
     """

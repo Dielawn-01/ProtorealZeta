@@ -378,14 +378,14 @@ You can also use `u * u` for Klein multiplication.
 | **a** (Real) | `u.a` | Observable base | Position / energy / metric |
 | **ω** (Thrust) | `u.b` | Idempotent: ω·ω = ω | Momentum / frequency / spatial curvature |
 | **ι** (Anchor) | `u.c` | Contraction: ι·ι = −ι | Potential / damping / temporal curvature |
-| **ε** (Noise) | `u.e` | Nilpotent: ε² = 0 | Perturbation / velocity / quantum fluctuation |
+| **ε** (Noise) | `u.e` | Nilpotent: εⁿ = 0 | Perturbation / velocity / quantum fluctuation |
 | **λ** (Level) | `u.l` | Accumulating: λ·λ = λ | Proper time / iteration count / action |
 
 ### Physics ↔ Protoreal Dictionary
 
 | Physics Concept | Protoreal Expression |
 |----------------|---------------------|
-| **Kinetic energy** | ε² → 0 (nilpotent, so kinetic energy is *transient*) |
+| **Kinetic energy** | εⁿ → 0 (nilpotent at depth n, so kinetic energy is *transient*) |
 | **Potential energy** | Bearing: ω · ι (the Bridge gives V = −1 at equilibrium) |
 | **Force / acceleration** | Δa = ε (sowing converts noise to reality) |
 | **Mass / inertia** | λ (consolidation level resists change) |
@@ -850,3 +850,8 @@ The <b>convergence check</b> (a ≈ 1) tells you if it reached the Duality fixed
 </div>
 """, unsafe_allow_html=True)
 
+st.markdown("---")
+st.markdown("#### 🧪 Advanced: Function Lab")
+st.markdown("For multi-variable Protoreal functions with codependent weights and jet-order visualization:")
+if st.button("🔬 Open Function Lab"):
+    st.switch_page("pages/7_Function_Lab.py")
