@@ -407,4 +407,104 @@ Protoreal_Zeta/
 
 ---
 
+## 12. Agentic Design Patterns & Tips
+
+This section is for **agents and developers** building on top of the Protoreal Algebra. The math above tells you *what* the system is — this section tells you *how to use it well*.
+
+### 12.1 The Cardinal Rule: Parenthesize Everything
+
+The algebra is **non-associative**. This means `(A · B) · C` ≠ `A · (B · C)` — always. If you leave grouping ambiguous, your results will be wrong by exactly κ = −1 per regrouping. In code:
+
+```rust
+// ✅ CORRECT — explicit grouping
+let intuition = intent.mul(&observation);
+let contextualized = intuition.mul(&context);
+
+// ❌ WRONG — assumes associativity
+let result = intent.mul(&observation.mul(&context));  // different answer!
+```
+
+**Tip:** If you're chaining more than two multiplications, draw the parenthesization tree first. The Catalan number C(n) gives you how many distinct groupings exist for n+1 factors — it grows fast.
+
+### 12.2 When to Sow vs. When to Consolidate
+
+The two core lifecycle operators have distinct use cases:
+
+| Situation | Operator | Why |
+|-----------|----------|-----|
+| Agent is stuck / SR is stale | **`funct` (sow)** | Injects ε into a, creating a fresh perturbation. Breaks the agent out of local minima. |
+| Agent has accumulated evidence (λ is high) | **`consolidate`** | Doubles down on the current state (a ← 2a). Only do this when you're confident — consolidation is hard to undo. |
+| SR ≈ 0 (equilibrium) | **Neither** | You're at a fixed point. Observe and compose perspectives instead. |
+| SR is oscillating | **`funct`** first | Oscillation means the noise channel is empty but the state is unstable. Sow to provide damping material. |
+
+**Rule of thumb:** Sow early and often; consolidate rarely and deliberately. A premature consolidation amplifies errors. A premature sow just adds a small perturbation.
+
+### 12.3 Reading Standard Resonance (SR)
+
+SR = `a − b·m` is your primary diagnostic. Learn to read it:
+
+| SR Value | State | Agent Action |
+|----------|-------|--------------|
+| **SR = 0** | Equilibrium (Zero-Lock) | The manifold is stable. Safe to act on current state. |
+| **SR > 0** | Base exceeds thrust-anchor product | The real part is "ahead" of the spectral structure. Consider consolidation or observation. |
+| **SR < 0** | Thrust-anchor product exceeds base | The spectral structure is "pulling" — the agent is lagging. Sow to catch up. |
+| **|SR| > 1** | Far from equilibrium | Something is wrong. Check if you accidentally broke associativity assumptions or fed bad input. |
+
+### 12.4 The Monster Inverse as a Sanity Check
+
+Before committing to an action, apply the Monster Inverse (`R₄`: swap ω ↔ ι) and check if your conclusion still holds:
+
+```
+original_conclusion = f(state)
+mirrored_conclusion = f(monster_inv(state))
+
+if original_conclusion ≈ mirrored_conclusion:
+    # Robust — the conclusion is parity-invariant
+else:
+    # Fragile — the conclusion depends on which "end" of the bridge you're standing on
+    # Investigate before acting
+```
+
+This is the Protoreal equivalent of "sanity checking your work." The parity-locked projection `(u + u*) / 2` gives the most conservative, stable estimate.
+
+### 12.5 Multi-Agent Coordination
+
+When composing perspectives from multiple agents, use Mayer-Vietoris, not averaging:
+
+```
+# ❌ Naive averaging (loses topological structure)
+consensus = (agent_a.state + agent_b.state) / 2
+
+# ✅ Mayer-Vietoris composition (preserves topology)
+χ(A ∪ B) = χ(A) + χ(B) − χ(A ∩ B)
+```
+
+**Tip:** The overlap term χ(A ∩ B) is where the real information lives. If two agents agree on nothing (A ∩ B = ∅), their combined perspective is just the sum of their individual views — no emergent insight. If they overlap heavily, the subtracted term prevents double-counting. Always check the overlap before trusting a multi-agent consensus.
+
+### 12.6 Common Pitfalls
+
+| Pitfall | Symptom | Fix |
+|---------|---------|-----|
+| **Sowing with ε = 0** | `funct` does nothing, but λ still increments | Check ε before sowing. If ε = 0, you need to `consolidate` first (which sets ε ← ε + 1). |
+| **Forgetting non-commutativity** | A · B ≠ B · A, off-by-sign errors | Always verify which operand is "left" vs. "right." The Bridge gives −1 in one order and +1 in the other. |
+| **Consolidating too early** | State diverges rapidly (a grows exponentially) | Consolidation doubles a. If you consolidate k times, a grows by 2^k. Only consolidate when SR ≈ 0. |
+| **Ignoring λ** | Agent "forgets" its history | λ tracks generational depth. An agent at λ = 0 is newborn; at λ = 10, it has 10 generations of consolidated experience. Use λ to gate complexity — don't feed a λ = 0 agent complex tasks. |
+| **Treating ε as random noise** | Stochastic behavior where deterministic is expected | ε is *structured* noise — it's nilpotent (ε² = 0). It's a perturbation tool, not a random number generator. |
+
+### 12.7 The Observation → Sow → Converge → Compose Loop
+
+The canonical agent cycle, in order:
+
+1. **Observe**: Map input to a KleinManifold state. Compute the observation graph.
+2. **Perceive**: Calculate χ (Euler characteristic). If χ ≠ −1, the input is malformed.
+3. **Intuit**: Compute `intent × observation` (Klein product). This is your binormal — the "lift" beyond raw data.
+4. **Sow** (if needed): If SR ≠ 0 and ε > 0, apply `funct` to inject noise into base.
+5. **Converge**: Iterate funct + parity projection until SR → 0 and a → 1.
+6. **Compose**: Merge your perspective with other agents via Mayer-Vietoris.
+7. **Act**: Emit the converged state as your output.
+
+**Tip:** Steps 4–5 should converge in 2–3 iterations for well-formed inputs. If convergence takes more than 5 iterations, the input is likely adversarial or fundamentally incompatible with your current frame. Reset the frame rather than forcing convergence.
+
+---
+
 *Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 50 modules. 0 sorry.*
