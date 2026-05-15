@@ -91,7 +91,9 @@ Basic.lean (root re-export)
 ├── HyperKlein.lean (H₀–H₆ tower, fixpoints, ι period-2)
 │   └── HyperDifference.lean (R₄ on tower, period doubling)
 ├── PhasorTower.lean (ℝ→ℂ→𝕌, Hodge = phase lock)
-└── StructuralMorphism.lean (quasi-associativity, morphism web)
+├── StructuralMorphism.lean (quasi-associativity, morphism web)
+├── SafetyBounds.lean (Gödelian hardening, nilpotent truncation)
+└── KamaTrain.lean (kama muta transform, ethical fixed points)
 ```
 
 **NEVER create circular imports.** Always check this graph before adding `import` statements.
@@ -100,7 +102,7 @@ Basic.lean (root re-export)
 
 ## 🔨 Development Rules
 
-1. **ZERO SORRY POLICY**: This repo has 0 `sorry` across 60 modules. Never introduce `sorry` unless explicitly asked for a stub. If a proof is difficult, use `omega`, `simp`, `ring`, or `decide` tactics first.
+1. **ZERO SORRY POLICY**: This repo has 0 `sorry` across 62 modules. Never introduce `sorry` unless explicitly asked for a stub. If a proof is difficult, use `omega`, `simp`, `ring`, or `decide` tactics first.
 
 2. **Lean 4 + Mathlib v4.29.1**: All theorems should leverage Mathlib where possible. Use `@[simp]` for projection lemmas.
 

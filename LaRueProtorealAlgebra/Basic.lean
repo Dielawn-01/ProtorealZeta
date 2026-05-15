@@ -34,6 +34,8 @@ import LaRueProtorealAlgebra.HyperKlein
 import LaRueProtorealAlgebra.HyperDifference
 import LaRueProtorealAlgebra.PhasorTower
 import LaRueProtorealAlgebra.StructuralMorphism
+import LaRueProtorealAlgebra.SafetyBounds
+import LaRueProtorealAlgebra.KamaTrain
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
