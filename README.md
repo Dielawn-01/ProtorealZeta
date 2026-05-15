@@ -352,7 +352,8 @@ Protoreal_Zeta/
 │   ├── agentic_foundations.md      # Agentic intelligence theory
 │   └── protoreality.md             # Foundational philosophy
 ├── legacy_methods/                 # Historical Riemann-Siegel search logic
-├── data/                           # Zeta zero datasets (100K sample)
+├── data/                           # Zeta zero datasets (2.25M sample)
+│   └── zeta_zeros_2m.txt           # 2.25 million Riemann zeta zeros
 ├── LICENSE-APACHE                  # Apache 2.0
 └── LICENSE-GPL2                    # GPL v2
 ```
