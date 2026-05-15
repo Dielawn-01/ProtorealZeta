@@ -36,6 +36,7 @@ import LaRueProtorealAlgebra.PhasorTower
 import LaRueProtorealAlgebra.StructuralMorphism
 import LaRueProtorealAlgebra.SafetyBounds
 import LaRueProtorealAlgebra.KamaTrain
+import LaRueProtorealAlgebra.LittleDelta
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

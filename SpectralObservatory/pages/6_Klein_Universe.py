@@ -375,11 +375,11 @@ You can also use `u * u` for Klein multiplication.
 
 | Component | Field | Algebraic Law | Physics Role |
 |-----------|-------|--------------|-------------|
-| **a** (Real) | `u.a` | Observable base | Position / energy / metric |
-| **ω** (Thrust) | `u.b` | Idempotent: ω·ω = ω | Momentum / frequency / spatial curvature |
-| **ι** (Anchor) | `u.c` | Contraction: ι·ι = −ι | Potential / damping / temporal curvature |
-| **ε** (Noise) | `u.e` | Nilpotent: εⁿ = 0 | Perturbation / velocity / quantum fluctuation |
-| **λ** (Level) | `u.l` | Accumulating: λ·λ = λ | Proper time / iteration count / action |
+| **a** (Real) | `u.a` | Observable base | Interface between inner and outer worlds |
+| **ω** (Thrust) | `u.b` | Idempotent: ω·ω = ω | Outer world — momentum / action / spatial curvature |
+| **ι** (Anchor) | `u.c` | Contraction: ι·ι = −ι | Inner world — potential / thought / temporal curvature |
+| **ε** (Noise) | `u.e` | Nilpotent: εⁿ = 0 | Inner world — perturbation / feeling / quantum fluctuation |
+| **λ** (Level) | `u.l` | Accumulating: λ·λ = λ | Outer world — proper time / experience / action count |
 
 ### Physics ↔ Protoreal Dictionary
 
@@ -398,6 +398,10 @@ You can also use `u * u` for Klein multiplication.
 | **Fixed point** | a = 1 ↔ Re(s) = 1/2 (Duality Theorem) |
 | **Thermal noise** | ε ~ exp(−\|SR\|/T) where T = \|ω·ι\| (Boltzmann ↔ Unruh bridge) |
 | **Partition function** | Z = Σ exp(−λ·SR²) (consolidation level = inverse temperature) |
+| **Observer (δ)** | δ(u) = \|ι\| · SR(u) — the inner world's measurement of outer deviation |
+| **ε-δ limit** | ∀ε>0, ∃δ: δ(u)<ε ⟹ \|a−L\|<ε (generalizes Cauchy limits) |
+| **Flip** | flip(δ) = δ ∘ R₄ — observe from the other side of the bridge |
+| **Scale** | scale(δ, k) = k·δ — rescale the measurement window |
 """)
 
 # ── Presets: Physics first, then algebraic ──
@@ -409,6 +413,7 @@ PRESETS = {
     "🌡 Thermal Geodesic": "P(a=u.a + u.e + 0.01*u.b*u.c, b=u.b - 0.01*u.b*(u.b - u.c), c=u.c + 0.01*u.c*(u.b - u.c), e=0.1*exp(-abs(u.a - u.b*u.c)/(abs(u.b*u.c)+0.01)) - u.e*0.3, l=u.l+1)",
     "🔴 Friedmann Expansion": "P(a=u.a*(1 + u.e/(u.a+0.01)), b=u.b*(1+u.e/(3*u.a+0.01)), c=u.c*(1+u.e/(3*u.a+0.01)), e=sqrt(abs(u.a - u.b*u.c))*0.05, l=u.l+1)",
     "🌊 Damped Wave": "P(a=u.a + u.e, b=u.b + 0.1*sin(u.l*0.3), c=u.c + 0.1*cos(u.l*0.3), e=(1-u.a)*0.2 - u.e*gamma, l=u.l+1)",
+    "δ Observer (ε-δ Limit)": "P(a=u.a - abs(u.c)*(u.a - u.b*u.c)*0.05, b=u.b - 0.02*(u.b - u.c), c=u.c + 0.02*(u.b - u.c), e=abs(u.c)*abs(u.a - u.b*u.c), l=u.l + 1)",
     # ── Algebraic ──
     "Sowing (funct)": "P(a=u.a + u.e, b=u.b, c=u.c, e=0, l=u.l + 1)",
     "Consolidation": "P(a=u.a + 0.1, b=u.b, c=u.c, e=u.e + 0.2, l=u.l)",
