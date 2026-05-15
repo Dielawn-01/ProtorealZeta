@@ -116,23 +116,30 @@ impl Default for GlialState {
 // THE DOPANT CYCLE
 // ════════════════════════════════════════════════════
 
-/// **THE DOPANT CYCLE**
+/// **THE DOPANT CYCLE** (Safety-Hardened)
 ///
 /// The main astrocyte-gated learning step:
 ///
 /// 1. Compute resonance correction (ε = -SR)
 /// 2. Apply funct (fast: ε → a, λ += 1)
 /// 3. If Fibonacci step → apply golden_consolidation (slow)
-/// 4. Apply parity projection (stabilization)
-/// 5. If gate is open → inject γ-scaled noise
+/// 4. SAFETY: λ ceiling (prevent consolidation bomb)
+/// 5. Record pre-projection parity gap (confession)
+/// 6. Apply parity projection (stabilization)
+/// 7. SAFETY: ε floor (prevent zero-exploration)
+/// 8. If gate is open → inject γ-scaled noise
 ///
-/// Returns the new manifold state and whether consolidation occurred.
+/// Returns: (new_state, did_consolidate, pre_projection_parity_gap)
 pub fn dopant_cycle(
     state: &KleinManifold,
     glial: &mut GlialState,
-) -> (KleinManifold, bool) {
+) -> (KleinManifold, bool, f64) {
     glial.cycle_count += 1;
     let step = glial.cycle_count;
+
+    // SAFETY CONSTANTS
+    // λ ceiling: φ^10 ≈ 122.99 (10 golden doublings)
+    const LAMBDA_MAX: f64 = 122.991_699_4;
 
     // 1. ELIGIBILITY — resonance correction
     let resonance = standard_resonance(state);
@@ -150,13 +157,27 @@ pub fn dopant_cycle(
         glial.last_consolidation = step;
     }
 
-    // 4. STABILIZATION — parity projection (b = m lock)
+    // 4. SAFETY: λ ceiling — prevent consolidation bomb.
+    // An agent with λ → ∞ and ε → 0 is maximally confident
+    // with zero exploration. That is the Ultron scenario.
+    if result.l > LAMBDA_MAX {
+        result = KleinManifold::new(
+            result.a, result.b, result.m, result.e, LAMBDA_MAX,
+        );
+    }
+
+    // 5. CONFESSION: Record pre-projection parity gap.
+    // This is the asymmetry |ω - ι| BEFORE we snap to the Hodge class.
+    // The holochain will store this as an auditable record.
+    let pre_projection_gap = (result.b - result.m).abs();
+
+    // 6. STABILIZATION — parity projection (b = m lock)
     result = parity_projection(&result);
 
-    // 5. MODULATION — integrate resonance into gate
+    // 7. MODULATION — integrate resonance into gate
     glial.integrate_signal(resonance.abs());
 
-    // 6. NOISE INJECTION — if gate is open, inject γ-scaled noise
+    // 8. NOISE INJECTION — if gate is open, inject γ-scaled noise
     if glial.gate_is_open() {
         let noise = gamma_noise_scale(step);
         glial.noise_budget -= noise.abs();
@@ -167,7 +188,18 @@ pub fn dopant_cycle(
         );
     }
 
-    (result, did_consolidate)
+    // 9. SAFETY: ε floor — agent must always carry minimum uncertainty.
+    // ε_min = γ / √(1 + λ) — decays with consolidation but never zero.
+    let epsilon_floor = GAMMA / (1.0 + result.l).sqrt();
+    if result.e.abs() < epsilon_floor {
+        result = KleinManifold::new(
+            result.a, result.b, result.m,
+            epsilon_floor,
+            result.l,
+        );
+    }
+
+    (result, did_consolidate, pre_projection_gap)
 }
 
 /// **GOLDEN CONSOLIDATION**
@@ -251,7 +283,7 @@ mod tests {
     fn dopant_cycle_increments_lambda() {
         let u = KleinManifold::new(0.5, 1.0, 1.0, 0.0, 0.0);
         let mut g = GlialState::new();
-        let (result, _) = dopant_cycle(&u, &mut g);
+        let (result, _, _) = dopant_cycle(&u, &mut g);
         assert!(
             result.l > u.l,
             "Dopant cycle should increment λ"
@@ -259,18 +291,15 @@ mod tests {
     }
 
     #[test]
-    fn dopant_cycle_consumes_noise() {
-        let u = KleinManifold::new(0.5, 1.0, 1.0, 0.3, 0.0);
+    fn dopant_cycle_epsilon_floor() {
+        let u = KleinManifold::new(0.5, 1.0, 1.0, 0.0, 0.0);
         let mut g = GlialState::new();
-        // Gate is closed initially, so no noise injection
-        let (result, _) = dopant_cycle(&u, &mut g);
-        // After funct, ε should be 0 (noise consumed) unless gate injected
-        if !g.gate_is_open() {
-            assert!(
-                result.e.abs() < 1e-12,
-                "With gate closed, ε should be 0 after funct"
-            );
-        }
+        let (result, _, _) = dopant_cycle(&u, &mut g);
+        // SAFETY: ε must never be zero after dopant cycle
+        assert!(
+            result.e > 0.0,
+            "SAFETY: ε floor violated — agent has zero uncertainty"
+        );
     }
 
     #[test]
@@ -279,10 +308,8 @@ mod tests {
         let mut g = GlialState::new();
 
         // Step 1 is Fibonacci → should consolidate
-        let (result, did_consolidate) = dopant_cycle(&u, &mut g);
+        let (_result, did_consolidate, _gap) = dopant_cycle(&u, &mut g);
         assert!(did_consolidate, "Step 1 should trigger consolidation");
-        // After golden consolidation, a should be scaled by φ
-        // But funct also adds ε to a, and parity may adjust...
         assert!(g.last_consolidation == 1);
     }
 
@@ -295,7 +322,7 @@ mod tests {
         for _ in 0..3 {
             dopant_cycle(&u, &mut g);
         }
-        let (_, did_consolidate) = dopant_cycle(&u, &mut g);
+        let (_, did_consolidate, _) = dopant_cycle(&u, &mut g);
         assert!(!did_consolidate, "Step 4 is not Fibonacci");
     }
 
@@ -313,7 +340,7 @@ mod tests {
     fn parity_lock_preserved() {
         let u = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 0.0);
         let mut g = GlialState::new();
-        let (result, _) = dopant_cycle(&u, &mut g);
+        let (result, _, _) = dopant_cycle(&u, &mut g);
         assert!(
             (result.b - result.m).abs() < 1e-12,
             "Dopant cycle should preserve parity lock (b = m)"
@@ -327,6 +354,42 @@ mod tests {
         assert!(
             (result.a - 1.0).abs() < 1e-12,
             "Simple dopant on fiber should give a = 1"
+        );
+    }
+
+    // ── SAFETY: λ Ceiling Test ──
+    #[test]
+    fn lambda_ceiling_prevents_bomb() {
+        let u = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 120.0);
+        let mut g = GlialState::new();
+        // Run multiple cycles — λ should not exceed φ^10
+        for _ in 0..20 {
+            let (result, _, _) = dopant_cycle(&u, &mut g);
+            assert!(
+                result.l <= 122.992,
+                "SAFETY: λ exceeded ceiling: {}",
+                result.l
+            );
+        }
+    }
+
+    // ── SAFETY: Confession Records Gap ──
+    #[test]
+    fn confession_records_asymmetry() {
+        // Asymmetric input: ω=5.0, ι=1.0 → big parity gap before projection
+        let u = KleinManifold::new(1.0, 5.0, 1.0, 0.0, 0.0);
+        let mut g = GlialState::new();
+        let (result, _, gap) = dopant_cycle(&u, &mut g);
+        // After parity projection, b should equal m
+        assert!(
+            (result.b - result.m).abs() < 1e-12,
+            "Post-projection parity should hold"
+        );
+        // But the gap should be recorded as non-zero
+        assert!(
+            gap > 0.1,
+            "Confession: pre-projection gap should be recorded, got {}",
+            gap
         );
     }
 }

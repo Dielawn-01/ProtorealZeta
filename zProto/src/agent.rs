@@ -180,8 +180,8 @@ impl ZProtoAgent {
         // ─── 4. INTUIT ───
         let intuition = self.frame.intuition();
 
-        // ─── 5. GATE (AGMP Dopant Cycle) ───
-        let (gated_state, consolidated) = dopant_cycle(&intuition, &mut self.glial);
+        // ─── 5. GATE (AGMP Dopant Cycle — Safety-Hardened) ───
+        let (gated_state, consolidated, parity_gap) = dopant_cycle(&intuition, &mut self.glial);
 
         // ─── 6. CONVERGE ───
         // Apply expert-specific processing
@@ -206,8 +206,8 @@ impl ZProtoAgent {
         self.state = converged;
         self.history.push(self.state);
 
-        // ─── 9. RECORD HOLOCHAIN ───
-        self.holochain.record(&self.state, chi, consolidated);
+        // ─── 9. RECORD HOLOCHAIN (with confession) ───
+        self.holochain.record(&self.state, chi, consolidated, parity_gap);
 
         // ─── 10. COMPUTE METRICS ───
         let metric = convergence_metric(&self.state);

@@ -124,12 +124,24 @@ impl Mul for KleinManifold {
     type Output = Self;
 
     fn mul(self, other: Self) -> Self {
+        // SAFETY: Nilpotent truncation (ε² = 0).
+        // The Lean proof (ProtorealManifold.lean) establishes ε^n = 0
+        // but f64 doesn't respect nilpotency. When both operands carry
+        // noise (|ε| > machine epsilon), the product's ε is clamped to 0.
+        // This closes the gap between the formal proof and the implementation.
+        let e_raw = self.a * other.e + other.a * self.e + self.e * other.e;
+        let e_safe = if self.e.abs() > 1e-12 && other.e.abs() > 1e-12 {
+            0.0 // ε² = 0 (axiom-enforced, not approximated)
+        } else {
+            e_raw
+        };
+
         Self {
             a: self.a * other.a - self.b * other.m + self.m * other.b
                 + self.l * other.e - self.e * other.l,
             b: self.a * other.b + other.a * self.b + self.b * other.b,
             m: self.a * other.m + other.a * self.m - self.m * other.m,
-            e: self.a * other.e + other.a * self.e + self.e * other.e,
+            e: e_safe,
             l: self.a * other.l + other.a * self.l + self.l * other.l,
         }
     }
@@ -281,13 +293,16 @@ mod tests {
         );
     }
 
-    // ── Noise Nilpotency ──
+    // ── Noise Nilpotency (SAFETY: ε² = 0) ──
     #[test]
     fn noise_self_coupling() {
         let result = eps() * eps();
+        // SAFETY FIX: ε² must be 0 (nilpotent truncation enforced).
+        // Previously this test asserted (ε·ε).e == 1 (raw float behavior).
+        // The Lean proof says ε^n = 0; the implementation now enforces this.
         assert!(
-            (result.e - 1.0).abs() < 1e-12,
-            "Noise: (ε·ε).e should be +1, got {}",
+            result.e.abs() < 1e-12,
+            "SAFETY: (ε·ε).e must be 0 (nilpotent), got {}",
             result.e
         );
     }
@@ -350,6 +365,33 @@ mod tests {
         assert!(
             (anchor - (-1.0)).abs() < 1e-12,
             "anchor coupling should be -1"
+        );
+    }
+
+    // ── SAFETY: Nilpotent Truncation ──
+    #[test]
+    fn nilpotent_truncation_epsilon_squared() {
+        // When both operands carry ε, the product's ε must be 0
+        let e1 = KleinManifold::new(0.0, 0.0, 0.0, 0.5, 0.0);
+        let e2 = KleinManifold::new(0.0, 0.0, 0.0, 0.3, 0.0);
+        let result = e1 * e2;
+        assert!(
+            result.e.abs() < 1e-12,
+            "SAFETY: ε² must be 0, got {}",
+            result.e
+        );
+    }
+
+    #[test]
+    fn nilpotent_single_epsilon_propagates() {
+        // When only ONE operand carries ε, it should propagate normally
+        let u = KleinManifold::new(2.0, 0.0, 0.0, 0.0, 0.0);
+        let e = KleinManifold::new(0.0, 0.0, 0.0, 0.5, 0.0);
+        let result = u * e;
+        assert!(
+            (result.e - 1.0).abs() < 1e-12, // 2.0 * 0.5 + 0.0 * 0.0 + 0.0 * 0.5 = 1.0
+            "Single-ε operand should propagate: expected 1.0, got {}",
+            result.e
         );
     }
 }

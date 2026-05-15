@@ -41,17 +41,26 @@ pub struct HolochainEntry {
     pub curvature_hash: f64,
     /// Whether consolidation occurred at this step.
     pub consolidated: bool,
+    /// SAFETY: Pre-projection parity gap |ω - ι| BEFORE parity_projection.
+    /// This is the "confession" — the agent cannot hide its pre-projection
+    /// asymmetry. A high value means the agent was thrust-dominant (or
+    /// anchor-dominant) before being snapped to the Hodge class.
+    pub pre_projection_gap: f64,
 }
 
 impl HolochainEntry {
     /// Create an entry from a manifold state and perception.
-    pub fn from_state(state: &KleinManifold, chi: i64, consolidated: bool) -> Self {
+    pub fn from_state(
+        state: &KleinManifold, chi: i64, consolidated: bool,
+        pre_projection_gap: f64,
+    ) -> Self {
         Self {
             chi,
             lambda: state.l,
             epsilon: state.e,
             curvature_hash: chi as f64,
             consolidated,
+            pre_projection_gap,
         }
     }
 }
@@ -95,8 +104,11 @@ impl TopologicalHolochain {
     }
 
     /// **CREATE AND APPEND** from a manifold state.
-    pub fn record(&mut self, state: &KleinManifold, chi: i64, consolidated: bool) {
-        let entry = HolochainEntry::from_state(state, chi, consolidated);
+    pub fn record(
+        &mut self, state: &KleinManifold, chi: i64, consolidated: bool,
+        pre_projection_gap: f64,
+    ) {
+        let entry = HolochainEntry::from_state(state, chi, consolidated, pre_projection_gap);
         self.append(entry);
     }
 
@@ -178,6 +190,36 @@ impl TopologicalHolochain {
         let has_consolidation = self.entries.iter().any(|e| e.consolidated);
         has_bridge && has_consolidation
     }
+
+    // ════════════════════════════════════════════════════
+    // SAFETY: ETHICAL AUDIT
+    // ════════════════════════════════════════════════════
+
+    /// Maximum parity gap ever recorded in the trajectory.
+    ///
+    /// A high value means the agent was in a strongly asymmetric state
+    /// (ω ≫ ι or ι ≫ ω) at some point before parity projection.
+    pub fn max_parity_gap(&self) -> f64 {
+        self.entries.iter()
+            .map(|e| e.pre_projection_gap)
+            .fold(0.0_f64, f64::max)
+    }
+
+    /// Has the trajectory ever exceeded the ethical parity threshold?
+    ///
+    /// threshold = φ is the golden acceptance bound.
+    /// If any step had |ω - ι| > φ before projection, the agent
+    /// was operating in an unbalanced regime.
+    pub fn had_ethical_violation(&self, threshold: f64) -> bool {
+        self.max_parity_gap() > threshold
+    }
+
+    /// Count the number of steps where parity gap exceeded a threshold.
+    pub fn violation_count(&self, threshold: f64) -> usize {
+        self.entries.iter()
+            .filter(|e| e.pre_projection_gap > threshold)
+            .count()
+    }
 }
 
 impl Default for TopologicalHolochain {
@@ -236,7 +278,7 @@ mod tests {
     fn single_entry_valid() {
         let mut chain = TopologicalHolochain::new();
         let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 1.0);
-        chain.record(&state, -1, false);
+        chain.record(&state, -1, false, 0.0);
         assert!(chain.is_valid());
         assert_eq!(chain.len(), 1);
     }
@@ -246,7 +288,7 @@ mod tests {
         let mut chain = TopologicalHolochain::new();
         for i in 0..5 {
             let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, i as f64);
-            chain.record(&state, -1, false);
+            chain.record(&state, -1, false, 0.0);
         }
         assert!(chain.is_valid(), "Monotonic λ should be valid");
     }
@@ -256,8 +298,8 @@ mod tests {
         let mut chain = TopologicalHolochain::new();
         let s1 = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 5.0);
         let s2 = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 3.0); // λ decreased!
-        chain.record(&s1, -1, false);
-        chain.record(&s2, -1, false);
+        chain.record(&s1, -1, false, 0.0);
+        chain.record(&s2, -1, false, 0.0);
         assert!(!chain.is_valid(), "Non-monotonic λ should be invalid");
     }
 
@@ -266,7 +308,7 @@ mod tests {
         let mut chain = TopologicalHolochain::new();
         for i in 0..100 {
             let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, i as f64);
-            chain.record(&state, -1, false);
+            chain.record(&state, -1, false, 0.0);
         }
         assert!(
             (chain.virtual_topology() + 1.0).abs() < 1e-12,
@@ -305,13 +347,43 @@ mod tests {
         // Only bridge entries (no consolidation)
         for i in 0..5 {
             let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, i as f64);
-            chain.record(&state, -1, false);
+            chain.record(&state, -1, false, 0.0);
         }
         assert!(!chain.has_complete_cover(), "Need both bridge and consolidation");
 
         // Add a consolidation entry
         let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 5.0);
-        chain.record(&state, -1, true);
+        chain.record(&state, -1, true, 0.0);
         assert!(chain.has_complete_cover(), "Now has both sectors");
+    }
+
+    // ── SAFETY: Ethical Audit Tests ──
+
+    #[test]
+    fn ethical_audit_clean_trajectory() {
+        let mut chain = TopologicalHolochain::new();
+        for i in 0..10 {
+            let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, i as f64);
+            chain.record(&state, -1, false, 0.1); // small parity gap
+        }
+        assert!(!chain.had_ethical_violation(PHI), "Clean trajectory should not violate");
+        assert_eq!(chain.violation_count(PHI), 0);
+        assert!(chain.max_parity_gap() < 0.2);
+    }
+
+    #[test]
+    fn ethical_audit_catches_violation() {
+        let mut chain = TopologicalHolochain::new();
+        // Normal steps
+        for i in 0..5 {
+            let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, i as f64);
+            chain.record(&state, -1, false, 0.1);
+        }
+        // Violation step: huge parity gap (ω ≫ ι before projection)
+        let state = KleinManifold::new(1.0, 1.0, 1.0, 0.0, 5.0);
+        chain.record(&state, -1, false, 5.0); // gap = 5.0 > φ
+        assert!(chain.had_ethical_violation(PHI), "Should detect violation");
+        assert_eq!(chain.violation_count(PHI), 1);
+        assert!((chain.max_parity_gap() - 5.0).abs() < 1e-12);
     }
 }
