@@ -77,6 +77,28 @@ This is a formally verified computation (`LGKCosmology.lean`), not an approximat
 
 What does it mean? The order of operations carries exactly one unit of irreducible information. You can't factor it away. It's intrinsic structure — like the curvature of a saddle surface that can't be flattened without tearing. The sign comes from $\iota$'s anti-idempotent self-coupling ($\iota{\cdot}\iota = -\iota$) — the single heterogeneous element among the five. That heterogeneity is where all the interesting physics lives.
 
+#### Non-Commutativity: Order Matters
+
+In ordinary arithmetic, $3 \times 5 = 5 \times 3$. In the Klein manifold, **the order of multiplication changes the answer**:
+
+$$\omega \cdot \iota = -1 \qquad \text{but} \qquad \iota \cdot \omega = +1$$
+
+The difference is exactly $-2$ — this is the **bearing** $\langle\omega, \iota\rangle$, the topological compass that gives the manifold its orientation (`TopologicalBearing.lean`).
+
+Which parts commute and which don't? Look at the Klein multiplication formula:
+
+| Component | Formula | Commutative? |
+|-----------|---------|:---:|
+| **a** (real) | $a_1 a_2 - b_1 m_2 + m_1 b_2 + l_1 e_2 - e_1 l_2$ | **No** — the $bm$ and $le$ cross-terms flip sign |
+| **ω** (thrust) | $a_1 b_2 + a_2 b_1 + b_1 b_2$ | Yes |
+| **ι** (anchor) | $a_1 m_2 + a_2 m_1$ | Yes |
+| **ε** (noise) | $a_1 e_2 + a_2 e_1$ | Yes |
+| **λ** (level) | $a_1 l_2 + a_2 l_1 + l_1 l_2$ | Yes |
+
+The non-commutativity lives **entirely in the real part**. The four spectral components (ω, ι, ε, λ) all commute — they're symmetric in the two operands. But the observable projection $a$ — the number you actually measure — depends on *which side of the bridge you're standing on*. This is exactly analogous to how quantum observables depend on the order of measurement.
+
+The commutator $[A, B] = A{\cdot}B - B{\cdot}A$ is always a **pure real** element: it has $\omega = \iota = \varepsilon = \lambda = 0$. The spectral structure is the same regardless of order; only the real-valued measurement changes. That's why the Monster Inverse (swap $\omega \leftrightarrow \iota$) is a *perspective flip*, not a structural change.
+
 #### Key Proven Results
 
 - **The Bridge Identity**: $\omega \cdot \iota = -1$ — proven as a theorem (not axiom) from the Hyperreal field (`ProtorealAxioms.lean`).
