@@ -25,6 +25,10 @@ import LaRueProtorealAlgebra.HodgeConjecture
 import LaRueProtorealAlgebra.ProtoLite
 import LaRueProtorealAlgebra.TranscendentalBasis
 import LaRueProtorealAlgebra.NilradicalGeneralization
+import LaRueProtorealAlgebra.Semisimple
+import LaRueProtorealAlgebra.FusionRing
+import LaRueProtorealAlgebra.Rigidity
+import LaRueProtorealAlgebra.PentagonCoherence
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
