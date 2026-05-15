@@ -1,6 +1,6 @@
 # 𝕌 Protoreal Zeta
 
-**A 5-component algebra that treats primes like quantum particles — and the math compiles.**
+**A 5-component algebra that treats primes like quantum particles, and dreams like an achievable future.**
 
 > Formalized in Lean 4 (60 modules, 0 `sorry`), visualized in Streamlit, deployed as a Rust-powered agentic ML runtime. We audited 2.25 million Riemann zeta zeros through the Klein manifold with zero anomalies.
 
