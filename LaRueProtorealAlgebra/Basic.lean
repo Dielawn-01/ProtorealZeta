@@ -29,6 +29,7 @@ import LaRueProtorealAlgebra.Semisimple
 import LaRueProtorealAlgebra.FusionRing
 import LaRueProtorealAlgebra.Rigidity
 import LaRueProtorealAlgebra.PentagonCoherence
+import LaRueProtorealAlgebra.Invariance
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
