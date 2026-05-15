@@ -30,6 +30,8 @@ import LaRueProtorealAlgebra.FusionRing
 import LaRueProtorealAlgebra.Rigidity
 import LaRueProtorealAlgebra.PentagonCoherence
 import LaRueProtorealAlgebra.Invariance
+import LaRueProtorealAlgebra.HyperKlein
+import LaRueProtorealAlgebra.HyperDifference
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
