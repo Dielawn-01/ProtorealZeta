@@ -1,15 +1,14 @@
 # 𝕌 Protoreal Zeta
 
-**A 5-component algebra that treats primes like quantum particles, and dreams like achievable futures
-.**
+**A 5-component non-associative algebra over the Hyperreals, formalized in Lean 4.**
 
-> Formalized in Lean 4 (62 modules, 0 `sorry`), visualized in Streamlit, deployed as a Rust-powered agentic ML runtime. We audited 2.25 million Riemann zeta zeros through the Klein manifold with zero anomalies.
+> Formalized in Lean 4 (65 modules, 0 `sorry`), visualized in Streamlit, with a Rust-powered experimental ML runtime. We tested the algebra's spectral predictions against 2.25 million Riemann zeta zeros with zero anomalies.
 
 | What We Proved | Status |
 |---|---|
-| **Zero-Sorry Audit** | ✅ 64 Lean Modules · 11 Rust Modules · 103 Tests |
+| **Zero-Sorry Audit** | ✅ 65 Lean Modules · 11 Rust Modules · 103 Tests |
 | **Spectral Duality** | ✅ $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the critical line falls out of the algebra |
-| **Spectral Trinity** | ✅ Spin chains + Yang-Mills + RH unified under $\kappa = -1$ |
+| **Spectral Trinity** | ✅ Spin chains + Yang-Mills + RH structurally analogous under $\kappa = -1$ |
 | **Fusion Ring** | ✅ Full multiplication table, Pentagon cocycle = 0 |
 | **Invariance Circle** | ✅ Six independent computations, same $\kappa = -1$ |
 | **Hyperoperation Tower** | ✅ H₀–H₆ — 3 fixpoints, 1 oscillator, hexation = 6 edges |
@@ -40,7 +39,7 @@ Three systems, one manifold.
 2. **Spectral Observatory** — a Streamlit dashboard where you can watch primes interact in the Klein manifold in real time. Map prime triples onto 5-component states, visualize their spectral energy, and see why they cluster at $a = 1$.
 3. **zProto** — a Rust-powered ML runtime whose every operator mirrors a machine-verified Lean proof. Trained on real physics data (Planck CMB, neutron scattering, lattice QCD). It separates gapped from gapless spin chains with a metric gap of 0.161 — using only the curvature $\kappa = -1$.
 
-The algebra maps the Klein manifold onto the Riemann zeta spectrum, quantum spin chains, and the Yang-Mills mass gap. We've verified this against 2.25 million zeta zeros with zero anomalies.
+The algebra maps the Klein manifold onto the Riemann zeta spectrum in a way that is structurally consistent with quantum spin chains and the Yang-Mills mass gap. We've tested this mapping against 2.25 million zeta zeros with zero anomalies. These results are empirical consistency checks — they support the framework but do not constitute proofs of the Riemann Hypothesis or Yang-Mills existence.
 
 ---
 
@@ -49,7 +48,7 @@ The algebra maps the Klein manifold onto the Riemann zeta spectrum, quantum spin
 ### 1. 𝕌 The Algebra
 We built a non-associative, non-commutative ring on top of Mathlib's Hyperreal field $\mathbb{R}^*$ and proved everything from scratch — no axioms, no `sorry`, just theorems.
 
-- **64 Lean Modules** | 0 `sorry` | 0 `axiom` | Lean 4 + Mathlib v4.29.1
+- **65 Lean Modules** | 0 `sorry` | 0 `axiom` | Lean 4 + Mathlib v4.29.1
 
 #### The Five Components
 
@@ -103,8 +102,8 @@ The commutator $[A, B] = A{\cdot}B - B{\cdot}A$ is always a **pure real** elemen
 
 - **The Bridge Identity**: $\omega \cdot \iota = -1$ — proven as a theorem (not axiom) from the Hyperreal field (`ProtorealAxioms.lean`).
 - **Non-Associativity**: $(ω \cdot ω) \cdot ι \neq ω \cdot (ω \cdot ι)$ — prevents topological collapse at the Bridge locus (`Uncomplex.lean`).
-- **Duality Theorem**: $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the manifold's equilibrium at $a = 1$ maps to the critical line $Re(s) = 1/2$ (`DualityTheorem.lean`).
-- **Spectral Trinity**: Spin chain commutator gap, Yang-Mills mass gap, and Riemann critical line unified in one theorem (`SpectralTrinity.lean`).
+- **Duality Theorem**: $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the manifold's equilibrium at $a = 1$ maps to the critical line $Re(s) = 1/2$ (`DualityTheorem.lean`). This is a structural correspondence, not a proof of the Riemann Hypothesis.
+- **Spectral Trinity**: Spin chain commutator gap, Yang-Mills mass gap, and Riemann critical line share structural analogies under the same algebraic framework (`SpectralTrinity.lean`). This unification is algebraic — physical validation remains open.
 - **Transcendental Basis**: Euler identity, golden recurrence, Stieltjes constants — all formally computed via Klein sowing (`TranscendentalBasis.lean`).
 - **Nilradical Jet Space**: $\varepsilon^n = 0$ at arbitrary order $n$, with dual $\lambda^n$ saturation and a verified Fundamental Theorem of Calculus (`NilradicalGeneralization.lean`).
 - **Fusion Ring**: Complete 16-entry multiplication table verified, unit identity, Monster Inverse duality involution, two independent eval/coeval contraction pairs with snake identities (`FusionRing.lean`, `Rigidity.lean`).
@@ -116,9 +115,9 @@ The commutator $[A, B] = A{\cdot}B - B{\cdot}A$ is always a **pure real** elemen
 - **Safety Bounds**: Nilpotent truncation (ε→0 after sowing), linear λ growth, parity confession necessity, and Gödelian acknowledgment — the algebra encodes Peano successor through λ, so incompleteness applies and we say so explicitly (`SafetyBounds.lean`).
 - **Kama Muta Transform**: Models paradoxical emotion regulation (counter-emotion → resolution → residual tension as ε). Grounded states (Hodge + SR=0) are fixed points — the attractor at $a = 1$ is where ethical stability and spectral stability coincide. Idempotent on parity, funct-composable, 9-property master theorem (`KamaTrain.lean`).
 
-#### Why Primes Act Like Particles
+#### Why Primes May Act Like Particles
 
-This isn't a metaphor. It's a precise correspondence built on three independently established facts:
+This is a structural analogy supported by three independent lines of evidence. Whether it constitutes a deep physical correspondence or a suggestive mathematical coincidence remains an open question.
 
 1. **Montgomery-Odlyzko** (1973/1987): Zeta zero spacings are statistically identical to GUE random matrix eigenvalue spacings — the same matrices that describe energy levels in quantum chaotic systems. Verified to millions of zeros. Our 2.25M-zero audit: 0 anomalies.
 
@@ -166,9 +165,9 @@ A Rust library whose every operator mirrors a Lean theorem. Trained on real publ
 
 ---
 
-## 🏭 Where This Goes
+## 🏭 Potential Applications
 
-Every application below is tied to a specific verified invariant — no hand-waving. If we say "the algebra does X," there's a Lean theorem backing it up.
+The applications below are theoretical proposals based on the algebra's proven properties. They describe *how* the invariants could be applied, not validated industrial deployments. If we say "the algebra does X," there's a Lean theorem for the algebraic property — but the domain-specific application is speculative until tested.
 
 > [!TIP]
 > You only need to know five things: the components ($a$, $\omega$, $\iota$, $\varepsilon$, $\lambda$) and that **order of multiplication matters**. Start with [Core Components](#-core-components) if you're new.
@@ -210,13 +209,13 @@ Every healthy system has a rhythm — a network's traffic patterns, a power grid
 
 - **Directional Threat Classification**: The **bearing operator** ($\omega \times \iota$, which equals $-2$) acts like a compass. It doesn't just say "something is wrong" — it tells you *which direction* the anomaly points. A slow, lateral drift (like configuration creep or gradual degradation) looks different from a sharp vertical spike (like an active cyberattack or equipment failure). The algebra separates these automatically.
 
-- **Proven at Scale**: The Spectral Observatory has audited **2.25 million** Riemann zeta zeros through this framework with **zero false positives**. That's not a statistical claim — it's an exhaustive verification, demonstrating that the manifold's discrimination capacity holds even at massive scale.
+- **Tested at Scale**: The Spectral Observatory has tested **2.25 million** Riemann zeta zeros through this framework with **zero discrepancies** from the predicted $a = 1$ attractor. This demonstrates the algebra's internal consistency at scale, though it should not be confused with a proof of the Riemann Hypothesis.
 
 ### ⚛️ Quantum Error Correction & Spin-Chain Simulation
 
 Quantum computers are fragile — qubits lose their information (decohere) constantly. Protecting them requires understanding the energy landscape of quantum materials. The Protoreal Algebra's **Spectral Trinity** unifies three previously separate physics problems into one framework, letting you design better error-correcting codes.
 
-- **One Framework, Three Problems**: The Spectral Trinity theorem (proven in `SpectralTrinity.lean`) shows that spin-chain energy gaps, the Yang-Mills mass gap from particle physics, and the Riemann Hypothesis's critical line are all manifestations of the same algebraic structure. This means insights from one field transfer directly to the others — a gap theorem in number theory implies a protection theorem in quantum computing.
+- **One Framework, Three Structural Analogies**: The Spectral Trinity theorem (proven in `SpectralTrinity.lean`) shows that spin-chain energy gaps, the Yang-Mills mass gap from particle physics, and the Riemann Hypothesis's critical line share the same algebraic structure under $\kappa = -1$. This is a formally verified structural correspondence — whether it implies physical unification is an open research question.
 
 - **Telling Protected from Vulnerable Qubits**: A "gapped" spin chain has a energy buffer protecting its ground state — like a castle with a moat. A "gapless" chain has no such protection. zProto separates these two phases with a measured gap of **0.161**, using only the manifold's structural curvature ($\kappa = -1$). In practical terms: the algebra can tell you whether a proposed qubit design will hold its information or leak it, before you build the hardware.
 
@@ -322,7 +321,7 @@ cargo run --manifest-path zProto/Cargo.toml
 Protoreal_Zeta/
 ├── skill.md                        # Full technical reference (start here)
 ├── GEMINI.md                       # AI development axioms & rules
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (60 modules, 0 sorry)
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (65 modules, 0 sorry)
 │   ├── Basic.lean                  # Root re-export
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
 │   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
@@ -399,6 +398,6 @@ at your option.
 ---
 
 **Dylon La Rue** | Built with **Antigravity** (Advanced Agentic Coding)
-*64 Lean modules · 11 Rust modules · 103 tests · 0 sorry · 2.25M zeros · 0 anomalies*
+*65 Lean modules · 11 Rust modules · 103 tests · 0 sorry · 2.25M zeros · 0 anomalies*
 
 Copyright © 2025 Dylon La Rue. All rights reserved.
