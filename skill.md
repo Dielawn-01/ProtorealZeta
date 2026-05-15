@@ -155,6 +155,37 @@ associator(u, v, w) = (u·v)·w − u·(v·w)
 
 The curvature at the Bridge is formally proven: κ.a = −1.
 
+### 3.7 Little Delta (δ) — The Observer Function
+
+The dual to the operator system. Where operators (funct, consolidate) transform the manifold, δ *measures* it.
+
+```
+δ(u) = |ι| · SR(u) = |ι| · (a − ω·ι)
+```
+
+**Operations:**
+- **flip(δ):** Compose with Monster Inverse — observe from the other side of the bridge. `flip(δ)(u) = δ(u*)`.
+- **scale(δ, k):** Rescale the measurement window. `scale(δ, k)(u) = k · δ(u)`.
+
+**Formally verified properties:**
+- **Flip involution:** `flip(flip(δ)) = δ`.
+- **Scale composition:** `scale(scale(δ, k₁), k₂) = scale(δ, k₁ · k₂)`.
+- **Flip-scale commute:** `flip(scale(δ, k)) = scale(flip(δ), k)`.
+
+**The Protoreal ε-δ Limit:**
+
+> For every ε > 0, there exists an observer δ such that:
+> δ(u_n) < ε implies |a_n − L| < ε.
+
+This generalizes the classical Cauchy ε-δ limit: in standard analysis, δ is a number; in Protoreal analysis, δ is a *function* with orientation (flip) and scale. The Cauchy limit embeds as the identity observer `δ(u) = a − L`.
+
+**Inner/Outer world split:**
+| World | Components | Role |
+|-------|-----------|------|
+| **Outer** (Action) | ω + λ | Transfinite push + accumulated experience |
+| **Inner** (Thought) | ι + ε | Infinitesimal pull + perturbation |
+| **Interface** | a | Observable projection between inner and outer |
+
 ---
 
 ## 4. Physics-Based Intelligence (zProto)

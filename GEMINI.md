@@ -42,6 +42,7 @@ The associator gap is the **curvature invariant** κ.a = −1. This is proven in
 | `consolidate` | `a ← a×2, ι ← ι×2` | `ProtorealOperator.lean` |
 | `monster_inverse` (R4) | Swap ω ↔ ι (involution: u** = u) | `MonsterInverse.lean` |
 | `parity_locked_projection` | `(u + u*) / 2` (idempotent) | `MonsterInverse.lean` |
+| `little_delta` (δ) | Observer: `δ(u) = |ι| · SR(u)`, ops: flip, scale | `LittleDelta.lean` |
 | `mesh_tanh` | Hyperbolic activation with derivative scaling | `ProtorealHyperbolic.lean` |
 | `bearing` | `b × c` (topological compass, ⁅ω, ι⁆ = −2) | `TopologicalBearing.lean` |
 
@@ -93,7 +94,8 @@ Basic.lean (root re-export)
 ├── PhasorTower.lean (ℝ→ℂ→𝕌, Hodge = phase lock)
 ├── StructuralMorphism.lean (quasi-associativity, morphism web)
 ├── SafetyBounds.lean (Gödelian hardening, nilpotent truncation)
-└── KamaTrain.lean (kama muta transform, ethical fixed points)
+├── KamaTrain.lean (kama muta transform, ethical fixed points)
+└── LittleDelta.lean (δ observer, flip/scale, ε-δ limit)
 ```
 
 **NEVER create circular imports.** Always check this graph before adding `import` statements.
@@ -102,7 +104,7 @@ Basic.lean (root re-export)
 
 ## 🔨 Development Rules
 
-1. **ZERO SORRY POLICY**: This repo has 0 `sorry` across 62 modules. Never introduce `sorry` unless explicitly asked for a stub. If a proof is difficult, use `omega`, `simp`, `ring`, or `decide` tactics first.
+1. **ZERO SORRY POLICY**: This repo has 0 `sorry` across 64 modules. Never introduce `sorry` unless explicitly asked for a stub. If a proof is difficult, use `omega`, `simp`, `ring`, or `decide` tactics first.
 
 2. **Lean 4 + Mathlib v4.29.1**: All theorems should leverage Mathlib where possible. Use `@[simp]` for projection lemmas.
 
@@ -111,7 +113,7 @@ Basic.lean (root re-export)
    - Structures: `PascalCase` (e.g., `KleinManifold`, `AgenticFrame`)
    - Namespaces: Match the structure name
 
-4. **Testing**: Run `lake build` to verify. All 60 modules must compile without errors or warnings.
+4. **Testing**: Run `lake build` to verify. All 64 modules must compile without errors or warnings.
 
 5. **New modules**: Add to `Basic.lean` root export. Follow the dependency graph — import only what you need.
 
