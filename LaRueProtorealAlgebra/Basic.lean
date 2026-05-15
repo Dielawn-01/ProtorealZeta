@@ -32,6 +32,8 @@ import LaRueProtorealAlgebra.PentagonCoherence
 import LaRueProtorealAlgebra.Invariance
 import LaRueProtorealAlgebra.HyperKlein
 import LaRueProtorealAlgebra.HyperDifference
+import LaRueProtorealAlgebra.PhasorTower
+import LaRueProtorealAlgebra.StructuralMorphism
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
