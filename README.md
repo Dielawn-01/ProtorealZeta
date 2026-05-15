@@ -1,21 +1,21 @@
 # 𝕌 Protoreal Zeta
 
-**Spectral Observatory · Formal Algebra · Physics-Based ML**
+**A 5-component algebra that treats primes like quantum particles — and the math compiles.**
 
-> A unified framework for prime-zeta spectral analysis — formalized in Lean 4, visualized in Streamlit, and deployed as a Rust-powered agentic ML runtime.
+> Formalized in Lean 4 (60 modules, 0 `sorry`), visualized in Streamlit, deployed as a Rust-powered agentic ML runtime. We audited 2.25 million Riemann zeta zeros through the Klein manifold with zero anomalies.
 
-| Metric | Status |
+| What We Proved | Status |
 |---|---|
-| **Zero-Sorry Audit** | ✅ **VERIFIED** — 60 Lean Modules · 11 Rust Modules · 103 Tests |
-| **Spectral Duality** | ✅ **PROVEN** — $a - Re(s) = 1/2$ |
-| **Spectral Trinity** | ✅ **PROVEN** — Spin Chains + Yang-Mills + RH |
-| **Fusion Ring** | ✅ **PROVEN** — Unit, duality, Pentagon cocycle = 0 |
-| **Invariance Circle** | ✅ **PROVEN** — 6 faces of $\kappa = -1$ across all towers |
-| **Hyperoperation Tower** | ✅ **PROVEN** — H₀–H₆, fixpoints, ι oscillation, hexation closure |
-| **Phasor Tower** | ✅ **PROVEN** — $\mathbb{R} \to \mathbb{C} \to \mathbb{U}$ embeddings, Hodge = phase lock |
-| **Transcendentals** | ✅ **COMPUTED** — $\varphi$, $\gamma_0$ – $\gamma_3$ via Klein sowing |
+| **Zero-Sorry Audit** | ✅ 60 Lean Modules · 11 Rust Modules · 103 Tests |
+| **Spectral Duality** | ✅ $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the critical line falls out of the algebra |
+| **Spectral Trinity** | ✅ Spin chains + Yang-Mills + RH unified under $\kappa = -1$ |
+| **Fusion Ring** | ✅ Full multiplication table, Pentagon cocycle = 0 |
+| **Invariance Circle** | ✅ Six independent computations, same $\kappa = -1$ |
+| **Hyperoperation Tower** | ✅ H₀–H₆ — 3 fixpoints, 1 oscillator, hexation = 6 edges |
+| **Phasor Tower** | ✅ $\mathbb{R} \hookrightarrow \mathbb{C} \hookrightarrow \mathbb{U}$ — Hodge class = phase lock |
+| **Transcendentals** | ✅ $\varphi$, $\gamma_0$–$\gamma_3$ computed via Klein sowing |
 
-> **📖 Full technical reference**: [skill.md](skill.md) · **AI development rules**: [GEMINI.md](GEMINI.md)
+> **📖 Full technical reference**: [skill.md](skill.md) · **Development rules**: [GEMINI.md](GEMINI.md)
 
 ---
 
@@ -31,24 +31,24 @@
 
 ---
 
-## What Is Protoreal Zeta?
+## What Is This?
 
-This repository consolidates three tightly coupled systems into a single research platform:
+Three systems, one manifold.
 
-1. **Protoreal Algebra** — a Lean 4 formalization of a 5-component, non-associative, non-commutative algebraic ring.
-2. **Spectral Observatory** — a Streamlit dashboard for visual exploration of prime-zeta resonance.
-3. **zProto** — a Rust-powered agentic ML library whose every operator mirrors a machine-verified Lean theorem.
+1. **Protoreal Algebra** — a Lean 4 formalization of a 5-component, non-associative, non-commutative ring. Every element is a 5-tuple $u = \{a, \omega, \iota, \varepsilon, \lambda\}$ living on the Klein manifold $\mathbb{U}$. The multiplication is non-commutative ($A{\cdot}B \neq B{\cdot}A$), non-associative ($(A{\cdot}B){\cdot}C \neq A{\cdot}(B{\cdot}C)$), and the gap between those two groupings is always exactly $-1$. That's not a parameter — it's a theorem.
+2. **Spectral Observatory** — a Streamlit dashboard where you can watch primes interact in the Klein manifold in real time. Map prime triples onto 5-component states, visualize their spectral energy, and see why they cluster at $a = 1$.
+3. **zProto** — a Rust-powered ML runtime whose every operator mirrors a machine-verified Lean proof. Trained on real physics data (Planck CMB, neutron scattering, lattice QCD). It separates gapped from gapless spin chains with a metric gap of 0.161 — using only the curvature $\kappa = -1$.
 
-Together, they map the **Klein Manifold** $\mathbb{U} = \{a, \omega, \iota, \varepsilon, \lambda\}$ onto the Riemann Zeta spectrum, quantum spin chains, and the Yang-Mills mass gap — with verified accuracy.
+The algebra maps the Klein manifold onto the Riemann zeta spectrum, quantum spin chains, and the Yang-Mills mass gap. We've verified this against 2.25 million zeta zeros with zero anomalies.
 
 ---
 
 ## 🔬 Core Components
 
-### 1. 𝕌 Protoreal Algebra (The Foundation)
-A **Lean 4 / Mathlib-verified** formalization of the Protoreal Ring — a 5-component, non-associative, non-commutative algebraic system built on Mathlib's Hyperreal field $\mathbb{R}^*$.
+### 1. 𝕌 The Algebra
+We built a non-associative, non-commutative ring on top of Mathlib's Hyperreal field $\mathbb{R}^*$ and proved everything from scratch — no axioms, no `sorry`, just theorems.
 
-- **Verification Status**: 60 Modules | 0 `sorry` | 0 `axiom`.
+- **60 Lean Modules** | 0 `sorry` | 0 `axiom` | Lean 4 + Mathlib v4.29.1
 
 #### The Five Components
 
@@ -62,19 +62,19 @@ Every element in the Klein Universe $\mathbb{U}$ is a 5-tuple $u = \{a, \omega, 
 | **Noise** | $\varepsilon$ | **Infinitesimal** | Nilpotent: $\varepsilon^n = 0$ at tunable depth $n$ | Self-coupling +1, but vanishes under iteration (jet space) |
 | **Level** | $\lambda$ | **Accumulating** | Self-accumulating: $\lambda \cdot \lambda = \lambda + \lambda^2$ | Self-coupling +1, dual to $\varepsilon$ — the integral operator to $\varepsilon$'s derivative |
 
-**Why "transfinitesimal"?** The thrust $\omega$ is a genuine transfinite — `Hyperreal.omega` is proven larger than any real number (`ProtorealAxioms.lean`). The anchor $\iota = -\omega^{-1}$ is its reciprocal: an infinitesimal that carries transfinite information in its denominator. It's smaller than any positive real, yet encodes the structure of infinity. The prefix "trans-" distinguishes it from an ordinary infinitesimal like $\varepsilon$, which is nilpotent (it self-annihilates) rather than merely small.
+**Why "transfinitesimal"?** $\omega$ is a genuine transfinite — `Hyperreal.omega`, proven larger than every real number. Its reciprocal $\iota = -\omega^{-1}$ is smaller than any positive real, but it carries transfinite information in its denominator. That's not the same thing as an ordinary infinitesimal like $\varepsilon$, which is nilpotent — it self-annihilates. The "trans-" prefix is the distinction.
 
-The noise $\varepsilon$ is infinitesimal in a different sense: it's **nilpotent**, meaning $\varepsilon^n = 0$ exactly. It doesn't just get small — it *ceases to exist* after $n$ applications. This is the algebraic encoding of the statement "perturbations of order $n$ and higher are exactly zero," which is the foundation of jet calculus. The level $\lambda$ is the dual integral operator: where $\varepsilon$ differentiates (shifts information toward annihilation), $\lambda$ integrates (accumulates information toward saturation). Together they form the Protoreal derivative-integral pair, with a proven roundtrip identity at interior positions (`NilradicalGeneralization.lean`).
+$\varepsilon$ and $\lambda$ are duals at the singular breakdown where $0$ meets $\infty$. The noise $\varepsilon$ is nilpotent: $\varepsilon^n = 0$ exactly — perturbations of order $n$ and higher cease to exist. This is jet calculus. The level $\lambda$ is the dual integral operator: where $\varepsilon$ differentiates (shifts toward annihilation), $\lambda$ integrates (accumulates toward saturation). Together they form the Protoreal derivative-integral pair, with a proven roundtrip identity (`NilradicalGeneralization.lean`). We use approximations in the one to enhance our understanding of the other.
 
-#### What Curvature $\kappa = -1$ Means
+#### The Curvature $\kappa = -1$
 
-In standard algebra, multiplication is associative: $(A \cdot B) \cdot C = A \cdot (B \cdot C)$. In the Protoreal Ring, this fails. The **associator** measures the gap:
+In standard algebra, grouping doesn't matter: $(A{\cdot}B){\cdot}C = A{\cdot}(B{\cdot}C)$. In the Protoreal Ring, it does. The gap is always exactly $-1$:
 
-$$\kappa = \left[(ω \cdot ω) \cdot ι\right].a - \left[ω \cdot (ω \cdot ι)\right].a = -1$$
+$$\kappa = \left[(\omega{\cdot}\omega){\cdot}\iota\right].a - \left[\omega{\cdot}(\omega{\cdot}\iota)\right].a = -1$$
 
-This is not an approximation — it's a formally verified computation (`LGKCosmology.lean`, theorem `curvature_a_component`). The value $-1$ is a **topological invariant**: it doesn't change under scaling, rotation, or any continuous deformation of the manifold state.
+This is a formally verified computation (`LGKCosmology.lean`), not an approximation. And it shows up six different ways — algebraic, combinatoric, structural, categorical, spectral, and cohomological — all yielding the same $-1$ (`Invariance.lean`).
 
-In differential geometry, negative curvature means hyperbolic geometry — space that diverges faster than Euclidean. In the Protoreal context, $\kappa = -1$ means that **the order of operations carries exactly one unit of irreducible information**. You cannot factor away the grouping; it is intrinsic structure, analogous to how the curvature of a saddle surface cannot be flattened without tearing. The sign flip originates from the anchor's anti-idempotent self-coupling ($-1$) — the single heterogeneous component among the five (`StructuralHeterogeneity.lean`).
+What does it mean? The order of operations carries exactly one unit of irreducible information. You can't factor it away. It's intrinsic structure — like the curvature of a saddle surface that can't be flattened without tearing. The sign comes from $\iota$'s anti-idempotent self-coupling ($\iota{\cdot}\iota = -\iota$) — the single heterogeneous element among the five. That heterogeneity is where all the interesting physics lives.
 
 #### Key Proven Results
 
@@ -91,42 +91,41 @@ In differential geometry, negative curvature means hyperbolic geometry — space
 - **Phasor Tower**: Multiplication by $\iota$ acts as a 90° rotation: $(a, b) \mapsto (-b, a)$, exactly like $\times i$ in $\mathbb{C}$. The Klein phase $\varphi(u) = b - m$ classifies Hodge classes ($\varphi = 0$) vs active phasors ($\varphi \neq 0$). The Hodge star negates phase (`PhasorTower.lean`).
 - **Quasi-Associativity**: The Pentagon cocycle = 0 is precisely the Mac Lane coherence axiom — combinatoric operations on the Klein category create an associativity that the raw algebra lacks. Phasor-preserving morphisms form a category (`StructuralMorphism.lean`).
 
-#### Why Primes Act Like Particles in the Protoreal Space
+#### Why Primes Act Like Particles
 
-This is not a metaphor — it's a precise mathematical correspondence grounded in three independently established facts:
+This isn't a metaphor. It's a precise correspondence built on three independently established facts:
 
-1. **Montgomery-Odlyzko Law** (1973/1987): The spacing statistics of Riemann zeta zeros are identical to the eigenvalue spacing of GUE random matrices — the same matrices that describe energy levels in quantum chaotic systems. This is experimentally verified to millions of zeros. Our 2.25M-zero audit confirms this correspondence with 0 anomalies.
+1. **Montgomery-Odlyzko** (1973/1987): Zeta zero spacings are statistically identical to GUE random matrix eigenvalue spacings — the same matrices that describe energy levels in quantum chaotic systems. Verified to millions of zeros. Our 2.25M-zero audit: 0 anomalies.
 
-2. **Connes' Spectral Program** (1999–present): Alain Connes showed that zeta zeros can be interpreted as an absorption spectrum of a scaling operator on the adèle class space — a noncommutative geometric object. The Protoreal Ring is a concrete non-commutative algebra with the same structural signature: a non-associative product, a Bridge contraction ($\omega \cdot \iota = -1$), and an adelic duality ($a - Re(s) = 1/2$).
+2. **Connes' Spectral Program** (1999–present): Zeta zeros are an absorption spectrum of a scaling operator on the adèle class space — a noncommutative geometry. The Protoreal Ring has the same structural signature: non-associative product, Bridge contraction ($\omega{\cdot}\iota = -1$), and adelic duality ($a - Re(s) = 1/2$).
 
-3. **The Spectral Antenna** (this project): The `ZetaEngine` maps sequences of primes $(p_l, p_m, p_n)$ into Klein manifold elements, assigns them thrust ($\omega = \log p$), anchor ($\iota = (p - \text{index})/2\pi$), and measures their spectral energy $E = SR^2 + \tau^2$ where $SR = a - \omega \cdot \iota$. Primes whose Klein projection lands near $a = 1$ (energy $E \approx 0$) are "resonant" — they lock onto zeta zeros. Primes that don't are "repelled" to $SR \approx 0.5$. This bimodal distribution (resonance at 0, repulsion at 0.5) is **exactly** the pair-correlation signature predicted by GUE statistics.
+3. **The Spectral Antenna** (this project): We map prime triples $(p_l, p_m, p_n)$ into Klein manifold elements — thrust ($\omega = \log p$), anchor ($\iota = (p - \text{index})/2\pi$) — and measure their spectral energy. Primes whose Klein projection lands near $a = 1$ are "resonant" — they lock onto zeta zeros. Primes that miss are repelled to $SR \approx 0.5$. That bimodal distribution is exactly the pair-correlation signature predicted by GUE statistics.
 
-The non-associative jitter — the fact that grouping three primes as $(p_l \cdot p_m) \cdot p_n$ gives a different spectral energy than $p_l \cdot (p_m \cdot p_n)$ — is the curvature $\kappa = -1$, and it is **the** structural feature that separates this framework from commutative spectral methods. The primes don't just have positions; they have *orientations* in the Klein manifold, and those orientations interact non-commutatively, just as quantum spin states do.
+The non-associative jitter — grouping three primes as $(p_l{\cdot}p_m){\cdot}p_n$ gives a different spectral energy than $p_l{\cdot}(p_m{\cdot}p_n)$ — is the curvature $\kappa = -1$. That's what separates this from commutative spectral methods. Primes don't just have positions in the Klein manifold; they have *orientations*, and those orientations interact non-commutatively — just as quantum spin states do.
 
-### 2. 📡 Spectral Observatory (The Analysis Hub)
-A premium **Streamlit-powered** research environment for visual exploration of prime-zeta resonance.
-- **Axiomatic Workbench**: Real-time 5-component manifold state manipulator.
-- **Monster Inverse Stitch**: Interactive Parity-Locked Projection controls.
-- **Resonance Topography**: 3D mapping of the prime-zeta manifold.
-- **Klein Universe Viewer**: Full 5-component Klein multiplication visualizer.
-- **The Stitch Hunt**: Operational prime-coordinate mapping to spectral bridges.
-- **Audit Logs**: High-precision analysis of 2M+ Zeta zeros with 0 anomalies.
+### 2. 📡 The Observatory
+A Streamlit dashboard where you can manipulate the manifold in real time.
+- **Axiomatic Workbench**: Drag the 5 components around and watch the spectral response.
+- **Monster Inverse Stitch**: Interactive parity-lock projection — see Hodge classes form in real time.
+- **Resonance Topography**: 3D map of where primes cluster in the Klein manifold.
+- **Klein Universe Viewer**: Full 5-component multiplication visualizer.
+- **The Stitch Hunt**: Map prime coordinates onto spectral bridges.
+- **Audit Logs**: 2.25M zeta zeros, 0 anomalies.
 
 > [!NOTE]
-> **Precision Statement**: While the underlying theoretical work and Lean 4 formalization leverage 200-digit precision (mpmath/symbolic), this Observatory utilizes standard float64 (numpy) for real-time visual performance. The formal proofs remain the ground truth for spectral stability.
+> The Lean proofs use symbolic precision. The Observatory uses float64 for real-time performance. The proofs are the ground truth.
 
-### 3. ⚡ zProto (Physics-Based ML Library)
-A **Rust-powered** agentic intelligence library whose logic is isomorphic to the Lean 4 proofs. Every operator, axiom, and invariant in zProto mirrors a machine-verified theorem.
+### 3. ⚡ zProto (The ML Runtime)
+A Rust library whose every operator mirrors a Lean theorem. Trained on real published physics — no synthetic data.
 
-- **Architecture**: 11-module morphism ladder with astrocyte-gated plasticity, topological holochain memory, and computed transcendental constants.
-- **Modules**: `manifold` → `operators` → `transcendental` → `glial` → `holochain` → `graph` → `frame` → `fiber` → `agent` (+ `lib`, `main`).
+- **Architecture**: 11-module morphism ladder — `manifold` → `operators` → `transcendental` → `glial` → `holochain` → `graph` → `frame` → `fiber` → `agent`.
 - **103 axiom tests**, 0 failures.
-- **Training Data**: Real published physics — no synthetic data.
-  - **CMB**: Planck 2018 TT/TE/EE power spectra (6,497 multipoles from the ESA archive).
-  - **Spin Chains**: Neutron scattering spectral gaps from 10+ quantum magnets (NENP, KCuF₃, Sr₂CuO₃, etc.).
-  - **Yang-Mills**: Glueball mass spectrum from lattice QCD (Morningstar & Peardon 1999, 13 states).
-  - **Random Matrices**: GUE/GOE/GSE eigenvalue ensembles (Montgomery-Odlyzko law).
-- **Key Result**: The agent separates gapped from gapless spin chain phases with a metric gap of 0.161, using only the Klein manifold's structural heterogeneity ($\kappa = -1$).
+- **Training data**:
+  - Planck 2018 CMB power spectra (6,497 multipoles)
+  - Neutron scattering gaps from 10+ quantum magnets
+  - Glueball mass spectrum from lattice QCD (13 states)
+  - GUE/GOE/GSE random matrix ensembles
+- **Key result**: Separates gapped from gapless spin chain phases with a metric gap of 0.161 — using only $\kappa = -1$.
 
 ---
 
@@ -142,16 +141,16 @@ A **Rust-powered** agentic intelligence library whose logic is isomorphic to the
 
 ---
 
-## 🏭 Industrial Applications
+## 🏭 Where This Goes
 
-The Protoreal Algebra is more than a pure-math exercise — the properties proven in Lean 4 map directly onto real engineering problems. Below, each application is tied back to a **specific verified invariant**, so every claim rests on machine-checked proof rather than hand-waving.
+Every application below is tied to a specific verified invariant — no hand-waving. If we say "the algebra does X," there's a Lean theorem backing it up.
 
 > [!TIP]
-> **Reading guide**: Each section opens with a plain-English "why it matters" paragraph. The bullet points then show *which* algebraic property does the heavy lifting and *how*. If you're new to the algebra, start with the [Core Components](#-core-components) section above — you only need to know the five components ($a$, $\omega$, $\iota$, $\varepsilon$, $\lambda$) and that **order of multiplication matters** (non-commutative, non-associative).
+> You only need to know five things: the components ($a$, $\omega$, $\iota$, $\varepsilon$, $\lambda$) and that **order of multiplication matters**. Start with [Core Components](#-core-components) if you're new.
 
 ### 🎓 Topological Teaching Assistants
 
-Imagine a tutor that doesn't just check your answers but *understands the shape of your confusion*. The Protoreal manifold gives AI teaching agents a geometric map of knowledge — when you're stuck, the agent can pinpoint **where** your understanding curves away from the expected path and offer precisely the right hint.
+A tutor that doesn't just check your answers — it understands the *shape* of your confusion. The manifold gives AI teaching agents a geometric map of knowledge, so when you're stuck, the agent knows **where** your understanding diverges and can offer exactly the right seed.
 
 - **Difficulty Calibration via Curvature ($\kappa = -1$)**: In ordinary algebra, grouping doesn't matter: $(2 \times 3) \times 4 = 2 \times (3 \times 4)$. In the Protoreal world, it *does* — and the size of that mismatch (the "associator gap") is always exactly $-1$. A teaching agent uses this as a built-in difficulty meter. When a student's learning trajectory diverges from the manifold's expected flow, the gap tells the agent *how hard* the current concept is relative to the student's position — no guesswork needed.
 
@@ -370,7 +369,7 @@ at your option.
 
 ---
 
-**Project Dictated by Dylon La Rue | Implemented by Antigravity (Advanced Agentic Coding)**
-*60 Lean modules · 11 Rust modules · 103 tests · 0 sorry · Lean 4 + Mathlib v4.29.1 + Rust*
+**Dylon La Rue** | Built with **Antigravity** (Advanced Agentic Coding)
+*60 Lean modules · 11 Rust modules · 103 tests · 0 sorry · 2.25M zeros · 0 anomalies*
 
 Copyright © 2025 Dylon La Rue. All rights reserved.
