@@ -46,6 +46,23 @@ theorem consolidation_spawns_noise (u : ProtorealManifold) :
   unfold consolidate
   simp
 
+/-- **PROMOTE (Promotion Operator - 𝕌)**
+    The Promotion Mechanic: ε → ι → a → ω → λ.
+    This operator 'lifts' the manifold's components up the tower of
+    scale and complexity. It is the functional inverse of
+    the Quantum Error Correction (which reduces noise downward).
+
+    Where QEC contracts: noise → recovery → code space,
+    Promotion expands: subatomic → molecular → real → galactic → cosmic.
+
+    The cycle closes: λ feeds back into new ε via consolidate. -/
+def promote_u (u : ProtorealManifold) : ProtorealManifold :=
+  { a := u.m,  -- ι → a (Anchor becomes observable)
+    b := u.a,  -- a → ω (Real becomes Thrust)
+    m := u.e,  -- ε → ι (Noise becomes Anchor)
+    e := 0,    -- ε is spent in the promotion
+    l := u.b } -- ω → λ (Thrust becomes Level)
+
 /-- **THE PROTOREAL INSTRUCTION SET**
     Inductive representation of the manifold's agentic sectors. -/
 inductive ProtorealInstruction where

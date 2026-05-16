@@ -39,6 +39,12 @@ import LaRueProtorealAlgebra.KamaTrain
 import LaRueProtorealAlgebra.LittleDelta
 import LaRueProtorealAlgebra.ErrorCorrection
 import LaRueProtorealAlgebra.QuantumErrorCorrection
+import LaRueProtorealAlgebra.HyperOperationScaling
+import LaRueProtorealAlgebra.RelativisticContinuum
+import LaRueProtorealAlgebra.JetSheaf
+import LaRueProtorealAlgebra.KleinBottle
+import LaRueProtorealAlgebra.BohmOrder
+import LaRueProtorealAlgebra.NonstandardBridge
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
