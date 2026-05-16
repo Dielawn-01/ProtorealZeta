@@ -37,6 +37,7 @@ import LaRueProtorealAlgebra.StructuralMorphism
 import LaRueProtorealAlgebra.SafetyBounds
 import LaRueProtorealAlgebra.KamaTrain
 import LaRueProtorealAlgebra.LittleDelta
+import LaRueProtorealAlgebra.ErrorCorrection
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
