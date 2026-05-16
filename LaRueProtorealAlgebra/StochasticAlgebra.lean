@@ -9,6 +9,8 @@ Formalizing the relationship between infinitesimal noise and transfinite drift.
 
 open ProtorealManifold
 
+namespace StochasticAlgebra
+
 /-- Resonance Probability:
     Measures the likelihood of a state being resonant given a noise jitter δ. -/
 noncomputable def resonance_probability (m : KleinMesh) (δ : ℝ) : ℝ :=
@@ -22,3 +24,4 @@ theorem klein_stochastic_resonance (m : KleinMesh) (δ : ℝ) :
   intro h
   unfold resonance_probability
   simp [h]
+end StochasticAlgebra

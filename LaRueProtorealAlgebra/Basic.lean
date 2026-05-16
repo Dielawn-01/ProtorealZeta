@@ -38,6 +38,7 @@ import LaRueProtorealAlgebra.SafetyBounds
 import LaRueProtorealAlgebra.KamaTrain
 import LaRueProtorealAlgebra.LittleDelta
 import LaRueProtorealAlgebra.ErrorCorrection
+import LaRueProtorealAlgebra.QuantumErrorCorrection
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
