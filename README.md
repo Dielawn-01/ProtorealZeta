@@ -56,7 +56,7 @@ In standard algebra, grouping doesn't matter: $(A{\cdot}B){\cdot}C = A{\cdot}(B{
 
 $$\kappa = \left[(\omega{\cdot}\omega){\cdot}\iota\right].a - \left[\omega{\cdot}(\omega{\cdot}\iota)\right].a = -1$$
 
-That's a formally verified computation (`LGKCosmology.lean`), not an approximation. And it shows up six different ways — algebraic, combinatoric, structural, categorical, spectral, and cohomological — all yielding the same $-1$ (`Invariance.lean`). That's big.
+That's a formally verified computation (`LGKCosmology.lean`), not an approximation. And it shows up six different ways — algebraic, combinatoric, structural, categorical, spectral, and cohomological — all yielding the same $-1$ (`Invariance.lean`).
 
 What does it mean? The order of operations carries exactly one unit of irreducible information. You can't factor it away. It's intrinsic structure — like the curvature of a saddle surface that can't be flattened without tearing. The sign comes from $\iota$'s anti-idempotent self-coupling ($\iota{\cdot}\iota = -\iota$) — the single heterogeneous element among the five. That heterogeneity is where all the interesting physics lives.
 
@@ -89,7 +89,7 @@ You'll notice that the Riemann zeta function $\zeta(s) = \sum n^{-s}$ is just th
 
 $$\zeta(s) \approx \sum_{n=1}^{N} \left(\text{klein\_pow}\left(\left\{\frac{1}{n}, 0, 0, 0, 0\right\}, k\right)\right).a$$
 
-The Dirichlet basis $d(n) = \{1/n, 0, 0, 0, 0\}$ is **pure-real** — all non-commutative components are zero. That's the trivial character $\chi = 1$. Pure-real states commute ($\kappa = 0$); the spectral structure lives in the gap ($\kappa = -1$) between the flat sector and the full manifold. So the graph of the Riemann zeta function is the projection of the powers of protoreal basis vectors on $1/n$. bam.
+The Dirichlet basis $d(n) = \{1/n, 0, 0, 0, 0\}$ is **pure-real** — all non-commutative components are zero. That's the trivial character $\chi = 1$. Pure-real states commute ($\kappa = 0$); the spectral structure lives in the gap ($\kappa = -1$) between the flat sector and the full manifold. So basically the graph of the Riemann zeta function is the projection of the powers of protoreal basis vectors on $1/n$.
 
 ### Yang-Mills: Five Roads to the Same Gap
 
@@ -107,7 +107,7 @@ Three explicit morphisms close the circle. The definite pattern is $\Delta m = |
 
 ### The LaRue System: The Ground Floor
 
-A **LaRue System** is an algebraic system that formally identifies its own Gödelian and Tarskian boundaries — it doesn't try to prove completeness or its own truth, but it *does* show where the source of incompleteness is, from which we derive our externally defined meta-truths.
+A **LaRue System** is an algebraic system that formally identifies its own Gödelian and Tarskian boundaries — so effectively we don't fall for the farce of trying to prove completeness or our own truth, but we do show where the source of incompleteness is, from which we derive our externally defined meta-truths.
 
 The Protoreal algebra over $\zeta(s)$ is the **most basic** such system:
 
