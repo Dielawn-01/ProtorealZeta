@@ -52,6 +52,8 @@ import LaRueProtorealAlgebra.KleinBottle
 import LaRueProtorealAlgebra.BohmOrder
 import LaRueProtorealAlgebra.NonstandardBridge
 import LaRueProtorealAlgebra.OptimalCompute
+import LaRueProtorealAlgebra.ComputationalCharge
+import LaRueProtorealAlgebra.CodeSwitching
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
