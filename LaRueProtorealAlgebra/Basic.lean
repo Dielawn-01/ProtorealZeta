@@ -59,6 +59,7 @@ import LaRueProtorealAlgebra.HolochainHash
 import LaRueProtorealAlgebra.BitCollapse
 import LaRueProtorealAlgebra.IncompletenessSource
 import LaRueProtorealAlgebra.ZetaDirichlet
+import LaRueProtorealAlgebra.YangMillsMultipath
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
