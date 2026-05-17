@@ -22,7 +22,7 @@ namespace ZetaResonance
     Calculates the resonance probability of a Zeta projection
     given a noise jitter δ. -/
 noncomputable def spectral_resonance (t : ℝ) (δ : ℝ) : ℝ :=
-  resonance_probability (mesh_stitch (zeta_projection t) 0) δ
+  StochasticAlgebra.resonance_probability (mesh_stitch (zeta_projection t) 0) δ
 
 /-- **THE CONSOLIDATION TUNING THEOREM**
     Applying the consolidate operator to a Zeta projection promotes its 
@@ -56,7 +56,6 @@ theorem funct_shifts_criticality
     (funct (zeta_projection t +
       { a := 0, b := 0, m := 0,
         e := e, l := 0 })).a = 1/2 + e := by
-  unfold funct zeta_projection
-  linarith
+  unfold funct zeta_projection; simp
 
 end ZetaResonance

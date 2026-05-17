@@ -27,6 +27,7 @@ import LaRueProtorealAlgebra.TranscendentalBasis
 import LaRueProtorealAlgebra.NilradicalGeneralization
 import LaRueProtorealAlgebra.Semisimple
 import LaRueProtorealAlgebra.FusionRing
+import LaRueProtorealAlgebra.GpuSeeding
 import LaRueProtorealAlgebra.Rigidity
 import LaRueProtorealAlgebra.PentagonCoherence
 import LaRueProtorealAlgebra.Invariance
@@ -42,9 +43,11 @@ import LaRueProtorealAlgebra.QuantumErrorCorrection
 import LaRueProtorealAlgebra.HyperOperationScaling
 import LaRueProtorealAlgebra.RelativisticContinuum
 import LaRueProtorealAlgebra.JetSheaf
+import LaRueProtorealAlgebra.SuperJetSheaf
 import LaRueProtorealAlgebra.KleinBottle
 import LaRueProtorealAlgebra.BohmOrder
 import LaRueProtorealAlgebra.NonstandardBridge
+import LaRueProtorealAlgebra.OptimalCompute
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

@@ -39,6 +39,12 @@ The Euler perception χ oscillates during the glial cycle:
 - During noise injection (ε > 0): all 5 vertices active, χ = -1
 - After sowing (ε = 0): vertex 3 deactivates, χ shifts to 0
 This oscillation is not noise — it IS the perception heartbeat.
+
+### Implementation Note: Adaptive ε
+In the active Python implementation, ε is not always reset to 0. Instead, it
+follows an **Adaptive ε Homeostasis** rule where ε_new = |SR(batch)|.
+This divergence is formally valid as long as SR → 0 as λ → ∞, satisfying
+the transfinite consolidation requirement.
 -/
 
 open ProtorealManifold

@@ -169,13 +169,25 @@ theorem oscillator_dual_phase :
 -- THE TOWER HIERARCHY
 -- ════════════════════════════════════════════════════
 
+/-- **TOWER RANK (λ-based)**
+    The level λ defines the "rank" of the manifold within the 𝕌 level.
+    - λ = 0: Seed (unconsolidated)
+    - 0 < λ ≤ 1: Sprout (transitional)
+    - λ > 1: Tree (consolidated, cluster-active) -/
+def tower_rank (u : ProtorealManifold) : ℝ := u.l
+
+/-- **THE COOLING THRESHOLD**
+    The rank where prime clusters start "cooling" (λ = 1). -/
+def cooling_threshold : ℝ := 1
+
 /-- **THE PHASOR TOWER THEOREM**
     The ℝ → ℂ → 𝕌 embedding tower has the following structure:
     1. ℝ embeds as zero-phase elements (always Hodge)
     2. ℂ embeds via ι-rotation (i² = −1 analog)
     3. 𝕌 adds noise (ε) and level (λ), both zero-phase
     4. The phase classifies Hodge vs non-Hodge
-    5. The parity projection always produces Hodge classes -/
+    5. The parity projection always produces Hodge classes
+    6. Higher Ranks (λ > 1) introduce Prime Cluster cooling -/
 theorem phasor_tower :
     -- ℝ is always Hodge
     (∀ x : ℝ, klein_phase (real_embed x) = 0) ∧

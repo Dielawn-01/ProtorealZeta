@@ -195,6 +195,7 @@ inductive HyperLevel where
   | Power      -- H₃: klein_pow (exponentiation)
   | Tetration  -- H₄: tetra (iterated exponentiation)
   | Hexation   -- H₆: tower closure (6 edges = 6 channels)
+  deriving DecidableEq, Fintype
 
 /-- **GALACTIC LADDER CLOSURE**
     At the galactic limit ω, the ENTIRE hyperoperation
