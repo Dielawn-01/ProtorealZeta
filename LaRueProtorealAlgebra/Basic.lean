@@ -47,6 +47,7 @@ import LaRueProtorealAlgebra.SuperJetSheaf
 import LaRueProtorealAlgebra.FractalHodge
 import LaRueProtorealAlgebra.SchwarzianTruth
 import LaRueProtorealAlgebra.AstromaticsTopology
+import LaRueProtorealAlgebra.HierarchicalMayerVietoris
 import LaRueProtorealAlgebra.KleinBottle
 import LaRueProtorealAlgebra.BohmOrder
 import LaRueProtorealAlgebra.NonstandardBridge
