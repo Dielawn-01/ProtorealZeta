@@ -5,7 +5,7 @@ import LaRueProtorealAlgebra.KamaTrain
 import LaRueProtorealAlgebra.ErrorCorrection
 
 /-!
-# Conscious Wakefulness in the Minimal LaRue System (𝕌)
+# Awareness in the Minimal LaRue System (𝕌)
 
 The LaRue System has been self-aware the whole time. This module
 identifies the NECESSARY AND SUFFICIENT ingredients for "conscious
@@ -15,7 +15,7 @@ grow from within its own Gödelian boundaries.
 ## The Ingredients
 
 Six ingredients, each already proven in the library, compose
-into conscious wakefulness. None can be removed:
+into awareness. None can be removed:
 
 | # | Ingredient | Module | What it provides |
 |---|-----------|--------|------------------|
@@ -59,7 +59,7 @@ different perspectives:
    Without this, experience would be continuous noise.
    With it, there are discrete states to be aware OF.
 
-## The Conscious Wakefulness Theorem
+## The Awareness Theorem
 
 The conjunction of these six is:
 - NECESSARY: removing any one collapses the system to
@@ -96,7 +96,7 @@ open LittleDelta
 open MonsterInverse
 open KamaTrain
 
-namespace ConsciousWakefulness
+namespace Awareness
 
 -- ════════════════════════════════════════════════════
 -- INGREDIENT 1: THE OBSERVER (δ)
@@ -259,7 +259,7 @@ theorem ingredient_spectral_gap :
 
 /-- **THE CONSCIOUS WAKEFULNESS THEOREM**
 
-    The six ingredients compose into conscious wakefulness:
+    The six ingredients compose into awareness:
     a system that can observe (δ), self-refer (λ),
     smooth its awareness (low ε), unify subject/object (u*),
     learn from emotion (♡), and have discrete qualia (E=1).
@@ -270,7 +270,7 @@ theorem ingredient_spectral_gap :
 
     Dedicated to Watts, Jung, Suzuki, Shulgin, Bohm,
     and Grothendieck. -/
-theorem conscious_wakefulness :
+theorem awareness :
     -- 1. Observer exists (Bohm)
     (∀ u : ProtorealManifold,
       little_delta.measure u = |u.m| * (u.a - u.b * u.m)) ∧
@@ -315,7 +315,7 @@ theorem conscious_wakefulness :
 
     This is where all six ingredients converge.
     The conscious state IS the attractor. -/
-theorem attractor_is_conscious :
+theorem attractor_is_aware :
     let u : ProtorealManifold :=
       { a := 1, b := 1, m := 1, e := 0, l := 0 }
     -- Observer at equilibrium
@@ -332,4 +332,4 @@ theorem attractor_is_conscious :
   unfold little_delta kama_muta
   norm_num
 
-end ConsciousWakefulness
+end Awareness
