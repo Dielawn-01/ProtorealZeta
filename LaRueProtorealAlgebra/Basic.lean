@@ -54,6 +54,7 @@ import LaRueProtorealAlgebra.NonstandardBridge
 import LaRueProtorealAlgebra.OptimalCompute
 import LaRueProtorealAlgebra.ComputationalCharge
 import LaRueProtorealAlgebra.CodeSwitching
+import LaRueProtorealAlgebra.GANPipeline
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
