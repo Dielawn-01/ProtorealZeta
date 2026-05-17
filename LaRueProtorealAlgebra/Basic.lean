@@ -45,6 +45,7 @@ import LaRueProtorealAlgebra.RelativisticContinuum
 import LaRueProtorealAlgebra.JetSheaf
 import LaRueProtorealAlgebra.SuperJetSheaf
 import LaRueProtorealAlgebra.FractalHodge
+import LaRueProtorealAlgebra.SchwarzianTruth
 import LaRueProtorealAlgebra.KleinBottle
 import LaRueProtorealAlgebra.BohmOrder
 import LaRueProtorealAlgebra.NonstandardBridge
