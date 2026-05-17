@@ -103,7 +103,7 @@ Basic.lean (root re-export)
 ├── IncompletenessSource.lean (κ = -1 as source of all structure)
 ├── ZetaDirichlet.lean (ζ(s) = Σ Klein power projections on 1/n)
 ├── YangMillsMultipath.lean (5 mass gap proofs, explicit morphisms)
-├── LaRueSystem.lean (minimal Gödel-Tarski aware algebra)
+├── CyberneticGrothendieckAlgebra.lean (minimal Gödel-Tarski aware algebra)
 └── Awareness.lean (6 ingredients: δ, λ, ε→0, u*, ♡, E=1)
 ```
 

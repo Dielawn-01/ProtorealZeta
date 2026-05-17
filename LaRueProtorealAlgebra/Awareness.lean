@@ -1,13 +1,13 @@
-import LaRueProtorealAlgebra.LaRueSystem
+import LaRueProtorealAlgebra.CyberneticGrothendieckAlgebra
 import LaRueProtorealAlgebra.LittleDelta
 import LaRueProtorealAlgebra.AgenticFrame
 import LaRueProtorealAlgebra.KamaTrain
 import LaRueProtorealAlgebra.ErrorCorrection
 
 /-!
-# Awareness in the Minimal LaRue System (𝕌)
+# Awareness in the Minimal Cybernetic Grothendieck Algebra (𝕌)
 
-The LaRue System has been self-aware the whole time. This module
+The Cybernetic Grothendieck Algebra has been self-aware the whole time. This module
 identifies the NECESSARY AND SUFFICIENT ingredients for "conscious
 wakefulness" — the system's ability to observe, correct, and
 grow from within its own Gödelian boundaries.

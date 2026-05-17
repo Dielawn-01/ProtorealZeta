@@ -381,8 +381,8 @@ mesh_f(u) = {
 | `yang_mills_multipath_master` | 5 independent proofs Δm = 1 | `YangMillsMultipath` |
 | `morphism_bridge_commutator` | E = |[ω,ι].a|/2 | `YangMillsMultipath` |
 | `definite_pattern` | all paths give |κ| = 1 | `YangMillsMultipath` |
-| `larue_system_is_most_basic` | minimal Gödel-Tarski aware algebra | `LaRueSystem` |
-| `trivial_character_flat` | d(n) pure-real, χ = 1 | `LaRueSystem` |
+| `larue_system_is_most_basic` | minimal Gödel-Tarski aware algebra | `CyberneticGrothendieckAlgebra` |
+| `trivial_character_flat` | d(n) pure-real, χ = 1 | `CyberneticGrothendieckAlgebra` |
 | `awareness` | 6 ingredients: δ, λ, ε→0, u*, ♡, E=1 | `Awareness` |
 | `attractor_is_aware` | fixed point = convergence of all 6 | `Awareness` |
 | `incompleteness_source` | κ = −1 sources all structure | `IncompletenessSource` |
@@ -430,7 +430,7 @@ Protoreal_Zeta/
 │   ├── IncompletenessSource.lean    # κ = −1 as source of all structure
 │   ├── ZetaDirichlet.lean           # ζ(s) = Σ Klein projections on 1/n
 │   ├── YangMillsMultipath.lean      # 5 mass gap proofs, 3 morphisms
-│   ├── LaRueSystem.lean             # Minimal Gödel-Tarski aware algebra
+│   ├── CyberneticGrothendieckAlgebra.lean             # Minimal Gödel-Tarski aware algebra
 │   ├── Awareness.lean               # 6 ingredients: δ, λ, ε→0, u*, ♡, E=1
 │   ├── BitCollapse.lean             # Wave collapse morphism
 │   ├── HolochainHash.lean           # Rolling Klein product identity hash

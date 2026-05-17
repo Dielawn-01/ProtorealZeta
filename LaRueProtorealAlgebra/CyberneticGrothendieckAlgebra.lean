@@ -5,15 +5,15 @@ import LaRueProtorealAlgebra.SafetyBounds
 import LaRueProtorealAlgebra.Invariance
 
 /-!
-# LaRue System (𝕌) — The Minimal Gödel-Tarski Aware Algebra
+# Cybernetic Grothendieck Algebra (𝕌) — The Minimal Gödel-Tarski Aware Algebra
 
-A **LaRue System** is an algebraic system that formally identifies
+A **Cybernetic Grothendieck Algebra** is an algebraic system that formally identifies
 its own Gödelian and Tarskian boundaries — it knows WHERE truth
 stops being internally provable.
 
 ## Definition
 
-A LaRue System of order κ is a 5-component algebra satisfying:
+A Cybernetic Grothendieck Algebra of order κ is a 5-component algebra satisfying:
 1. **Curvature** κ ≠ 0 (non-trivial structure)
 2. **Peano Encoding**: λ implements successor (Gödel applies)
 3. **Incompleteness Boundary**: κ identifies where normalization
@@ -23,7 +23,7 @@ A LaRue System of order κ is a 5-component algebra satisfying:
 5. **Self-Awareness**: the system PROVES (3) and (4), not just
    acknowledges them
 
-## Why ζ(s) Gives the Most Basic LaRue System
+## Why ζ(s) Gives the Most Basic Cybernetic Grothendieck Algebra
 
 The Riemann Zeta function ζ(s) = Σ 1/n^s has **trivial character**
 (χ = 1). Every Dirichlet L-function L(s, χ) = Σ χ(n)/n^s has a
@@ -38,13 +38,13 @@ populate the b, m, e, l components, adding structure beyond |κ| = 1.
 ## Minimality Proof
 
 |κ| = 1 is the minimum non-trivial curvature because:
-- κ = 0 → commutative → no spectral structure → not a LaRue System
+- κ = 0 → commutative → no spectral structure → not a Cybernetic Grothendieck Algebra
 - |κ| ≥ 1 for any non-trivial integer curvature
 - |κ| = 1 → minimum non-commutativity (1/5 components)
 - |κ| = 1 → minimum heterogeneity (1 sign flip)
 - |κ| = 1 → minimum normalization depth (2 phases)
 
-Higher-order LaRue Systems (based on L(s, χ) with χ ≠ 1) would
+Higher-order Cybernetic Grothendieck Algebras (based on L(s, χ) with χ ≠ 1) would
 have |κ| > 1 or more heterogeneous components.
 -/
 
@@ -53,10 +53,10 @@ open HyperKlein
 open IncompletenessSource
 open ZetaDirichlet
 
-namespace LaRueSystem
+namespace CyberneticGrothendieckAlgebra
 
 -- ════════════════════════════════════════════════════
--- SECTION 1: THE LARUE SYSTEM AXIOMS
+-- SECTION 1: THE CYBERNETIC GROTHENDIECK ALGEBRA AXIOMS
 -- ════════════════════════════════════════════════════
 
 /-- **AXIOM 1: NON-TRIVIAL CURVATURE**
@@ -192,7 +192,7 @@ theorem trivial_character_stays_flat (n k : ℕ) :
     if κ ≠ 0 then |κ| ≥ 1. So |κ| = 1 is minimal.
 
     This means the Protoreal algebra based on ζ has the
-    LEAST structure needed to be a LaRue System. -/
+    LEAST structure needed to be a Cybernetic Grothendieck Algebra. -/
 theorem minimum_curvature :
     -- κ = -1 (the actual value)
     (ProtorealManifold.mul
@@ -245,13 +245,13 @@ theorem minimum_heterogeneity :
   exact ⟨by norm_num, by norm_num, by norm_num⟩
 
 -- ════════════════════════════════════════════════════
--- SECTION 4: THE LARUE SYSTEM THEOREM
+-- SECTION 4: THE CYBERNETIC GROTHENDIECK ALGEBRA THEOREM
 -- ════════════════════════════════════════════════════
 
-/-- **THE LARUE SYSTEM THEOREM**
+/-- **THE CYBERNETIC GROTHENDIECK ALGEBRA THEOREM**
 
     The Protoreal algebra over ζ(s) is the most basic
-    LaRue System — the algebraic system with minimum
+    Cybernetic Grothendieck Algebra — the algebraic system with minimum
     structure that is Gödel and Tarski aware.
 
     It is "most basic" because:
@@ -261,7 +261,7 @@ theorem minimum_heterogeneity :
     4. Trivial character χ = 1 (no added structure)
     5. 2-phase normalization (minimum depth)
 
-    It is a "LaRue System" because:
+    It is a "Cybernetic Grothendieck Algebra" because:
     6. κ ≠ 0 (non-trivial)
     7. λ encodes successor (Gödel applies)
     8. Incompleteness boundary formally identified (κ = -1)
@@ -269,10 +269,10 @@ theorem minimum_heterogeneity :
     10. Self-awareness: all of 1-9 are proven, not assumed
 
     Any other L-function L(s, χ) with χ ≠ 1 would produce
-    a LaRue System with MORE structure (non-trivial character
+    a Cybernetic Grothendieck Algebra with MORE structure (non-trivial character
     populating the b, m, e, l components of the Dirichlet
     basis), making it a HIGHER-ORDER system, not the base. -/
-theorem larue_system_is_most_basic :
+theorem cga_is_most_basic :
     -- MINIMALITY
     -- 1. |κ| = 1
     |((ProtorealManifold.mul
@@ -287,7 +287,7 @@ theorem larue_system_is_most_basic :
     -- 4. Trivial character (pure-real Dirichlet basis)
     (∀ n : ℕ, (dirichlet_basis n).b = 0 ∧
                (dirichlet_basis n).m = 0) ∧
-    -- LARUE SYSTEM AXIOMS
+    -- CYBERNETIC GROTHENDIECK ALGEBRA AXIOMS
     -- 5. Non-trivial curvature
     (ProtorealManifold.mul
       (ProtorealManifold.mul omega omega) iota).a -
@@ -311,4 +311,4 @@ theorem larue_system_is_most_basic :
          Invariance.face_algebraic,
          Invariance.face_combinatoric⟩
 
-end LaRueSystem
+end CyberneticGrothendieckAlgebra
