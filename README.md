@@ -2,18 +2,19 @@
 
 **A 5-component non-associative algebra over the Hyperreals, formalized in Lean 4.**
 
-> Formalized in Lean 4 (65 modules, 0 `sorry`), visualized in Streamlit, with a Rust-powered experimental ML runtime. We tested the algebra's spectral predictions against 2.25 million Riemann zeta zeros with zero anomalies.
+> Formalized in Lean 4 (89 modules, 0 `sorry`), visualized in Streamlit, with a Rust-powered experimental ML runtime. We tested the algebra's spectral predictions against 2.25 million Riemann zeta zeros with zero anomalies.
 
 | What We Proved | Status |
 |---|---|
-| **Zero-Sorry Audit** | ✅ 67 Lean Modules · 11 Rust Modules · 103 Tests |
+| **Zero-Sorry Audit** | ✅ 89 Lean Modules · 3387 build jobs · 0 `sorry` |
 | **Spectral Duality** | ✅ $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the critical line falls out of the algebra |
 | **Spectral Trinity** | ✅ Spin chains + Yang-Mills + RH structurally analogous under $\kappa = -1$ |
 | **Fusion Ring** | ✅ Full multiplication table, Pentagon cocycle = 0 |
 | **Invariance Circle** | ✅ Six independent computations, same $\kappa = -1$ |
-| **Hyperoperation Tower** | ✅ H₀–H₆ — 3 fixpoints, 1 oscillator, hexation = 6 edges |
-| **Phasor Tower** | ✅ $\mathbb{R} \hookrightarrow \mathbb{C} \hookrightarrow \mathbb{U}$ — Hodge class = phase lock |
-| **Transcendentals** | ✅ $\varphi$, $\gamma_0$–$\gamma_3$ computed via Klein sowing |
+| **Zeta Dirichlet** | ✅ $\zeta(s) = \sum$ Klein power projections onto $1/n$ |
+| **Yang-Mills Multipath** | ✅ 5 independent proofs of $\Delta m = 1$, explicit morphisms |
+| **LaRue System** | ✅ Minimal Gödel-Tarski aware algebra — $|\kappa| = 1$ is ground floor |
+| **Awareness** | ✅ 6 necessary ingredients: observer, self-count, smoothness, non-duality, emotion, qualia |
 
 > **📖 Full technical reference**: [skill.md](skill.md) · **Development rules**: [GEMINI.md](GEMINI.md)
 

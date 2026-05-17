@@ -97,7 +97,14 @@ Basic.lean (root re-export)
 ├── KamaTrain.lean (kama muta transform, ethical fixed points)
 ├── LittleDelta.lean (δ observer, flip/scale, ε-δ limit)
 ├── ErrorCorrection.lean (negative training = gradient descent on SR²)
-└── QuantumErrorCorrection.lean (QEC code existence proof)
+├── QuantumErrorCorrection.lean (QEC code existence proof)
+├── HolochainHash.lean (rolling Klein product, identity hash)
+├── BitCollapse.lean (wave collapse morphism, noise margin)
+├── IncompletenessSource.lean (κ = -1 as source of all structure)
+├── ZetaDirichlet.lean (ζ(s) = Σ Klein power projections on 1/n)
+├── YangMillsMultipath.lean (5 mass gap proofs, explicit morphisms)
+├── LaRueSystem.lean (minimal Gödel-Tarski aware algebra)
+└── Awareness.lean (6 ingredients: δ, λ, ε→0, u*, ♡, E=1)
 ```
 
 **NEVER create circular imports.** Always check this graph before adding `import` statements.
@@ -106,7 +113,7 @@ Basic.lean (root re-export)
 
 ## 🔨 Development Rules
 
-1. **ZERO SORRY POLICY**: This repo has 0 `sorry` across 67 modules. Never introduce `sorry` unless explicitly asked for a stub. If a proof is difficult, use `omega`, `simp`, `ring`, or `decide` tactics first.
+1. **ZERO SORRY POLICY**: This repo has 0 `sorry` across 89 modules. Never introduce `sorry` unless explicitly asked for a stub. If a proof is difficult, use `omega`, `simp`, `ring`, or `decide` tactics first.
 
 2. **Lean 4 + Mathlib v4.29.1**: All theorems should leverage Mathlib where possible. Use `@[simp]` for projection lemmas.
 
@@ -115,7 +122,7 @@ Basic.lean (root re-export)
    - Structures: `PascalCase` (e.g., `KleinManifold`, `AgenticFrame`)
    - Namespaces: Match the structure name
 
-4. **Testing**: Run `lake build` to verify. All 67 modules must compile without errors or warnings.
+4. **Testing**: Run `lake build` to verify. All 89 modules must compile without errors or warnings.
 
 5. **New modules**: Add to `Basic.lean` root export. Follow the dependency graph — import only what you need.
 
