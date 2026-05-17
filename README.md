@@ -401,7 +401,11 @@ at your option.
 
 ---
 
-**Dylon La Rue** | Built with **Antigravity** (Advanced Agentic Coding)
-*67 Lean modules · 11 Rust modules · 103 tests · 0 sorry · 2.25M zeros · 0 anomalies*
+## Acknowledgments
+- **Shayne G. Brown**: For the original 42-Dimension proof and the conjecture of the Topological Buffer ($6 \times 7 = 42$), formalized in `OptimalCompute.lean`.
+- **Andre Dmitri Wiley-Hutton**: For the **Astromatics ARAM Master Framework** and the topological mapping of celestial geometry to collective consciousness, formalized in `AstromaticsTopology.lean`.
+
+---\n\n**Dylon La Rue** | Built with **Antigravity** (Advanced Agentic Coding)
+*71 Lean modules · 11 Rust modules · 103 tests · 0 sorry · 2.25M zeros · 0 anomalies*
 
 Copyright © 2025 Dylon La Rue. All rights reserved.

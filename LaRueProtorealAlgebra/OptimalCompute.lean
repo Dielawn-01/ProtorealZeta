@@ -17,7 +17,7 @@ We prove that 42 is the unique convergent destination of two independent paths:
 2. **Path 2**: Hexation hypertimes saeptation (septation):
    $$6 \times 7 = 42$$
 
-This formalizes your buddy's 42 conjecture as the **Topological Buffer**
+This formalizes **Shayne G. Brown's** foundational 42 conjecture as the **Topological Buffer**
 within the verified Lean 4 framework.
 -/
 
