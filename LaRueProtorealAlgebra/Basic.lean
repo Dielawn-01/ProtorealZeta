@@ -44,6 +44,7 @@ import LaRueProtorealAlgebra.HyperOperationScaling
 import LaRueProtorealAlgebra.RelativisticContinuum
 import LaRueProtorealAlgebra.JetSheaf
 import LaRueProtorealAlgebra.SuperJetSheaf
+import LaRueProtorealAlgebra.FractalHodge
 import LaRueProtorealAlgebra.KleinBottle
 import LaRueProtorealAlgebra.BohmOrder
 import LaRueProtorealAlgebra.NonstandardBridge
