@@ -60,6 +60,7 @@ import LaRueProtorealAlgebra.BitCollapse
 import LaRueProtorealAlgebra.IncompletenessSource
 import LaRueProtorealAlgebra.ZetaDirichlet
 import LaRueProtorealAlgebra.YangMillsMultipath
+import LaRueProtorealAlgebra.LaRueSystem
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
