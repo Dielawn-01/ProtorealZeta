@@ -86,7 +86,7 @@ theorem parity_projection_idempotent (u : ProtorealManifold) :
     parity_projection (parity_projection u) =
     parity_projection u := by
   unfold parity_projection
-  ext <;> simp <;> ring
+  ext <;> (simp; try ring)
 
 -- ════════════════════════════════════════════════════
 -- BRIDGE CONTRACTION UNDER MONSTER INVERSE

@@ -45,6 +45,11 @@ open ProtorealManifold
 open ProtorealGraph
 open EulerPerception
 
+-- The `show` tactic is used throughout for proof readability,
+-- indicating intermediate goals in the hyperoperation tower.
+set_option linter.unusedTactic false
+set_option linter.style.show false
+
 namespace HyperKlein
 
 -- ════════════════════════════════════════════════════
@@ -70,12 +75,12 @@ theorem omega_fixpoint (n : ℕ) :
   | zero =>
     show ProtorealManifold.mul FusionRing.e1 omega = omega
     unfold FusionRing.e1 omega ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
   | succ n ih =>
     show ProtorealManifold.mul (klein_pow omega (n + 1)) omega = omega
     rw [ih]
     unfold omega ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
 
 /-- **ε IS A FIXPOINT**: ε^n = ε for all n ≥ 1. -/
 theorem epsilon_fixpoint (n : ℕ) :
@@ -84,12 +89,12 @@ theorem epsilon_fixpoint (n : ℕ) :
   | zero =>
     show ProtorealManifold.mul FusionRing.e1 FusionRing.eE = FusionRing.eE
     unfold FusionRing.e1 FusionRing.eE ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
   | succ n ih =>
     show ProtorealManifold.mul (klein_pow FusionRing.eE (n + 1)) FusionRing.eE = FusionRing.eE
     rw [ih]
     unfold FusionRing.eE ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
 
 /-- **λ IS A FIXPOINT**: λ^n = λ for all n ≥ 1. -/
 theorem level_fixpoint (n : ℕ) :
@@ -98,12 +103,12 @@ theorem level_fixpoint (n : ℕ) :
   | zero =>
     show ProtorealManifold.mul FusionRing.e1 FusionRing.eL = FusionRing.eL
     unfold FusionRing.e1 FusionRing.eL ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
   | succ n ih =>
     show ProtorealManifold.mul (klein_pow FusionRing.eL (n + 1)) FusionRing.eL = FusionRing.eL
     rw [ih]
     unfold FusionRing.eL ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- ι OSCILLATION (Period 2)
@@ -113,42 +118,42 @@ theorem level_fixpoint (n : ℕ) :
 theorem iota_one : klein_pow iota 1 = iota := by
   show ProtorealManifold.mul FusionRing.e1 iota = iota
   unfold FusionRing.e1 iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- ι² = −ι (the anti-idempotent). -/
 theorem iota_sq : klein_pow iota 2 = -iota := by
   show ProtorealManifold.mul (klein_pow iota 1) iota = -iota
   rw [iota_one]
   unfold iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- ι³ = ι (back to fixpoint). -/
 theorem iota_cube : klein_pow iota 3 = iota := by
   show ProtorealManifold.mul (klein_pow iota 2) iota = iota
   rw [iota_sq]
   unfold iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- ι⁴ = −ι. -/
 theorem iota_fourth : klein_pow iota 4 = -iota := by
   show ProtorealManifold.mul (klein_pow iota 3) iota = -iota
   rw [iota_cube]
   unfold iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- ι⁵ = ι. -/
 theorem iota_fifth : klein_pow iota 5 = iota := by
   show ProtorealManifold.mul (klein_pow iota 4) iota = iota
   rw [iota_fourth]
   unfold iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- ι⁶ = −ι. Completing the first hexation period. -/
 theorem iota_sixth : klein_pow iota 6 = -iota := by
   show ProtorealManifold.mul (klein_pow iota 5) iota = -iota
   rw [iota_fifth]
   unfold iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- TOWER COLLAPSE

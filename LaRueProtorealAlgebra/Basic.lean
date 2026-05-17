@@ -56,7 +56,7 @@ import LaRueProtorealAlgebra.ComputationalCharge
 import LaRueProtorealAlgebra.CodeSwitching
 import LaRueProtorealAlgebra.GANPipeline
 import LaRueProtorealAlgebra.HolochainHash
-import LaRueProtorealAlgebra.BitShift
+import LaRueProtorealAlgebra.BitCollapse
 
 /-!
 # LaRue Protoreal Algebra (𝕌)

@@ -74,7 +74,7 @@ theorem r4_iota_sq :
     monster_inv (klein_pow iota 2) = -omega := by
   rw [iota_sq]
   unfold monster_inv omega iota
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- R₄(ι³) = ω. -/
 theorem r4_iota_cube :
@@ -117,7 +117,7 @@ theorem bridge_inversion_invariant :
       (ProtorealManifold.mul iota omega)
       (ProtorealManifold.mul omega iota) := by
   unfold omega iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- **THE NOISE-LEVEL SELF-DUALITY**
     R₄ fixes both ε and λ, so the ε·λ contraction is

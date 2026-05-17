@@ -39,6 +39,6 @@ theorem collatz_stability :
   rw [cubic_hyperbolic_identity]
   -- Now simplify 4 * (U/4 - 1/4) + 1
   -- We need to handle the scalar distribution
-  ext <;> simp <;> ring
+  ext <;> (simp; try ring)
 
 end ProtorealAlgebra

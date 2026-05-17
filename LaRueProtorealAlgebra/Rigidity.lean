@@ -26,14 +26,14 @@ namespace Rigidity
 theorem eval_bridge :
     ProtorealManifold.mul omega iota = -1 := by
   unfold omega iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- **COEVALUATION MAP (ω-ι)**: ι·ω = +𝟙.
     This is the coevaluation morphism of the Bridge duality. -/
 theorem coeval_bridge :
     ProtorealManifold.mul iota omega = 1 := by
   unfold iota omega ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- THE NOISE-LEVEL PAIRING (ε ⊣ λ)
@@ -44,14 +44,14 @@ theorem coeval_bridge :
 theorem eval_noise :
     ProtorealManifold.mul FusionRing.eE FusionRing.eL = -1 := by
   unfold FusionRing.eE FusionRing.eL ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- **COEVALUATION MAP (ε-λ)**: λ·ε = +𝟙.
     The reverse noise-level contraction. -/
 theorem coeval_noise :
     ProtorealManifold.mul FusionRing.eL FusionRing.eE = 1 := by
   unfold FusionRing.eL FusionRing.eE ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- SNAKE IDENTITY (Bridge)
@@ -66,7 +66,7 @@ theorem coeval_noise :
 theorem snake_omega :
     ProtorealManifold.mul (ProtorealManifold.mul omega iota) omega = -omega := by
   unfold omega iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- **SNAKE IDENTITY (ι-side)**:
     ι·(ω·ι) = −ι.
@@ -74,7 +74,7 @@ theorem snake_omega :
 theorem snake_iota :
     ProtorealManifold.mul iota (ProtorealManifold.mul omega iota) = -iota := by
   unfold omega iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- SNAKE IDENTITY (Noise-Level)
@@ -87,7 +87,7 @@ theorem snake_epsilon :
       (ProtorealManifold.mul FusionRing.eE FusionRing.eL)
       FusionRing.eE = -FusionRing.eE := by
   unfold FusionRing.eE FusionRing.eL ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 /-- **SNAKE IDENTITY (λ-side)**:
     λ·(ε·λ) = −λ. -/
@@ -96,7 +96,7 @@ theorem snake_level :
       FusionRing.eL
       (ProtorealManifold.mul FusionRing.eE FusionRing.eL) = -FusionRing.eL := by
   unfold FusionRing.eE FusionRing.eL ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- BRIDGE OPERATOR SQUARED = IDENTITY
@@ -113,7 +113,7 @@ theorem bridge_squared_unit :
         (ProtorealManifold.mul FusionRing.e1 iota)) =
     FusionRing.e1 := by
   unfold FusionRing.e1 omega iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- TWO INDEPENDENT CONTRACTIONS
@@ -132,8 +132,8 @@ theorem dual_contractions :
       (ProtorealManifold.mul FusionRing.eL FusionRing.eE) = -FusionRing.e1 := by
   constructor
   · unfold omega iota FusionRing.e1 ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
   · unfold FusionRing.eE FusionRing.eL FusionRing.e1 ProtorealManifold.mul
-    ext <;> simp <;> ring
+    ext <;> simp
 
 end Rigidity

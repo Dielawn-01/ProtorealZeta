@@ -76,9 +76,8 @@ theorem mu_iota_1 : mu iota 1 = { a := 0, b := 0, m := -2, e := 0, l := 0 } := b
   unfold mu rho
   change klein_pow iota 2 - iota = _
   rw [iota_sq]
-  change -iota - iota = _
   unfold iota
-  ext <;> simp <;> norm_num
+  ext <;> (simp; try norm_num)
 
 /-- **Monecular Stability Limit**
     At k=2, ι stabilizes into the tetration oscillator limit (-ι).
@@ -91,8 +90,7 @@ theorem mu_iota_2 : mu iota 2 = { a := 0, b := 0, m := 0, e := 0, l := 0 } := by
   rw [iota_sq]
   have h2 : 2 ≥ 2 := by simp
   rw [iota_tetra_stability 2 h2]
-  change -iota - (-iota) = _
   unfold iota
-  ext <;> simp <;> norm_num
+  ext <;> (simp; try norm_num)
 
 end ComputationalCharge

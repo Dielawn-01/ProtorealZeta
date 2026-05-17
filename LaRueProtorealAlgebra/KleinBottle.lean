@@ -132,7 +132,7 @@ theorem clifford_anti_commutation :
     ProtorealManifold.mul omega iota + ProtorealManifold.mul iota omega =
     (0 : ProtorealManifold) := by
   unfold omega iota ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- THE COMMUTATOR IS PURE REAL

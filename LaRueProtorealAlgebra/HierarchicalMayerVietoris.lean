@@ -43,7 +43,7 @@ def in_hierarchical_resonance (u v : ProtorealManifold) : Prop :=
 /-- **RESONANCE STABILITY**
     If two models are in hierarchical resonance, their 
     Superlambda lifts begin with identical potential noise (ε). -/
-theorem resonance_stability_under_lift (u v : ProtorealManifold) 
+theorem resonance_stability_under_lift (u v : ProtorealManifold)
     (h : in_hierarchical_resonance u v) :
     (superlambda_lift u).e = (superlambda_lift v).e := by
   unfold in_hierarchical_resonance at h

@@ -28,7 +28,7 @@ open ProtorealManifold
 open GlialDopant
 open Invariance
 
-namespace BitShift
+namespace BitCollapse
 
 -- ════════════════════════════════════════════════════
 -- SECTION 1: THE BIT SHIFT MORPHISM
@@ -150,7 +150,7 @@ theorem consolidate_n_thrust (u : ProtorealManifold) (n : ℕ) :
 theorem shift_noise_margin (u : ProtorealManifold) (n : ℕ) :
     (consolidate_n u n).e - (shift_n u n).e = n := by
   rw [consolidate_n_noise, shift_preserves_noise]
-  push_cast; ring
+  ring
 
 /-- **SHIFT AND CONSOLIDATE AGREE ON REAL PART**
     The actual computation (a scaling) is identical. -/
@@ -342,4 +342,4 @@ theorem bitshift_master :
    face_algebraic,
    noise_per_step⟩
 
-end BitShift
+end BitCollapse

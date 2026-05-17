@@ -74,7 +74,7 @@ theorem integral_scalar_vanishes (r : ℝ) :
     + -(ProtorealManifold.mul { a := r, b := 0, m := 0, e := 0, l := 0 }
             omega) = 0
   unfold omega ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- ADDITIVITY (LINEARITY)
@@ -91,7 +91,7 @@ theorem integral_additive (u v : ProtorealManifold) :
     (ProtorealManifold.mul omega u + -(ProtorealManifold.mul u omega)) +
     (ProtorealManifold.mul omega v + -(ProtorealManifold.mul v omega))
   unfold ProtorealManifold.mul omega
-  ext <;> simp <;> ring
+  ext <;> (simp; try ring)
 
 -- ════════════════════════════════════════════════════
 -- TRACE AND BRIDGE CONNECTION

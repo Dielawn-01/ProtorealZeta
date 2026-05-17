@@ -50,17 +50,17 @@ def assoc (A B C : ProtorealManifold) : ProtorealManifold :=
 theorem assoc_unit_left (B C : ProtorealManifold) :
     assoc FusionRing.e1 B C = 0 := by
   unfold assoc FusionRing.e1 ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 theorem assoc_unit_mid (A C : ProtorealManifold) :
     assoc A FusionRing.e1 C = 0 := by
   unfold assoc FusionRing.e1 ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 theorem assoc_unit_right (A B : ProtorealManifold) :
     assoc A B FusionRing.e1 = 0 := by
   unfold assoc FusionRing.e1 ProtorealManifold.mul
-  ext <;> simp <;> ring
+  ext <;> simp
 
 -- ════════════════════════════════════════════════════
 -- THE CURVATURE TRIPLE
