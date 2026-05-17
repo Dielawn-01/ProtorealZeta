@@ -63,7 +63,7 @@ $$\int f = [\omega, f] = \omega \cdot f - f \cdot \omega$$
 *   **Theorems:** 300+ Verified.
 *   **Sorry:** 0.
 *   **Environment:** Lean 4.29.1 + Mathlib v4.29.1.
-*   **Key new results:** Zeta Dirichlet decomposition, 5-path Yang-Mills mass gap, Cybernetic Grothendieck Algebra minimality, Awareness theorem.
+*   **Key new results:** Zeta Dirichlet decomposition, 5-path Yang-Mills mass gap, Connes-Wiener Algebra minimality, Awareness theorem.
 
 ---
 *Developed by La Rue & Antigravity (Advanced Agentic Coding)*

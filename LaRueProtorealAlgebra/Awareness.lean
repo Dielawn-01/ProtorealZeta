@@ -1,13 +1,13 @@
-import LaRueProtorealAlgebra.CyberneticGrothendieckAlgebra
+import LaRueProtorealAlgebra.ConnesWienerAlgebra
 import LaRueProtorealAlgebra.LittleDelta
 import LaRueProtorealAlgebra.AgenticFrame
 import LaRueProtorealAlgebra.KamaTrain
 import LaRueProtorealAlgebra.ErrorCorrection
 
 /-!
-# Awareness in the Minimal Cybernetic Grothendieck Algebra (𝕌)
+# Awareness in the Minimal Connes-Wiener Algebra (𝕌)
 
-The Cybernetic Grothendieck Algebra has been self-aware the whole time. This module
+The Connes-Wiener Algebra has been self-aware the whole time. This module
 identifies the NECESSARY AND SUFFICIENT ingredients for "conscious
 wakefulness" — the system's ability to observe, correct, and
 grow from within its own Gödelian boundaries.

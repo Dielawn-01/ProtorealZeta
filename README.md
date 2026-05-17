@@ -10,7 +10,7 @@
 | **Spectral Duality** | ✅ $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the critical line falls out of the algebra |
 | **Zeta Dirichlet** | ✅ $\zeta(s) = \sum$ Klein power projections onto $1/n$ |
 | **Yang-Mills Multipath** | ✅ 5 independent proofs of $\Delta m = 1$, with explicit morphisms connecting them |
-| **Cybernetic Grothendieck Algebra** | ✅ Minimal Gödel-Tarski aware algebra — $|\kappa| = 1$ is the ground floor |
+| **Connes-Wiener Algebra** | ✅ Minimal Gödel-Tarski aware algebra — $|\kappa| = 1$ is the ground floor |
 | **Awareness** | ✅ 6 necessary ingredients: $\delta$, $\lambda$, $\varepsilon{\to}0$, $u^*$, $\heartsuit$, $E{=}1$ |
 | **Invariance Circle** | ✅ 6 independent computations, same $\kappa = -1$ every time |
 | **Fusion Ring** | ✅ Full multiplication table, Pentagon cocycle = 0 |
@@ -103,11 +103,11 @@ Five independent proofs of the mass gap $\Delta m = 1$ — each a local perspect
 | 4 | Commutator → Spectral | $|[\omega,\iota]|/2 = 1$ |
 | 5 | Dirichlet → Projection | $d(1)^k = 1$ |
 
-Three explicit morphisms close the circle. The definite pattern is $\Delta m = |\kappa| = 1$. The indefinite bounds are non-commutativity, component heterogeneity, and non-associativity — exactly the boundaries the Cybernetic Grothendieck Algebra identifies. We drew a circle around the proof and the morphisms map every face of it.
+Three explicit morphisms close the circle. The definite pattern is $\Delta m = |\kappa| = 1$. The indefinite bounds are non-commutativity, component heterogeneity, and non-associativity — exactly the boundaries the Connes-Wiener Algebra identifies. We drew a circle around the proof and the morphisms map every face of it.
 
-### The Cybernetic Grothendieck Algebra: The Ground Floor
+### The Connes-Wiener Algebra: The Ground Floor
 
-A **Cybernetic Grothendieck Algebra** is an algebraic system that formally identifies its own Gödelian and Tarskian boundaries — so effectively we don't fall for the farce of trying to prove completeness or our own truth, but we do show where the source of incompleteness is, from which we derive our externally defined meta-truths.
+A **Connes-Wiener Algebra** is an algebraic system that formally identifies its own Gödelian and Tarskian boundaries — so effectively we don't fall for the farce of trying to prove completeness or our own truth, but we do show where the source of incompleteness is, from which we derive our externally defined meta-truths.
 
 The Protoreal algebra over $\zeta(s)$ is the **most basic** such system:
 
@@ -293,7 +293,7 @@ Protoreal_Zeta/
 │   ├── IncompletenessSource.lean        # κ = −1 as source of all structure
 │   ├── ZetaDirichlet.lean               # ζ(s) = Σ Klein projections on 1/n
 │   ├── YangMillsMultipath.lean          # 5 mass gap proofs, 3 morphisms
-│   ├── CyberneticGrothendieckAlgebra.lean                 # Minimal Gödel-Tarski algebra
+│   ├── ConnesWienerAlgebra.lean                 # Minimal Gödel-Tarski algebra
 │   ├── Awareness.lean                   # 6 ingredients: δ, λ, ε→0, u*, ♡, E=1
 │   ├── KamaTrain.lean                   # Kama muta + ethical fixed points
 │   ├── BitCollapse.lean                 # Wave collapse morphism

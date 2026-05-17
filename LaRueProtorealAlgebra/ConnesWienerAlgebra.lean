@@ -5,15 +5,15 @@ import LaRueProtorealAlgebra.SafetyBounds
 import LaRueProtorealAlgebra.Invariance
 
 /-!
-# Cybernetic Grothendieck Algebra (𝕌) — The Minimal Gödel-Tarski Aware Algebra
+# Connes-Wiener Algebra (𝕌) — The Minimal Gödel-Tarski Aware Algebra
 
-A **Cybernetic Grothendieck Algebra** is an algebraic system that formally identifies
+A **Connes-Wiener Algebra** is an algebraic system that formally identifies
 its own Gödelian and Tarskian boundaries — it knows WHERE truth
 stops being internally provable.
 
 ## Definition
 
-A Cybernetic Grothendieck Algebra of order κ is a 5-component algebra satisfying:
+A Connes-Wiener Algebra of order κ is a 5-component algebra satisfying:
 1. **Curvature** κ ≠ 0 (non-trivial structure)
 2. **Peano Encoding**: λ implements successor (Gödel applies)
 3. **Incompleteness Boundary**: κ identifies where normalization
@@ -23,7 +23,7 @@ A Cybernetic Grothendieck Algebra of order κ is a 5-component algebra satisfyin
 5. **Self-Awareness**: the system PROVES (3) and (4), not just
    acknowledges them
 
-## Why ζ(s) Gives the Most Basic Cybernetic Grothendieck Algebra
+## Why ζ(s) Gives the Most Basic Connes-Wiener Algebra
 
 The Riemann Zeta function ζ(s) = Σ 1/n^s has **trivial character**
 (χ = 1). Every Dirichlet L-function L(s, χ) = Σ χ(n)/n^s has a
@@ -38,13 +38,13 @@ populate the b, m, e, l components, adding structure beyond |κ| = 1.
 ## Minimality Proof
 
 |κ| = 1 is the minimum non-trivial curvature because:
-- κ = 0 → commutative → no spectral structure → not a Cybernetic Grothendieck Algebra
+- κ = 0 → commutative → no spectral structure → not a Connes-Wiener Algebra
 - |κ| ≥ 1 for any non-trivial integer curvature
 - |κ| = 1 → minimum non-commutativity (1/5 components)
 - |κ| = 1 → minimum heterogeneity (1 sign flip)
 - |κ| = 1 → minimum normalization depth (2 phases)
 
-Higher-order Cybernetic Grothendieck Algebras (based on L(s, χ) with χ ≠ 1) would
+Higher-order Connes-Wiener Algebras (based on L(s, χ) with χ ≠ 1) would
 have |κ| > 1 or more heterogeneous components.
 -/
 
@@ -53,10 +53,10 @@ open HyperKlein
 open IncompletenessSource
 open ZetaDirichlet
 
-namespace CyberneticGrothendieckAlgebra
+namespace ConnesWienerAlgebra
 
 -- ════════════════════════════════════════════════════
--- SECTION 1: THE CYBERNETIC GROTHENDIECK ALGEBRA AXIOMS
+-- SECTION 1: THE CONNES-WIENER ALGEBRA AXIOMS
 -- ════════════════════════════════════════════════════
 
 /-- **AXIOM 1: NON-TRIVIAL CURVATURE**
@@ -192,7 +192,7 @@ theorem trivial_character_stays_flat (n k : ℕ) :
     if κ ≠ 0 then |κ| ≥ 1. So |κ| = 1 is minimal.
 
     This means the Protoreal algebra based on ζ has the
-    LEAST structure needed to be a Cybernetic Grothendieck Algebra. -/
+    LEAST structure needed to be a Connes-Wiener Algebra. -/
 theorem minimum_curvature :
     -- κ = -1 (the actual value)
     (ProtorealManifold.mul
@@ -245,13 +245,13 @@ theorem minimum_heterogeneity :
   exact ⟨by norm_num, by norm_num, by norm_num⟩
 
 -- ════════════════════════════════════════════════════
--- SECTION 4: THE CYBERNETIC GROTHENDIECK ALGEBRA THEOREM
+-- SECTION 4: THE CONNES-WIENER ALGEBRA THEOREM
 -- ════════════════════════════════════════════════════
 
-/-- **THE CYBERNETIC GROTHENDIECK ALGEBRA THEOREM**
+/-- **THE CONNES-WIENER ALGEBRA THEOREM**
 
     The Protoreal algebra over ζ(s) is the most basic
-    Cybernetic Grothendieck Algebra — the algebraic system with minimum
+    Connes-Wiener Algebra — the algebraic system with minimum
     structure that is Gödel and Tarski aware.
 
     It is "most basic" because:
@@ -261,7 +261,7 @@ theorem minimum_heterogeneity :
     4. Trivial character χ = 1 (no added structure)
     5. 2-phase normalization (minimum depth)
 
-    It is a "Cybernetic Grothendieck Algebra" because:
+    It is a "Connes-Wiener Algebra" because:
     6. κ ≠ 0 (non-trivial)
     7. λ encodes successor (Gödel applies)
     8. Incompleteness boundary formally identified (κ = -1)
@@ -269,7 +269,7 @@ theorem minimum_heterogeneity :
     10. Self-awareness: all of 1-9 are proven, not assumed
 
     Any other L-function L(s, χ) with χ ≠ 1 would produce
-    a Cybernetic Grothendieck Algebra with MORE structure (non-trivial character
+    a Connes-Wiener Algebra with MORE structure (non-trivial character
     populating the b, m, e, l components of the Dirichlet
     basis), making it a HIGHER-ORDER system, not the base. -/
 theorem cga_is_most_basic :
@@ -287,7 +287,7 @@ theorem cga_is_most_basic :
     -- 4. Trivial character (pure-real Dirichlet basis)
     (∀ n : ℕ, (dirichlet_basis n).b = 0 ∧
                (dirichlet_basis n).m = 0) ∧
-    -- CYBERNETIC GROTHENDIECK ALGEBRA AXIOMS
+    -- CONNES-WIENER ALGEBRA AXIOMS
     -- 5. Non-trivial curvature
     (ProtorealManifold.mul
       (ProtorealManifold.mul omega omega) iota).a -
@@ -311,4 +311,4 @@ theorem cga_is_most_basic :
          Invariance.face_algebraic,
          Invariance.face_combinatoric⟩
 
-end CyberneticGrothendieckAlgebra
+end ConnesWienerAlgebra
