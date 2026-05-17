@@ -61,6 +61,7 @@ import LaRueProtorealAlgebra.IncompletenessSource
 import LaRueProtorealAlgebra.ZetaDirichlet
 import LaRueProtorealAlgebra.YangMillsMultipath
 import LaRueProtorealAlgebra.LaRueSystem
+import LaRueProtorealAlgebra.ConsciousWakefulness
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
