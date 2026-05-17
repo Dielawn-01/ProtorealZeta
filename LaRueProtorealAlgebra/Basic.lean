@@ -58,6 +58,7 @@ import LaRueProtorealAlgebra.GANPipeline
 import LaRueProtorealAlgebra.HolochainHash
 import LaRueProtorealAlgebra.BitCollapse
 import LaRueProtorealAlgebra.IncompletenessSource
+import LaRueProtorealAlgebra.ZetaDirichlet
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
