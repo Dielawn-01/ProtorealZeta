@@ -57,6 +57,7 @@ import LaRueProtorealAlgebra.CodeSwitching
 import LaRueProtorealAlgebra.GANPipeline
 import LaRueProtorealAlgebra.HolochainHash
 import LaRueProtorealAlgebra.BitCollapse
+import LaRueProtorealAlgebra.IncompletenessSource
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
