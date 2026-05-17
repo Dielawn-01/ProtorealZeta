@@ -55,6 +55,7 @@ import LaRueProtorealAlgebra.OptimalCompute
 import LaRueProtorealAlgebra.ComputationalCharge
 import LaRueProtorealAlgebra.CodeSwitching
 import LaRueProtorealAlgebra.GANPipeline
+import LaRueProtorealAlgebra.HolochainHash
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
