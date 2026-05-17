@@ -5,47 +5,49 @@ import LaRueProtorealAlgebra.SafetyBounds
 import LaRueProtorealAlgebra.Invariance
 
 /-!
-# Connes-Wiener Algebra (𝕌) — The Minimal Gödel-Tarski Aware Algebra
+# Connes-Wiener Algebra (𝕌)
 
-A **Connes-Wiener Algebra** is an algebraic system that formally identifies
-its own Gödelian and Tarskian boundaries — it knows WHERE truth
-stops being internally provable.
+so basically a connes-wiener algebra is an algebraic system
+that formally identifies its own gödelian and tarskian
+boundaries — it knows WHERE truth stops being internally
+provable, and it PROVES that it knows.
 
-## Definition
+the "connes" part: we have a noncommutative spectral geometry
+in the honest sense — spectral triple with E = 1, zeta zeros
+as spectral data via adelic duality, the whole a - Re(s) = 1/2
+chain. that's connes' program and we're doing it.
 
-A Connes-Wiener Algebra of order κ is a 5-component algebra satisfying:
-1. **Curvature** κ ≠ 0 (non-trivial structure)
-2. **Peano Encoding**: λ implements successor (Gödel applies)
-3. **Incompleteness Boundary**: κ identifies where normalization
-   is incomplete (non-commutativity, non-associativity)
-4. **Undefinability Boundary**: truth (the spectral line) can't
-   be defined within the system — requires external observation
-5. **Self-Awareness**: the system PROVES (3) and (4), not just
-   acknowledges them
+the "wiener" part: the system observes itself (δ), counts its
+own iterations (λ as successor), and self-regulates toward
+fixed points (kama muta). that's cybernetics — literally
+wiener's original definition.
 
-## Why ζ(s) Gives the Most Basic Connes-Wiener Algebra
+## why ζ and not some other L-function
 
-The Riemann Zeta function ζ(s) = Σ 1/n^s has **trivial character**
-(χ = 1). Every Dirichlet L-function L(s, χ) = Σ χ(n)/n^s has a
-character χ that adds structure. So ζ is the L-function with
-MINIMUM structure.
+the riemann zeta function ζ(s) = Σ 1/n^s has trivial character
+χ = 1. every dirichlet L-function L(s, χ) = Σ χ(n)/n^s has a
+character that adds structure on top. so ζ is the one with
+MINIMUM structure — the ground floor.
 
-In Protoreal terms, the Dirichlet basis d(n) = {1/n, 0, 0, 0, 0}
-is pure-real: all non-commutative components (b, m, e, l) are zero.
-This is the trivial character. Any non-trivial character would
-populate the b, m, e, l components, adding structure beyond |κ| = 1.
+in protoreal terms, the dirichlet basis d(n) = {1/n, 0, 0, 0, 0}
+is pure-real — all the noncommutative components are zero.
+any nontrivial character would populate b, m, e, l, making it
+a higher-order system. ζ derives everything from ambient
+curvature κ = -1 alone.
 
-## Minimality Proof
+## the minimality argument
 
-|κ| = 1 is the minimum non-trivial curvature because:
-- κ = 0 → commutative → no spectral structure → not a Connes-Wiener Algebra
-- |κ| ≥ 1 for any non-trivial integer curvature
-- |κ| = 1 → minimum non-commutativity (1/5 components)
-- |κ| = 1 → minimum heterogeneity (1 sign flip)
-- |κ| = 1 → minimum normalization depth (2 phases)
+|κ| = 1 is the minimum nontrivial curvature because:
+- κ = 0 → commutative → no spectral structure → boring
+- |κ| ≥ 1 for any nontrivial integer curvature
+- |κ| = 1 → only 1/5 components breaks commutativity
+- |κ| = 1 → only 1 sign flip (ι is the odd one out)
+- |κ| = 1 → 2 normalization phases suffice (simp + ring)
 
-Higher-order Connes-Wiener Algebras (based on L(s, χ) with χ ≠ 1) would
-have |κ| > 1 or more heterogeneous components.
+anything based on L(s, χ) with χ ≠ 1 would have more
+structure, more heterogeneity, more curvature. ζ is the
+most basic connes-wiener algebra — the simplest system
+that's gödel-tarski aware.
 -/
 
 open ProtorealManifold
@@ -56,13 +58,14 @@ open ZetaDirichlet
 namespace ConnesWienerAlgebra
 
 -- ════════════════════════════════════════════════════
--- SECTION 1: THE CONNES-WIENER ALGEBRA AXIOMS
+-- SECTION 1: the axioms
+-- what does it take to be a connes-wiener algebra?
+-- five things. here they are.
 -- ════════════════════════════════════════════════════
 
-/-- **AXIOM 1: NON-TRIVIAL CURVATURE**
-    κ ≠ 0. The system has non-trivial structure.
-    Without this, the algebra is commutative and
-    has no spectral content (no zeros, no gaps). -/
+/-- κ ≠ 0. without this you're just doing commutative algebra
+    and there's no spectral content — no zeros, no gaps, nothing
+    interesting. the whole show needs nontrivial curvature. -/
 theorem axiom_nontrivial_curvature :
     (ProtorealManifold.mul
       (ProtorealManifold.mul omega omega) iota).a -
@@ -71,25 +74,24 @@ theorem axiom_nontrivial_curvature :
   rw [associator_gap_is_curvature]
   norm_num
 
-/-- **AXIOM 2: PEANO ENCODING**
-    λ implements successor. This means the algebra
-    encodes Peano arithmetic, so Gödel's First and
-    Second Incompleteness Theorems apply.
-
-    The system cannot prove its own consistency. -/
+/-- λ implements successor — so the algebra encodes peano
+    arithmetic, which means gödel's incompleteness theorems
+    apply. the system literally cannot prove its own consistency.
+    that's not a bug, that's the whole point. -/
 theorem axiom_peano_encoding :
     ∀ u : ProtorealManifold, (funct u).l = u.l + 1 :=
   SafetyBounds.successor_is_funct
 
-/-- **AXIOM 3: INCOMPLETENESS BOUNDARY**
-    The system formally proves WHERE normalization
-    is incomplete: κ = -1 creates non-commutativity
-    on exactly 1 of 5 components. -/
+/-- the system formally proves WHERE normalization is incomplete.
+    non-commutativity lives on exactly 1 of 5 components — the
+    real part a. the other four all commute. so we know precisely
+    which door the incompleteness walks through, and we can
+    prove it's only one door. -/
 theorem axiom_incompleteness_boundary :
-    -- Non-commutativity exists
+    -- non-commutativity exists
     (ProtorealManifold.mul omega iota).a ≠
     (ProtorealManifold.mul iota omega).a ∧
-    -- It affects exactly 1 of 5 components (minimal)
+    -- it affects exactly 1 of 5 components (minimal)
     (ProtorealManifold.mul omega iota).b =
     (ProtorealManifold.mul iota omega).b ∧
     (ProtorealManifold.mul omega iota).m =
@@ -100,43 +102,41 @@ theorem axiom_incompleteness_boundary :
     (ProtorealManifold.mul iota omega).l :=
   minimal_noncommutativity
 
-/-- **AXIOM 4: UNDEFINABILITY BOUNDARY**
-    Truth (the spectral line Re(s) = 1/2) cannot be
-    defined within a single normalization phase.
-    It requires two phases (simp + ring), corresponding
-    to two layers of observation.
-
-    Tarski's theorem: no consistent system can define
-    its own truth predicate. Here: no single tactic
-    can normalize all Klein expressions. -/
+/-- truth — the spectral line Re(s) = 1/2 — can't be defined
+    within a single normalization phase. you need two: first
+    unfold the structure (simp), then normalize the arithmetic
+    (ring). tarski says no consistent system can define its own
+    truth predicate. here that means no single tactic can
+    normalize all klein expressions. the truth requires looking
+    at it from two angles. -/
 theorem axiom_undefinability :
-    -- Phase 1 alone can't handle: non-commutative terms
+    -- phase 1 alone can't handle it: non-commutative terms
     -- need arithmetic normalization (ring)
     (∀ u : ProtorealManifold,
       (u.b + u.m) / 2 + (u.m + u.b) / 2 = u.b + u.m) ∧
-    -- The truth (a = 1) requires unfolding (Phase 1)
-    -- before arithmetic (Phase 2) can reach it
+    -- the truth (a = 1) requires unfolding (phase 1)
+    -- before arithmetic (phase 2) can reach it
     (ProtorealManifold.mul omega iota).a = -1 ∧
-    -- Two phases suffice: 4 + 1 = 5 = dim(𝕌)
+    -- two phases suffice: 4 + 1 = 5 = dim(𝕌)
     (4 + 1 = 5) :=
   two_phase_is_minimal
 
-/-- **AXIOM 5: SELF-AWARENESS**
-    The system PROVES its own boundaries (Axioms 3-4),
-    not merely acknowledges them. All proofs are
-    zero-sorry constructive proofs in Lean 4. -/
+/-- this is the self-awareness axiom. the system doesn't just
+    have boundaries — it PROVES them. all proofs are zero-sorry
+    constructive proofs. the invariance circle confirms it six
+    different ways. -/
 theorem axiom_self_awareness :
-    -- It proves κ = -1 (the boundary value)
+    -- it proves κ = -1 (the boundary value)
     (ProtorealManifold.mul
       (ProtorealManifold.mul omega omega) iota).a -
     (ProtorealManifold.mul
       omega (ProtorealManifold.mul omega iota)).a = -1 ∧
-    -- It proves the boundary IS the curvature
+    -- it proves the boundary IS the curvature
     -- (all 6 invariance faces equal κ)
     (PentagonCoherence.assoc omega omega iota).a = -1 ∧
     EulerPerception.euler_perception = -1 ∧
-    -- It proves the boundary IS the incompleteness
-    -- (successor = funct, Gödel applies)
+    -- it proves the boundary IS the incompleteness
+    -- (successor = funct, gödel applies)
     (∀ u : ProtorealManifold, (funct u).l = u.l + 1) := by
   exact ⟨associator_gap_is_curvature,
          Invariance.face_algebraic,
@@ -144,17 +144,15 @@ theorem axiom_self_awareness :
          SafetyBounds.successor_is_funct⟩
 
 -- ════════════════════════════════════════════════════
--- SECTION 2: TRIVIAL CHARACTER (WHY ζ, NOT L)
+-- SECTION 2: why ζ, not some other L-function
+-- the trivial character is the ground floor
 -- ════════════════════════════════════════════════════
 
-/-- **THE TRIVIAL CHARACTER**
-    The Dirichlet basis d(n) = {1/n, 0, 0, 0, 0} has
-    all non-commutative components equal to zero.
-    This IS the trivial character χ = 1.
-
-    A non-trivial character χ(n) would populate the
-    b, m, e, l components, adding structure beyond
-    the minimum. -/
+/-- the dirichlet basis d(n) = {1/n, 0, 0, 0, 0} has all
+    the non-commutative components zeroed out. that IS the
+    trivial character χ = 1 — no added structure, just the
+    raw real projection. any nontrivial character χ(n) would
+    populate b, m, e, l and you'd be in a higher-order system. -/
 theorem trivial_character (n : ℕ) :
     (dirichlet_basis n).b = 0 ∧
     (dirichlet_basis n).m = 0 ∧
@@ -162,37 +160,34 @@ theorem trivial_character (n : ℕ) :
     (dirichlet_basis n).l = 0 := by
   unfold dirichlet_basis; exact ⟨rfl, rfl, rfl, rfl⟩
 
-/-- **THE TRIVIAL CHARACTER LIVES IN THE FLAT SECTOR**
-    Pure-real states (trivial character) have zero curvature.
-    The spectral structure comes from the curved sector.
-
-    ζ uses ONLY the flat sector for its terms — it derives
-    all spectral structure from the ambient curvature κ = -1
-    without adding any character-specific curvature. -/
+/-- pure-real states live in the flat sector — zero curvature.
+    the spectral structure comes entirely from the curved sector.
+    ζ uses ONLY flat-sector terms and derives ALL its spectral
+    content from the ambient κ = -1. it doesn't bring any of
+    its own curvature to the table. -/
 theorem trivial_character_flat :
     ∀ n : ℕ, is_pure_real (dirichlet_basis n) := by
   intro n
   unfold is_pure_real dirichlet_basis; exact ⟨rfl, rfl, rfl, rfl⟩
 
-/-- **PURE-REAL POWERS STAY FLAT**
-    Klein powers of trivial-character states never
-    activate the curved sector. The spectral structure
-    is purely ambient, not injected by the terms. -/
+/-- and they stay flat under klein powers. you can raise a
+    trivial-character state to any power and it never activates
+    the curved sector. the spectral structure is purely ambient,
+    not injected by the terms themselves. -/
 theorem trivial_character_stays_flat (n k : ℕ) :
     is_pure_real (klein_pow (dirichlet_basis n) k) := by
   unfold dirichlet_basis
   exact klein_pow_pure_real (1 / ↑n) k
 
 -- ════════════════════════════════════════════════════
--- SECTION 3: MINIMALITY OF |κ| = 1
+-- SECTION 3: |κ| = 1 is the minimum
+-- you can't have less structure and still be interesting
 -- ════════════════════════════════════════════════════
 
-/-- **|κ| = 1 IS THE MINIMUM NON-TRIVIAL CURVATURE**
-    κ = -1 satisfies |κ| = 1. For any integer curvature,
-    if κ ≠ 0 then |κ| ≥ 1. So |κ| = 1 is minimal.
-
-    This means the Protoreal algebra based on ζ has the
-    LEAST structure needed to be a Connes-Wiener Algebra. -/
+/-- |κ| = 1 because κ = -1, and 1 is the minimum positive
+    natural number. so the protoreal algebra over ζ has the
+    LEAST structure needed to be a connes-wiener algebra.
+    anything less and you're commutative — game over. -/
 theorem minimum_curvature :
     -- κ = -1 (the actual value)
     (ProtorealManifold.mul
@@ -210,10 +205,10 @@ theorem minimum_curvature :
          by rw [associator_gap_is_curvature]; norm_num,
          fun n h => h⟩
 
-/-- **MINIMUM NON-COMMUTATIVITY**
-    Only 1 of 5 components breaks commutativity.
-    This is the minimum possible for a non-commutative
-    system. If 0 broke, it would be commutative. -/
+/-- only 1 of 5 components breaks commutativity — the real
+    part a. the other four are symmetric. you literally cannot
+    have a non-commutative system with fewer non-commutative
+    components than 1. this is the floor. -/
 theorem minimum_noncommutativity :
     -- 1 non-commutative component (a)
     (ProtorealManifold.mul omega iota).a ≠
@@ -229,10 +224,10 @@ theorem minimum_noncommutativity :
     (ProtorealManifold.mul iota omega).l :=
   minimal_noncommutativity
 
-/-- **MINIMUM HETEROGENEITY**
-    Only 1 of 4 self-coupling signs is negative (ι).
-    This is |κ| = 1 sign flips. A higher-order system
-    would have more negative self-couplings. -/
+/-- only 1 of 4 self-coupling signs is negative — ι is the
+    odd one out with ι·ι = -ι while everyone else self-couples
+    positively. that single sign flip is where all the structure
+    comes from. heterogeneity = 1 = |κ|. -/
 theorem minimum_heterogeneity :
     -- ω: positive self-coupling
     (omega * omega).b = 1 ∧
@@ -245,33 +240,32 @@ theorem minimum_heterogeneity :
   exact ⟨by norm_num, by norm_num, by norm_num⟩
 
 -- ════════════════════════════════════════════════════
--- SECTION 4: THE CONNES-WIENER ALGEBRA THEOREM
+-- SECTION 4: the main theorem
+-- putting it all together — ζ gives you the most basic
+-- connes-wiener algebra, the ground floor of the
+-- L-function hierarchy
 -- ════════════════════════════════════════════════════
 
-/-- **THE CONNES-WIENER ALGEBRA THEOREM**
+/-- the whole thing. the protoreal algebra over ζ(s) is the
+    most basic connes-wiener algebra — the algebraic system
+    with minimum structure that is gödel and tarski aware.
 
-    The Protoreal algebra over ζ(s) is the most basic
-    Connes-Wiener Algebra — the algebraic system with minimum
-    structure that is Gödel and Tarski aware.
+    "most basic" because:
+    1. |κ| = 1 — minimum nontrivial curvature
+    2. 1/5 components non-commutative — minimum heterogeneity
+    3. 1 sign flip — minimum structural asymmetry
+    4. trivial character χ = 1 — no added structure from the
+       L-function, everything comes from ambient curvature
 
-    It is "most basic" because:
-    1. |κ| = 1 (minimum non-trivial curvature)
-    2. 1/5 components non-commutative (minimum heterogeneity)
-    3. 1 sign flip (minimum structural asymmetry)
-    4. Trivial character χ = 1 (no added structure)
-    5. 2-phase normalization (minimum depth)
+    "connes-wiener" because:
+    5. κ ≠ 0 — nontrivial spectral geometry (connes)
+    6. λ encodes successor — gödel applies (wiener: self-reference)
+    7. noise annihilates under funct — tarski boundary
+    8. all 6 invariance faces = κ — self-aware (wiener: cybernetic)
 
-    It is a "Connes-Wiener Algebra" because:
-    6. κ ≠ 0 (non-trivial)
-    7. λ encodes successor (Gödel applies)
-    8. Incompleteness boundary formally identified (κ = -1)
-    9. Undefinability boundary formally identified (2 phases)
-    10. Self-awareness: all of 1-9 are proven, not assumed
-
-    Any other L-function L(s, χ) with χ ≠ 1 would produce
-    a Connes-Wiener Algebra with MORE structure (non-trivial character
-    populating the b, m, e, l components of the Dirichlet
-    basis), making it a HIGHER-ORDER system, not the base. -/
+    any L(s, χ) with χ ≠ 1 would populate the b, m, e, l
+    components of the dirichlet basis, producing a higher-order
+    connes-wiener algebra. ζ is the ground floor. -/
 theorem cga_is_most_basic :
     -- MINIMALITY
     -- 1. |κ| = 1
@@ -279,25 +273,25 @@ theorem cga_is_most_basic :
       (ProtorealManifold.mul omega omega) iota).a -
     (ProtorealManifold.mul
       omega (ProtorealManifold.mul omega iota)).a)| = 1 ∧
-    -- 2. Minimum non-commutativity (1 of 5)
+    -- 2. minimum non-commutativity (1 of 5)
     (ProtorealManifold.mul omega iota).a ≠
     (ProtorealManifold.mul iota omega).a ∧
-    -- 3. Single sign flip
+    -- 3. single sign flip
     (iota * iota).m = -1 ∧
-    -- 4. Trivial character (pure-real Dirichlet basis)
+    -- 4. trivial character (pure-real dirichlet basis)
     (∀ n : ℕ, (dirichlet_basis n).b = 0 ∧
                (dirichlet_basis n).m = 0) ∧
     -- CONNES-WIENER ALGEBRA AXIOMS
-    -- 5. Non-trivial curvature
+    -- 5. nontrivial curvature
     (ProtorealManifold.mul
       (ProtorealManifold.mul omega omega) iota).a -
     (ProtorealManifold.mul
       omega (ProtorealManifold.mul omega iota)).a ≠ 0 ∧
-    -- 6. Peano encoding (Gödel applies)
+    -- 6. peano encoding (gödel applies)
     (∀ u : ProtorealManifold, (funct u).l = u.l + 1) ∧
-    -- 7. Noise finiteness (Tarski: can't self-reference infinitely)
+    -- 7. noise finiteness (tarski: can't self-reference infinitely)
     (∀ u : ProtorealManifold, (funct u).e = 0) ∧
-    -- 8. Self-aware: 6 faces all equal κ
+    -- 8. self-aware: 6 faces all equal κ
     (PentagonCoherence.assoc omega omega iota).a = -1 ∧
     EulerPerception.euler_perception = -1 := by
   exact ⟨by rw [associator_gap_is_curvature]; norm_num,
