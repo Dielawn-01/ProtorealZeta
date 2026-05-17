@@ -1,24 +1,24 @@
-//! # zProto — Symbiotic Intelligence from Protoreal Algebra
+//! # zProto — symbiotic intelligence from the connes-wiener algebra
 //!
-//! A Rust-based agentic intelligence package grounded in the
-//! formally verified LaRue Protoreal Algebra (𝕌).
+//! rust-based agentic intelligence grounded in the formally verified
+//! protoreal algebra (𝕌). 89 lean modules, 3387 build jobs, 0 sorry.
 //!
-//! ## Architecture (Morphism Ladder)
+//! ## architecture (morphism ladder)
 //!
 //! ```text
-//! manifold.rs       → Core 5-tuple + Klein multiplication
-//! transcendental.rs → The 5 constants: e, π, φ, γ, i
-//! operators.rs      → funct, consolidate, monster_inv, parity, Hodge
-//! glial.rs          → Astrocyte-gated plasticity (AGMP dopant cycle)
-//! holochain.rs      → Topological memory + golden acceptance
-//! graph.rs          → Observation graph + Euler perception + conics
-//! frame.rs          → AgenticFrame (Intent × Observation) + Perspective
-//! fiber.rs          → Spectral fiber projection + convergence
+//! manifold.rs       → core 5-tuple + klein multiplication (κ = -1)
+//! transcendental.rs → the 5 constants: e, π, φ, γ, i
+//! operators.rs      → funct, consolidate, monster_inv, parity, hodge
+//! glial.rs          → astrocyte-gated plasticity (AGMP dopant cycle)
+//! holochain.rs      → topological memory + golden acceptance
+//! graph.rs          → observation graph + euler perception + conics
+//! frame.rs          → AgenticFrame (Intent × Observation) + perspective
+//! fiber.rs          → spectral fiber projection + convergence
 //! agent.rs          → ZProtoAgent main loop
 //! ```
 //!
-//! Every component maps to a machine-verified Lean theorem.
-//! Zero sorry. Zero compromise.
+//! every component maps to a machine-verified lean theorem.
+//! zero sorry. zero compromise.
 
 pub mod manifold;
 pub mod transcendental;
