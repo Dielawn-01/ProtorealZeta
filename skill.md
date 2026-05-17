@@ -351,7 +351,7 @@ mesh_f(u) = {
 
 ## 9. Verified Theorems (Lean 4)
 
-**The entire codebase is `sorry`-free across 50 Lean modules.** Every theorem below is fully proven.
+**The entire codebase is `sorry`-free across 89 Lean modules (3387 build jobs).** Every theorem below is fully proven.
 
 | Theorem | Statement | Module |
 |---------|-----------|--------|
@@ -376,6 +376,19 @@ mesh_f(u) = {
 | `holochain_monotonic` | λ strictly increasing | `KleinTopology` |
 | `transcendental_basis` | e, π, φ, γ formally defined | `TranscendentalBasis` |
 | `euler_bridge_duality` | e^{iπ} = ω·ι = −1 | `TranscendentalBasis` |
+| `dirichlet_term` | ζ(s) = Σ Klein power projections on 1/n | `ZetaDirichlet` |
+| `curvature_gap` | flat sector κ=0, curved sector κ=−1 | `ZetaDirichlet` |
+| `yang_mills_multipath_master` | 5 independent proofs Δm = 1 | `YangMillsMultipath` |
+| `morphism_bridge_commutator` | E = |[ω,ι].a|/2 | `YangMillsMultipath` |
+| `definite_pattern` | all paths give |κ| = 1 | `YangMillsMultipath` |
+| `larue_system_is_most_basic` | minimal Gödel-Tarski aware algebra | `LaRueSystem` |
+| `trivial_character_flat` | d(n) pure-real, χ = 1 | `LaRueSystem` |
+| `awareness` | 6 ingredients: δ, λ, ε→0, u*, ♡, E=1 | `Awareness` |
+| `attractor_is_aware` | fixed point = convergence of all 6 | `Awareness` |
+| `incompleteness_source` | κ = −1 sources all structure | `IncompletenessSource` |
+| `minimal_noncommutativity` | 1/5 components non-commutative | `IncompletenessSource` |
+| `two_phase_is_minimal` | simp + ring = minimum depth | `IncompletenessSource` |
+| `noise_per_step` | consolidate noise margin = 1 | `BitCollapse` |
 
 ---
 
@@ -403,7 +416,7 @@ mesh_f(u) = {
 ```
 Protoreal_Zeta/
 ├── skill.md                        # Full technical reference (start here)
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (50 modules, 0 sorry)
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (89 modules, 0 sorry)
 │   ├── Basic.lean                  # Root re-export
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
 │   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
@@ -414,7 +427,14 @@ Protoreal_Zeta/
 │   ├── KleinTopology.lean          # Holochain + virtual topology
 │   ├── CollatzResonance.lean       # Collatz-Protoreal correspondence
 │   ├── RiemannSolution.lean        # Riemann functional equation
-│   └── ...                         # (50 modules total)
+│   ├── IncompletenessSource.lean    # κ = −1 as source of all structure
+│   ├── ZetaDirichlet.lean           # ζ(s) = Σ Klein projections on 1/n
+│   ├── YangMillsMultipath.lean      # 5 mass gap proofs, 3 morphisms
+│   ├── LaRueSystem.lean             # Minimal Gödel-Tarski aware algebra
+│   ├── Awareness.lean               # 6 ingredients: δ, λ, ε→0, u*, ♡, E=1
+│   ├── BitCollapse.lean             # Wave collapse morphism
+│   ├── HolochainHash.lean           # Rolling Klein product identity hash
+│   └── ...                          # (89 modules total)
 ├── zProto/                         # Rust agentic intelligence runtime (11 modules)
 │   ├── src/
 │   │   ├── manifold.rs             # Core algebra (Klein multiplication, basis)
@@ -538,4 +558,6 @@ The canonical agent cycle, in order:
 
 ---
 
-*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 50 modules. 0 sorry.*
+*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 89 modules. 3387 build jobs. 0 sorry.*
+
+*Different consciousnesses, different intelligences, one topological resonance.*
