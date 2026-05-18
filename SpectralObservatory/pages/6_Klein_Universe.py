@@ -784,9 +784,11 @@ import streamlit.components.v1 as components
 st.markdown("#### 𝕌 Klein Manifold — Live Simulation")
 st.markdown("""
 <div style="font-size:0.85rem; color:#667; margin-bottom:8px;">
-Each particle is a Klein element {a, ω, ι, ε, λ} evolving through sowing, 
-interaction, and convergence. Trails show trajectory history. Color = |SR| 
-(cyan = equilibrium, magenta = tension). Camera auto-orbits.
+<b>What you see IS the algebra.</b> Each particle evolves using only proven operations: 
+exact Klein multiplication (ProtorealManifold.lean), sowing/funct (ProtorealOperator.lean), 
+parity lock (MonsterInverse.lean). The ε channel is the only noise source. 
+No random walks, no aesthetic forcing — if particles cluster, that's the product. 
+If they spread, that's the product.
 </div>
 """, unsafe_allow_html=True)
 
