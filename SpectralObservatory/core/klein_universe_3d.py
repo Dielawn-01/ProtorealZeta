@@ -26,6 +26,7 @@ def get_klein_universe_html(n_particles=15, noise_scale=0.58, apply_r4=False):
 <body>
 <div id="hud"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 // ════════════════════════════════════════════════════
 // KLEIN UNIVERSE — LIVE SIMULATION
@@ -46,6 +47,16 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(0x05070a, 1);
 document.body.appendChild(renderer.domElement);
+
+// ── Orbit Controls (click-drag) ──
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.8;
+controls.minDistance = 4;
+controls.maxDistance = 25;
+controls.enablePan = true;
 
 // ── Lights ──
 scene.add(new THREE.AmbientLight(0x223344, 0.6));
@@ -354,12 +365,8 @@ function animate() {{
   for (const p of particles) p.evolve(particles, step);
   for (const p of particles) p.updateVisual();
 
-  // Camera orbit
-  const t = step * 0.003;
-  camera.position.x = 9 * Math.cos(t);
-  camera.position.z = 9 * Math.sin(t);
-  camera.position.y = 4 + 1.5 * Math.sin(t * 0.7);
-  camera.lookAt(0, 0, 0);
+  // Camera
+  controls.update();
 
   // Beacon pulse
   beacon.material.opacity = 0.15 + 0.15 * Math.sin(step * 0.02);

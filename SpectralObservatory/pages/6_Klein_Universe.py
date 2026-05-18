@@ -249,34 +249,6 @@ show_trails = st.sidebar.checkbox("Show Holochain Trails", True,
 consolidation_mode = st.sidebar.radio("Consolidation", ["Fibonacci", "Every 10 steps", "Off"])
 
 st.sidebar.markdown("---")
-st.sidebar.header("🧊 Bottle Appearance")
-bottle_opacity = st.sidebar.slider("Surface Opacity", 0.05, 0.8, 0.35, 0.05,
-                                    help="Transparency of the Klein bottle surface")
-
-BOTTLE_COLORSCALES = {
-    "Spectral Resonance": [[0, '#00ffcc'], [0.5, '#1a1a2e'], [1, '#ff3366']],
-    "Viridis": 'Viridis',
-    "Plasma": 'Plasma',
-    "Twilight": [[0, '#e2d1c3'], [0.25, '#5e4fa2'], [0.5, '#0d0d1a'], [0.75, '#9e0142'], [1, '#e2d1c3']],
-    "Deep Ocean": [[0, '#0a1628'], [0.3, '#0d47a1'], [0.6, '#00bcd4'], [1, '#e0f7fa']],
-    "Solar Flare": [[0, '#0d0221'], [0.3, '#cc5803'], [0.6, '#fca311'], [1, '#fffbf0']],
-    "Monochrome": [[0, '#1a1a2e'], [0.5, '#404060'], [1, '#8888aa']],
-}
-bottle_colorscale_name = st.sidebar.selectbox("Color Theme", list(BOTTLE_COLORSCALES.keys()), index=0)
-bottle_colorscale = BOTTLE_COLORSCALES[bottle_colorscale_name]
-
-bottle_lighting = st.sidebar.select_slider("Lighting", 
-    options=["Matte", "Soft", "Glossy"],
-    value="Soft")
-
-LIGHTING_PRESETS = {
-    "Matte": dict(ambient=0.8, diffuse=0.3, roughness=0.9, specular=0.1),
-    "Soft": dict(ambient=0.6, diffuse=0.5, roughness=0.5, specular=0.4),
-    "Glossy": dict(ambient=0.4, diffuse=0.6, roughness=0.1, specular=1.2),
-}
-bottle_light = LIGHTING_PRESETS[bottle_lighting]
-
-st.sidebar.markdown("---")
 st.sidebar.markdown(f"""
 **Computed Constants**
 - γ₀ = `{GAMMA:.15f}`
