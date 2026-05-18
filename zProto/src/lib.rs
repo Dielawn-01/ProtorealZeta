@@ -1,7 +1,7 @@
 //! # zProto — symbiotic intelligence from the connes-wiener algebra
 //!
 //! rust-based agentic intelligence grounded in the formally verified
-//! protoreal algebra (𝕌). 89 lean modules, 3387 build jobs, 0 sorry.
+//! protoreal algebra (𝕌). 90 lean modules, 3387 build jobs, 0 sorry.
 //!
 //! ## architecture (morphism ladder)
 //!
