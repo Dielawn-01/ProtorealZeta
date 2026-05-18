@@ -777,224 +777,63 @@ def project_path_to_bottle(path, res=60):
 
 
 # ── Build the visualization ──
-col_bottle, col_phase = st.columns([3, 2])
+# Three.js Klein Universe — live particle simulation
+from core.klein_universe_3d import get_klein_universe_html
+import streamlit.components.v1 as components
 
-with col_bottle:
-    st.markdown("#### 𝕌 Klein Manifold")
+st.markdown("#### 𝕌 Klein Manifold — Live Simulation")
+st.markdown("""
+<div style="font-size:0.85rem; color:#667; margin-bottom:8px;">
+Each particle is a Klein element {a, ω, ι, ε, λ} evolving through sowing, 
+interaction, and convergence. Trails show trajectory history. Color = |SR| 
+(cyan = equilibrium, magenta = tension). Camera auto-orbits.
+</div>
+""", unsafe_allow_html=True)
 
-    x_kb, y_kb, z_kb, sr_kb = klein_bottle_surface(res=50)
+klein_html = get_klein_universe_html(n_particles, noise_scale, apply_r4)
+components.html(klein_html, height=650, scrolling=False)
 
-    fig_kb = go.Figure()
-
-    # Surface — uses shared appearance controls
-    fig_kb.add_trace(go.Surface(
-        x=x_kb, y=y_kb, z=z_kb,
-        surfacecolor=sr_kb,
-        colorscale=bottle_colorscale,
-        showscale=False,
-        opacity=bottle_opacity,
-        lighting=bottle_light,
-        name='Klein Bottle'
-    ))
-
-    # ── Simulation particle trails (stochastic colors, recent only) ──
-    sim_palette = [
-        '#00ffcc', '#ff3366', '#feca57', '#7c4dff',
-        '#00e5ff', '#ff6e40', '#69f0ae', '#ea80fc',
-        '#80deea', '#f48fb1', '#fff176', '#b388ff',
-    ]
-    trail_start = max(0, n_steps - int(n_steps * 0.35))  # last ~35%
-
-    if show_trails:
-        for i in range(n_particles):
-            trail_x, trail_y, trail_z = [], [], []
-            steps = list(range(trail_start, len(history[i]['a'])))
-            for t in steps:
-                px, py, pz = project_point_to_bottle(
-                    history[i]['b'][t], history[i]['c'][t], history[i]['a'][t])
-                trail_x.append(px)
-                trail_y.append(py)
-                trail_z.append(pz)
-            c = sim_palette[i % len(sim_palette)]
-            fig_kb.add_trace(go.Scatter3d(
-                x=trail_x, y=trail_y, z=trail_z,
-                mode='lines',
-                line=dict(width=1.5, color=c),
-                opacity=0.6,
-                showlegend=False, hoverinfo='skip'
-            ))
-
-    # ── Simulation particle endpoints ──
-    final_sr = [abs(history[i]['sr'][-1]) for i in range(n_particles)]
-    marker_size = [max(2, min(6, 2 + final_particles[i].l * 0.15)) for i in range(n_particles)]
-    sim_x, sim_y, sim_z = [], [], []
-    for i in range(n_particles):
-        px, py, pz = project_point_to_bottle(
-            history[i]['b'][-1], history[i]['c'][-1], history[i]['a'][-1])
-        sim_x.append(px)
-        sim_y.append(py)
-        sim_z.append(pz)
-
-    fig_kb.add_trace(go.Scatter3d(
-        x=sim_x, y=sim_y, z=sim_z,
-        mode='markers',
-        marker=dict(
-            size=marker_size, color=final_sr,
-            colorscale=[[0, '#00ffcc'], [0.5, '#feca57'], [1, '#ff3366']],
-            colorbar=dict(title="| SR |", len=0.4, y=0.8),
-            opacity=0.9,
-            line=dict(width=1, color='rgba(255,255,255,0.3)')
-        ),
-        text=[f"Sim {i}<br>SR={final_sr[i]:.4f}" for i in range(n_particles)],
-        hoverinfo='text', name='Sim Particles',
-    ))
-
-    # ── Function explorer orbits ──
-    path_colors = [
-        '#00ffcc', '#ff3366', '#feca57', '#7c4dff',
-        '#00e5ff', '#ff6e40', '#69f0ae', '#ea80fc',
-    ]
-
-    for idx, path in enumerate(paths):
-        px, py, pz = project_path_to_bottle(path)
-        color = path_colors[idx % len(path_colors)]
-
-        # Trail
-        fig_kb.add_trace(go.Scatter3d(
-            x=px, y=py, z=pz,
-            mode='lines',
-            line=dict(width=3, color=color),
-            name=f'Orbit {idx+1}',
-            opacity=0.8,
-        ))
-
-        # Start marker
-        fig_kb.add_trace(go.Scatter3d(
-            x=[px[0]], y=[py[0]], z=[pz[0]],
-            mode='markers',
-            marker=dict(size=6, color=color, symbol='circle'),
-            showlegend=False,
-            hovertext=f'Start {idx+1}: a={path["a"][0]:.2f}, ω={path["b"][0]:.2f}, ι={path["c"][0]:.2f}',
-            hoverinfo='text',
-        ))
-
-        # End marker
-        fig_kb.add_trace(go.Scatter3d(
-            x=[px[-1]], y=[py[-1]], z=[pz[-1]],
-            mode='markers',
-            marker=dict(size=8, color=color, symbol='diamond'),
-            showlegend=False,
-            hovertext=f'End {idx+1}: a={path["a"][-1]:.2f}, ω={path["b"][-1]:.2f}, ι={path["c"][-1]:.2f}',
-            hoverinfo='text',
-        ))
-
-    wire_common = dict(
-        showgrid=True, gridcolor='rgba(255,255,255,0.06)',
-        showline=True, linecolor='rgba(255,255,255,0.12)',
-        showbackground=False,
-        showticklabels=True, tickfont=dict(size=9, color='rgba(255,255,255,0.4)'),
-        showspikes=True,
-        spikecolor='rgba(255,255,255,0.15)', spikethickness=1,
-    )
-    fig_kb.update_layout(
-        scene=dict(
-            xaxis=dict(**wire_common, title=dict(text='ω (Thrust)', font=dict(size=11, color='#00ffcc'))),
-            yaxis=dict(**wire_common, title=dict(text='ι (Anchor)', font=dict(size=11, color='#ff3366'))),
-            zaxis=dict(**wire_common, title=dict(text='a (Real)', font=dict(size=11, color='#feca57'))),
-            bgcolor='rgba(0,0,0,0)',
-            camera=dict(eye=dict(x=1.5, y=1.5, z=0.8)),
-        ),
-        template="plotly_dark",
-        margin=dict(l=0, r=0, b=0, t=10),
-        height=650,
-        paper_bgcolor='rgba(0,0,0,0)',
-        legend=dict(
-            orientation="h", yanchor="top", y=0.02,
-            font=dict(size=10),
-        ),
-    )
-    st.plotly_chart(fig_kb, use_container_width=True)
-
+# ── Phase portrait below ──
+col_phase, col_a = st.columns(2)
 
 with col_phase:
     st.markdown("#### Phase Portrait (ω, ι)")
-
     fig_phase = go.Figure()
-
     for idx, path in enumerate(paths):
-        color = path_colors[idx % len(path_colors)]
-        sr_vals = [abs(s) for s in path['sr']]
-
+        color = ['#00ffcc','#ff3366','#feca57','#7c4dff','#00e5ff','#ff6e40','#69f0ae','#ea80fc'][idx % 8]
         fig_phase.add_trace(go.Scatter(
-            x=path['b'], y=path['c'],
-            mode='lines+markers',
-            marker=dict(
-                size=3,
-                color=sr_vals,
-                colorscale=[[0, '#00ffcc'], [0.5, '#feca57'], [1, '#ff3366']],
-                showscale=(idx == 0),
-                colorbar=dict(title="|SR|", len=0.4, y=0.8) if idx == 0 else None,
-            ),
-            line=dict(width=1, color=color),
-            name=f'Orbit {idx+1}',
-            opacity=0.7,
+            x=path['b'], y=path['c'], mode='lines+markers',
+            marker=dict(size=2, color=color), line=dict(width=1, color=color),
+            name=f'Orbit {idx+1}', opacity=0.7,
         ))
-
-        # Start/end
-        fig_phase.add_trace(go.Scatter(
-            x=[path['b'][0]], y=[path['c'][0]],
-            mode='markers', marker=dict(size=8, color=color, symbol='circle'),
-            showlegend=False,
-        ))
-        fig_phase.add_trace(go.Scatter(
-            x=[path['b'][-1]], y=[path['c'][-1]],
-            mode='markers', marker=dict(size=10, color=color, symbol='diamond'),
-            showlegend=False,
-        ))
-
-    # Reference lines
-    # Bridge: b*c = 1 (hyperbola)
     b_ref = np.linspace(0.2, 5, 100)
-    fig_phase.add_trace(go.Scatter(
-        x=b_ref, y=1.0/b_ref,
-        mode='lines', line=dict(color='rgba(255,255,255,0.2)', dash='dot', width=1),
-        name='ωι = 1 (Bridge)',
-    ))
-    # Parity: b = c
-    fig_phase.add_trace(go.Scatter(
-        x=b_ref, y=b_ref,
-        mode='lines', line=dict(color='rgba(255,255,255,0.15)', dash='dash', width=1),
-        name='ω = ι (Hodge)',
-    ))
-
+    fig_phase.add_trace(go.Scatter(x=b_ref, y=1.0/b_ref, mode='lines',
+        line=dict(color='rgba(255,255,255,0.15)', dash='dot', width=1), name='ωι=1'))
+    fig_phase.add_trace(go.Scatter(x=b_ref, y=b_ref, mode='lines',
+        line=dict(color='rgba(255,255,255,0.1)', dash='dash', width=1), name='ω=ι'))
     fig_phase.update_layout(
-        template="plotly_dark",
-        height=320,
-        margin=dict(l=20, r=20, t=10, b=20),
+        template="plotly_dark", height=280, margin=dict(l=20,r=20,t=10,b=20),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-        xaxis=dict(title="ω (Thrust)", gridcolor='rgba(255,255,255,0.05)'),
-        yaxis=dict(title="ι (Anchor)", gridcolor='rgba(255,255,255,0.05)'),
+        xaxis=dict(title="ω", gridcolor='rgba(255,255,255,0.05)'),
+        yaxis=dict(title="ι", gridcolor='rgba(255,255,255,0.05)'),
         legend=dict(orientation="h", yanchor="top", y=-0.15, font=dict(size=9)),
     )
     st.plotly_chart(fig_phase, use_container_width=True)
 
-    # ── Convergence time series ──
+with col_a:
     st.markdown("#### Real Part Trajectory")
     fig_a = go.Figure()
     for idx, path in enumerate(paths):
-        color = path_colors[idx % len(path_colors)]
-        fig_a.add_trace(go.Scatter(
-            y=path['a'], mode='lines', line=dict(color=color, width=1.5),
-            name=f'Orbit {idx+1}', showlegend=False,
-        ))
+        color = ['#00ffcc','#ff3366','#feca57','#7c4dff','#00e5ff','#ff6e40','#69f0ae','#ea80fc'][idx % 8]
+        fig_a.add_trace(go.Scatter(y=path['a'], mode='lines',
+            line=dict(color=color, width=1.5), name=f'Orbit {idx+1}', showlegend=False))
     fig_a.add_hline(y=1.0, line_dash="dot", line_color="white", opacity=0.3,
                     annotation_text="Fixed Point (a=1)")
     fig_a.update_layout(
-        template="plotly_dark", height=220,
-        margin=dict(l=20, r=20, t=10, b=20),
+        template="plotly_dark", height=280, margin=dict(l=20,r=20,t=10,b=20),
         paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
         xaxis=dict(title="Iteration", gridcolor='rgba(255,255,255,0.05)'),
-        yaxis=dict(title="a (Real Base)", gridcolor='rgba(255,255,255,0.05)'),
+        yaxis=dict(title="a", gridcolor='rgba(255,255,255,0.05)'),
     )
     st.plotly_chart(fig_a, use_container_width=True)
 
