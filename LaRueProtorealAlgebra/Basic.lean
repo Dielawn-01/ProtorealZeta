@@ -61,6 +61,7 @@ import LaRueProtorealAlgebra.IncompletenessSource
 import LaRueProtorealAlgebra.TemporalMorphism
 import LaRueProtorealAlgebra.VisionMorphism
 import LaRueProtorealAlgebra.MultimodalMorphism
+import LaRueProtorealAlgebra.SavageProbability
 import LaRueProtorealAlgebra.ZetaDirichlet
 import LaRueProtorealAlgebra.YangMillsMultipath
 import LaRueProtorealAlgebra.ConnesWienerAlgebra
