@@ -87,7 +87,7 @@ Each step is a zero-sorry Lean 4 proof. The critical line $Re(s) = 1/2$ is the s
 
 You'll notice that the Riemann zeta function $\zeta(s) = \sum n^{-s}$ is just the $a$-component projection of Klein powers acting on pure-real basis states:
 
-$$\zeta(s) \approx \sum_{n=1}^{N} \left(\text{klein\_pow}\left(\left\{\frac{1}{n}, 0, 0, 0, 0\right\}, k\right)\right).a$$
+$$\zeta(s) \approx \sum_{n=1}^{N} \left(\text{klein\_pow}\left(\left\{\frac{1}{n}, 0, 0, 0, 0\right\}, k\right)\right)_a$$
 
 The Dirichlet basis $d(n) = \{1/n, 0, 0, 0, 0\}$ is **pure-real** — all non-commutative components are zero. That's the trivial character $\chi = 1$. Pure-real states commute ($\kappa = 0$); the spectral structure lives in the gap ($\kappa = -1$) between the flat sector and the full manifold. So basically the graph of the Riemann zeta function is the projection of the powers of protoreal basis vectors on $1/n$.
 
