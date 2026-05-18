@@ -1,7 +1,6 @@
 ---
-name: Protoreal Algebra — Technical Skill Reference
-description: "Formally verified 5-component non-associative algebra (Protoreal) for agentic intelligence, spectral analysis, and topological system design. 90 Lean modules. 0 sorry."
-version: "1.0"
+name: protoreal-algebra
+description: Formally verified 5-component non-associative algebra (Protoreal) technical skill reference. Use when building agentic intelligence, spectral analysis, or topological system design using the Protoreal runtime.
 ---
 
 # Protoreal Algebra — Technical Skill Reference
