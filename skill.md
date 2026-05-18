@@ -396,8 +396,8 @@ mesh_f(u) = {
 | `noise_per_step` | consolidate noise margin = 1 | `BitCollapse` |
 | `primorial_jitter_basis` | noise-free sector spans 5 basis elements | `PrimorialJitter` |
 | `jitter_curvature_relation` | J(ω,ι,ω) = κ.a (jitter = curvature at bridge) | `PrimorialJitter` |
-| `code_switch_involution` | code_switch(code_switch(u)) = u | `CodeSwitching` |
-| `code_switch_preserves_curvature` | κ is invariant under code-switching | `CodeSwitching` |
+| `lingual_morphism_involution` | lingual_morphism(lingual_morphism(u)) = u | `LingualMorphism` |
+| `lingual_morphism_preserves_curvature` | κ is invariant under lingual morphisms | `LingualMorphism` |
 
 ---
 
@@ -443,7 +443,7 @@ Protoreal_Zeta/
 │   ├── Awareness.lean               # 6 ingredients: δ, λ, ε→0, u*, ♡, E=1
 │   ├── BitCollapse.lean             # Wave collapse morphism
 │   ├── PrimorialJitter.lean        # Non-associative jitter grows as primorial
-│   ├── CodeSwitching.lean          # Semantic ↔ Protoreal involution
+│   ├── LingualMorphism.lean        # Semantic ↔ Protoreal involution
 │   └── ...                          # (90 modules total)
 ├── zProto/                         # Rust agentic intelligence runtime (11 modules)
 │   ├── src/
@@ -628,7 +628,7 @@ fn process(input: KleinManifold) -> Result<KleinManifold, ManifoldError> {
 
 ### 12.11 Code-Switching for NLP ↔ Math Bridges
 
-The `code_switch` operator (proven involution in `CodeSwitching.lean`) swaps the semantic and algebraic topologies:
+The `lingual_morphism` operator (proven involution in `LingualMorphism.lean`) swaps the semantic and algebraic topologies:
 
 ```
 code_switch(u) = { a := a, ω := ι, ι := ω, ε := λ, λ := ε }
