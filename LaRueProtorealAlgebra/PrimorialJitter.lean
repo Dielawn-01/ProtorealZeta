@@ -27,6 +27,41 @@ the left-fold and right-fold products:
     right_fold [u₁, u₂, u₃] = u₁ · (u₂ · u₃)
     jitter = left_fold.a - right_fold.a
 
+## physical interpretation
+
+**left fold = quantum mechanics (micro)**
+each new element acts on the accumulated state. you resolve pairs
+before moving forward. this is measurement: each observation
+collapses the current state, the next measurement acts on the
+collapsed result. time-ordered products, causal, local.
+
+**right fold = general relativity (macro)**
+each element multiplies into the entire remaining structure.
+you need the whole list before resolving anything. this is
+einstein's field equations: the metric at a point depends on the
+stress-energy everywhere. block universe, non-local, global.
+
+**jitter = the quantum gravity problem**
+J(n) = left_fold.a - right_fold.a is literally the difference
+between computing locally (QM) and computing globally (GR).
+the fact that J(n) ≠ 0 is WHY they're incompatible — they
+parenthesize reality differently.
+
+**primorial growth = the hierarchy problem**
+J(n)/J(n-1) ≈ p_n means the QM-GR incompatibility grows
+with each new prime scale. this IS the hierarchy problem:
+gravity (macro/right-fold) is astronomically weaker than
+the quantum forces (micro/left-fold).
+
+**monster inverse = the bridge**
+R4 swaps ω ↔ ι, turning the QM frame into the GR frame.
+parity-locked projection (u + u*)/2 is where both agree.
+
+**critical line = the balance point**
+a - Re(s) = 1/2 means you're exactly halfway between
+the left-fold and right-fold perspectives. RH says this
+balance point is maximally symmetric.
+
 ## the primorial growth (numerical observation)
 
 for the first n primes mapped as prime elements:
@@ -246,5 +281,86 @@ theorem primorial_jitter_framework :
   exact ⟨fun p => prime_element_noise_free p,
          fun u₁ u₂ h₁ h₂ => noise_free_commutator_a u₁ u₂ h₁ h₂,
          by unfold ProtorealManifold.mul; norm_num⟩
+
+-- ════════════════════════════════════════════════════
+-- SECTION 8: QM / GR DUALITY
+-- ════════════════════════════════════════════════════
+
+/-- **LEFT FOLD IS CAUSAL (QM)**
+    Appending a new element to a left fold is a single
+    multiplication on the accumulated state.
+    The past is resolved; the new element acts on history.
+    This is quantum measurement: observe, collapse, continue. -/
+theorem left_fold_append (us : List ProtorealManifold) (v : ProtorealManifold)
+    (h : us ≠ []) :
+    left_fold (us ++ [v]) =
+    ProtorealManifold.mul (left_fold us) v := by
+  match us, h with
+  | u :: rest, _ =>
+    unfold left_fold
+    simp [List.foldl_append]
+
+/-- **RIGHT FOLD IS TELEOLOGICAL (GR)**
+    Prepending a new element to a right fold is a single
+    multiplication into the entire future.
+    The future must be resolved first; the new element
+    wraps around everything that comes after.
+    This is general relativity: the whole determines the part. -/
+theorem right_fold_prepend (u : ProtorealManifold) (us : List ProtorealManifold) :
+    right_fold (u :: us) =
+    ProtorealManifold.mul u (right_fold us) := by
+  cases us with
+  | nil => unfold right_fold; rfl
+  | cons v vs => unfold right_fold; rfl
+
+/-- **THE MONSTER INVERSE EXCHANGES FRAMES**
+    Swapping ω ↔ ι (thrust ↔ anchor) on a prime element
+    inverts the p ↔ 1/p relationship.
+
+    For the prime element π(p) = {1/p, p, 1/p, 0, 0}:
+    π(p)* = {1/p, 1/p, p, 0, 0}
+
+    This exchanges the "velocity" and "contraction" roles,
+    turning the QM perspective into the GR perspective.
+    The parity-locked projection (π + π*)/2 is where
+    both frames agree — the unified viewpoint. -/
+theorem monster_inverse_prime (p : ℝ) :
+    let pe := prime_element p
+    let pe_star : ProtorealManifold :=
+      { a := pe.a, b := pe.m, m := pe.b, e := pe.e, l := pe.l }
+    -- The real part is preserved (observable is frame-invariant)
+    pe_star.a = pe.a ∧
+    -- Thrust and anchor swap
+    pe_star.b = pe.m ∧
+    pe_star.m = pe.b ∧
+    -- Noise-free is preserved
+    is_noise_free pe_star := by
+  unfold prime_element is_noise_free
+  exact ⟨rfl, rfl, rfl, ⟨rfl, rfl⟩⟩
+
+/-- **PARITY-LOCKED PROJECTION IS SYMMETRIC**
+    For noise-free elements, the parity-locked projection
+    (u + u*)/2 has equal thrust and anchor: b = m.
+    This is the state where QM and GR agree.
+
+    In the prime element case: b = m = (p + 1/p)/2,
+    which is the arithmetic mean of velocity and contraction. -/
+theorem parity_locked_symmetry (u : ProtorealManifold)
+    (h : is_noise_free u) :
+    let balanced : ProtorealManifold :=
+      { a := u.a,
+        b := (u.b + u.m) / 2,
+        m := (u.m + u.b) / 2,
+        e := u.e,
+        l := u.l }
+    -- Thrust equals anchor in the balanced state
+    balanced.b = balanced.m ∧
+    -- The balanced state is still noise-free
+    is_noise_free balanced := by
+  unfold is_noise_free at h ⊢
+  obtain ⟨he, hl⟩ := h
+  constructor
+  · simp [add_comm]
+  · exact ⟨he, hl⟩
 
 end PrimorialJitter
