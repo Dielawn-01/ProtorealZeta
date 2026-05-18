@@ -463,9 +463,9 @@ Protoreal_Zeta/
 
 ---
 
-## 12. Agentic Design Patterns & Tips
+## 12. Algebraic Agent & System Design Patterns
 
-This section is for **agents and developers** building on top of the Protoreal Algebra. The math above tells you *what* the system is — this section tells you *how to use it well*.
+This section is for **agents and developers** building applications and autonomous systems on top of the Protoreal runtime. In the Protoreal architecture, algebraic agent patterns and application/system design are rapidly converging into the same discipline. The math above tells you *what* the system is — this section tells you *how to engineer with it*.
 
 ### 12.1 The Cardinal Rule: Parenthesize Everything
 
