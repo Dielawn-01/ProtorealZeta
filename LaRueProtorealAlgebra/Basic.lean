@@ -62,6 +62,7 @@ import LaRueProtorealAlgebra.ZetaDirichlet
 import LaRueProtorealAlgebra.YangMillsMultipath
 import LaRueProtorealAlgebra.ConnesWienerAlgebra
 import LaRueProtorealAlgebra.Awareness
+import LaRueProtorealAlgebra.PrimorialJitter
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
