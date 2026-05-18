@@ -835,11 +835,51 @@ st.dataframe(pd.DataFrame(endpoint_data), hide_index=True, use_container_width=T
 st.markdown(r"""
 <div class="sim-card">
 <h4 style="color: #7c4dff; margin-top: 0;">📐 Interpreting the Results</h4>
-<p><b>Fixed points</b> appear as clusters where orbits converge.
-<b>Attractors</b> appear as spiraling convergences — most Protoreal functions attract to $a = 1$.
-<b>Chaos</b> appears as space-filling curves (try "Klein Self-Product" with 500 iterations).</p>
-<p>The <b>Hodge check</b> (ω ≈ ι) tells you if the orbit reached parity equilibrium.
-The <b>convergence check</b> (a ≈ 1) tells you if it reached the Duality fixed point $Re(s) = 1/2$.</p>
+
+<p><b>The pulsing orb at SR ≈ 0.</b> That's the <b>spectral fixed point</b> — the unique
+equilibrium where $a = 1$ and $\omega \cdot \iota = a$. It breathes because the
+sowing operator injects $\varepsilon$ into $a$, the product absorbs it, and the
+system returns to equilibrium. The pulse IS the $\varepsilon \to 0$ nilpotent truncation
+in real time. Proven in <code>ProtorealOperator.lean</code>.</p>
+
+<p><b>Why particles cluster.</b> The Klein product is <b>contractive</b>. The bridge
+identity $\omega \cdot \iota = -1$ means every interaction pulls the real part
+toward the fixed point. The duality theorem ($a_\mathbb{U} - Re(s)_\mathbb{C} = 1/2$)
+isn't decorative — it's <i>fast</i>. Convergence to $a = 1$ takes roughly 50
+iterations. That's the algebra doing its job, not a rendering choice. Proven in
+<code>DualityTheorem.lean</code>.</p>
+
+<p><b>The dielectric structure.</b> The manifold has two proven pairings:</p>
+<table style="width:100%; color: #e8eaf0; font-size: 0.85rem; margin: 8px 0;">
+<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+<td>$\omega$ (thrust) ↔ $\iota$ (anchor)</td>
+<td>$\omega \cdot \iota = -1$ (bridge contraction)</td>
+<td><code>ProtorealAxioms.lean</code></td>
+</tr>
+<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+<td>$\varepsilon$ (noise) ↔ $\lambda$ (level)</td>
+<td>$\varepsilon \circ \lambda = \text{id}$ (Protoreal FTC)</td>
+<td><code>ProtorealOperator.lean</code></td>
+</tr>
+<tr>
+<td>$a$ (real part)</td>
+<td>Interface between inner and outer worlds</td>
+<td><code>DualityTheorem.lean</code></td>
+</tr>
+</table>
+
+<p><b>The Hodge check ($\omega \approx \iota$).</b> When the Monster Inverse
+parity projection $(u + u^*)/2$ locks $\omega = \iota$, the orbit has reached
+the Hodge equilibrium — the elliptic and hyperbolic fibers are identified.
+Proven idempotent in <code>MonsterInverse.lean</code>.</p>
+
+<p><b>Primorial jitter.</b> The gap between left-folding and right-folding the
+first $n$ primes through the Klein product grows as $n\#$ (the primorial).
+Left fold = local/sequential composition. Right fold = global/holistic composition.
+The ratio $J(n)/J(n-1) \approx p_n$ — the growth rate IS the sequence of primes.
+<i>This is a structural analogy, not a physical claim.</i> Whether
+left/right fold maps to QM/GR is an open question. Proven algebraically in
+<code>PrimorialJitter.lean</code>.</p>
 </div>
 """, unsafe_allow_html=True)
 

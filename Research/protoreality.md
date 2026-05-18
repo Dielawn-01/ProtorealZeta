@@ -59,7 +59,7 @@ $$\int f = [\omega, f] = \omega \cdot f - f \cdot \omega$$
 ---
 
 ## 6. Formal Verification Status
-*   **Modules:** 89 Lean modules. Build Clean (3387 jobs).
+*   **Modules:** 90 Lean modules. Build Clean.
 *   **Theorems:** 300+ Verified.
 *   **Sorry:** 0.
 *   **Environment:** Lean 4.29.1 + Mathlib v4.29.1.

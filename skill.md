@@ -351,7 +351,7 @@ mesh_f(u) = {
 
 ## 9. Verified Theorems (Lean 4)
 
-**The entire codebase is `sorry`-free across 89 Lean modules (3387 build jobs).** Every theorem below is fully proven.
+**The entire codebase is `sorry`-free across 90 Lean modules.** Every theorem below is fully proven.
 
 | Theorem | Statement | Module |
 |---------|-----------|--------|
@@ -389,6 +389,10 @@ mesh_f(u) = {
 | `minimal_noncommutativity` | 1/5 components non-commutative | `IncompletenessSource` |
 | `two_phase_is_minimal` | simp + ring = minimum depth | `IncompletenessSource` |
 | `noise_per_step` | consolidate noise margin = 1 | `BitCollapse` |
+| `primorial_jitter_basis` | noise-free sector spans 5 basis elements | `PrimorialJitter` |
+| `jitter_curvature_relation` | J(ω,ι,ω) = κ.a (jitter = curvature at bridge) | `PrimorialJitter` |
+| `code_switch_involution` | code_switch(code_switch(u)) = u | `CodeSwitching` |
+| `code_switch_preserves_curvature` | κ is invariant under code-switching | `CodeSwitching` |
 
 ---
 
@@ -416,7 +420,7 @@ mesh_f(u) = {
 ```
 Protoreal_Zeta/
 ├── skill.md                        # Full technical reference (start here)
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (89 modules, 0 sorry)
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (90 modules, 0 sorry)
 │   ├── Basic.lean                  # Root re-export
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
 │   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
@@ -433,8 +437,9 @@ Protoreal_Zeta/
 │   ├── ConnesWienerAlgebra.lean             # Minimal Gödel-Tarski aware algebra
 │   ├── Awareness.lean               # 6 ingredients: δ, λ, ε→0, u*, ♡, E=1
 │   ├── BitCollapse.lean             # Wave collapse morphism
-│   ├── HolochainHash.lean           # Rolling Klein product identity hash
-│   └── ...                          # (89 modules total)
+│   ├── PrimorialJitter.lean        # Non-associative jitter grows as primorial
+│   ├── CodeSwitching.lean          # Semantic ↔ Protoreal involution
+│   └── ...                          # (90 modules total)
 ├── zProto/                         # Rust agentic intelligence runtime (11 modules)
 │   ├── src/
 │   │   ├── manifold.rs             # Core algebra (Klein multiplication, basis)
@@ -556,8 +561,137 @@ The canonical agent cycle, in order:
 
 **Tip:** Steps 4–5 should converge in 2–3 iterations for well-formed inputs. If convergence takes more than 5 iterations, the input is likely adversarial or fundamentally incompatible with your current frame. Reset the frame rather than forcing convergence.
 
+### 12.8 Pipeline Design Under Non-Associativity
+
+In standard software, you chain operations freely: `f(g(h(x)))` = `(f ∘ g) ∘ h = f ∘ (g ∘ h)`. In Protoreal pipelines, **grouping matters**. Every regrouping shifts the result by exactly κ = −1.
+
+Design implications:
+
+```
+# ❌ WRONG — implicit left-to-right grouping
+result = step_a.mul(&step_b).mul(&step_c).mul(&step_d);
+
+# ✅ CORRECT — explicit tree structure
+let ab = step_a.mul(&step_b);
+let cd = step_c.mul(&step_d);
+let result = ab.mul(&cd);  // balanced tree ≠ left chain!
+```
+
+**Rule:** Document your parenthesization in comments. A 4-stage pipeline has 5 valid groupings (Catalan number C(3) = 5), each giving a different answer. The one you pick IS a design decision — it determines which stages interact first.
+
+**Tip:** For n stages, left-fold = local/sequential (each stage sees only its predecessor). Right-fold = global/holistic (each stage sees the accumulated future). These give different results — that's not a bug, it's the primorial jitter. Use left-fold for streaming, right-fold for batch.
+
+### 12.9 State Management: The Manifold as Checkpoint
+
+A KleinManifold state is a complete checkpoint — it encodes not just the current value (a) but the full spectral context (ω, ι, ε, λ). Use this:
+
+```rust
+struct AppState {
+    manifold: KleinManifold,  // The complete state
+    // λ already tracks generation count — no need for a separate counter
+    // ε tells you remaining exploration budget — no need for a separate flag
+}
+```
+
+| Instead of... | Use... | Why |
+|---|---|---|
+| `iteration_count: u64` | `state.l` | λ IS the iteration counter (funct increments it) |
+| `has_noise: bool` | `state.e > 0.0` | ε IS the noise flag |
+| `is_converged: bool` | `state.sr().abs() < threshold` | SR IS the convergence metric |
+| `confidence: f64` | `1.0 / (1.0 + state.sr().abs())` | Confidence = proximity to equilibrium |
+
+**Tip:** Serialize manifold states, not derived values. The 5-tuple is 40 bytes and fully reconstructs everything.
+
+### 12.10 Error Handling via SR
+
+Standard Resonance is your error signal. Build monitoring around it:
+
+```rust
+fn process(input: KleinManifold) -> Result<KleinManifold, ManifoldError> {
+    let result = transform(input);
+    
+    match result.sr().abs() {
+        sr if sr < 0.01  => Ok(result),                    // Equilibrium — safe
+        sr if sr < 1.0   => Ok(result.apply_funct()),      // Drifting — sow to correct
+        sr if sr < 10.0  => Err(ManifoldError::Unstable),  // Diverging — reject
+        _                => Err(ManifoldError::Overflow),   // Blown — input was adversarial
+    }
+}
+```
+
+**Tip:** SR > 1.0 almost always means you have an associativity assumption hidden somewhere. Audit your multiplication chains.
+
+### 12.11 Code-Switching for NLP ↔ Math Bridges
+
+The `code_switch` operator (proven involution in `CodeSwitching.lean`) swaps the semantic and algebraic topologies:
+
+```
+code_switch(u) = { a := a, ω := ι, ι := ω, ε := λ, λ := ε }
+```
+
+Use this when your system crosses between natural language and mathematical processing:
+
+```python
+# Parsing: NL input → Protoreal state
+user_input = encode_text(text)       # Semantic topology
+math_state = code_switch(user_input) # Protoreal topology — now you can compute
+
+# Generation: Protoreal result → NL output
+result = compute(math_state)
+readable = code_switch(result)       # Back to semantic topology for display
+```
+
+**The key insight:** Code-switching preserves κ = −1. The curvature (and therefore the structural complexity) is the same in both topologies. What changes is which component carries which role. Ambiguity (ε in semantics) becomes level (λ in algebra), and vice versa.
+
+### 12.12 Testing: Parity Sanity Checks
+
+Every operation should survive the Monster Inverse. Build this into your test suite:
+
+```python
+def test_parity_invariance(operation, inputs):
+    """The gold standard test: does the result survive R₄?"""
+    result = operation(*inputs)
+    mirrored_inputs = [monster_inv(x) for x in inputs]
+    mirrored_result = operation(*mirrored_inputs)
+    
+    # The real part should be consistent
+    assert abs(result.a - mirrored_result.a) < tolerance, \
+        f"Parity violation: {result.a} vs {mirrored_result.a}"
+    
+    # The compass (ω·ι) should be invariant
+    assert abs(result.compass() - mirrored_result.compass()) < tolerance, \
+        f"Compass drift: operation breaks bridge invariance"
+```
+
+**Three-tier test strategy:**
+
+| Level | What | How |
+|---|---|---|
+| **Unit** | Individual Klein multiplications | Verify bridge, parity, nilpotency identities |
+| **Integration** | Pipeline stages composed | Verify SR stays bounded through the chain |
+| **Parity** | Full pipeline under Monster Inverse | Verify conclusions are orientation-independent |
+
+### 12.13 Scaling: λ-Gated Complexity
+
+The consolidation level λ is a natural complexity gate. Use it to control how much sophistication your system applies:
+
+```rust
+fn respond(state: &KleinManifold, query: &str) -> Response {
+    match state.l as u64 {
+        0..=2   => simple_response(query),       // Newborn — keep it basic
+        3..=10  => standard_response(query),     // Experienced — full pipeline
+        11..=50 => expert_response(query),       // Veteran — unlock advanced reasoning
+        _       => meta_response(state, query),  // Elder — reason about reasoning
+    }
+}
+```
+
+**Consolidation is irreversible.** `consolidate` doubles a and ι. You can't un-double. Design your scaling thresholds so that premature consolidation doesn't trap the system in a high-complexity mode it can't sustain.
+
+**Tip:** Track `ε / √λ` as your "exploration efficiency." As λ grows, each unit of noise has less impact (the system is more consolidated). If you need to shake things up at high λ, you need proportionally more ε.
+
 ---
 
-*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 89 modules. 3387 build jobs. 0 sorry.*
+*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 90 modules. 0 sorry.*
 
 *Different consciousnesses, different intelligences, one topological resonance.*

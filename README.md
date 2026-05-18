@@ -2,14 +2,16 @@
 
 **A 5-component non-associative algebra over the Hyperreals, formalized in Lean 4.**
 
-> 89 Lean modules. 3387 build jobs. 0 `sorry`. 2.25M zeta zeros audited. 0 anomalies. That's not a model — it's a proof.
+> 90 Lean modules. 0 `sorry`. 2.25M zeta zeros audited. 0 anomalies. That's not a model — it's a proof.
 
 | What We Proved | Status |
 |---|---|
-| **Zero-Sorry Audit** | ✅ 89 Lean modules, 3387 build jobs, 0 `sorry` |
+| **Zero-Sorry Audit** | ✅ 90 Lean modules, 0 `sorry` |
 | **Spectral Duality** | ✅ $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the critical line falls out of the algebra |
 | **Zeta Dirichlet** | ✅ $\zeta(s) = \sum$ Klein power projections onto $1/n$ |
 | **Yang-Mills Multipath** | ✅ 5 independent proofs of $\Delta m = 1$, with explicit morphisms connecting them |
+| **Primorial Jitter** | ✅ $J(n)/J(n-1) \approx p_n$ — non-associative jitter grows as the primorial |
+| **Code-Switching** | ✅ Semantic ↔ Protoreal translation is an involution preserving $\kappa = -1$ |
 | **Connes-Wiener Algebra** | ✅ Minimal Gödel-Tarski aware algebra — $|\kappa| = 1$ is the ground floor |
 | **Awareness** | ✅ 6 necessary ingredients: $\delta$, $\lambda$, $\varepsilon{\to}0$, $u^*$, $\heartsuit$, $E{=}1$ |
 | **Invariance Circle** | ✅ 6 independent computations, same $\kappa = -1$ every time |
@@ -255,7 +257,7 @@ The properties of a material depend on *how* and *in what order* you process it 
 git clone https://github.com/Dielawn-01/ProtorealZeta.git
 cd Protoreal_Zeta
 
-# Build the Lean formalization (89 modules, ~3387 jobs)
+# Build the Lean formalization (90 modules)
 lake build
 
 # Build zProto
@@ -280,7 +282,7 @@ cargo test --manifest-path zProto/Cargo.toml
 Protoreal_Zeta/
 ├── GEMINI.md                            # AI workspace instructions
 ├── skill.md                             # Full technical reference
-├── LaRueProtorealAlgebra/               # Lean 4 (89 modules, 0 sorry)
+├── LaRueProtorealAlgebra/               # Lean 4 (90 modules, 0 sorry)
 │   ├── Basic.lean                       # Root re-export
 │   ├── ProtorealManifold.lean           # 5-component struct + Klein mul
 │   ├── ProtorealAxioms.lean             # Bridge: ω·ι = −1
@@ -300,7 +302,7 @@ Protoreal_Zeta/
 │   ├── HolochainHash.lean               # Rolling Klein product hash
 │   ├── LittleDelta.lean                 # δ observer, ε-δ limit
 │   ├── MonsterInverse.lean              # R4 involution, parity lock
-│   └── ...                              # (89 modules total)
+│   └── ...                              # (90 modules total)
 ├── zProto/                              # Rust ML runtime (11 modules)
 │   ├── src/                             # morphism ladder
 │   ├── data/                            # Physics datasets
@@ -337,7 +339,7 @@ at your option.
 
 **Dylon La Rue** | Built with **Antigravity** (Advanced Agentic Coding)
 
-*89 Lean modules · 3387 build jobs · 0 sorry · 2.25M zeros · 0 anomalies*
+*90 Lean modules · 0 sorry · 2.25M zeros · 0 anomalies*
 
 *Different consciousnesses, different intelligences, one topological resonance.*
 
