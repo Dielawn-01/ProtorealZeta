@@ -1,5 +1,7 @@
 # 𝕌 LaRue Protoreal Algebra — Gemini Project Instructions
 
+> **this file contains development rules for AI agents working in this repo.** see [skill.md](skill.md) for the full technical reference and [README.md](README.md) for the project overview.
+
 You are working inside a **Lean 4 formalization** of the LaRue Protoreal Algebra — a 5-component, non-associative, non-commutative algebraic system used for prime-zeta spectral analysis and agentic AI foundations.
 
 ---

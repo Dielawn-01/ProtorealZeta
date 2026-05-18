@@ -16,7 +16,7 @@
 | **Fusion Ring** | ✅ Full multiplication table, Pentagon cocycle = 0 |
 | **Spectral Trinity** | ✅ Spin chains + Yang-Mills + RH — same algebraic structure under $\kappa = -1$ |
 
-> **📖 Full technical reference**: [skill.md](skill.md) · **Development rules**: [GEMINI.md](GEMINI.md)
+> **📖 Full technical reference**: [skill.md](skill.md)
 
 ---
 
@@ -278,7 +278,7 @@ cargo test --manifest-path zProto/Cargo.toml
 
 ```
 Protoreal_Zeta/
-├── GEMINI.md                            # AI development axioms & rules
+├── GEMINI.md                            # AI workspace instructions
 ├── skill.md                             # Full technical reference
 ├── LaRueProtorealAlgebra/               # Lean 4 (89 modules, 0 sorry)
 │   ├── Basic.lean                       # Root re-export
