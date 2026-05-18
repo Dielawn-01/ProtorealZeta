@@ -176,7 +176,7 @@ This is a structural analogy. Whether it's a deep physical correspondence or a s
 
 3. **The Spectral Antenna** (this project): We map prime triples into Klein manifold elements and measure their spectral energy. Primes whose Klein projection lands near $a = 1$ are "resonant." Primes that miss are repelled to $SR \approx 0.5$. That bimodal distribution is exactly the pair-correlation signature predicted by GUE statistics.
 
-The non-associative jitter — grouping three primes as $(p_l{\cdot}p_m){\cdot}p_n$ gives a different spectral energy than $p_l{\cdot}(p_m{\cdot}p_n)$ — that's the curvature $\kappa = -1$. Primes don't just have positions in the Klein manifold — they have *orientations*, and those orientations interact non-commutatively, just like quantum spin states.
+The non-associative jitter — grouping three primes as $(p_l{\cdot}p_m){\cdot}p_n$ gives a different spectral energy than $p_l{\cdot}(p_m{\cdot}p_n)$ — that's the curvature $\kappa = -1$. Primes don't just have positions in the Klein manifold — they have *orientations*, and those orientations interact non-commutatively, reminiscent of quantum spin states. Whether this resemblance is structural coincidence or something deeper is what we're trying to find out. (See `PrimorialJitter.lean` for the formal framework and numerical evidence that the jitter grows as the primorial.)
 
 ---
 

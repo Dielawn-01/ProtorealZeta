@@ -27,40 +27,45 @@ the left-fold and right-fold products:
     right_fold [u₁, u₂, u₃] = u₁ · (u₂ · u₃)
     jitter = left_fold.a - right_fold.a
 
-## physical interpretation
+## physical interpretation (structural analogy, not a claim)
 
-**left fold = quantum mechanics (micro)**
+the following are observations about the algebraic structure.
+whether they correspond to actual physics is an open question.
+we're noting the structural parallels, not asserting identity.
+
+**left fold resembles quantum mechanics (micro)**
 each new element acts on the accumulated state. you resolve pairs
-before moving forward. this is measurement: each observation
-collapses the current state, the next measurement acts on the
-collapsed result. time-ordered products, causal, local.
+before moving forward. structurally similar to measurement:
+each observation collapses the current state, the next acts on
+the collapsed result. time-ordered products, causal, local.
 
-**right fold = general relativity (macro)**
+**right fold resembles general relativity (macro)**
 each element multiplies into the entire remaining structure.
-you need the whole list before resolving anything. this is
-einstein's field equations: the metric at a point depends on the
-stress-energy everywhere. block universe, non-local, global.
+you need the whole list before resolving anything. structurally
+similar to einstein's field equations: the metric at a point
+depends on the stress-energy everywhere. non-local, global.
 
-**jitter = the quantum gravity problem**
-J(n) = left_fold.a - right_fold.a is literally the difference
-between computing locally (QM) and computing globally (GR).
-the fact that J(n) ≠ 0 is WHY they're incompatible — they
-parenthesize reality differently.
+**jitter might relate to the quantum gravity problem**
+J(n) = left_fold.a - right_fold.a is the difference between
+computing locally and computing globally. IF the left/right fold
+correspondence holds, then J(n) ≠ 0 would be a structural
+reason for the QM-GR incompatibility.
 
-**primorial growth = the hierarchy problem**
-J(n)/J(n-1) ≈ p_n means the QM-GR incompatibility grows
-with each new prime scale. this IS the hierarchy problem:
-gravity (macro/right-fold) is astronomically weaker than
-the quantum forces (micro/left-fold).
+**primorial growth might relate to the hierarchy problem**
+J(n)/J(n-1) ≈ p_n means the gap between local and global
+computation grows with each prime scale. IF the correspondence
+holds, this mirrors the hierarchy problem. but we haven't
+proven the physical connection — only the algebraic growth.
 
-**monster inverse = the bridge**
-R4 swaps ω ↔ ι, turning the QM frame into the GR frame.
+**monster inverse as a candidate frame exchange**
+R4 swaps ω ↔ ι. if ω ↔ velocity and ι ↔ contraction,
+then R4 exchanges the two computational frames.
 parity-locked projection (u + u*)/2 is where both agree.
 
-**critical line = the balance point**
-a - Re(s) = 1/2 means you're exactly halfway between
-the left-fold and right-fold perspectives. RH says this
-balance point is maximally symmetric.
+**critical line as a possible balance point**
+a - Re(s) = 1/2 (proven) places the manifold fixed point
+halfway between the two fold perspectives. whether this
+has physical meaning beyond the algebra is open.
 
 ## the primorial growth (numerical observation)
 
@@ -286,11 +291,11 @@ theorem primorial_jitter_framework :
 -- SECTION 8: QM / GR DUALITY
 -- ════════════════════════════════════════════════════
 
-/-- **LEFT FOLD IS CAUSAL (QM)**
+/-- **LEFT FOLD APPENDS ONTO HISTORY**
     Appending a new element to a left fold is a single
     multiplication on the accumulated state.
     The past is resolved; the new element acts on history.
-    This is quantum measurement: observe, collapse, continue. -/
+    (Structurally analogous to sequential measurement.) -/
 theorem left_fold_append (us : List ProtorealManifold) (v : ProtorealManifold)
     (h : us ≠ []) :
     left_fold (us ++ [v]) =
@@ -300,12 +305,12 @@ theorem left_fold_append (us : List ProtorealManifold) (v : ProtorealManifold)
     unfold left_fold
     simp [List.foldl_append]
 
-/-- **RIGHT FOLD IS TELEOLOGICAL (GR)**
+/-- **RIGHT FOLD NESTS INTO THE FUTURE**
     Prepending a new element to a right fold is a single
-    multiplication into the entire future.
+    multiplication into the entire remaining structure.
     The future must be resolved first; the new element
     wraps around everything that comes after.
-    This is general relativity: the whole determines the part. -/
+    (Structurally analogous to a global boundary problem.) -/
 theorem right_fold_prepend (u : ProtorealManifold) (us : List ProtorealManifold) :
     right_fold (u :: us) =
     ProtorealManifold.mul u (right_fold us) := by
@@ -320,10 +325,9 @@ theorem right_fold_prepend (u : ProtorealManifold) (us : List ProtorealManifold)
     For the prime element π(p) = {1/p, p, 1/p, 0, 0}:
     π(p)* = {1/p, 1/p, p, 0, 0}
 
-    This exchanges the "velocity" and "contraction" roles,
-    turning the QM perspective into the GR perspective.
-    The parity-locked projection (π + π*)/2 is where
-    both frames agree — the unified viewpoint. -/
+    This exchanges the two computational roles.
+    The parity-locked projection (π + π*)/2 is the state
+    where both perspectives give the same answer. -/
 theorem monster_inverse_prime (p : ℝ) :
     let pe := prime_element p
     let pe_star : ProtorealManifold :=
@@ -341,10 +345,11 @@ theorem monster_inverse_prime (p : ℝ) :
 /-- **PARITY-LOCKED PROJECTION IS SYMMETRIC**
     For noise-free elements, the parity-locked projection
     (u + u*)/2 has equal thrust and anchor: b = m.
-    This is the state where QM and GR agree.
+    This is the state where both fold perspectives
+    produce identical results.
 
     In the prime element case: b = m = (p + 1/p)/2,
-    which is the arithmetic mean of velocity and contraction. -/
+    which is the arithmetic mean of the two roles. -/
 theorem parity_locked_symmetry (u : ProtorealManifold)
     (h : is_noise_free u) :
     let balanced : ProtorealManifold :=
