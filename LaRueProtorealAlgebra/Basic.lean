@@ -66,6 +66,8 @@ import LaRueProtorealAlgebra.ZetaDirichlet
 import LaRueProtorealAlgebra.YangMillsMultipath
 import LaRueProtorealAlgebra.ConnesWienerAlgebra
 import LaRueProtorealAlgebra.Awareness
+import LaRueProtorealAlgebra.DMinorResonance
+import LaRueProtorealAlgebra.SecurityMorphism
 import LaRueProtorealAlgebra.PrimorialJitter
 
 /-!
