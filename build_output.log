@@ -1,0 +1,207 @@
+⚠ [3320/3391] Replayed LaRueProtorealAlgebra.PentagonCoherence
+warning: LaRueProtorealAlgebra/PentagonCoherence.lean:149:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: LaRueProtorealAlgebra/PentagonCoherence.lean:149:96: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [3322/3391] Replayed LaRueProtorealAlgebra.Semisimple
+warning: LaRueProtorealAlgebra/Semisimple.lean:141:16: This simp argument is unused:
+  Add.add
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵A̵d̵d̵.̵a̵d̵d̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/Semisimple.lean:141:29: 'ring' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: LaRueProtorealAlgebra/Semisimple.lean:141:29: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+⚠ [3341/3391] Replayed LaRueProtorealAlgebra.ProtorealAxioms
+warning: LaRueProtorealAlgebra/ProtorealAxioms.lean:103:25: `Hyperreal.Infinite` has been deprecated: Use `ArchimedeanClass.mk` instead
+
+Note: The updated constant has a different type:
+  {M : Type u_1} →
+    [inst : AddCommGroup M] → [inst_1 : LinearOrder M] → [inst_2 : IsOrderedAddMonoid M] → M → ArchimedeanClass M
+instead of
+  ℝ* → Prop
+
+Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.Infinite` to `ArchimedeanClass.mk x`).
+warning: LaRueProtorealAlgebra/ProtorealAxioms.lean:104:3: `Hyperreal.infinite_iff_infinitesimal_inv` has been deprecated: `Infinitesimal` is deprecated
+warning: LaRueProtorealAlgebra/ProtorealAxioms.lean:104:73: `Hyperreal.infinitesimal_epsilon` has been deprecated: `Infinitesimal` is deprecated
+warning: LaRueProtorealAlgebra/ProtorealAxioms.lean:104:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+⚠ [3346/3391] Replayed LaRueProtorealAlgebra.TranscendentalBasis
+warning: LaRueProtorealAlgebra/TranscendentalBasis.lean:73:8: This simp argument is unused:
+  Complex.cos_ofReal_re
+
+Hint: Omit it from the simp argument list.
+  simp [̵C̵o̵m̵p̵l̵e̵x̵.̵c̵o̵s̵_̵o̵f̵R̵e̵a̵l̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵s̵i̵n̵_̵o̵f̵R̵e̵a̵l̵_̵r̵e̵,̵[̲C̲o̲m̲p̲l̲e̲x̲.̲s̲i̲n̲_̲o̲f̲R̲e̲a̲l̲_̲r̲e̲,̲ Real.cos_pi, Real.sin_pi]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/TranscendentalBasis.lean:73:31: This simp argument is unused:
+  Complex.sin_ofReal_re
+
+Hint: Omit it from the simp argument list.
+  simp [Complex.cos_ofReal_re, C̵o̵m̵p̵l̵e̵x̵.̵s̵i̵n̵_̵o̵f̵R̵e̵a̵l̵_̵r̵e̵,̵Real.cos_pi, Real.sin_pi]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/TranscendentalBasis.lean:74:4: This simp argument is unused:
+  Real.cos_pi
+
+Hint: Omit it from the simp argument list.
+  simp [Complex.cos_ofReal_re, Complex.sin_ofReal_re, R̵e̵a̵l̵.̵c̵o̵s̵_̵p̵i̵,̵ ̵Real.sin_pi]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/TranscendentalBasis.lean:74:17: This simp argument is unused:
+  Real.sin_pi
+
+Hint: Omit it from the simp argument list.
+  simp [Complex.cos_ofReal_re, Complex.sin_ofReal_re, R̵e̵a̵l̵.̵c̵o̵s̵_̵p̵i̵,̵ ̵R̵e̵a̵l̵.̵s̵i̵n̵_̵p̵i̵]̵R̲e̲a̲l̲.̲c̲o̲s̲_̲p̲i̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3351/3391] Replayed LaRueProtorealAlgebra.ZetaResonance
+warning: LaRueProtorealAlgebra/ZetaResonance.lean:30:50: unused variable `δ`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: LaRueProtorealAlgebra/ZetaResonance.lean:38:4: 'simp at *' is a flexible tactic modifying '*'. Try 'simp?' and use the suggested 'simp only [...]'. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: LaRueProtorealAlgebra/ZetaResonance.lean:38:4: Try this:
+  [apply] simp only [one_div, gt_iff_lt] at *
+info: LaRueProtorealAlgebra/ZetaResonance.lean:39:4: 'have h_t_pos : t > 0 := by linarith' uses '*'!
+warning: LaRueProtorealAlgebra/ZetaResonance.lean:38:4: 'simp at *' is a flexible tactic modifying '*'. Try 'simp?' and use the suggested 'simp only [...]'. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: LaRueProtorealAlgebra/ZetaResonance.lean:38:4: Try this:
+  [apply] simp only [one_div, gt_iff_lt] at *
+info: LaRueProtorealAlgebra/ZetaResonance.lean:40:4: 'have h_inv_pos : t⁻¹ > 0 := by exact inv_pos.mpr h_t_pos' uses '*'!
+warning: LaRueProtorealAlgebra/ZetaResonance.lean:38:4: 'simp at *' is a flexible tactic modifying '*'. Try 'simp?' and use the suggested 'simp only [...]'. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: LaRueProtorealAlgebra/ZetaResonance.lean:38:4: Try this:
+  [apply] simp only [one_div, gt_iff_lt] at *
+info: LaRueProtorealAlgebra/ZetaResonance.lean:41:4: 'apply (lt_mul_iff_one_lt_right h_inv_pos).mpr' uses '*'!
+⚠ [3360/3391] Replayed LaRueProtorealAlgebra.NilradicalGeneralization
+warning: LaRueProtorealAlgebra/NilradicalGeneralization.lean:143:13: This simp argument is unused:
+  ↓reduceIte
+
+Hint: Omit it from the simp argument list.
+  simp only [show (n - 1 ≤ n - 1 ∧ n - 1 < n) from ⟨le_refl _, by omega⟩, ↓̵r̵e̵d̵u̵c̵e̵I̵t̵e̵,̵ ̵Nat.sub_self,
+  ̲  ̲ ̲ ̲JetElement.zero_coeff] at h2
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/NilradicalGeneralization.lean:143:100: This line exceeds the 100 character limit, please shorten it!
+
+Note: This linter can be disabled with `set_option linter.style.longLine false`
+warning: LaRueProtorealAlgebra/NilradicalGeneralization.lean:214:2: 'simp [Nat.iterate] at this' is a flexible tactic modifying 'this'. Try 'simp?' and use the suggested 'simp only [...]'. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: LaRueProtorealAlgebra/NilradicalGeneralization.lean:214:30: 'exact this' uses 'this'!
+⚠ [3363/3391] Replayed LaRueProtorealAlgebra.KamaTrain
+warning: LaRueProtorealAlgebra/KamaTrain.lean:207:2: 'simp' is a flexible tactic modifying '⊢'. Try 'simp?' and use the suggested 'simp only [...]'. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: LaRueProtorealAlgebra/KamaTrain.lean:207:2: Try this:
+  [apply] simp only [gt_iff_lt, lt_add_iff_pos_right, abs_pos, ne_eq]
+info: LaRueProtorealAlgebra/KamaTrain.lean:208:2: 'exact h' uses '⊢'!
+⚠ [3376/3391] Replayed LaRueProtorealAlgebra.NonstandardBridge
+warning: LaRueProtorealAlgebra/NonstandardBridge.lean:114:2: 'change ProtorealManifold.mul iota omega = _' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [3383/3391] Replayed LaRueProtorealAlgebra.ZetaDirichlet
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:122:46: This simp argument is unused:
+  hm
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm̵,̵ ̵h̵e, hl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:122:50: This simp argument is unused:
+  he
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm, he̵,̵ ̵h̵l]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:122:54: This simp argument is unused:
+  hl
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm, he,̵ ̵h̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:124:42: This simp argument is unused:
+  hb
+
+Hint: Omit it from the simp argument list.
+  simp [hb̵,̵ ̵h̵m, he, hl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:124:50: This simp argument is unused:
+  he
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm, he̵,̵ ̵h̵l]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:124:54: This simp argument is unused:
+  hl
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm, he,̵ ̵h̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:126:42: This simp argument is unused:
+  hb
+
+Hint: Omit it from the simp argument list.
+  simp [hb̵,̵ ̵h̵m, he, hl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:126:46: This simp argument is unused:
+  hm
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm̵,̵ ̵h̵e, hl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:126:54: This simp argument is unused:
+  hl
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm, he,̵ ̵h̵l̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:127:42: This simp argument is unused:
+  hb
+
+Hint: Omit it from the simp argument list.
+  simp [hb̵,̵ ̵h̵m, he, hl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:127:46: This simp argument is unused:
+  hm
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm̵,̵ ̵h̵e, hl]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: LaRueProtorealAlgebra/ZetaDirichlet.lean:127:50: This simp argument is unused:
+  he
+
+Hint: Omit it from the simp argument list.
+  simp [hb, hm, he̵,̵ ̵h̵l]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [3387/3391] Replayed LaRueProtorealAlgebra.PrimorialJitter
+warning: LaRueProtorealAlgebra/PrimorialJitter.lean:109:2: 'simp' is a flexible tactic modifying '⊢'. Try 'simp?' and use the suggested 'simp only [...]'. Alternatively, use `suffices` to explicitly state the simplified form.
+
+Note: This linter can be disabled with `set_option linter.flexible false`
+info: LaRueProtorealAlgebra/PrimorialJitter.lean:109:2: Try this:
+  [apply] simp only [one_div, inv_eq_zero, and_self, and_true]
+info: LaRueProtorealAlgebra/PrimorialJitter.lean:109:8: 'exact hp' uses '⊢'!
+Build completed successfully (3391 jobs).

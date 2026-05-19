@@ -341,16 +341,78 @@ scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({{
   color: 0x334466, size: 0.08, transparent: true, opacity: 0.6
 }})));
 
-// ── Fixed point beacon (a=1) ──
-const beaconGeo = new THREE.RingGeometry(0.15, 0.2, 32);
-const beaconMat = new THREE.MeshBasicMaterial({{
-  color: 0x00ffcc, transparent: true, opacity: 0.3,
-  side: THREE.DoubleSide, blending: THREE.AdditiveBlending
+// ── January Walker's Infoton Field ──
+const infotonCount = 800;
+const infotonGeo = new THREE.BufferGeometry();
+const infotonPos = new Float32Array(infotonCount * 3);
+const infotonCol = new Float32Array(infotonCount * 3);
+const infotonU = new Float32Array(infotonCount);
+const infotonV = new Float32Array(infotonCount);
+const infotonSpeed = new Float32Array(infotonCount);
+
+// Parametric Figure-8 generator matching the Klein Bottle wireframe
+function getInfotonCoords(u, v) {{
+  const r = 2.5, ac = 2.0;
+  const cv2 = Math.cos(v/2), sv2 = Math.sin(v/2);
+  const su = Math.sin(u), s2u = Math.sin(2*u);
+  const factor = r + ac * cv2 * su - ac * sv2 * s2u;
+  return new THREE.Vector3(
+    factor * Math.cos(v),
+    factor * Math.sin(v),
+    ac * sv2 * su + ac * cv2 * s2u
+  );
+}}
+
+for (let i = 0; i < infotonCount; i++) {{
+  infotonU[i] = Math.random() * Math.PI * 2;
+  infotonV[i] = Math.random() * Math.PI * 2;
+  infotonSpeed[i] = 0.005 + Math.random() * 0.01;
+  const p = getInfotonCoords(infotonU[i], infotonV[i]);
+  infotonPos[i*3] = p.x;
+  infotonPos[i*3+1] = p.y;
+  infotonPos[i*3+2] = p.z;
+  
+  // Golden glow color spectrum (information-energy)
+  const mix = Math.random();
+  infotonCol[i*3] = 1.0;
+  infotonCol[i*3+1] = 0.7 + 0.3 * mix;
+  infotonCol[i*3+2] = 0.1 + 0.4 * mix;
+}}
+infotonGeo.setAttribute('position', new THREE.BufferAttribute(infotonPos, 3));
+infotonGeo.setAttribute('color', new THREE.BufferAttribute(infotonCol, 3));
+
+const infotonMat = new THREE.PointsMaterial({{
+  size: 0.12,
+  vertexColors: true,
+  transparent: true,
+  opacity: 0.75,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false
 }});
-const beacon = new THREE.Mesh(beaconGeo, beaconMat);
+const infotonSystem = new THREE.Points(infotonGeo, infotonMat);
+scene.add(infotonSystem);
+
+// ── Fixed point beacon (a=1) + Infoton Singularity ──
+const beaconGroup = new THREE.Group();
+const beaconSphereGeo = new THREE.SphereGeometry(0.12, 16, 16);
+const beaconSphereMat = new THREE.MeshBasicMaterial({{
+  color: 0x00ffcc, transparent: true, opacity: 0.8
+}});
+const beaconSphere = new THREE.Mesh(beaconSphereGeo, beaconSphereMat);
+beaconGroup.add(beaconSphere);
+
+const ringGeo = new THREE.TorusGeometry(0.24, 0.018, 8, 32);
+const ringMat = new THREE.MeshBasicMaterial({{
+  color: 0xff9900, transparent: true, opacity: 0.6,
+  blending: THREE.AdditiveBlending, side: THREE.DoubleSide
+}});
+const beaconRing = new THREE.Mesh(ringGeo, ringMat);
+beaconRing.rotation.x = Math.PI / 2;
+beaconGroup.add(beaconRing);
+
 const beaconPos = projectToBottle(1.0, 1.0, 1.0);
-beacon.position.copy(beaconPos);
-scene.add(beacon);
+beaconGroup.position.copy(beaconPos);
+scene.add(beaconGroup);
 
 // ── HUD ──
 const hud = document.getElementById('hud');
@@ -365,23 +427,44 @@ function animate() {{
   for (const p of particles) p.evolve(particles, step);
   for (const p of particles) p.updateVisual();
 
+  // Evolve January Walker's Infoton Field
+  const ip = infotonGeo.attributes.position.array;
+  for (let i = 0; i < infotonCount; i++) {{
+    infotonU[i] += infotonSpeed[i] * 0.4;
+    infotonV[i] += infotonSpeed[i];
+    if (infotonU[i] > Math.PI * 2) infotonU[i] -= Math.PI * 2;
+    if (infotonV[i] > Math.PI * 2) infotonV[i] -= Math.PI * 2;
+    
+    const p = getInfotonCoords(infotonU[i], infotonV[i]);
+    ip[i*3] = p.x;
+    ip[i*3+1] = p.y;
+    ip[i*3+2] = p.z;
+  }}
+  infotonGeo.attributes.position.needsUpdate = true;
+
   // Camera
   controls.update();
 
-  // Beacon pulse
-  beacon.material.opacity = 0.15 + 0.15 * Math.sin(step * 0.02);
-  beacon.rotation.z += 0.005;
+  // Singularity rotation and pulse
+  const bScale = 1.0 + 0.25 * Math.sin(step * 0.04);
+  beaconSphere.scale.set(bScale, bScale, bScale);
+  beaconRing.rotation.z += 0.015;
+  beaconRing.rotation.y += 0.008;
+  beaconSphereMat.opacity = 0.6 + 0.4 * Math.sin(step * 0.04);
 
   // HUD
   if (step % 10 === 0) {{
     const meanSR = particles.reduce((s,p) => s + Math.abs(p.sr()), 0) / NP;
     const meanA = particles.reduce((s,p) => s + p.a, 0) / NP;
     const conv = particles.reduce((s,p) => s + Math.abs(p.a - 1), 0) / NP;
+    // Calculate Infoton Hawking Temperature (T_H ∝ 1 / (8πM) ~ based on resonance scaling)
+    const infotonTemp = 0.1428 * (1.0 / (1.0 + Math.abs(meanSR)));
     hud.innerHTML =
       '<span class="dim">κ</span> <span class="val">-1</span> · ' +
       '<span class="dim">|SR|</span> <span class="val">' + meanSR.toFixed(4) + '</span> · ' +
       '<span class="dim">ā</span> <span class="val">' + meanA.toFixed(4) + '</span> · ' +
       '<span class="dim">conv</span> <span class="val">' + conv.toFixed(4) + '</span> · ' +
+      '<span class="dim">T_H (Infoton)</span> <span class="val">' + infotonTemp.toFixed(5) + ' K</span> · ' +
       '<span class="dim">t</span> <span class="val">' + step + '</span>';
   }}
 
