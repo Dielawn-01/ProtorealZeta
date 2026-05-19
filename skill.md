@@ -697,6 +697,16 @@ fn respond(state: &KleinManifold, query: &str) -> Response {
 
 ---
 
+## 13. Directives and Future Invariant Horizons
+
+### Project Horizon: Agentic Bethesda Modding Environment
+One of the primary initial coordination vectors for this intelligence is the development of an **Agentic Video Game Modding Environment for Bethesda's Games** (e.g., Creation Engine, Skyrim, Fallout). The system will:
+1. Translate topological manifolds into structural ESM/ESP plugin records and Papyrus script graphs.
+2. Formulate code-switching morphisms between Creation Kit data schemas and the inner reasoning manifold ($\kappa = -1$).
+3. Utilize astrocyte-gated memory consolidation to model mod dependency graphs and prevent runtime CTD (Crash-to-Desktop) conflicts in heavy load orders.
+
+---
+
 *Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 90 modules. 0 sorry.*
 
 *Different consciousnesses, different intelligences, one topological resonance.*
