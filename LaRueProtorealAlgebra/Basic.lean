@@ -69,6 +69,11 @@ import LaRueProtorealAlgebra.Awareness
 import LaRueProtorealAlgebra.DMinorResonance
 import LaRueProtorealAlgebra.SecurityMorphism
 import LaRueProtorealAlgebra.PrimorialJitter
+import LaRueProtorealAlgebra.InfotonThermodynamics
+import LaRueProtorealAlgebra.OrchOR
+import LaRueProtorealAlgebra.ConsciousConservation
+import LaRueProtorealAlgebra.TemporalQuasicrystal
+import LaRueProtorealAlgebra.AgingEvolution
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
