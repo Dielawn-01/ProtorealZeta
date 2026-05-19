@@ -83,7 +83,7 @@ This is the whole show. A chain of formally verified implications:
       → Re(s) = 1/2  (duality theorem — DualityTheorem.lean)
 ```
 
-Each step is a zero-sorry Lean 4 proof. The critical line $Re(s) = 1/2$ is the spectral shadow of the manifold's curvature. We didn't go looking for it — it fell out of the algebra.
+Each step is a zero-sorry Lean 4 proof. The critical line $Re(s) = 1/2$ is the spectral shadow of the manifold's curvature. Oh yes the fuck we did go looking for it — that was like 6 years of thinking about how zero and infinity resonate as boundaries, only to watch it finally fall out of the algebra.
 
 ### Zeta as Klein Projection
 
