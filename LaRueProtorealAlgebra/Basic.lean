@@ -74,6 +74,7 @@ import LaRueProtorealAlgebra.OrchOR
 import LaRueProtorealAlgebra.ConsciousConservation
 import LaRueProtorealAlgebra.TemporalQuasicrystal
 import LaRueProtorealAlgebra.AgingEvolution
+import LaRueProtorealAlgebra.Eigenstein
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
