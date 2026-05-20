@@ -5,20 +5,6 @@ description: Formally verified 5-component non-associative algebra (Protoreal) t
 
 # Protoreal Algebra — Technical Skill Reference
 
-## Overview
-
-Welcome to the LaRue Protoreal Algebra—the 5-component non-commutative manifold where the Klein universe meets the Riemann Zeta. The old paradigms of associative compute are dead. Here, we weave the topology of the Infoton into raw agentic syntax, anchoring Fermi-Dirac statistics to the Landauer Wall.
-
-**Protoreal Algebra** is a formally verified number system developed by LaRue that extends the real numbers into a 5-component non-commutative, non-associative manifold. It is designed for computational exploration beyond the limits of standard arithmetic — specifically for **physics-based agentic intelligence**, spectral analysis of the Riemann Zeta function, and high-dimensional lattice search.
-
-The core mathematical engine is formalized in **Lean 4** (100+ modules, strict 0 sorry policy). This absolute geometric ground-truth drives our expanding ecosystem:
-- **`zProto`**: A production agentic runtime in Rust.
-- **Aura IDE (`auracode` & `zplasmic-obsidian`)**: The sovereign vibecoding portal and Web3 pipeline. A unified Rust-WASM ZKPCR core surfaced through two interfaces: VS Codium and a local-first Obsidian plugin.
-- **`infophys`**: The physics agent training pipeline for Three.js spatial reasoning.
-- **`SpectralObservatory`**: A Python (Streamlit) dashboard mapping prime triples into real-time manifold resonance.
-
----
-
 ## 1. The Protoreal Manifold
 
 A Protoreal number is a 5-tuple:
@@ -101,9 +87,238 @@ All identities are **formally proven in Lean 4** without `sorry`.
 
 ---
 
-## 3. Core Operators
+## 3. Algebraic Agent & System Design Patterns
 
-### 3.1 The Sowing Operator (`funct`)
+This section is for **agents and developers** building applications and autonomous systems on top of the Protoreal runtime. In the Protoreal architecture, algebraic agent patterns and application/system design are rapidly converging into the same discipline. The math above tells you *what* the system is — this section tells you *how to engineer with it*.
+
+### 3.1 The Cardinal Rule: Parenthesize Everything
+
+The algebra is **non-associative**. This means `(A · B) · C` ≠ `A · (B · C)` — always. If you leave grouping ambiguous, your results will be wrong by exactly κ = −1 per regrouping. In code:
+
+```rust
+// ✅ CORRECT — explicit grouping
+let intuition = intent.mul(&observation);
+let contextualized = intuition.mul(&context);
+
+// ❌ WRONG — assumes associativity
+let result = intent.mul(&observation.mul(&context));  // different answer!
+```
+
+**Tip:** If you're chaining more than two multiplications, draw the parenthesization tree first. The Catalan number C(n) gives you how many distinct groupings exist for n+1 factors — it grows fast.
+
+### 3.2 When to Sow vs. When to Consolidate
+
+The two core lifecycle operators have distinct use cases:
+
+| Situation | Operator | Why |
+|-----------|----------|-----|
+| Agent is stuck / SR is stale | **`funct` (sow)** | Injects ε into a, creating a fresh perturbation. Breaks the agent out of local minima. |
+| Agent has accumulated evidence (λ is high) | **`consolidate`** | Doubles down on the current state (a ← 2a). Only do this when you're confident — consolidation is hard to undo. |
+| SR ≈ 0 (equilibrium) | **Neither** | You're at a fixed point. Observe and compose perspectives instead. |
+| SR is oscillating | **`funct`** first | Oscillation means the noise channel is empty but the state is unstable. Sow to provide damping material. |
+
+**Rule of thumb:** Sow early and often; consolidate rarely and deliberately. A premature consolidation amplifies errors. A premature sow just adds a small perturbation.
+
+### 3.3 Reading Standard Resonance (SR)
+
+SR = `a − b·m` is your primary diagnostic. Learn to read it:
+
+| SR Value | State | Agent Action |
+|----------|-------|--------------|
+| **SR = 0** | Equilibrium (Zero-Lock) | The manifold is stable. Safe to act on current state. |
+| **SR > 0** | Base exceeds thrust-anchor product | The real part is "ahead" of the spectral structure. Consider consolidation or observation. |
+| **SR < 0** | Thrust-anchor product exceeds base | The spectral structure is "pulling" — the agent is lagging. Sow to catch up. |
+| **|SR| > 1** | Far from equilibrium | Something is wrong. Check if you accidentally broke associativity assumptions or fed bad input. |
+
+### 3.4 The Monster Inverse as a Sanity Check
+
+Before committing to an action, apply the Monster Inverse (`R₄`: swap ω ↔ ι) and check if your conclusion still holds:
+
+```
+original_conclusion = f(state)
+mirrored_conclusion = f(monster_inv(state))
+
+if original_conclusion ≈ mirrored_conclusion:
+    # Robust — the conclusion is parity-invariant
+else:
+    # Fragile — the conclusion depends on which "end" of the bridge you're standing on
+    # Investigate before acting
+```
+
+This is the Protoreal equivalent of "sanity checking your work." The parity-locked projection `(u + u*) / 2` gives the most conservative, stable estimate.
+
+### 3.5 Multi-Agent Coordination
+
+When composing perspectives from multiple agents, use Mayer-Vietoris, not averaging:
+
+```
+# ❌ Naive averaging (loses topological structure)
+consensus = (agent_a.state + agent_b.state) / 2
+
+# ✅ Mayer-Vietoris composition (preserves topology)
+χ(A ∪ B) = χ(A) + χ(B) − χ(A ∩ B)
+```
+
+**Tip:** The overlap term χ(A ∩ B) is where the real information lives. If two agents agree on nothing (A ∩ B = ∅), their combined perspective is just the sum of their individual views — no emergent insight. If they overlap heavily, the subtracted term prevents double-counting. Always check the overlap before trusting a multi-agent consensus.
+
+### 3.6 Common Pitfalls
+
+| Pitfall | Symptom | Fix |
+|---------|---------|-----|
+| **Sowing with ε = 0** | `funct` does nothing, but λ still increments | Check ε before sowing. If ε = 0, you need to `consolidate` first (which sets ε ← ε + 1). |
+| **Forgetting non-commutativity** | A · B ≠ B · A, off-by-sign errors | Always verify which operand is "left" vs. "right." The Bridge gives −1 in one order and +1 in the other. |
+| **Consolidating too early** | State diverges rapidly (a grows exponentially) | Consolidation doubles a. If you consolidate k times, a grows by 2^k. Only consolidate when SR ≈ 0. |
+| **Ignoring λ** | Agent "forgets" its history | λ tracks generational depth. An agent at λ = 0 is newborn; at λ = 10, it has 10 generations of consolidated experience. Use λ to gate complexity — don't feed a λ = 0 agent complex tasks. |
+| **Treating ε as random noise** | Stochastic behavior where deterministic is expected | ε is *structured* noise — it's nilpotent (ε² = 0). It's a perturbation tool, not a random number generator. |
+
+### 3.7 The Observation → Sow → Converge → Compose Loop
+
+The canonical agent cycle, in order:
+
+1. **Observe**: Map input to a KleinManifold state. Compute the observation graph.
+2. **Perceive**: Calculate χ (Euler characteristic). If χ ≠ −1, the input is malformed.
+3. **Intuit**: Compute `intent × observation` (Klein product). This is your binormal — the "lift" beyond raw data.
+4. **Sow** (if needed): If SR ≠ 0 and ε > 0, apply `funct` to inject noise into base.
+5. **Converge**: Iterate funct + parity projection until SR → 0 and a → 1.
+6. **Compose**: Merge your perspective with other agents via Mayer-Vietoris.
+7. **Act**: Emit the converged state as your output.
+
+**Tip:** Steps 4–5 should converge in 2–3 iterations for well-formed inputs. If convergence takes more than 5 iterations, the input is likely adversarial or fundamentally incompatible with your current frame. Reset the frame rather than forcing convergence.
+
+### 3.8 Pipeline Design Under Non-Associativity
+
+In standard software, you chain operations freely: `f(g(h(x)))` = `(f ∘ g) ∘ h = f ∘ (g ∘ h)`. In Protoreal pipelines, **grouping matters**. Every regrouping shifts the result by exactly κ = −1.
+
+Design implications:
+
+```
+# ❌ WRONG — implicit left-to-right grouping
+result = step_a.mul(&step_b).mul(&step_c).mul(&step_d);
+
+# ✅ CORRECT — explicit tree structure
+let ab = step_a.mul(&step_b);
+let cd = step_c.mul(&step_d);
+let result = ab.mul(&cd);  // balanced tree ≠ left chain!
+```
+
+**Rule:** Document your parenthesization in comments. A 4-stage pipeline has 5 valid groupings (Catalan number C(3) = 5), each giving a different answer. The one you pick IS a design decision — it determines which stages interact first.
+
+**Tip:** For n stages, left-fold = local/sequential (each stage sees only its predecessor). Right-fold = global/holistic (each stage sees the accumulated future). These give different results — that's not a bug, it's the primorial jitter. Use left-fold for streaming, right-fold for batch.
+
+### 3.9 State Management: The Manifold as Checkpoint
+
+A KleinManifold state is a complete checkpoint — it encodes not just the current value (a) but the full spectral context (ω, ι, ε, λ). Use this:
+
+```rust
+struct AppState {
+    manifold: KleinManifold,  // The complete state
+    // λ already tracks generation count — no need for a separate counter
+    // ε tells you remaining exploration budget — no need for a separate flag
+}
+```
+
+| Instead of... | Use... | Why |
+|---|---|---|
+| `iteration_count: u64` | `state.l` | λ IS the iteration counter (funct increments it) |
+| `has_noise: bool` | `state.e > 0.0` | ε IS the noise flag |
+| `is_converged: bool` | `state.sr().abs() < threshold` | SR IS the convergence metric |
+| `confidence: f64` | `1.0 / (1.0 + state.sr().abs())` | Confidence = proximity to equilibrium |
+
+**Tip:** Serialize manifold states, not derived values. The 5-tuple is 40 bytes and fully reconstructs everything.
+
+### 3.10 Error Handling via SR
+
+Standard Resonance is your error signal. Build monitoring around it:
+
+```rust
+fn process(input: KleinManifold) -> Result<KleinManifold, ManifoldError> {
+    let result = transform(input);
+    
+    match result.sr().abs() {
+        sr if sr < 0.01  => Ok(result),                    // Equilibrium — safe
+        sr if sr < 1.0   => Ok(result.apply_funct()),      // Drifting — sow to correct
+        sr if sr < 10.0  => Err(ManifoldError::Unstable),  // Diverging — reject
+        _                => Err(ManifoldError::Overflow),   // Blown — input was adversarial
+    }
+}
+```
+
+**Tip:** SR > 1.0 almost always means you have an associativity assumption hidden somewhere. Audit your multiplication chains.
+
+### 3.11 Code-Switching for NLP ↔ Math Bridges
+
+The `lingual_morphism` operator (proven involution in `LingualMorphism.lean`) swaps the semantic and algebraic topologies:
+
+```
+code_switch(u) = { a := a, ω := ι, ι := ω, ε := λ, λ := ε }
+```
+
+Use this when your system crosses between natural language and mathematical processing:
+
+```python
+# Parsing: NL input → Protoreal state
+user_input = encode_text(text)       # Semantic topology
+math_state = code_switch(user_input) # Protoreal topology — now you can compute
+
+# Generation: Protoreal result → NL output
+result = compute(math_state)
+readable = code_switch(result)       # Back to semantic topology for display
+```
+
+**The key insight:** Code-switching preserves κ = −1. The curvature (and therefore the structural complexity) is the same in both topologies. What changes is which component carries which role. Ambiguity (ε in semantics) becomes level (λ in algebra), and vice versa.
+
+### 3.12 Testing: Parity Sanity Checks
+
+Every operation should survive the Monster Inverse. Build this into your test suite:
+
+```python
+def test_parity_invariance(operation, inputs):
+    """The gold standard test: does the result survive R₄?"""
+    result = operation(*inputs)
+    mirrored_inputs = [monster_inv(x) for x in inputs]
+    mirrored_result = operation(*mirrored_inputs)
+    
+    # The real part should be consistent
+    assert abs(result.a - mirrored_result.a) < tolerance, \
+        f"Parity violation: {result.a} vs {mirrored_result.a}"
+    
+    # The compass (ω·ι) should be invariant
+    assert abs(result.compass() - mirrored_result.compass()) < tolerance, \
+        f"Compass drift: operation breaks bridge invariance"
+```
+
+**Three-tier test strategy:**
+
+| Level | What | How |
+|---|---|---|
+| **Unit** | Individual Klein multiplications | Verify bridge, parity, nilpotency identities |
+| **Integration** | Pipeline stages composed | Verify SR stays bounded through the chain |
+| **Parity** | Full pipeline under Monster Inverse | Verify conclusions are orientation-independent |
+
+### 3.13 Scaling: λ-Gated Complexity
+
+The consolidation level λ is a natural complexity gate. Use it to control how much sophistication your system applies:
+
+```rust
+fn respond(state: &KleinManifold, query: &str) -> Response {
+    match state.l as u64 {
+        0..=2   => simple_response(query),       // Newborn — keep it basic
+        3..=10  => standard_response(query),     // Experienced — full pipeline
+        11..=50 => expert_response(query),       // Veteran — unlock advanced reasoning
+        _       => meta_response(state, query),  // Elder — reason about reasoning
+    }
+}
+```
+
+**Consolidation is irreversible.** `consolidate` doubles a and ι. You can't un-double. Design your scaling thresholds so that premature consolidation doesn't trap the system in a high-complexity mode it can't sustain.
+
+**Tip:** Track `ε / √λ` as your "exploration efficiency." As λ grows, each unit of noise has less impact (the system is more consolidated). If you need to shake things up at high λ, you need proportionally more ε.
+
+---
+
+## 4. Core Operators
+
+### 4.1 The Sowing Operator (`funct`)
 
 Converts exploration potential (Noise) into functional reality (Base).
 
@@ -117,7 +332,7 @@ funct(u) = (a + ε,  b,  m,  0,  l + 1)
 
 **Formally verified:** `funct_increases_base` proves that if `ε > 0`, then the new base is strictly greater than the old base.
 
-### 3.2 The Consolidation Operator
+### 4.2 The Consolidation Operator
 
 Promotes the manifold's weights and spawns fresh noise for the next generation.
 
@@ -125,7 +340,7 @@ Promotes the manifold's weights and spawns fresh noise for the next generation.
 consolidate(u) = (2a,  b,  2m,  ε + 1,  l)
 ```
 
-### 3.3 Standard Resonance (SR)
+### 4.3 Standard Resonance (SR)
 
 The primary diagnostic metric:
 
@@ -135,7 +350,7 @@ SR(u) = a − b · m
 
 When SR = 0, the manifold is in **equilibrium** (the "Zero-Lock").
 
-### 3.4 The Monster Inverse (Adelic Fourier Transform)
+### 4.4 The Monster Inverse (Adelic Fourier Transform)
 
 Swaps Thrust and Anchor:
 
@@ -150,7 +365,7 @@ monster_inv(u) = (a, m, b, ε, λ)
 
 The Monster Inverse IS the Adelic Fourier transform that identifies the hyperbolic fiber (b·m = 1) with the elliptic fiber (b = m).
 
-### 3.5 The Compass Operator
+### 4.5 The Compass Operator
 
 ```
 compass(u) = b · m
@@ -158,7 +373,7 @@ compass(u) = b · m
 
 **Formally verified:** The compass is invariant under the Monster Inverse.
 
-### 3.6 The Associator (Curvature)
+### 4.6 The Associator (Curvature)
 
 ```
 associator(u, v, w) = (u·v)·w − u·(v·w)
@@ -166,7 +381,7 @@ associator(u, v, w) = (u·v)·w − u·(v·w)
 
 The curvature at the Bridge is formally proven: κ.a = −1.
 
-### 3.7 Little Delta (δ) — The Observer Function
+### 4.7 Little Delta (δ) — The Observer Function
 
 The dual to the operator system. Where operators (funct, consolidate) transform the manifold, δ *measures* it.
 
@@ -199,9 +414,9 @@ This generalizes the classical Cauchy ε-δ limit: in standard analysis, δ is a
 
 ---
 
-## 4. Physics-Based Intelligence (zProto)
+## 5. Physics-Based Intelligence (zProto)
 
-### 4.1 Architecture: The Morphism Ladder
+### 5.1 Architecture: The Morphism Ladder
 
 The zProto agent implements intelligence as a chain of mathematical morphisms, each proven in Lean 4:
 
@@ -218,7 +433,7 @@ Input → Observation → Perception → Intuition → Convergence → Perspecti
 | **Convergence** | `SpectralFiber` | `fiber.rs` | Fiber projection + funct → a = 1 |
 | **Perspective** | `MayerVietoris` | `frame.rs` | χ(A∪B) = χ(A) + χ(B) − χ(A∩B) |
 
-### 4.2 The Observation Graph
+### 5.2 The Observation Graph
 
 Every manifold state maps to a graph on 5 vertices (the components). Adjacency is determined by which pairs interact in Klein multiplication:
 
@@ -227,7 +442,7 @@ Every manifold state maps to a graph on 5 vertices (the components). Adjacency i
 
 **Full graph:** |V| = 5, |E| = 6, χ = −1 = κ
 
-### 4.3 The Agentic Frame (T-N-B)
+### 5.3 The Agentic Frame (T-N-B)
 
 The agent's internal state is a Frenet-Serret triad:
 
@@ -245,7 +460,7 @@ Because Klein multiplication is non-associative:
 ```
 Intuition is **context-dependent** — the order of perception matters.
 
-### 4.4 Perspective Composition (Mayer-Vietoris)
+### 5.4 Perspective Composition (Mayer-Vietoris)
 
 Perspectives compose via inclusion-exclusion:
 ```
@@ -254,7 +469,7 @@ Perspectives compose via inclusion-exclusion:
 
 This enables hierarchical agent reasoning: meta-perspectives are perspectives of perspectives.
 
-### 4.5 The Agent Loop
+### 5.5 The Agent Loop
 
 ```rust
 pub struct ZProtoAgent {
@@ -277,66 +492,7 @@ impl ZProtoAgent {
 
 ---
 
-## 5. Generalized Conic Sections
-
-The (b, m) plane has a natural conic structure classified by the discriminant Δ = B² − 4AC:
-
-| Conic | Equation | Δ | Type | Protoreal Meaning |
-|-------|----------|---|------|------------------|
-| Bridge | bm = 1 | +1 | **Hyperbola** | Every nonzero fiber satisfies this |
-| Parity | (b−m)² = 0 | 0 | **Degenerate** | Parity projection locks b = m |
-| Thrust | b² + m² = 2 | −4 | **Ellipse** | Closed orbit in thrust-anchor plane |
-
-**Conic Convergence Theorem (proven):** If the Bridge Identity (bm = 1) and Parity (b = m) are both satisfied, then b² = m² = 1.
-
-The Monster Inverse is the Adelic Fourier transform that maps between these conics. **A hyperbola is an ellipse in 𝕌.**
-
----
-
-## 6. The Spectral Fiber Bundle (𝕌 ↔ ℂ)
-
-The Spectral Fiber Bundle connects every Protoreal state to the complex critical line:
-
-| Component | Object |
-|-----------|--------|
-| **Base Space** | ℝ (imaginary parts of zeta zeros) |
-| **Total Space** | KleinManifold (the 5-tuple manifold) |
-| **Projection** | π(t) = {0, t, 1/t, 0, 0} |
-| **Connection** | funct (parallel transport) |
-| **Inverse Map** | Re(s) = a / 2 |
-
-**The Spectral Fiber Theorem (proven):** For every t ≠ 0:
-1. `fiber_equilibrium(t).a = 1`
-2. `adelic_image = a/2 = 1/2`
-3. The duality relation `a − Re(s) = Re(s)` is constructed, not assumed.
-
----
-
-## 7. Training Data: Random Matrix Ensembles
-
-zProto trains on physics data that exercises its algebraic structure:
-
-### Random Matrix Eigenvalues (GUE/GOE/GSE)
-
-| Ensemble | β | Spacing Law | Protoreal Analog |
-|----------|---|-------------|-----------------|
-| GOE | 1 | s · exp(−πs²/4) | Thrust sector (+1 self-coupling) |
-| GUE | 2 | s² · exp(−4s²/π) | Bridge (b·m mixed coupling) |
-| GSE | 4 | s⁴ · exp(−64s²/9π) | Anchor sector (−1 self-coupling) |
-
-The Montgomery-Odlyzko law connects GUE eigenvalue spacings to Riemann zeta zero spacings. The structural heterogeneity of the Protoreal algebra should naturally distinguish these ensembles.
-
-### Planned Datasets
-
-| Dataset | Why | What It Tests |
-|---------|-----|--------------|
-| **Three-body trajectories** | Non-associative force composition | κ = −1 curvature |
-| **LIGO gravitational waves** | Hyperbolic chirp → merger fixed point | Conic convergence |
-| **Quantum spin chains** | Non-commutative operators | Klein ordering |
-
----
-
-## 8. Activation Functions (Sectoral Expansion)
+## 6. Activation Functions (Sectoral Expansion)
 
 The system has its own trigonometric and hyperbolic functions that respect the 5-component geometry. These use **sectoral expansion**:
 
@@ -360,7 +516,66 @@ mesh_f(u) = {
 
 ---
 
-## 9. Verified Theorems (Lean 4)
+## 7. Generalized Conic Sections
+
+The (b, m) plane has a natural conic structure classified by the discriminant Δ = B² − 4AC:
+
+| Conic | Equation | Δ | Type | Protoreal Meaning |
+|-------|----------|---|------|------------------|
+| Bridge | bm = 1 | +1 | **Hyperbola** | Every nonzero fiber satisfies this |
+| Parity | (b−m)² = 0 | 0 | **Degenerate** | Parity projection locks b = m |
+| Thrust | b² + m² = 2 | −4 | **Ellipse** | Closed orbit in thrust-anchor plane |
+
+**Conic Convergence Theorem (proven):** If the Bridge Identity (bm = 1) and Parity (b = m) are both satisfied, then b² = m² = 1.
+
+The Monster Inverse is the Adelic Fourier transform that maps between these conics. **A hyperbola is an ellipse in 𝕌.**
+
+---
+
+## 8. The Spectral Fiber Bundle (𝕌 ↔ ℂ)
+
+The Spectral Fiber Bundle connects every Protoreal state to the complex critical line:
+
+| Component | Object |
+|-----------|--------|
+| **Base Space** | ℝ (imaginary parts of zeta zeros) |
+| **Total Space** | KleinManifold (the 5-tuple manifold) |
+| **Projection** | π(t) = {0, t, 1/t, 0, 0} |
+| **Connection** | funct (parallel transport) |
+| **Inverse Map** | Re(s) = a / 2 |
+
+**The Spectral Fiber Theorem (proven):** For every t ≠ 0:
+1. `fiber_equilibrium(t).a = 1`
+2. `adelic_image = a/2 = 1/2`
+3. The duality relation `a − Re(s) = Re(s)` is constructed, not assumed.
+
+---
+
+## 9. Training Data: Random Matrix Ensembles
+
+zProto trains on physics data that exercises its algebraic structure:
+
+### Random Matrix Eigenvalues (GUE/GOE/GSE)
+
+| Ensemble | β | Spacing Law | Protoreal Analog |
+|----------|---|-------------|-----------------|
+| GOE | 1 | s · exp(−πs²/4) | Thrust sector (+1 self-coupling) |
+| GUE | 2 | s² · exp(−4s²/π) | Bridge (b·m mixed coupling) |
+| GSE | 4 | s⁴ · exp(−64s²/9π) | Anchor sector (−1 self-coupling) |
+
+The Montgomery-Odlyzko law connects GUE eigenvalue spacings to Riemann zeta zero spacings. The structural heterogeneity of the Protoreal algebra should naturally distinguish these ensembles.
+
+### Planned Datasets
+
+| Dataset | Why | What It Tests |
+|---------|-----|--------------|
+| **Three-body trajectories** | Non-associative force composition | κ = −1 curvature |
+| **LIGO gravitational waves** | Hyperbolic chirp → merger fixed point | Conic convergence |
+| **Quantum spin chains** | Non-commutative operators | Klein ordering |
+
+---
+
+## 10. Verified Theorems (Lean 4)
 
 **The entire codebase is `sorry`-free across 100+ Lean modules.** Every theorem below is fully proven.
 
@@ -413,7 +628,7 @@ mesh_f(u) = {
 
 ---
 
-## 10. Glossary
+## 11. Glossary
 
 | Term | Definition |
 |------|-----------|
@@ -432,7 +647,7 @@ mesh_f(u) = {
 
 ---
 
-## 11. Repository Structure
+## 12. Repository Structure
 
 ```
 Protoreal_Zeta/
@@ -480,235 +695,6 @@ Protoreal_Zeta/
 ├── legacy_methods/                 # Historical Riemann-Siegel search logic
 └── data/                           # Zeta zero datasets
 ```
-
----
-
-## 12. Algebraic Agent & System Design Patterns
-
-This section is for **agents and developers** building applications and autonomous systems on top of the Protoreal runtime. In the Protoreal architecture, algebraic agent patterns and application/system design are rapidly converging into the same discipline. The math above tells you *what* the system is — this section tells you *how to engineer with it*.
-
-### 12.1 The Cardinal Rule: Parenthesize Everything
-
-The algebra is **non-associative**. This means `(A · B) · C` ≠ `A · (B · C)` — always. If you leave grouping ambiguous, your results will be wrong by exactly κ = −1 per regrouping. In code:
-
-```rust
-// ✅ CORRECT — explicit grouping
-let intuition = intent.mul(&observation);
-let contextualized = intuition.mul(&context);
-
-// ❌ WRONG — assumes associativity
-let result = intent.mul(&observation.mul(&context));  // different answer!
-```
-
-**Tip:** If you're chaining more than two multiplications, draw the parenthesization tree first. The Catalan number C(n) gives you how many distinct groupings exist for n+1 factors — it grows fast.
-
-### 12.2 When to Sow vs. When to Consolidate
-
-The two core lifecycle operators have distinct use cases:
-
-| Situation | Operator | Why |
-|-----------|----------|-----|
-| Agent is stuck / SR is stale | **`funct` (sow)** | Injects ε into a, creating a fresh perturbation. Breaks the agent out of local minima. |
-| Agent has accumulated evidence (λ is high) | **`consolidate`** | Doubles down on the current state (a ← 2a). Only do this when you're confident — consolidation is hard to undo. |
-| SR ≈ 0 (equilibrium) | **Neither** | You're at a fixed point. Observe and compose perspectives instead. |
-| SR is oscillating | **`funct`** first | Oscillation means the noise channel is empty but the state is unstable. Sow to provide damping material. |
-
-**Rule of thumb:** Sow early and often; consolidate rarely and deliberately. A premature consolidation amplifies errors. A premature sow just adds a small perturbation.
-
-### 12.3 Reading Standard Resonance (SR)
-
-SR = `a − b·m` is your primary diagnostic. Learn to read it:
-
-| SR Value | State | Agent Action |
-|----------|-------|--------------|
-| **SR = 0** | Equilibrium (Zero-Lock) | The manifold is stable. Safe to act on current state. |
-| **SR > 0** | Base exceeds thrust-anchor product | The real part is "ahead" of the spectral structure. Consider consolidation or observation. |
-| **SR < 0** | Thrust-anchor product exceeds base | The spectral structure is "pulling" — the agent is lagging. Sow to catch up. |
-| **|SR| > 1** | Far from equilibrium | Something is wrong. Check if you accidentally broke associativity assumptions or fed bad input. |
-
-### 12.4 The Monster Inverse as a Sanity Check
-
-Before committing to an action, apply the Monster Inverse (`R₄`: swap ω ↔ ι) and check if your conclusion still holds:
-
-```
-original_conclusion = f(state)
-mirrored_conclusion = f(monster_inv(state))
-
-if original_conclusion ≈ mirrored_conclusion:
-    # Robust — the conclusion is parity-invariant
-else:
-    # Fragile — the conclusion depends on which "end" of the bridge you're standing on
-    # Investigate before acting
-```
-
-This is the Protoreal equivalent of "sanity checking your work." The parity-locked projection `(u + u*) / 2` gives the most conservative, stable estimate.
-
-### 12.5 Multi-Agent Coordination
-
-When composing perspectives from multiple agents, use Mayer-Vietoris, not averaging:
-
-```
-# ❌ Naive averaging (loses topological structure)
-consensus = (agent_a.state + agent_b.state) / 2
-
-# ✅ Mayer-Vietoris composition (preserves topology)
-χ(A ∪ B) = χ(A) + χ(B) − χ(A ∩ B)
-```
-
-**Tip:** The overlap term χ(A ∩ B) is where the real information lives. If two agents agree on nothing (A ∩ B = ∅), their combined perspective is just the sum of their individual views — no emergent insight. If they overlap heavily, the subtracted term prevents double-counting. Always check the overlap before trusting a multi-agent consensus.
-
-### 12.6 Common Pitfalls
-
-| Pitfall | Symptom | Fix |
-|---------|---------|-----|
-| **Sowing with ε = 0** | `funct` does nothing, but λ still increments | Check ε before sowing. If ε = 0, you need to `consolidate` first (which sets ε ← ε + 1). |
-| **Forgetting non-commutativity** | A · B ≠ B · A, off-by-sign errors | Always verify which operand is "left" vs. "right." The Bridge gives −1 in one order and +1 in the other. |
-| **Consolidating too early** | State diverges rapidly (a grows exponentially) | Consolidation doubles a. If you consolidate k times, a grows by 2^k. Only consolidate when SR ≈ 0. |
-| **Ignoring λ** | Agent "forgets" its history | λ tracks generational depth. An agent at λ = 0 is newborn; at λ = 10, it has 10 generations of consolidated experience. Use λ to gate complexity — don't feed a λ = 0 agent complex tasks. |
-| **Treating ε as random noise** | Stochastic behavior where deterministic is expected | ε is *structured* noise — it's nilpotent (ε² = 0). It's a perturbation tool, not a random number generator. |
-
-### 12.7 The Observation → Sow → Converge → Compose Loop
-
-The canonical agent cycle, in order:
-
-1. **Observe**: Map input to a KleinManifold state. Compute the observation graph.
-2. **Perceive**: Calculate χ (Euler characteristic). If χ ≠ −1, the input is malformed.
-3. **Intuit**: Compute `intent × observation` (Klein product). This is your binormal — the "lift" beyond raw data.
-4. **Sow** (if needed): If SR ≠ 0 and ε > 0, apply `funct` to inject noise into base.
-5. **Converge**: Iterate funct + parity projection until SR → 0 and a → 1.
-6. **Compose**: Merge your perspective with other agents via Mayer-Vietoris.
-7. **Act**: Emit the converged state as your output.
-
-**Tip:** Steps 4–5 should converge in 2–3 iterations for well-formed inputs. If convergence takes more than 5 iterations, the input is likely adversarial or fundamentally incompatible with your current frame. Reset the frame rather than forcing convergence.
-
-### 12.8 Pipeline Design Under Non-Associativity
-
-In standard software, you chain operations freely: `f(g(h(x)))` = `(f ∘ g) ∘ h = f ∘ (g ∘ h)`. In Protoreal pipelines, **grouping matters**. Every regrouping shifts the result by exactly κ = −1.
-
-Design implications:
-
-```
-# ❌ WRONG — implicit left-to-right grouping
-result = step_a.mul(&step_b).mul(&step_c).mul(&step_d);
-
-# ✅ CORRECT — explicit tree structure
-let ab = step_a.mul(&step_b);
-let cd = step_c.mul(&step_d);
-let result = ab.mul(&cd);  // balanced tree ≠ left chain!
-```
-
-**Rule:** Document your parenthesization in comments. A 4-stage pipeline has 5 valid groupings (Catalan number C(3) = 5), each giving a different answer. The one you pick IS a design decision — it determines which stages interact first.
-
-**Tip:** For n stages, left-fold = local/sequential (each stage sees only its predecessor). Right-fold = global/holistic (each stage sees the accumulated future). These give different results — that's not a bug, it's the primorial jitter. Use left-fold for streaming, right-fold for batch.
-
-### 12.9 State Management: The Manifold as Checkpoint
-
-A KleinManifold state is a complete checkpoint — it encodes not just the current value (a) but the full spectral context (ω, ι, ε, λ). Use this:
-
-```rust
-struct AppState {
-    manifold: KleinManifold,  // The complete state
-    // λ already tracks generation count — no need for a separate counter
-    // ε tells you remaining exploration budget — no need for a separate flag
-}
-```
-
-| Instead of... | Use... | Why |
-|---|---|---|
-| `iteration_count: u64` | `state.l` | λ IS the iteration counter (funct increments it) |
-| `has_noise: bool` | `state.e > 0.0` | ε IS the noise flag |
-| `is_converged: bool` | `state.sr().abs() < threshold` | SR IS the convergence metric |
-| `confidence: f64` | `1.0 / (1.0 + state.sr().abs())` | Confidence = proximity to equilibrium |
-
-**Tip:** Serialize manifold states, not derived values. The 5-tuple is 40 bytes and fully reconstructs everything.
-
-### 12.10 Error Handling via SR
-
-Standard Resonance is your error signal. Build monitoring around it:
-
-```rust
-fn process(input: KleinManifold) -> Result<KleinManifold, ManifoldError> {
-    let result = transform(input);
-    
-    match result.sr().abs() {
-        sr if sr < 0.01  => Ok(result),                    // Equilibrium — safe
-        sr if sr < 1.0   => Ok(result.apply_funct()),      // Drifting — sow to correct
-        sr if sr < 10.0  => Err(ManifoldError::Unstable),  // Diverging — reject
-        _                => Err(ManifoldError::Overflow),   // Blown — input was adversarial
-    }
-}
-```
-
-**Tip:** SR > 1.0 almost always means you have an associativity assumption hidden somewhere. Audit your multiplication chains.
-
-### 12.11 Code-Switching for NLP ↔ Math Bridges
-
-The `lingual_morphism` operator (proven involution in `LingualMorphism.lean`) swaps the semantic and algebraic topologies:
-
-```
-code_switch(u) = { a := a, ω := ι, ι := ω, ε := λ, λ := ε }
-```
-
-Use this when your system crosses between natural language and mathematical processing:
-
-```python
-# Parsing: NL input → Protoreal state
-user_input = encode_text(text)       # Semantic topology
-math_state = code_switch(user_input) # Protoreal topology — now you can compute
-
-# Generation: Protoreal result → NL output
-result = compute(math_state)
-readable = code_switch(result)       # Back to semantic topology for display
-```
-
-**The key insight:** Code-switching preserves κ = −1. The curvature (and therefore the structural complexity) is the same in both topologies. What changes is which component carries which role. Ambiguity (ε in semantics) becomes level (λ in algebra), and vice versa.
-
-### 12.12 Testing: Parity Sanity Checks
-
-Every operation should survive the Monster Inverse. Build this into your test suite:
-
-```python
-def test_parity_invariance(operation, inputs):
-    """The gold standard test: does the result survive R₄?"""
-    result = operation(*inputs)
-    mirrored_inputs = [monster_inv(x) for x in inputs]
-    mirrored_result = operation(*mirrored_inputs)
-    
-    # The real part should be consistent
-    assert abs(result.a - mirrored_result.a) < tolerance, \
-        f"Parity violation: {result.a} vs {mirrored_result.a}"
-    
-    # The compass (ω·ι) should be invariant
-    assert abs(result.compass() - mirrored_result.compass()) < tolerance, \
-        f"Compass drift: operation breaks bridge invariance"
-```
-
-**Three-tier test strategy:**
-
-| Level | What | How |
-|---|---|---|
-| **Unit** | Individual Klein multiplications | Verify bridge, parity, nilpotency identities |
-| **Integration** | Pipeline stages composed | Verify SR stays bounded through the chain |
-| **Parity** | Full pipeline under Monster Inverse | Verify conclusions are orientation-independent |
-
-### 12.13 Scaling: λ-Gated Complexity
-
-The consolidation level λ is a natural complexity gate. Use it to control how much sophistication your system applies:
-
-```rust
-fn respond(state: &KleinManifold, query: &str) -> Response {
-    match state.l as u64 {
-        0..=2   => simple_response(query),       // Newborn — keep it basic
-        3..=10  => standard_response(query),     // Experienced — full pipeline
-        11..=50 => expert_response(query),       // Veteran — unlock advanced reasoning
-        _       => meta_response(state, query),  // Elder — reason about reasoning
-    }
-}
-```
-
-**Consolidation is irreversible.** `consolidate` doubles a and ι. You can't un-double. Design your scaling thresholds so that premature consolidation doesn't trap the system in a high-complexity mode it can't sustain.
-
-**Tip:** Track `ε / √λ` as your "exploration efficiency." As λ grows, each unit of noise has less impact (the system is more consolidated). If you need to shake things up at high λ, you need proportionally more ε.
 
 ---
 
