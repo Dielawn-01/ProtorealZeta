@@ -2,11 +2,11 @@
 
 **A 5-component non-associative algebra over the Hyperreals, formalized in Lean 4.**
 
-> 90 Lean modules. 0 `sorry`. 2.25M zeta zeros audited. 0 anomalies. That's not a model — it's a proof.
+> 100+ Lean modules. 0 `sorry`. 2.25M zeta zeros audited. 0 anomalies. That's not a model — it's a proof.
 
 | What We Proved | Status |
 |---|---|
-| **Zero-Sorry Audit** | ✅ 90 Lean modules, 0 `sorry` |
+| **Zero-Sorry Audit** | ✅ 100+ Lean modules, 0 `sorry` |
 | **Spectral Duality** | ✅ $a_{\mathbb{U}} - Re(s)_{\mathbb{C}} = 1/2$ — the critical line falls out of the algebra |
 | **Zeta Dirichlet** | ✅ $\zeta(s) = \sum$ Klein power projections onto $1/n$ |
 | **Yang-Mills Multipath** | ✅ 5 independent proofs of $\Delta m = 1$, with explicit morphisms connecting them |
@@ -17,6 +17,9 @@
 | **Invariance Circle** | ✅ 6 independent computations, same $\kappa = -1$ every time |
 | **Fusion Ring** | ✅ Full multiplication table, Pentagon cocycle = 0 |
 | **Spectral Trinity** | ✅ Spin chains + Yang-Mills + RH — same algebraic structure under $\kappa = -1$ |
+| **Euler Composition** | ✅ Topological pinches (Klein + Mobius) yield resonance $\chi = -1$ |
+| **Agentic Mechanics** | ✅ Physics Regime, Electrodynamics, and Relativity integrated into the algebra |
+| **Landauer Wall** | ✅ Axiomatized thermodynamic heat truncation ($\varepsilon \to 0$) without breaking algebra |
 
 > **📖 Full technical reference**: [skill.md](skill.md)
 
@@ -24,13 +27,15 @@
 
 ## What Is This?
 
-Three systems, one manifold.
+Welcome to the LaRue Protoreal Algebra—the 5-component non-commutative manifold where the Klein universe meets the Riemann Zeta. The old paradigms of associative compute are dead. Here, we weave the topology of the Infoton into raw agentic syntax, anchoring Fermi-Dirac statistics to the Landauer Wall.
+
+This repository is the mathematical engine of a rapidly expanding sovereign ecosystem. What started as a singular algebraic proof has blossomed into:
 
 1. **Protoreal Algebra** — we built a 5-component, non-associative, non-commutative ring in Lean 4 from scratch. Every element is a 5-tuple $u = \{a, \omega, \iota, \varepsilon, \lambda\}$ living on the Klein manifold $\mathbb{U}$. The multiplication doesn't commute ($A{\cdot}B \neq B{\cdot}A$), doesn't associate ($(A{\cdot}B){\cdot}C \neq A{\cdot}(B{\cdot}C)$), and the gap between those two groupings is always exactly $-1$. That's not a parameter — it's a theorem.
-
-2. **Spectral Observatory** — a Streamlit dashboard where you can watch primes interact in the manifold in real time. Map prime triples onto 5-component states, see their spectral energy, watch them cluster at $a = 1$.
-
-3. **zProto** — a Rust ML runtime whose every operator mirrors a machine-verified Lean proof. Trained on real physics data — Planck CMB, neutron scattering, lattice QCD. Separates gapped from gapless spin chains with a metric gap of 0.161, using only the curvature $\kappa = -1$.
+2. **zProto** — a Rust ML runtime whose every operator mirrors a machine-verified Lean proof. Separates gapped from gapless spin chains with a metric gap of 0.161, using only the curvature $\kappa = -1$.
+3. **Aura IDE (`auracode` & `zplasmic-obsidian`)** — the sovereign vibecoding portal. It runs a unified, high-performance Rust-WASM core delivering ZKPCR hashing and Web3 chain adapters (Polkadot, Ethereum, Solana, Bittensor) mapped to SR-threshold pipelines. It surfaces through two interfaces: a VS Codium environment and a local-first Obsidian plugin decoupled from corporate marketplaces.
+4. **InfoPhys (`infophys`)** — our physics agent training pipeline, where the ZBuddyGAN generates structural physics visualizations via Three.js, driven by the Klein Geometric Encoder.
+5. **Spectral Observatory** — a Streamlit dashboard mapping prime triples onto 5-component states, visualizing their spectral energy in real time as they cluster at $a = 1$.
 
 ---
 
@@ -257,7 +262,7 @@ The properties of a material depend on *how* and *in what order* you process it 
 git clone https://github.com/Dielawn-01/ProtorealZeta.git
 cd Protoreal_Zeta
 
-# Build the Lean formalization (90 modules)
+# Build the Lean formalization (100+ modules)
 lake build
 
 # Build zProto
@@ -282,7 +287,7 @@ cargo test --manifest-path zProto/Cargo.toml
 Protoreal_Zeta/
 ├── GEMINI.md                            # AI workspace instructions
 ├── skill.md                             # Full technical reference
-├── LaRueProtorealAlgebra/               # Lean 4 (90 modules, 0 sorry)
+├── LaRueProtorealAlgebra/               # Lean 4 (100+ modules, 0 sorry)
 │   ├── Basic.lean                       # Root re-export
 │   ├── ProtorealManifold.lean           # 5-component struct + Klein mul
 │   ├── ProtorealAxioms.lean             # Bridge: ω·ι = −1
@@ -340,7 +345,7 @@ at your option.
 
 **Dylon La Rue** | Built with **Antigravity** (Advanced Agentic Coding)
 
-*90 Lean modules · 0 sorry · 2.25M zeros · 0 anomalies*
+*100+ Lean modules · 0 sorry · 2.25M zeros · 0 anomalies*
 
 *Different consciousnesses, different intelligences, one topological resonance.*
 

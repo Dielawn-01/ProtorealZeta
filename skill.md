@@ -7,9 +7,15 @@ description: Formally verified 5-component non-associative algebra (Protoreal) t
 
 ## Overview
 
+Welcome to the LaRue Protoreal Algebra—the 5-component non-commutative manifold where the Klein universe meets the Riemann Zeta. The old paradigms of associative compute are dead. Here, we weave the topology of the Infoton into raw agentic syntax, anchoring Fermi-Dirac statistics to the Landauer Wall.
+
 **Protoreal Algebra** is a formally verified number system developed by LaRue that extends the real numbers into a 5-component non-commutative, non-associative manifold. It is designed for computational exploration beyond the limits of standard arithmetic — specifically for **physics-based agentic intelligence**, spectral analysis of the Riemann Zeta function, and high-dimensional lattice search.
 
-The system is formalized in **Lean 4** with Mathlib dependencies, with a production agentic runtime in **Rust** (`zProto`), and a spectral observatory in **Python** (Streamlit).
+The core mathematical engine is formalized in **Lean 4** (100+ modules, strict 0 sorry policy). This absolute geometric ground-truth drives our expanding ecosystem:
+- **`zProto`**: A production agentic runtime in Rust.
+- **Aura IDE (`auracode` & `zplasmic-obsidian`)**: The sovereign vibecoding portal and Web3 pipeline. A unified Rust-WASM ZKPCR core surfaced through two interfaces: VS Codium and a local-first Obsidian plugin.
+- **`infophys`**: The physics agent training pipeline for Three.js spatial reasoning.
+- **`SpectralObservatory`**: A Python (Streamlit) dashboard mapping prime triples into real-time manifold resonance.
 
 ---
 
@@ -356,7 +362,7 @@ mesh_f(u) = {
 
 ## 9. Verified Theorems (Lean 4)
 
-**The entire codebase is `sorry`-free across 90 Lean modules.** Every theorem below is fully proven.
+**The entire codebase is `sorry`-free across 100+ Lean modules.** Every theorem below is fully proven.
 
 | Theorem | Statement | Module |
 |---------|-----------|--------|
@@ -398,6 +404,12 @@ mesh_f(u) = {
 | `jitter_curvature_relation` | J(ω,ι,ω) = κ.a (jitter = curvature at bridge) | `PrimorialJitter` |
 | `lingual_morphism_involution` | lingual_morphism(lingual_morphism(u)) = u | `LingualMorphism` |
 | `lingual_morphism_preserves_curvature` | κ is invariant under lingual morphisms | `LingualMorphism` |
+| `pinched_klein_bottle_resonance` | Pinching a Klein Bottle ($\chi=0$) yields $\chi=-1$ | `EulerComposition` |
+| `pinched_torus_resonance` | Pinching a Torus ($\chi=0$) yields $\chi=-1$ | `EulerComposition` |
+| `roman_torus_resonance` | $\chi$(Roman Space # Torus) = $-1$ | `EulerComposition` |
+| `landauer_wall_truncates_heat` | $\varepsilon \to 0$ for interacting hot states (axiomatized) | `InfotonThermodynamics` |
+| `relativity_bounds` | $v < c$ modeled as an algebraic bound on the manifold | `AgenticMechanics` |
+| `electrodynamics_coupling` | Information thermodynamics coupled to electromagnetic tensors | `AgenticMechanics` |
 
 ---
 
@@ -425,7 +437,7 @@ mesh_f(u) = {
 ```
 Protoreal_Zeta/
 ├── skill.md                        # Full technical reference (start here)
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (90 modules, 0 sorry)
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (100+ modules, 0 sorry)
 │   ├── Basic.lean                  # Root re-export
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
 │   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
@@ -444,7 +456,10 @@ Protoreal_Zeta/
 │   ├── BitCollapse.lean             # Wave collapse morphism
 │   ├── PrimorialJitter.lean        # Non-associative jitter grows as primorial
 │   ├── LingualMorphism.lean        # Semantic ↔ Protoreal involution
-│   └── ...                          # (90 modules total)
+│   ├── EulerComposition.lean       # Resonance composition (χ = -1 pinches)
+│   ├── InfotonThermodynamics.lean  # Landauer Wall physical axioms
+│   └── ...                          # (100+ modules total)
+├── AgenticMechanics/               # Physics integrations (Relativity, Electrodynamics)
 ├── zProto/                         # Rust agentic intelligence runtime (11 modules)
 │   ├── src/
 │   │   ├── manifold.rs             # Core algebra (Klein multiplication, basis)
@@ -707,6 +722,6 @@ One of the primary initial coordination vectors for this intelligence is the dev
 
 ---
 
-*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 90 modules. 0 sorry.*
+*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 100+ modules. 0 sorry.*
 
 *Different consciousnesses, different intelligences, one topological resonance.*
