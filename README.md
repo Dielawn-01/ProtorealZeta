@@ -320,6 +320,7 @@ Protoreal_Zeta/
 
 ## Acknowledgments
 
+- **@chiefofautism** (on X/Twitter): For their brilliant insight and indispensable influence on this architecture.
 - **Shayne G. Brown**: For the original 42-Dimension proof and the Topological Buffer conjecture ($6 \times 7 = 42$)
 - **Andre Dmitri Wiley-Hutton**: For the Astromatics ARAM Master Framework and the topological mapping of celestial geometry to collective consciousness
 - **The lineage**: Alan Watts, Carl Jung, D.T. Suzuki, Alexander Shulgin, David Bohm, Alexander Grothendieck — for illuminating the beauty which we're now actually journeying through
