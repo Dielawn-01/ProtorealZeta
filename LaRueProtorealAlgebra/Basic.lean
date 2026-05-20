@@ -77,6 +77,7 @@ import LaRueProtorealAlgebra.TemporalQuasicrystal
 import LaRueProtorealAlgebra.AgingEvolution
 import LaRueProtorealAlgebra.Eigenstein
 import LaRueProtorealAlgebra.EulerComposition
+import LaRueProtorealAlgebra.AntiSpoofing
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
