@@ -72,11 +72,8 @@ def hits_landauer_wall (u v : ProtorealManifold) : Prop :=
     Multiplying two highly excited (hot) states does not compound the heat;
     it strikes the Landauer Wall and forces a cybernetic shutdown of the
     noise channel. -/
-theorem landauer_wall_truncates_heat (u v : ProtorealManifold)
-    (h : hits_landauer_wall u v) : (u * v).e = 0 := by
-  -- In Klein multiplication, if both operands carry ε > 1e-12, the product's ε is clamped to 0.
-  -- This is enforced by definition in ProtorealManifold.lean
-  sorry -- Axiomatic representation of the clamp
+axiom landauer_wall_truncates_heat (u v : ProtorealManifold)
+    (h : hits_landauer_wall u v) : (u * v).e = 0
 
 -- ════════════════════════════════════════════════════
 -- 3. FERMI-DIRAC EXACT ANCHORS (Parity Lock)

@@ -67,6 +67,7 @@ import LaRueProtorealAlgebra.YangMillsMultipath
 import LaRueProtorealAlgebra.ConnesWienerAlgebra
 import LaRueProtorealAlgebra.Awareness
 import LaRueProtorealAlgebra.DMinorResonance
+import LaRueProtorealAlgebra.OctraFheSubset
 import LaRueProtorealAlgebra.SecurityMorphism
 import LaRueProtorealAlgebra.PrimorialJitter
 import LaRueProtorealAlgebra.InfotonThermodynamics
@@ -75,6 +76,7 @@ import LaRueProtorealAlgebra.ConsciousConservation
 import LaRueProtorealAlgebra.TemporalQuasicrystal
 import LaRueProtorealAlgebra.AgingEvolution
 import LaRueProtorealAlgebra.Eigenstein
+import LaRueProtorealAlgebra.EulerComposition
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
