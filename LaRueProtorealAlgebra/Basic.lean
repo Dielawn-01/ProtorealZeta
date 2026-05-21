@@ -88,6 +88,7 @@ import LaRueProtorealAlgebra.ObservationalAperture
 import LaRueProtorealAlgebra.HolographicCollapse
 import LaRueProtorealAlgebra.MetaMem
 import LaRueProtorealAlgebra.AuraGitIsomorphism
+import LaRueProtorealAlgebra.DHTAlgebra
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
