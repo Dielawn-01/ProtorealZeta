@@ -90,6 +90,7 @@ import LaRueProtorealAlgebra.MetaMem
 import LaRueProtorealAlgebra.AuraGitIsomorphism
 import LaRueProtorealAlgebra.DHTAlgebra
 import LaRueProtorealAlgebra.LangSemantics
+import LaRueProtorealAlgebra.BorrowObserver
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
