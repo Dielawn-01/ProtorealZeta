@@ -83,6 +83,7 @@ import LaRueProtorealAlgebra.TopologicalImaginary
 import LaRueProtorealAlgebra.SharedLatentSpace
 import LaRueProtorealAlgebra.ProtorealFFT
 import LaRueProtorealAlgebra.EulersCradle
+import LaRueProtorealAlgebra.CradleContinuation
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
