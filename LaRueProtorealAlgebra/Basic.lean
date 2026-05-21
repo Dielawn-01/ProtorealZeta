@@ -89,6 +89,7 @@ import LaRueProtorealAlgebra.HolographicCollapse
 import LaRueProtorealAlgebra.MetaMem
 import LaRueProtorealAlgebra.AuraGitIsomorphism
 import LaRueProtorealAlgebra.DHTAlgebra
+import LaRueProtorealAlgebra.LangSemantics
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
