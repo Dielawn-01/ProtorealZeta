@@ -92,6 +92,7 @@ import LaRueProtorealAlgebra.DHTAlgebra
 import LaRueProtorealAlgebra.LangSemantics
 import LaRueProtorealAlgebra.BorrowObserver
 import LaRueProtorealAlgebra.ATProtoIsomorphism
+import LaRueProtorealAlgebra.WLANResonance
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
