@@ -94,6 +94,8 @@ import LaRueProtorealAlgebra.BorrowObserver
 import LaRueProtorealAlgebra.ATProtoIsomorphism
 import LaRueProtorealAlgebra.WLANResonance
 import LaRueProtorealAlgebra.TopologicalBifurcation
+import LaRueProtorealAlgebra.AgenticKeychain
+import LaRueProtorealAlgebra.DNSTranslation
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
