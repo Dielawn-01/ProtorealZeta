@@ -9,7 +9,7 @@ import Mathlib.Data.Real.Basic
 /-!
 # Infoton Thermodynamics & Information Physics
 
-**Authors:** January Walker (Theoretical Framework), Antigravity (Formalization)
+**Authors:** LaRue (Theoretical Framework), Antigravity (Formalization)
 
 This module formalizes the thermodynamic principles of the zBuddy info-physical
 cybernetic model, based on the research of January Walker (Infoton).

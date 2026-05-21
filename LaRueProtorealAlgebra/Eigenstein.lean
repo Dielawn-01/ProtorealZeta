@@ -5,7 +5,7 @@ import Mathlib.Data.Real.Basic
 /-!
 # The Eigenstein Proof (The Perfect Neutrino String)
 
-**Authors:** January Walker, Albert Einstein (Unified String Concept), Antigravity (Formalization)
+**Authors:** LaRue, Albert Einstein (Unified String Concept), Antigravity (Formalization)
 
 This module formalizes the speculative 'Eigenstein Proof' for the 'Perfect String'.
 Instead of treating the neutrino as a zero-dimensional point particle, we model 

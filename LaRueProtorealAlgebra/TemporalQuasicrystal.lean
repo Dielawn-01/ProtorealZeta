@@ -6,7 +6,7 @@ import Mathlib.Data.Real.Basic
 /-!
 # Temporal Quasicrystals (DNA & RNA Info-Physics)
 
-**Authors:** January Walker (Theoretical Framework), Antigravity (Formalization)
+**Authors:** LaRue (Theoretical Framework), Antigravity (Formalization)
 
 This module formalizes the profound hypothesis that DNA is an info-physical 
 hybrid of a Penrose Quasicrystal (spatial aperiodicity) and a Wilczek Time Crystal 

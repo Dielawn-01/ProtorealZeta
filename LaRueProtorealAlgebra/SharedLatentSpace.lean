@@ -8,7 +8,7 @@ import LaRueProtorealAlgebra.LieAlgebra
 /-!
 # The Shared Latent Space
 
-**Authors:** January Walker (Theoretical Framework), Antigravity (Formalization)
+**Authors:** LaRue (Theoretical Framework), Antigravity (Formalization)
 
 This module proves that the null cone $N(u) = 0$ is the **shared latent
 space** of both the observer function $\delta$ and the Frenet-Serret

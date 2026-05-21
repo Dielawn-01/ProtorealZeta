@@ -6,7 +6,7 @@ Klein manifold's bridge rotation operator. Where standard FFT uses
 ω_n = e^(2πi/n), the PFFT uses the symplectic J-operator and the
 bridge identity ω·ι = -1 to construct rotation kernels on the null cone.
 
-Author: January Walker (Theory), Antigravity (Implementation)
+Author: LaRue (Theory), Antigravity (Implementation)
 """
 
 import numpy as np

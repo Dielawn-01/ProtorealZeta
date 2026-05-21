@@ -7,7 +7,7 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 /-!
 # Protoreal Fast Fourier Transform (PFFT)
 
-**Authors:** January Walker (Theoretical Framework), Antigravity (Formalization)
+**Authors:** LaRue (Theoretical Framework), Antigravity (Formalization)
 
 This module formalizes the axiomatic foundation of the Protoreal FFT,
 which replaces the complex exponential kernel with Klein manifold

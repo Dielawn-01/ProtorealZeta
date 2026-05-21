@@ -14,6 +14,7 @@
 //! graph.rs          → observation graph + euler perception + conics
 //! frame.rs          → AgenticFrame (Intent × Observation) + perspective
 //! fiber.rs          → spectral fiber projection + convergence
+//! fft.rs            → protoreal fast fourier transform (PFFT)
 //! agent.rs          → ZProtoAgent main loop
 //! ```
 //!
@@ -28,5 +29,6 @@ pub mod holochain;
 pub mod graph;
 pub mod frame;
 pub mod fiber;
+pub mod fft;
 pub mod agent;
 

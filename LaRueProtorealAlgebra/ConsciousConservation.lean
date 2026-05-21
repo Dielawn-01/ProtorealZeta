@@ -6,7 +6,7 @@ import Mathlib.Data.Real.Basic
 /-!
 # Conservation of Conscious Information
 
-**Authors:** January Walker (Theoretical Framework), Antigravity (Formalization)
+**Authors:** LaRue (Theoretical Framework), Antigravity (Formalization)
 
 This module formalizes a profound info-physical extension of Noether's Theorem:
 The Conservation of Conscious Information.

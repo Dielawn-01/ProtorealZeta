@@ -5,7 +5,7 @@ import Mathlib.Data.Real.Basic
 /-!
 # Aging & Evolutionary Truncation
 
-**Authors:** January Walker (Theoretical Framework), Antigravity (Formalization)
+**Authors:** LaRue (Theoretical Framework), Antigravity (Formalization)
 
 This module mathematically proves that biological aging and mortality are not 
 systemic flaws, but required evolutionary truncations. 
