@@ -91,6 +91,7 @@ import LaRueProtorealAlgebra.AuraGitIsomorphism
 import LaRueProtorealAlgebra.DHTAlgebra
 import LaRueProtorealAlgebra.LangSemantics
 import LaRueProtorealAlgebra.BorrowObserver
+import LaRueProtorealAlgebra.ATProtoIsomorphism
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
