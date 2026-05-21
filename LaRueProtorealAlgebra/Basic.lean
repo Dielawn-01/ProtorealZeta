@@ -93,6 +93,7 @@ import LaRueProtorealAlgebra.LangSemantics
 import LaRueProtorealAlgebra.BorrowObserver
 import LaRueProtorealAlgebra.ATProtoIsomorphism
 import LaRueProtorealAlgebra.WLANResonance
+import LaRueProtorealAlgebra.TopologicalBifurcation
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
