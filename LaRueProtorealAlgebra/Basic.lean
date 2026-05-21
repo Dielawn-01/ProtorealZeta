@@ -78,6 +78,8 @@ import LaRueProtorealAlgebra.AgingEvolution
 import LaRueProtorealAlgebra.Eigenstein
 import LaRueProtorealAlgebra.EulerComposition
 import LaRueProtorealAlgebra.AntiSpoofing
+import LaRueProtorealAlgebra.LieAlgebra
+import LaRueProtorealAlgebra.TopologicalImaginary
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
