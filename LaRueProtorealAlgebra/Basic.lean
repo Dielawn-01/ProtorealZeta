@@ -81,6 +81,7 @@ import LaRueProtorealAlgebra.AntiSpoofing
 import LaRueProtorealAlgebra.LieAlgebra
 import LaRueProtorealAlgebra.TopologicalImaginary
 import LaRueProtorealAlgebra.SharedLatentSpace
+import LaRueProtorealAlgebra.ProtorealFFT
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
