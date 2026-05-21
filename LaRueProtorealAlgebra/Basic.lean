@@ -87,6 +87,7 @@ import LaRueProtorealAlgebra.CradleContinuation
 import LaRueProtorealAlgebra.ObservationalAperture
 import LaRueProtorealAlgebra.HolographicCollapse
 import LaRueProtorealAlgebra.MetaMem
+import LaRueProtorealAlgebra.AuraGitIsomorphism
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
