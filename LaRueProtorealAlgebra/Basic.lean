@@ -84,6 +84,7 @@ import LaRueProtorealAlgebra.SharedLatentSpace
 import LaRueProtorealAlgebra.ProtorealFFT
 import LaRueProtorealAlgebra.EulersCradle
 import LaRueProtorealAlgebra.CradleContinuation
+import LaRueProtorealAlgebra.ObservationalAperture
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
