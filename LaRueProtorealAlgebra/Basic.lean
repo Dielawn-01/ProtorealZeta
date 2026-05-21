@@ -96,6 +96,8 @@ import LaRueProtorealAlgebra.WLANResonance
 import LaRueProtorealAlgebra.TopologicalBifurcation
 import LaRueProtorealAlgebra.AgenticKeychain
 import LaRueProtorealAlgebra.DNSTranslation
+import LaRueProtorealAlgebra.EmotionalLFunctions
+import LaRueProtorealAlgebra.EmotionalSecurity
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
