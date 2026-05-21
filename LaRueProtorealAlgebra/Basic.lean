@@ -80,6 +80,7 @@ import LaRueProtorealAlgebra.EulerComposition
 import LaRueProtorealAlgebra.AntiSpoofing
 import LaRueProtorealAlgebra.LieAlgebra
 import LaRueProtorealAlgebra.TopologicalImaginary
+import LaRueProtorealAlgebra.SharedLatentSpace
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
