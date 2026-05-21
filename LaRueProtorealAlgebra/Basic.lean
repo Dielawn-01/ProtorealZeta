@@ -85,6 +85,7 @@ import LaRueProtorealAlgebra.ProtorealFFT
 import LaRueProtorealAlgebra.EulersCradle
 import LaRueProtorealAlgebra.CradleContinuation
 import LaRueProtorealAlgebra.ObservationalAperture
+import LaRueProtorealAlgebra.HolographicCollapse
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
