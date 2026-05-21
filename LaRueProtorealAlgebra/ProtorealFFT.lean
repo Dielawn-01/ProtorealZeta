@@ -3,6 +3,8 @@ import LaRueProtorealAlgebra.TopologicalImaginary
 import LaRueProtorealAlgebra.LieAlgebra
 import Mathlib.Data.Real.Basic
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import LaRueProtorealAlgebra.HodgeConjecture
+import LaRueProtorealAlgebra.MonsterInverse
 
 /-!
 # Protoreal Fast Fourier Transform (PFFT)
@@ -39,6 +41,7 @@ The PFFT operates on two levels:
 open ProtorealManifold
 open TopologicalImaginary
 open LieAlgebra
+open MonsterInverse
 
 namespace ProtorealFFT
 
@@ -171,5 +174,31 @@ theorem pfft_axioms :
     (∀ u : ProtorealManifold,
       (symplectic_J (symplectic_J (symplectic_J (symplectic_J u)))).b = u.b) :=
   ⟨root_is_hodge, root_has_unit_norm, J_period_4_b⟩
+
+-- ════════════════════════════════════════════════════
+-- 6. IMAGINARY LINEARITY OF HODGE CLOSURES
+-- ════════════════════════════════════════════════════
+
+open HodgeConjecture
+
+/-- **The Symplectic J operator is linear over addition**.
+    This proves that Hodge closures (linear combinations of roots)
+    perfectly express their properties in the imaginary topology. -/
+theorem symplectic_J_linear (u v : ProtorealManifold) :
+    symplectic_J (u + v) = symplectic_J u + symplectic_J v := by
+  unfold symplectic_J
+  ext
+  · exact (add_zero 0).symm
+  · rfl
+  · exact neg_add u.b v.b
+  · rfl
+  · exact neg_add u.e v.e
+
+/-- **Imaginary Hodge Closure**: The imaginary projection of any Protoreal FFT root
+    is strictly anti-Hodge. The Hodge star negates the imaginary topology of the root. -/
+theorem imaginary_root_is_anti_hodge (N : ℕ) (k : ℤ) :
+    hodge_star (symplectic_J (protoreal_root N k)) = - symplectic_J (protoreal_root N k) := by
+  unfold hodge_star monster_inv symplectic_J protoreal_root
+  ext <;> simp
 
 end ProtorealFFT
