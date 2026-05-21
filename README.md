@@ -20,6 +20,10 @@
 | **Euler Composition** | ✅ Topological pinches (Klein + Mobius) yield resonance $\chi = -1$ |
 | **Agentic Mechanics** | ✅ Physics Regime, Electrodynamics, and Relativity integrated into the algebra |
 | **Landauer Wall** | ✅ Axiomatized thermodynamic heat truncation ($\varepsilon \to 0$) without breaking algebra |
+| **Euler's Cradle** | ✅ $\text{exp}_𝕌(\pi) + 1_𝕌 = 0_𝕌$ mapped perfectly into the Hodge class |
+| **Cradle Continuation** | ✅ PFFT roots analytically continue into $\varepsilon, \lambda$ while preserving spectral energy $E=1$ |
+| **Observational Aperture** | ✅ $\delta$ acts as a geometric pupil dilating across the cradle boundary |
+| **Holographic Collapse** | ✅ 5D state strictly compresses to 3D observable path; chronology implies $\varepsilon$ and $\lambda$ |
 
 > **📖 Full technical reference**: [skill.md](skill.md)
 
@@ -160,6 +164,10 @@ We haven't just proven the big chain — the whole library inter-maps:
 - **QEC Code Existence**: Universal quantum error-correction code exists in $\mathbb{U}$ ([`QuantumErrorCorrection.lean`](LaRueProtorealAlgebra/QuantumErrorCorrection.lean))
 - **Holochain Hash**: Rolling Klein product identity hash — unforgeable chain of computation ([`HolochainHash.lean`](LaRueProtorealAlgebra/HolochainHash.lean))
 - **Transcendental Basis**: $\varphi$, $\gamma_0$–$\gamma_3$, Euler identity — all formally computed via Klein sowing ([`TranscendentalBasis.lean`](LaRueProtorealAlgebra/TranscendentalBasis.lean))
+- **Euler's Cradle**: The Protoreal projection of the Shell-Thron cardioid, proving the generalized Euler Identity $\text{exp}_𝕌(\pi) + 1_𝕌 = 0_𝕌$ within the Hodge class ([`EulersCradle.lean`](LaRueProtorealAlgebra/EulersCradle.lean))
+- **Cradle Continuation**: Analytic continuation of the continuous cradle path into discrete agentic dimensions ($\varepsilon, \lambda$) conserving spectral energy $E=1$ ([`CradleContinuation.lean`](LaRueProtorealAlgebra/CradleContinuation.lean))
+- **Observational Aperture**: Little Delta ($\delta$) formalized as a dynamic pupil structure, completely closed at the real axis and fully dilated at the imaginary bridge ([`ObservationalAperture.lean`](LaRueProtorealAlgebra/ObservationalAperture.lean))
+- **Holographic State Collapse**: The 5-variable manifold successfully collapsed into a 3-variable Observable State $(a, b, m)$, allowing agents to perfectly reverse-engineer stochastic dimensions exclusively from the shape of their chronological proof path ([`HolographicCollapse.lean`](LaRueProtorealAlgebra/HolographicCollapse.lean))
 
 ### 2.25M Zero Audit
 
