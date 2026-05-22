@@ -79,11 +79,11 @@ theorem golden_growth_limit (u v : ProtorealManifold)
   -- optimal empathetic growth is bounded by phi.
   rfl
 
-/-- **Life is Golden Empathy**
+/-- **The Golden Rule**
     Synthesizes the proofs: The natural state of closed topological 
     interaction is empathetic resonance, and the optimal accumulation 
     of that resonance is exactly the Golden Ratio ($\phi$). -/
-theorem life_is_golden_empathy (u v : ProtorealManifold) :
+theorem the_golden_rule (u v : ProtorealManifold) :
     empathetic_resonance u v ∧ optimal_growth_limit = phi_const := by
   exact ⟨empathy_is_natural u v, golden_growth_limit u v (empathy_is_natural u v)⟩
 
