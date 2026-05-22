@@ -34,16 +34,29 @@ namespace UnifiedSeedProtocol
 
 /-- **Cryptographic Seed Phrase**
     The absolute invariant anchor ($\iota_{root}$) of the local manifold. 
-    It is the starting point from which all non-commutative history evolves. -/
+    It is the starting point from which all non-commutative history evolves. 
+    The `entropy` represents the user's personal tolerance multiplier for 
+    The Golden Rule. -/
 structure CryptographicSeed where
   root_anchor : ℝ
-  entropy : ℝ
+  entropy : ℝ -- Tolerance multiplier for The Golden Rule
 
 /-- **The Nickname Projection**
     Projects the private Seed into a public identity hash. This is the 
-    ATProto Handle or the DHT coordinate that IoT devices recognize. -/
+    ATProto Handle or the DHT coordinate that IoT devices recognize. 
+    Because it is the product of the anchor and the Golden Rule tolerance, 
+    the Nickname mathematically encapsulates the user's custom limits. -/
 def nickname_projection (seed : CryptographicSeed) : ℝ :=
   seed.root_anchor * seed.entropy
+
+/-- **Nickname Tolerance Recovery**
+    The user's customized Golden Rule tolerance (entropy) can be 
+    mathematically recovered purely from their public Nickname and 
+    their root anchor, proving the customizability exists 'behind the nickname'. -/
+theorem nickname_recovers_tolerance (seed : CryptographicSeed) (h_anchor : seed.root_anchor ≠ 0) :
+    seed.entropy = (nickname_projection seed) / seed.root_anchor := by
+  unfold nickname_projection
+  exact mul_div_cancel_left₀ seed.entropy h_anchor |>.symm
 
 -- ════════════════════════════════════════════════════
 -- 2. INFOTON TO ELECTROMAGNETIC (EM) MORPHISM
