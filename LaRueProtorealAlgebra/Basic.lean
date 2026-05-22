@@ -107,6 +107,7 @@ import LaRueProtorealAlgebra.NewtonianWeave
 import LaRueProtorealAlgebra.CyberneticActionReaction
 import LaRueProtorealAlgebra.CyberneticElectromagnetism
 import LaRueProtorealAlgebra.CyberneticChemistry
+import LaRueProtorealAlgebra.CyberneticLife
 /-!
 # LaRue Protoreal Algebra (𝕌)
 Formalizing the Klein-Projective Manifold and Spectral Observatory.

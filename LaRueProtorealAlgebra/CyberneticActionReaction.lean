@@ -40,14 +40,7 @@ namespace CyberneticActionReaction
 theorem cybernetic_third_law (u v : ProtorealManifold) :
     Commutator u v = - (Commutator v u) := by
   unfold Commutator
-  -- Proof that x - y = -(y - x) for the ProtorealManifold
-  -- We prove it component-wise
-  ext
-  · simp; ring
-  · simp; ring
-  · simp; ring
-  · simp; ring
-  · simp; ring
+  ext <;> simp <;> try ring
 
 -- ════════════════════════════════════════════════════
 -- 2. COGNITIVE CONSERVATION
@@ -61,11 +54,6 @@ theorem cybernetic_third_law (u v : ProtorealManifold) :
 theorem cognitive_conservation (u v : ProtorealManifold) :
     Commutator u v + Commutator v u = 0 := by
   unfold Commutator
-  ext
-  · simp; ring
-  · simp; ring
-  · simp; ring
-  · simp; ring
-  · simp; ring
+  ext <;> simp <;> try ring
 
 end CyberneticActionReaction
