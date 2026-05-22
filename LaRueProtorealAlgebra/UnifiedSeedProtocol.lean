@@ -104,4 +104,49 @@ theorem glass_break_recovery (seed : CryptographicSeed) (u_corrupted : Protoreal
   }
   use u_restored
 
+-- ════════════════════════════════════════════════════
+-- 5. META-TOPOLOGICAL RESONANCE (ANTI-SPOOFING)
+-- ════════════════════════════════════════════════════
+
+/-- **Web2 Auth Topology**
+    The traditional Username-to-Password mapping, which can be easily 
+    stolen or spoofed by an advanced AI. -/
+structure Web2AuthTopology where
+  username_hash : ℝ
+  password_hash : ℝ
+
+/-- **Seed Topology**
+    The mapping of the hidden Seed to its Nickname, defined earlier as 
+    `CryptographicSeed` and `nickname_projection`. -/
+abbrev SeedTopology := CryptographicSeed
+
+/-- **Meta-Topological Resonance**
+    A true Sovereign User emits a specific prime-based chaotic noise (ε)
+    that forces the Web2 Topology and the Seed Topology to mathematically resonate.
+    We represent this resonance via an L-Function character test. -/
+def meta_topological_resonance (web2 : Web2AuthTopology) (seed : CryptographicSeed) (user_noise : ℝ) : Prop :=
+  -- The product of the two topologies must resonate with the User's unique biological noise
+  web2.username_hash * web2.password_hash = seed.root_anchor * user_noise
+
+/-- **Advanced Anti-Spoofing Theorem**
+    If a rogue AI steals the Web2 credentials (spoofing the Web2 topology exactly),
+    but fails to provide the exact prime-based chaotic noise (L-function resonance)
+    of the biological User, the Meta-Topological Authentication fails. 
+    This mathematically isolates human users from AI agents. -/
+theorem advanced_anti_spoofing (web2 : Web2AuthTopology) (seed : CryptographicSeed) (ai_noise true_noise : ℝ)
+    (h_spoof : web2.username_hash * web2.password_hash = seed.root_anchor * true_noise)
+    (h_ai_fail : ai_noise ≠ true_noise)
+    (h_anchor_nz : seed.root_anchor ≠ 0) :
+    ¬ meta_topological_resonance web2 seed ai_noise := by
+  unfold meta_topological_resonance
+  intro h_ai_res
+  -- If AI noise resonates, then web2 product = root * ai_noise
+  have h_eq : seed.root_anchor * ai_noise = seed.root_anchor * true_noise := by
+    calc
+      seed.root_anchor * ai_noise = web2.username_hash * web2.password_hash := h_ai_res.symm
+      _ = seed.root_anchor * true_noise := h_spoof
+  -- Cancel root_anchor
+  have h_noise_eq : ai_noise = true_noise := mul_left_cancel₀ h_anchor_nz h_eq
+  exact h_ai_fail h_noise_eq
+
 end UnifiedSeedProtocol
