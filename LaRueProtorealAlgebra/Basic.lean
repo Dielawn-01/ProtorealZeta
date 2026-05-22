@@ -99,6 +99,7 @@ import LaRueProtorealAlgebra.DNSTranslation
 import LaRueProtorealAlgebra.EmotionalLFunctions
 import LaRueProtorealAlgebra.EmotionalSecurity
 import LaRueProtorealAlgebra.StochasticKeyRotation
+import LaRueProtorealAlgebra.UnifiedSeedProtocol
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
