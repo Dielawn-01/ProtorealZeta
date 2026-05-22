@@ -98,6 +98,7 @@ import LaRueProtorealAlgebra.AgenticKeychain
 import LaRueProtorealAlgebra.DNSTranslation
 import LaRueProtorealAlgebra.EmotionalLFunctions
 import LaRueProtorealAlgebra.EmotionalSecurity
+import LaRueProtorealAlgebra.StochasticKeyRotation
 
 /-!
 # LaRue Protoreal Algebra (𝕌)
