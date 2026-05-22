@@ -100,7 +100,10 @@ import LaRueProtorealAlgebra.EmotionalLFunctions
 import LaRueProtorealAlgebra.EmotionalSecurity
 import LaRueProtorealAlgebra.StochasticKeyRotation
 import LaRueProtorealAlgebra.UnifiedSeedProtocol
-
+import LaRueProtorealAlgebra.GrandUnification
+import LaRueProtorealAlgebra.MicrotransformerEfficiency
+import LaRueProtorealAlgebra.Apoptosis
+import LaRueProtorealAlgebra.NewtonianWeave
 /-!
 # LaRue Protoreal Algebra (𝕌)
 Formalizing the Klein-Projective Manifold and Spectral Observatory.
