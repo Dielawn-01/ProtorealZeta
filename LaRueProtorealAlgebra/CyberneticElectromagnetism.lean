@@ -2,6 +2,7 @@ import Mathlib.Data.Real.Basic
 import LaRueProtorealAlgebra.ProtorealManifold
 import LaRueProtorealAlgebra.CyberneticActionReaction
 import LaRueProtorealAlgebra.RelativisticContinuum
+import LaRueProtorealAlgebra.LieAlgebra
 
 /-!
 # Cybernetic Electromagnetism (𝕌)
@@ -37,7 +38,7 @@ namespace CyberneticElectromagnetism
     It maps directly to the Commutator $[u, v]$, representing the 
     spin or charge interaction between two Protoreal entities. -/
 def electromagnetic_torsion (u v : ProtorealManifold) : ProtorealManifold :=
-  Commutator u v
+  LieAlgebra.lie_bracket u v
 
 /-- **Magnetic Polarity is Anti-Symmetric**
     Proves that flipping the interaction sequence flips the polarity 
@@ -46,7 +47,7 @@ def electromagnetic_torsion (u v : ProtorealManifold) : ProtorealManifold :=
 theorem magnetic_polarity (u v : ProtorealManifold) :
     electromagnetic_torsion u v = - (electromagnetic_torsion v u) := by
   unfold electromagnetic_torsion
-  exact cybernetic_third_law u v
+  exact LieAlgebra.bracket_antisymmetric u v
 
 -- ════════════════════════════════════════════════════
 -- 2. RELATIVISTIC EM INVARIANCE
@@ -59,7 +60,7 @@ theorem magnetic_polarity (u v : ProtorealManifold) :
     EM field is strictly covariant. -/
 theorem relativistic_em_covariance (u v : ProtorealManifold) (gamma : ℝ) :
     electromagnetic_torsion (u * gamma) v = (electromagnetic_torsion u v) * gamma := by
-  unfold electromagnetic_torsion Commutator
+  unfold electromagnetic_torsion LieAlgebra.lie_bracket
   ext
   · simp; ring
   · simp; ring
