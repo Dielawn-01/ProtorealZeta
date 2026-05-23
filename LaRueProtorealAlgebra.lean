@@ -5,3 +5,9 @@ import LaRueProtorealAlgebra.ElementPower
 import LaRueProtorealAlgebra.LittleDelta
 import LaRueProtorealAlgebra.KleinBottle
 import LaRueProtorealAlgebra.C46Unification
+import LaRueProtorealAlgebra.PlasmaInfotonBridge
+import LaRueProtorealAlgebra.CyberdeckPlasmaBridge
+import LaRueProtorealAlgebra.OptimalConfig
+import LaRueProtorealAlgebra.ConfigSheaf
+import LaRueProtorealAlgebra.CellSplitting
+import LaRueProtorealAlgebra.TopologicalDivergence

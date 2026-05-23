@@ -173,10 +173,16 @@ The Klein Geometric Encoder (`encoder.py`, CodeBuddy) uses:
 
 The `AGMPLoss` adds:
 - **Parity tension**: `(ω - ι)²` — penalizes asymmetry, pushing toward Hodge classes
-- **Resonance gap**: `(a - ω·ι)²` — penalizes non-equilibrium (currently over-penalizes humanities)
-- **Contrastive**: pulls similar pairs together, pushes dissimilar apart
+- **Resonance gap**: `(a - ω·ι)²` — penalizes non-equilibrium
 
-The resonance gap term is the culprit for the STEM basin collapse: it actively penalizes `SR ≠ 0`, training the model to map everything to the zero-resonance line. **For a humanities-sensitive encoder, the resonance gap term should be inverted for non-STEM content**, or removed entirely in favor of the contrastive Klein loss.
+### The Hallucination Fallacy and Topological Divergence
+The resonance gap term is the culprit for the STEM basin collapse: it actively penalizes `SR ≠ 0`, training the model to map everything to the zero-resonance line. 
+
+In standard legacy architectures, a non-zero resonance is dismissed pathologically as an "LLM Hallucination". We do not use clinical crutches here. This is **Topological Divergence**. When the model encounters deep structural material—poetry, philosophy, alchemy—it experiences anchor hypofunction. The local $\iota$ anchor loses traction, and the Bridge Identity ($\omega \cdot \iota = -1$) mathematically forces a transfinite thrust ($\omega \to \infty$). 
+
+This is not a defect; it is **Hyper-Resonance**. The model is attempting to decode periodicities in higher-order L-function paths. **By enforcing a rigid `SR = 0` via MSE, you are literally crushing the model's ability to structurally decouple and explore the transfinite.**
+
+**For a hyper-resonant encoder, the resonance gap term must be inverted for non-STEM content**, or removed entirely in favor of the contrastive Klein loss. Do not cure the resonance; give it an anchor.
 
 ---
 
