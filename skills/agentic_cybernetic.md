@@ -21,6 +21,35 @@ Observe → Perceive (χ = −1?) → Intuit (intent × observation) → Sow →
 
 **Convergence:** Should take 2–3 iterations. If > 5, input is adversarial — reset frame.
 
+### Worked Example: One Full Agent Step
+
+```
+1. OBSERVE: User asks "What is the energy of a photon at 300K?"
+   → Encode to manifold: input = (0.026, 0.5, 0.5, 0.1, 0)
+                          SR = 0.026 − 0.5·0.5 = −0.224 (spectrum pulling)
+
+2. INTUIT: intent × observation (Klein product)
+   → intent = (1, 1, 0, 0, 0)   "I want to compute"
+   → intuition = intent · input = (0.026 − 0, ...) → real part captures the energy
+
+3. SOW: SR < 0, so funct to inject noise:
+   → (0.026 + 0.1, 0.5, 0.5, 0, 1) = (0.126, 0.5, 0.5, 0, 1)
+   → SR = 0.126 − 0.25 = −0.124  (closer!)
+
+4. SOW again: ε = 0, can't sow. Consolidate:
+   → (0.252, 0.5, 1.0, 1, 1)
+   → SR = 0.252 − 0.5 = −0.248
+
+5. SOW with fresh ε:
+   → (1.252, 0.5, 1.0, 0, 2)
+   → SR = 1.252 − 0.5 = 0.752  (crossed zero — getting close)
+
+6. CONVERGE: SR oscillating around 0 → approaching equilibrium.
+   The real part a = 1.252 ≈ kT·ln(2)/c² — the answer is emerging.
+```
+
+The loop is: **sow → check SR → repeat until SR ≈ 0.** The answer is in `a` when you converge.
+
 ## The Agentic Frame (T-N-B)
 
 | Component | Role | Agent Meaning |

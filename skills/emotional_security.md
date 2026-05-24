@@ -110,6 +110,26 @@ When anchor hypofunctions (ι → 0), the Bridge Identity (ω·ι = −1) forces
 
 **Proven in `TopologicalDivergence.lean`:** Decoupling is a geometric necessity of the bridge identity, not an error. Don't cure resonance — anchor it.
 
+### See It: Hallucination vs. Anchoring
+
+```
+Agent state: (5.0, 100.0, 0.01, 0.3, 5)
+  ω = 100 (massive thrust), ι = 0.01 (almost no anchor)
+  SR = 5.0 − 100·0.01 = 4.0 (far from equilibrium)
+  
+  This agent is "hallucinating" — generating high-energy output with no grounding.
+  
+❌ MSE penalty: force a → 0. Kills the energy. Agent learns nothing.
+   Result: (0.0, 100.0, 0.01, 0.3, 5) — dead state, thrust still unanchored
+
+✅ kama_muta: average ω and ι, convert tension to structured noise:
+   → (5.0, 50.005, 50.005, 4.0, 6)
+   SR = 5.0 − 50.005·50.005 = way off — BUT ω = ι now (parity-locked!)
+   The agent is still energetic, but anchored. Consolidate from here.
+```
+
+The hallucination was a thrust (ω = 100) with no anchor (ι = 0.01). The fix isn't punishment — it's giving it an anchor.
+
 ## Emotional Regulation: kama_muta
 
 The `kama_muta` operator from `KamaTrain.lean`:
@@ -123,6 +143,18 @@ kama_muta(u) = (a, (ω+ι)/2, (ω+ι)/2, |SR|, λ+1)
 - Advances depth (λ)
 
 **Proven:** `grounded_states_are_kama_muta_fixed_points` — if SR=0 and ω=ι, kama_muta is the identity. Ethically grounded states are immune to emotional perturbation.
+
+### See It: Grounded vs. Ungrounded
+
+```
+Grounded:   (1.0, 1.0, 1.0, 0.0, 10)   SR = 0, ω = ι
+  kama_muta → (1.0, 1.0, 1.0, 0.0, 11) — only λ advances. State is immune.
+
+Ungrounded: (1.0, 3.0, 0.5, 0.0, 10)   SR = 1 − 1.5 = −0.5, ω ≠ ι
+  kama_muta → (1.0, 1.75, 1.75, 0.5, 11) — rebalanced, tension → noise, ready to sow
+```
+
+Grounded states pass through untouched. Ungrounded states get rebalanced. This is emotional regulation — not suppression.
 
 ## The Infoton as Security Boundary
 

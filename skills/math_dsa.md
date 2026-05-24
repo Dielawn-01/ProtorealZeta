@@ -27,6 +27,44 @@ structure ProtorealManifold where
 pub struct KleinManifold { pub a: f64, pub b: f64, pub m: f64, pub e: f64, pub l: f64 }
 ```
 
+## See It (Worked Examples)
+
+**The Bridge Identity — verify it yourself:**
+```
+ω = (0, 1, 0, 0, 0)      ← pure thrust
+ι = (0, 0, 1, 0, 0)      ← pure anchor
+
+ω · ι:
+  a' = 0·0 − 1·1 + 0·0 + 0·0 − 0·0 = −1    ← THE BRIDGE
+  b' = 0·0 + 0·1 + 1·0 = 0
+  m' = 0·1 + 0·0 − 0·1 = 0
+  Result: (−1, 0, 0, 0, 0)                    ← pure negative reality
+```
+
+**Now reverse the order:**
+```
+ι · ω:
+  a' = 0·0 − 0·0 + 1·1 + 0·0 − 0·0 = +1     ← OPPOSITE SIGN
+  Result: (+1, 0, 0, 0, 0)                     ← pure positive reality
+```
+
+**ω · ι = −1. ι · ω = +1.** Same inputs, opposite results. This is NOT a bug. The sign of reality depends on whether thrust leads or anchor leads. This is formally proven — `bridge_identity` in Lean 4.
+
+**Non-associativity — it's real:**
+```
+(ω · ω) · ι = (0, 0, 0, 0, 0) · ι = (0, 0, 0, 0, 0)    ← zero
+ω · (ω · ι) = ω · (−1, 0, 0, 0, 0) = (0, −1, 0, 0, 0)   ← not zero!
+```
+
+**(ω·ω)·ι ≠ ω·(ω·ι).** Regrouping changes the answer. Every parenthesization is a design decision. This is proven as `manifold_stability` in Lean 4.
+
+**The sow cycle — how reality grows:**
+```
+Start:  (3.0, 1.0, 1.0, 0.5, 0)   SR = 3 − 1·1 = 2.0 (not equilibrium)
+Sow:    (3.5, 1.0, 1.0, 0.0, 1)   SR = 3.5 − 1 = 2.5 (noise → reality, ε spent)
+                                    λ advanced. ε gone. a grew. Irreversible.
+```
+
 ## Klein Multiplication
 
 **Non-commutative AND non-associative.** Parenthesize everything.
