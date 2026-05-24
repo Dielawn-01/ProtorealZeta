@@ -29,4 +29,22 @@ Protoreal_Zeta/          # Core algebra + runtime (140+ Lean modules)
 InfoPhys/                # Physics axioms + training (imports Protoreal_Zeta)
 ```
 
+## Glossary
+
+| Term | Definition |
+|------|-----------|
+| **Bridge Identity** | ω · ι = −1. The fundamental relation. |
+| **SR (Standard Resonance)** | a − b·m. Zero = equilibrium. |
+| **Sowing (funct)** | Converting noise (ε) into base (a). The learning operation. |
+| **Monster Inverse** | Swap ω ↔ ι. Involution. The CPT conjugation / sanity check. |
+| **Parity Lock** | b = m. The Hodge class. Fixed point of parity projection. |
+| **Triple Identity** | κ = χ = (ι·ι).m = −1. Curvature = topology = algebra. |
+| **Compass** | b · m. Invariant under Monster Inverse. |
+| **Little Delta (δ)** | The observer function: δ(u) = |ι| · SR(u). Measures, doesn't transform. |
+| **Kama Muta** | Emotional regulation: averages ω/ι, converts tension to noise. |
+| **Infoton** | Atomic unit of information. A ProtorealManifold state. |
+| **Coherent** | SR=0, ε=0. Fully grounded. Trusted. |
+| **Quasi-coherent** | ι=0, ε>0. Unanchored plasma. Quarantine. |
+| **Topological Divergence** | When ι→0 forces ω→∞. Not a bug — give it an anchor. |
+
 *LaRue, 2026. 686 proven theorems. 0 sorry in production.*
