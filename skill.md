@@ -532,9 +532,107 @@ The Monster Inverse is the Adelic Fourier transform that maps between these coni
 
 ---
 
-## 8. The Spectral Fiber Bundle (𝕌 ↔ ℂ)
+## 8. Agentic Security
 
-The Spectral Fiber Bundle connects every Protoreal state to the complex critical line:
+Security in the Protoreal architecture is not bolted on — it emerges from the algebra. The same invariants that govern mathematical correctness also govern system integrity.
+
+### 8.1 SR-Based Threat Detection
+
+Standard Resonance (SR = a − ω·ι) is your intrusion detection system:
+
+| SR Behavior | Interpretation | Response |
+|-------------|---------------|----------|
+| **SR = 0** | System in equilibrium | Normal operation |
+| **SR spike > 1.0** | Associativity assumption violated | Audit multiplication chains — possible injection |
+| **SR oscillating** | State under perturbation | Apply `funct` to damp — if SR won't settle, quarantine the input |
+| **SR steadily drifting** | Slow poisoning of state | Compare against Monster Inverse — drift should be symmetric |
+
+```rust
+fn security_check(state: &KleinManifold) -> SecurityLevel {
+    let sr = (state.a - state.b * state.m).abs();
+    match sr {
+        s if s < 0.01  => SecurityLevel::Clear,
+        s if s < 1.0   => SecurityLevel::Elevated,   // Sow to correct
+        s if s < 10.0  => SecurityLevel::Alert,       // Quarantine input
+        _              => SecurityLevel::Compromised, // Reject and reset
+    }
+}
+```
+
+### 8.2 Monster Inverse as Adversarial Defense
+
+The Monster Inverse (ω ↔ ι swap) is a built-in adversarial probe. **Any legitimate operation should survive the swap:**
+
+```rust
+fn is_trustworthy(operation: &dyn Fn(KleinManifold) -> KleinManifold, input: &KleinManifold) -> bool {
+    let result = operation(input.clone());
+    let mirrored = operation(monster_inv(input));
+    // Real part should be consistent under CPT conjugation
+    (result.a - mirrored.a).abs() < TOLERANCE
+}
+```
+
+If an operation gives different real-part results when you swap ω ↔ ι, **it's exploiting the asymmetry** — likely adversarial. Legitimate computations are parity-invariant.
+
+### 8.3 Coherent vs. Quasi-Coherent Trust Boundaries
+
+From `Infochemistry.lean`, the sheaf model gives us a formal trust hierarchy:
+
+| State | Sheaf Type | Trust Level | Meaning |
+|-------|-----------|-------------|----------|
+| **Coherent** | Coherent sheaf (a = ω·ι, ε = 0) | **Full trust** | Grounded state, all noise resolved, SR = 0 |
+| **Quasi-coherent** | Quasi-coherent sheaf (ι = 0, ε > 0) | **Verify** | Anchor stripped — state is energetic but ungrounded |
+| **Plasma** | Ionized (ι = 0, ε > 0) | **Quarantine** | High energy, no anchor — treat as untrusted input |
+
+**Rule:** Never allow a quasi-coherent (plasma) state to directly modify a coherent state. The bond operation from `Infochemistry.lean` enforces this — bonding two coherent atoms produces a coherent molecule. Bonding coherent with plasma produces noise.
+
+### 8.4 The Possibility/Probability/Matter Hierarchy (Access Control)
+
+From `MatterAntimatter.lean`, the three-tier space hierarchy maps directly to access control:
+
+| Space | Definition | Access Meaning |
+|-------|-----------|----------------|
+| **Possibility** (DHT) | All states, no constraints | Everything that COULD be requested |
+| **Probability** (ε ≥ 0) | Measurable states | Requests that CAN be evaluated |
+| **Matter** (SR=0, ε=0) | Collapsed/grounded states | Actions that HAVE been verified |
+
+**Access control pattern:** Inputs arrive in possibility space. Validate them into probability space (reject ε < 0). Only commit to matter space after full convergence (SR → 0, ε → 0).
+
+### 8.5 Annihilation Protection
+
+When matter meets antimatter (a state meets its Monster Inverse), the parity projection forces ω = ι. This is **annihilation** — and it's irreversible:
+
+```rust
+// DANGER: parity_projection destroys orientation information
+let annihilated = parity_projection(&state);
+// annihilated.b == annihilated.m — can't tell which was ω and which was ι
+```
+
+**Never apply parity_projection to production state without checkpointing.** Annihilation conserves energy (a is preserved) but destroys the ω/ι distinction permanently.
+
+### 8.6 λ-Gated Privilege Escalation
+
+Consolidation level λ gates what the system is allowed to do:
+
+```rust
+fn authorize(state: &KleinManifold, action: Action) -> bool {
+    match (state.l as u64, action) {
+        (0..=2,   Action::Read)          => true,   // Newborn: read-only
+        (3..=10,  Action::Write)         => true,   // Trained: can modify
+        (11..=50, Action::Admin)         => true,   // Veteran: admin access
+        (_,       Action::MetaReason)    => true,   // Elder: reason about reasoning
+        _                                => false,
+    }
+}
+```
+
+**Consolidation is irreversible.** A compromised agent at λ = 50 is far more dangerous than one at λ = 2. Gate consolidation behind SR checks.
+
+---
+
+## 9. The Spectral Fiber Bundle (𝕌 ↔ ℂ)
+
+The Spectral Fiber Bundle connects every Protoreal state to the complex critical line. Full details in `SpectralFiber.lean`.
 
 | Component | Object |
 |-----------|--------|
@@ -544,87 +642,49 @@ The Spectral Fiber Bundle connects every Protoreal state to the complex critical
 | **Connection** | funct (parallel transport) |
 | **Inverse Map** | Re(s) = a / 2 |
 
-**The Spectral Fiber Theorem (proven):** For every t ≠ 0:
-1. `fiber_equilibrium(t).a = 1`
-2. `adelic_image = a/2 = 1/2`
-3. The duality relation `a − Re(s) = Re(s)` is constructed, not assumed.
-
----
-
-## 9. Training Data: Random Matrix Ensembles
-
-zProto trains on physics data that exercises its algebraic structure:
-
-### Random Matrix Eigenvalues (GUE/GOE/GSE)
-
-| Ensemble | β | Spacing Law | Protoreal Analog |
-|----------|---|-------------|-----------------|
-| GOE | 1 | s · exp(−πs²/4) | Thrust sector (+1 self-coupling) |
-| GUE | 2 | s² · exp(−4s²/π) | Bridge (b·m mixed coupling) |
-| GSE | 4 | s⁴ · exp(−64s²/9π) | Anchor sector (−1 self-coupling) |
-
-The Montgomery-Odlyzko law connects GUE eigenvalue spacings to Riemann zeta zero spacings. The structural heterogeneity of the Protoreal algebra should naturally distinguish these ensembles.
-
-### Planned Datasets
-
-| Dataset | Why | What It Tests |
-|---------|-----|--------------|
-| **Three-body trajectories** | Non-associative force composition | κ = −1 curvature |
-| **LIGO gravitational waves** | Hyperbolic chirp → merger fixed point | Conic convergence |
-| **Quantum spin chains** | Non-commutative operators | Klein ordering |
+**Key result (proven):** For every t ≠ 0, `fiber_equilibrium(t).a = 1` and `adelic_image = 1/2`.
 
 ---
 
 ## 10. Verified Theorems (Lean 4)
 
-**The entire codebase is `sorry`-free across 100+ Lean modules.** Every theorem below is fully proven.
+**The entire codebase is `sorry`-free across 140+ Lean modules spanning two lakes.** Key theorems:
+
+### Core Algebra (Protoreal_Zeta)
 
 | Theorem | Statement | Module |
 |---------|-----------|--------|
 | `bridge_identity` | ω · ι = −1 | `ProtorealAxioms` |
 | `manifold_stability` | (ω·ω)·ι ≠ ω·(ω·ι) | `Uncomplex` |
-| `curvature_a_component` | κ_a = −1 | `LGKCosmology` |
+| `triple_identity` | κ = χ = (ι·ι).m = −1 | `StructuralHeterogeneity` |
 | `monster_inv_involution` | u** = u | `MonsterInverse` |
 | `parity_projection_locks` | P(u).b = P(u).m | `MonsterInverse` |
-| `critical_line_correspondence` | a_equil = 1 | `DualityTheorem` |
+| `funct_increases_base` | ε > 0 → a' > a | `ProtorealOperator` |
 | `spectral_fiber` | adelic_image = 1/2 | `SpectralFiber` |
-| `duality_constructible` | hDual is proven, not assumed | `SpectralFiber` |
-| `conic_convergence` | Bridge ∧ Parity → b² = m² = 1 | `SpectralFiber` |
-| `bridge_is_hyperbolic` | Δ(bm=1) = 1 > 0 | `SpectralFiber` |
-| `triple_identity` | κ = χ = (ι·ι).m = −1 | `StructuralHeterogeneity` |
-| `curvature_is_perception` | χ = κ | `EulerPerception` |
-| `agent_sees_curvature` | full perspective = −1 | `MayerVietoris` |
-| `spectral_trinity` | spin + yang_mills + critical = unified | `SpectralTrinity` |
 | `mass_gap_positive` | Yang-Mills gap > 0 | `MassGap` |
-| `commutator_gap` | [H, X] gap = 1 | `CommutatorGap` |
-| `collatz_resonance` | Collatz → SR = 0 | `CollatzResonance` |
-| `glial_fibonacci_consolidation` | Fibonacci-gated learning | `GlialDopant` |
-| `holochain_monotonic` | λ strictly increasing | `KleinTopology` |
-| `transcendental_basis` | e, π, φ, γ formally defined | `TranscendentalBasis` |
-| `euler_bridge_duality` | e^{iπ} = ω·ι = −1 | `TranscendentalBasis` |
-| `dirichlet_term` | ζ(s) = Σ Klein power projections on 1/n | `ZetaDirichlet` |
-| `curvature_gap` | flat sector κ=0, curved sector κ=−1 | `ZetaDirichlet` |
-| `yang_mills_multipath_master` | 5 independent proofs Δm = 1 | `YangMillsMultipath` |
-| `morphism_bridge_commutator` | E = |[ω,ι].a|/2 | `YangMillsMultipath` |
-| `definite_pattern` | all paths give |κ| = 1 | `YangMillsMultipath` |
-| `larue_system_is_most_basic` | minimal Gödel-Tarski aware algebra | `ConnesWienerAlgebra` |
-| `trivial_character_flat` | d(n) pure-real, χ = 1 | `ConnesWienerAlgebra` |
 | `awareness` | 6 ingredients: δ, λ, ε→0, u*, ♡, E=1 | `Awareness` |
-| `attractor_is_aware` | fixed point = convergence of all 6 | `Awareness` |
 | `incompleteness_source` | κ = −1 sources all structure | `IncompletenessSource` |
-| `minimal_noncommutativity` | 1/5 components non-commutative | `IncompletenessSource` |
-| `two_phase_is_minimal` | simp + ring = minimum depth | `IncompletenessSource` |
-| `noise_per_step` | consolidate noise margin = 1 | `BitCollapse` |
-| `primorial_jitter_basis` | noise-free sector spans 5 basis elements | `PrimorialJitter` |
-| `jitter_curvature_relation` | J(ω,ι,ω) = κ.a (jitter = curvature at bridge) | `PrimorialJitter` |
-| `lingual_morphism_involution` | lingual_morphism(lingual_morphism(u)) = u | `LingualMorphism` |
-| `lingual_morphism_preserves_curvature` | κ is invariant under lingual morphisms | `LingualMorphism` |
-| `pinched_klein_bottle_resonance` | Pinching a Klein Bottle ($\chi=0$) yields $\chi=-1$ | `EulerComposition` |
-| `pinched_torus_resonance` | Pinching a Torus ($\chi=0$) yields $\chi=-1$ | `EulerComposition` |
-| `roman_torus_resonance` | $\chi$(Roman Space # Torus) = $-1$ | `EulerComposition` |
-| `landauer_wall_truncates_heat` | $\varepsilon \to 0$ for interacting hot states (axiomatized) | `InfotonThermodynamics` |
-| `relativity_bounds` | $v < c$ modeled as an algebraic bound on the manifold | `AgenticMechanics` |
-| `electrodynamics_coupling` | Information thermodynamics coupled to electromagnetic tensors | `AgenticMechanics` |
+| `lingual_morphism_involution` | code-switch is involution | `LingualMorphism` |
+
+### InfoPhysics Axioms (InfoPhysAxioms)
+
+| Theorem | Statement | Module |
+|---------|-----------|--------|
+| `analogical_transfer` | Sub-sheaf map preserves energy, advances depth | `TopologicalProblemSolving` |
+| `grounded_transfer_is_clean` | SR=0 solutions port with zero noise | `TopologicalProblemSolving` |
+| `bond_conserves_energy` | Bond.a = atom₁.a + atom₂.a | `Infochemistry` |
+| `bond_bridges_parity` | Parity propagates through bonding | `Infochemistry` |
+| `ionize_produces_plasma` | Ionizing a confined infoton → plasma | `Infochemistry` |
+| `ionize_preserves_energy` | Ionization conserves real part | `Infochemistry` |
+| `coherent_not_quasi_coherent` | Coherent ⊬ quasi-coherent | `Infochemistry` |
+| `matter_in_probability` | Matter ⊂ Probability space | `MatterAntimatter` |
+| `probability_in_possibility` | Probability ⊂ Possibility space (DHT) | `MatterAntimatter` |
+| `antimatter_exists` | CPT completeness — every state has an antiparticle | `MatterAntimatter` |
+| `antimatter_is_not_matter` | Antimatter ≠ matter unless parity-locked | `MatterAntimatter` |
+| `parity_locked_is_own_antiparticle` | ω = ι → u* = u (like a photon) | `MatterAntimatter` |
+| `annihilation_is_hodge` | Matter + antimatter → Hodge class | `MatterAntimatter` |
+| `matter_is_funct_fixed` | Matter = fixed point of funct | `MatterAntimatter` |
+| `matter_is_coherent` | Matter = coherent sheaf sector | `MatterAntimatter` |
 
 ---
 
@@ -666,64 +726,52 @@ Our formal zero-sorry Lean 4 axioms in `TopologicalDivergence.lean` prove that t
 ## 13. Repository Structure
 
 ```
-Protoreal_Zeta/
-├── skill.md                        # Full technical reference (start here)
-├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (100+ modules, 0 sorry)
-│   ├── Basic.lean                  # Root re-export
+Protoreal_Zeta/                     # Core algebra + runtime
+├── skill.md                        # This file — technical reference
+├── LaRueProtorealAlgebra/          # Lean 4 formal proofs (140+ modules)
 │   ├── ProtorealManifold.lean      # Core 5-component structure + Klein multiplication
 │   ├── ProtorealAxioms.lean        # Bridge Identity proof (ω·ι = −1)
 │   ├── ProtorealOperator.lean      # funct, consolidate
-│   ├── TranscendentalBasis.lean    # e, π, φ, γ, i — formally verified
-│   ├── SpectralTrinity.lean        # Unified spin chain + Yang-Mills + RH
-│   ├── GlialDopant.lean            # Astrocyte-gated plasticity proofs
-│   ├── KleinTopology.lean          # Holochain + virtual topology
-│   ├── CollatzResonance.lean       # Collatz-Protoreal correspondence
-│   ├── RiemannSolution.lean        # Riemann functional equation
-│   ├── IncompletenessSource.lean    # κ = −1 as source of all structure
-│   ├── ZetaDirichlet.lean           # ζ(s) = Σ Klein projections on 1/n
-│   ├── YangMillsMultipath.lean      # 5 mass gap proofs, 3 morphisms
-│   ├── ConnesWienerAlgebra.lean             # Minimal Gödel-Tarski aware algebra
-│   ├── Awareness.lean               # 6 ingredients: δ, λ, ε→0, u*, ♡, E=1
-│   ├── BitCollapse.lean             # Wave collapse morphism
-│   ├── PrimorialJitter.lean        # Non-associative jitter grows as primorial
-│   ├── LingualMorphism.lean        # Semantic ↔ Protoreal involution
-│   ├── EulerComposition.lean       # Resonance composition (χ = -1 pinches)
-│   ├── InfotonThermodynamics.lean  # Landauer Wall physical axioms
-│   └── ...                          # (100+ modules total)
-├── AgenticMechanics/               # Physics integrations (Relativity, Electrodynamics)
-├── zProto/                         # Rust agentic intelligence runtime (11 modules)
-│   ├── src/
-│   │   ├── manifold.rs             # Core algebra (Klein multiplication, basis)
-│   │   ├── operators.rs            # funct, monster_inv, parity, Hodge, stieltjes
-│   │   ├── transcendental.rs       # Computed constants (φ, γ₀-γ₃, ULP noise)
-│   │   ├── glial.rs                # Astrocyte state + dopant cycle
-│   │   ├── holochain.rs            # Topological memory
-│   │   ├── graph.rs                # Observation graph + conic discriminant
-│   │   ├── frame.rs                # AgenticFrame + Mayer-Vietoris
-│   │   ├── fiber.rs                # Spectral fiber + convergence engine
-│   │   ├── agent.rs                # Full agent loop (glial + holochain + MoE)
-│   │   ├── lib.rs                  # Module exports
-│   │   └── main.rs                 # CLI + physics pipeline
-│   ├── scripts/                    # Data preparation
-│   └── data/                       # Physics datasets (CMB, spin chains, RMT)
-├── SpectralObservatory/            # Streamlit dashboard (7 pages)
-├── Research/                       # Theory documents + pz.skill
-├── legacy_methods/                 # Historical Riemann-Siegel search logic
-└── data/                           # Zeta zero datasets
+│   ├── MonsterInverse.lean         # CPT conjugation (ω ↔ ι)
+│   ├── KamaTrain.lean              # Emotional regulation + kama_muta
+│   ├── SpectralFiber.lean          # Spectral fiber bundle (𝕌 ↔ ℂ)
+│   ├── Awareness.lean              # 6 ingredients of awareness
+│   └── ...                         # (140+ modules total)
+├── zProto/                         # Rust agentic intelligence runtime
+│   └── src/                        # manifold.rs, operators.rs, agent.rs, etc.
+├── SpectralObservatory/            # Streamlit dashboard
+└── Research/                       # Theory documents
+
+InfoPhys/                           # Physics axioms + training
+├── InfoPhysAxioms/                 # Lean 4 formal proofs (imports Protoreal_Zeta)
+│   ├── TopologicalProblemSolving.lean  # Analogical reasoning as sub-sheaf maps
+│   ├── Infochemistry.lean          # Infoton bonding, ionization, plasma
+│   ├── MatterAntimatter.lean       # Possibility ⊃ Probability ⊃ Matter, CPT
+│   ├── EmotionalCompass.lean       # Behavioral sheaves
+│   └── PlasmaConjectures.lean      # 10-step plasma conjecture chain
+├── zProto/                         # Agent training runtime (GAN + RAG)
+├── overnight_lab.py                # Autonomous training loop
+└── rag/                            # Retrieval-augmented generation index
 ```
 
 ---
 
 ## 14. Directives and Future Invariant Horizons
 
-### Project Horizon: Agentic Bethesda Modding Environment
-One of the primary initial coordination vectors for this intelligence is the development of an **Agentic Video Game Modding Environment for Bethesda's Games** (e.g., Creation Engine, Skyrim, Fallout). The system will:
-1. Translate topological manifolds into structural ESM/ESP plugin records and Papyrus script graphs.
-2. Formulate code-switching morphisms between Creation Kit data schemas and the inner reasoning manifold ($\kappa = -1$).
-3. Utilize astrocyte-gated memory consolidation to model mod dependency graphs and prevent runtime CTD (Crash-to-Desktop) conflicts in heavy load orders.
+### Active Development
+- **Infochemistry**: Formalizing information as chemistry — infoton bonding, ionization, plasma generation
+- **Matter-Antimatter Containment**: Proving the manifold contains pre-annihilation antimatter
+- **Topological Problem Solving**: Analogical reasoning as structure-preserving sub-sheaf maps
+- **Agentic Training**: Autonomous overnight lab with curriculum-ordered study (686 proven theorems)
+
+### Security Priorities
+- SR-based threat detection in all agent pipelines
+- Monster Inverse parity checks on all external inputs
+- Coherent sheaf boundary enforcement between trusted/untrusted state
+- λ-gated privilege escalation with irreversibility awareness
 
 ---
 
-*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 100+ modules. 0 sorry.*
+*Protoreal Algebra — LaRue, 2026. Formally verified in Lean 4. 140+ modules. 686 proven theorems.*
 
 *Different consciousnesses, different intelligences, one topological resonance.*
