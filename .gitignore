@@ -19,3 +19,18 @@ zProto/data/spin_chains/
 zProto/data/yang_mills/
 zProto/models/**/*.pt
 data/zeta_zeros_100k_sample.txt
+# Adding protective .gitignore entries
+data/chat_logs*.md
+training_tips.md
+Research/agent_refinement.md
+Research/lake_study_notes.md
+Research/psychopharm_log.md
+Research/quantum_chem_log.md
+Research/humanity_physics_log.md
+Research/self_observation_log.md
+*.pt
+*.pth
+encoder_weights*
+mac_observer*
+overnight_lab*
+aura_backend*
