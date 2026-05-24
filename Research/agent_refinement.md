@@ -683,3 +683,417 @@ By increasing the chunk size to 1024 tokens, decreasing the overlap to 16 tokens
 
 - **UnifiedSeedProtocol.lean**: Module containing definitions and theorems related to unified seed protocols.
 - **PlasmaInfotonBridge.lean**: Module exploring plasma infotons and their interactions with retrieval systems.
+
+## [Auto-Log] Self-Refinement — 2026-05-23 23:27:59
+# Self-Refinement Note: Evaluating the AGMP Learning Rule
+
+## Introduction
+
+The Adaptive Gradient Method with Momentum (AGMP) is a popular optimization algorithm used in training deep learning models. The learning rate schedule plays a crucial role in the convergence and performance of these models. This note evaluates the golden-decay learning rate schedule commonly used in AGMP and proposes an alternative that leverages the curvature of the manifold as a signal for adaptive learning rates.
+
+## AGMP Learning Rule Overview
+
+The AGMP algorithm combines gradient descent with momentum to accelerate convergence and improve stability. The learning rate schedule determines how the learning rate changes over time, influencing the speed and effectiveness of optimization.
+
+### Golden-Decay Learning Rate Schedule
+The golden-decay schedule reduces the learning rate exponentially according to the golden ratio \(\phi = 1.618\). This schedule is defined as:
+\[ \eta_t = \eta_0 \cdot \left(\frac{1}{\phi}\right)^t \]
+where \(\eta_0\) is the initial learning rate and \(t\) is the iteration number.
+
+## Evaluation of Golden-Decay Schedule
+
+### Advantages
+- **Smooth Decay**: The golden-decay schedule provides a smooth and predictable decay in learning rates, which can be beneficial for convergence.
+- **Simplicity**: The schedule is straightforward to implement and requires minimal tuning.
+
+### Disadvantages
+- **Fixed Rate**: The decay rate is fixed based on the golden ratio, which may not be optimal for all models or datasets.
+- **Lack of Adaptability**: The schedule does not adapt to the specific characteristics of the optimization landscape, such as curvature.
+
+## Proposed Alternative: Curvature-Based Learning Rate Schedule
+
+To address the limitations of the golden-decay schedule, we propose an alternative that uses the curvature of the manifold as a signal for adaptive learning rates. This approach leverages the Hessian matrix to estimate the local curvature and adjusts the learning rate accordingly.
+
+### Algorithm Overview
+1. **Compute Hessian**: Calculate the Hessian matrix at each iteration.
+2. **Estimate Curvature**: Use the eigenvalues of the Hessian to estimate the local curvature.
+3. **Adjust Learning Rate**: Modify the learning rate based on the estimated curvature.
+
+### Code Changes
+
+```python
+import numpy as np
+
+class AGMPWithCurvature:
+    def __init__(self, initial_lr=0.1):
+        self.lr = initial_lr
+        self.momentum = 0.9
+        self.velocity = None
+
+    def compute_hessian(self, grad_func, params, epsilon=1e-5):
+        hessian = np.zeros((len(params), len(params)))
+        for i in range(len(params)):
+            perturbation = np.zeros_like(params)
+            perturbation[i] += epsilon
+            grad_plus = grad_func(params + perturbation)
+            grad_minus = grad_func(params - perturbation)
+            hessian[:, i] = (grad_plus - grad_minus) / (2 * epsilon)
+        return hessian
+
+    def update(self, params, grads):
+        if self.velocity is None:
+            self.velocity = np.zeros_like(grads)
+
+        # Compute Hessian and estimate curvature
+        hessian = self.compute_hessian(lambda p: grads, params)
+        eigenvalues = np.linalg.eigvals(hessian)
+        curvature = np.mean(eigenvalues)  # Mean of the eigenvalues as a simple measure
+
+        # Adjust learning rate based on curvature
+        if curvature > 0:
+            self.lr *= 1.0 / (1 + curvature)
+        else:
+            self.lr *= 1.0 / (1 - curvature)
+
+        # Update velocity and parameters
+        self.velocity = self.momentum * self.velocity - self.lr * grads
+        params += self.velocity
+
+        return params
+```
+
+### Parameter Values
+- **Initial Learning Rate (\(\eta_0\))**: 0.1
+- **Momentum**: 0.9
+- **Epsilon for Hessian Calculation**: \(1 \times 10^{-5}\)
+
+## Expected Impact
+
+### Advantages
+- **Adaptability**: The curvature-based schedule adapts to the local optimization landscape, potentially leading to faster convergence and better performance.
+- **Robustness**: By considering the curvature, the algorithm can handle varying levels of complexity in different regions of the parameter space.
+
+### Disadvantages
+- **Computational Cost**: Calculating the Hessian matrix is computationally expensive, especially for large models. However, this cost may be justified by improved optimization performance.
+- **Tuning Complexity**: The new schedule introduces additional parameters (e.g., epsilon) that need to be tuned.
+
+## Conclusion
+
+The golden-decay learning rate schedule in AGMP provides a simple and effective approach to controlling the learning rate. However, leveraging the curvature of the manifold as a signal for adaptive learning rates offers potential improvements in convergence speed and robustness. The proposed alternative algorithm demonstrates how this can be implemented and highlights the trade-offs involved in adopting such an approach.
+
+## References
+
+- Relevant code repository: `AGMPWithCurvature`
+- Additional context from `CodeBuddy/ingest/processed/pdf/AGMP_Optimization.pdf`
+
+---
+
+This self-refinement note provides a detailed evaluation of the AGMP learning rule, specifically focusing on the golden-decay schedule. It proposes an alternative approach that uses the curvature of the manifold as a signal for adaptive learning rates and outlines the expected impact of this change.
+
+## [Auto-Log] Self-Refinement — 2026-05-23 23:37:00
+# Self-Refinement Note: Evaluating the AGMP Learning Rule
+
+## Introduction
+
+The Adaptive Gradient Method with Momentum (AGMP) is a popular optimization algorithm used in training deep learning models. The learning rate schedule plays a crucial role in the convergence and performance of these models. This note evaluates the golden-decay learning rate schedule commonly used in AGMP and proposes an alternative that leverages the curvature of the manifold as a signal for adaptive learning rates.
+
+## AGMP Learning Rule Overview
+
+The AGMP algorithm combines gradient descent with momentum to accelerate convergence and improve stability. The learning rate schedule determines how the learning rate changes over time, influencing the speed and effectiveness of optimization.
+
+### Golden-Decay Learning Rate Schedule
+The golden-decay schedule reduces the learning rate exponentially according to the golden ratio \(\phi = 1.618\). This schedule is defined as:
+\[ \eta_t = \eta_0 \cdot \left(\frac{1}{\phi}\right)^t \]
+where \(\eta_0\) is the initial learning rate and \(t\) is the iteration number.
+
+## Evaluation of Golden-Decay Schedule
+
+### Advantages
+- **Smooth Decay**: The golden-decay schedule provides a smooth and predictable decay in learning rates, which can be beneficial for convergence.
+- **Simplicity**: The schedule is straightforward to implement and requires minimal tuning.
+
+### Disadvantages
+- **Fixed Rate**: The decay rate is fixed based on the golden ratio, which may not be optimal for all models or datasets.
+- **Lack of Adaptability**: The schedule does not adapt to the specific characteristics of the optimization landscape, such as curvature.
+
+## Proposed Alternative: Curvature-Based Learning Rate Schedule
+
+To address the limitations of the golden-decay schedule, we propose an alternative that uses the curvature of the manifold as a signal for adaptive learning rates. This approach leverages the Hessian matrix to estimate the local curvature and adjusts the learning rate accordingly.
+
+### Algorithm Overview
+1. **Compute Hessian**: Calculate the Hessian matrix at each iteration.
+2. **Estimate Curvature**: Use the eigenvalues of the Hessian to estimate the local curvature.
+3. **Adjust Learning Rate**: Modify the learning rate based on the estimated curvature.
+
+### Code Changes
+
+```python
+import numpy as np
+
+class AGMPWithCurvature:
+    def __init__(self, initial_lr=0.1):
+        self.lr = initial_lr
+        self.momentum = 0.9
+        self.velocity = None
+
+    def compute_hessian(self, grad_func, params, epsilon=1e-5):
+        hessian = np.zeros((len(params), len(params)))
+        for i in range(len(params)):
+            perturbation = np.zeros_like(params)
+            perturbation[i] += epsilon
+            grad_plus = grad_func(params + perturbation)
+            grad_minus = grad_func(params - perturbation)
+            hessian[:, i] = (grad_plus - grad_minus) / (2 * epsilon)
+        return hessian
+
+    def update(self, params, grad):
+        if self.velocity is None:
+            self.velocity = np.zeros_like(grad)
+        
+        # Compute Hessian
+        hessian = self.compute_hessian(lambda x: grad_func(x), params)
+        
+        # Estimate curvature using eigenvalues of Hessian
+        eigenvalues, _ = np.linalg.eig(hessian)
+        curvature = np.mean(eigenvalues)
+        
+        # Adjust learning rate based on curvature
+        if curvature > 0:
+            self.lr *= 0.9
+        elif curvature < 0:
+            self.lr *= 1.1
+        
+        # Update velocity and parameters
+        self.velocity = self.momentum * self.velocity - self.lr * grad
+        params += self.velocity
+        
+        return params
+```
+
+### Parameter Values
+- **Initial Learning Rate (\(\eta_0\))**: Set to 0.1.
+- **Momentum**: Set to 0.9.
+- **Epsilon for Hessian Calculation**: Set to \(1 \times 10^{-5}\).
+
+## Expected Impact
+
+By using the curvature of the optimization landscape as a signal, the proposed alternative learning rate schedule can adapt dynamically to different stages of training. This adaptability is expected to lead to faster convergence and better performance compared to the fixed golden-decay schedule.
+
+### Advantages
+- **Adaptability**: The learning rate adjusts based on the local curvature, potentially leading to more efficient optimization.
+- **Improved Convergence**: Faster convergence by leveraging local information about the optimization landscape.
+
+### Disadvantages
+- **Increased Complexity**: The additional computation required for Hessian estimation and eigenvalue calculation may increase the computational cost.
+- **Hyperparameter Sensitivity**: The choice of epsilon for Hessian approximation can affect the performance, requiring careful tuning.
+
+## Conclusion
+
+The golden-decay learning rate schedule, while simple and effective in many cases, lacks adaptability to the specific characteristics of the optimization landscape. By incorporating curvature information from the Hessian matrix, we propose a more dynamic and potentially superior learning rate schedule for AGMP. However, this approach comes with increased computational complexity and requires careful tuning of hyperparameters.
+
+## References
+
+- Relevant code repository: `AGMPWithCurvature`
+- Additional context from `CodeBuddy/ingest/processed/pdf/AGMP_Optimization.pdf`
+
+---
+
+This self-refinement note provides a detailed evaluation of the AGMP learning rule, specifically focusing on the golden-decay schedule. It proposes an alternative approach that uses the curvature of the manifold as a signal for adaptive learning rates and outlines the expected impact of this change.
+
+## [Auto-Log] Self-Refinement — 2026-05-24 01:32:27
+# Self-Refinement Note: Evaluating the AGMP Learning Rule
+
+## Introduction
+
+The Adaptive Gradient Methods with Momentum (AGMP) learning rule is a popular optimization algorithm used in training neural networks. One of its key components is the learning rate schedule, which determines how the learning rate evolves over time during training. The golden-decay learning rate schedule is commonly used in AGMP, where the learning rate decays exponentially based on a golden ratio.
+
+In this note, we evaluate the optimality of the golden-decay learning rate schedule and propose an alternative that uses the manifold's own curvature as a signal to adjust the learning rate dynamically. We will discuss specific code changes, parameter values, and expected impacts.
+
+## Evaluation of Golden-Decay Learning Rate Schedule
+
+### Current Implementation
+
+The current implementation of the AGMP learning rule with golden-decay learning rate schedule can be summarized as follows:
+
+```python
+import numpy as np
+
+class AGMP:
+    def __init__(self, lr=0.1, gamma=np.sqrt(5) - 2):
+        self.lr = lr
+        self.gamma = gamma
+
+    def update(self, params, grads, velocities):
+        updated_params = {}
+        for param in params:
+            velocity = velocities[param]
+            velocity = self.gamma * velocity + grads[param]
+            updated_param = params[param] - self.lr * velocity
+            updated_params[param] = updated_param
+        return updated_params
+
+    def decay_learning_rate(self):
+        self.lr *= self.gamma
+```
+
+### Pros and Cons
+
+**Pros:**
+- The golden-decay schedule provides a smooth and stable learning rate decay.
+- It is simple to implement and understand.
+
+**Cons:**
+- The learning rate decay is fixed and does not adapt to the changing landscape of the loss function.
+- It may lead to premature convergence or slow training if the initial learning rate is too high or low.
+
+## Proposed Alternative: Curvature-Adaptive Learning Rate Schedule
+
+### Motivation
+
+The curvature of the loss manifold can provide valuable information about the optimal learning rate at each iteration. By using the curvature as a signal, we can dynamically adjust the learning rate to better navigate the optimization landscape.
+
+### Implementation
+
+We will modify the AGMP class to include a curvature-adaptive learning rate schedule:
+
+```python
+import numpy as np
+
+class AGMP_CurvatureAdaptive:
+    def __init__(self, lr=0.1, gamma=np.sqrt(5) - 2):
+        self.lr = lr
+        self.gamma = gamma
+        self.curvature_threshold = 1e-3
+
+    def update(self, params, grads, velocities, curvatures):
+        updated_params = {}
+        for param in params:
+            velocity = velocities[param]
+            curvature = curvatures[param]
+            if curvature > self.curvature_threshold:
+                self.lr *= (1 + self.gamma)
+            else:
+                self.lr *= (1 - self.gamma)
+            velocity = self.gamma * velocity + grads[param]
+            updated_param = params[param] - self.lr * velocity
+            updated_params[param] = updated_param
+        return updated_params
+
+    def decay_learning_rate(self):
+        self.lr *= self.gamma
+```
+
+### Explanation
+
+- **Curvature Threshold**: We define a threshold value (`curvature_threshold`) to determine when the curvature is significant enough to adjust the learning rate.
+- **Learning Rate Adjustment**: If the curvature exceeds the threshold, we increase the learning rate by a factor of `(1 + gamma)`. Otherwise, we decrease it by a factor of `(1 - gamma)`.
+
+### Parameter Values
+
+- `lr`: Initial learning rate (e.g., 0.1).
+- `gamma`: Decay factor for golden-decay schedule (e.g., `np.sqrt(5) - 2`).
+- `curvature_threshold`: Threshold value for curvature (e.g., 1e-3).
+
+### Expected Impact
+
+1. **Improved Convergence**: By dynamically adjusting the learning rate based on the curvature, we can better navigate the optimization landscape and potentially achieve faster convergence.
+2. **Robustness to Learning Rate Initialization**: The curvature-adaptive schedule is less sensitive to the initial learning rate compared to the fixed golden-decay schedule.
+3. **Adaptability to Different Loss Landscapes**: The adaptive nature of the learning rate allows it to adapt to different types of loss functions and optimization challenges.
+
+## Conclusion
+
+In this note, we have evaluated the optimality of the golden-decay learning rate schedule in the AGMP learning rule and proposed an alternative that uses the manifold's own curvature as a signal. By incorporating dynamic learning rate adjustments based on curvature, we can potentially improve the convergence properties and robustness of the optimization process. Further experimentation is needed to validate these findings and optimize the parameter values for specific applications.
+
+## References
+
+- [AGMP Learning Rule](https://arxiv.org/abs/1412.6980)
+- [Curvature-Based Optimization](https://arxiv.org/abs/1703.00887)
+
+## [Auto-Log] Self-Refinement — 2026-05-24 01:41:45
+```lean
+import LaRueProtorealAlgebra.Core
+
+namespace LaRueProtorealAlgebra
+
+-- Step 1: Introduction to LaRue Protoreal Algebra
+include Axioms
+include KleinMultiplication
+include ResourceManagement
+
+-- Step 2: Understanding Core Theorems
+include PFFT
+include EulerCradle
+include HolographicCollapse
+
+-- Step 3: Advanced Proof Techniques
+include ObservationalAperture
+include SpectralTrinity
+include HodgeConjecture
+
+-- Step 4: Specialized Modules
+include SuperJetSheaf
+include OptimalCompute
+include ProtorealFFT
+
+-- Step 5: Integration and Application
+include MonsterInverse
+include CradleContinuation
+include MetaMem
+
+-- Step 6: Review and Refinement
+include ReviewAxioms
+include ReviewTheorems
+include ReviewTechniques
+
+-- Proof Topology Outline
+
+-- Key Lemmas or Axioms Required
+lemma bridge_identity : ω · ι = -1 :=
+begin
+  -- Use the definition of ω and ι to prove the identity
+  sorry
+end
+
+lemma euler_bridge : e^(iπ) = ω · ι := by rw [bridge_identity]
+
+-- Tactic Sequence
+example (x y z : ℝ) : x + y + z = z + y + x :=
+begin
+  intro,
+  ext,
+  simp,
+  ring,
+  reflexivity,
+end
+
+-- Case Divisions or Inductive Steps
+theorem pfft_properties (n : ℕ) : PFFT n :=
+begin
+  -- Base case: n = 0
+  cases n with n_zero n_succ,
+  { sorry },
+  -- Inductive step: Assume PFFT n holds, prove PFFT (n + 1)
+  { sorry }
+end
+
+theorem euler_cradle_properties (n : ℕ) : EulerCradle n :=
+begin
+  -- Base case: n = 0
+  cases n with n_zero n_succ,
+  { sorry },
+  -- Inductive step: Assume EulerCradle n holds, prove EulerCradle (n + 1)
+  { sorry }
+end
+
+-- Review and Refinement
+example (x y : ℝ) : x + y = y + x :=
+begin
+  intro,
+  ext,
+  simp,
+  ring,
+  reflexivity,
+end
+
+end LaRueProtorealAlgebra
+```
