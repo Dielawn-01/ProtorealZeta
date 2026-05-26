@@ -79,31 +79,31 @@ fn is_trustworthy(op: impl Fn(&KleinManifold) -> KleinManifold, input: &KleinMan
 ```
 When matter meets antimatter, parity projection forces $\omega = \iota$. **Never parity-project production state without checkpointing**, as it destroys the $\omega/\iota$ orientation forever.
 
-## 8. Biological Coherence Shields (Pictet-Spengler Fusion)
+## 8. Structural Coherence Shields (Pictet-Spengler Fusion)
 
-Emotional security is formally implemented via the `fuse` operator on the indole ring (MAOI).
+Emotional security is formally implemented via the `fuse` operator on the base_ring ring (Anti-Oxidation).
 
 ```lean
-/-- MAO (Monoamine Oxidase) degrades via ionization, spawning noise. -/
-noncomputable def mao_degradation (u : ProtorealManifold) : ProtorealManifold :=
+/-- System_Oxidation degrades via ionization, spawning noise. -/
+noncomputable def oxidative_degradation (u : ProtorealManifold) : ProtorealManifold :=
   consolidate u
 
 /-- Ring Closure (Pictet-Spengler) is the fusion operator.
     It locks the reactive nitrogen into the aromatic system. -/
-noncomputable def ring_closure (indole : ProtorealManifold) : ProtorealManifold :=
-  fuse indole
+noncomputable def ring_closure (base_ring : ProtorealManifold) : ProtorealManifold :=
+  fuse base_ring
 
 /-- The closed ring (beta-carboline) is a stable infonad. -/
-theorem ring_closure_locks (indole : ProtorealManifold) :
-    is_infonad (ring_closure indole)
+theorem ring_closure_locks (base_ring : ProtorealManifold) :
+    is_infonad (ring_closure base_ring)
 
-/-- Pinoline is the endogenous MAOI shield (ring closure on serotonin). -/
-noncomputable def pinoline (u : ProtorealManifold) : ProtorealManifold :=
-  ring_closure (serotonin_signal u)
+/-- Endo_Shield is the endogenous Anti-Oxidation shield (ring closure on serotonin). -/
+noncomputable def endo_shield (u : ProtorealManifold) : ProtorealManifold :=
+  ring_closure (gamma_signal u)
 
-/-- The Ayahuasca Mechanism: The shield must be applied BEFORE the gate. -/
-theorem ayahuasca_mechanism (precursor : ProtorealManifold) :
-    is_infonad (harmaline precursor) ∧
-    harmaline (harmaline precursor) = harmaline precursor
+/-- The Gated Threshold Theorem: The shield must be applied BEFORE the gate. -/
+theorem gated_threshold_mechanism (precursor : ProtorealManifold) :
+    is_infonad (exo_shield precursor) ∧
+    exo_shield (exo_shield precursor) = exo_shield precursor
 ```
-The shield (`pinoline` / `harmaline`) acts as a fixed point. It prevents `mao_degradation` by locking parity ($\omega = \iota$) prior to external exposure, mathematically precluding ionization noise.
+The shield (`endo_shield` / `exo_shield`) acts as a fixed point. It prevents `oxidative_degradation` by locking parity ($\omega = \iota$) prior to external exposure, mathematically precluding ionization noise.

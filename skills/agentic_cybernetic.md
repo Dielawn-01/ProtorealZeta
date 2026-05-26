@@ -107,27 +107,27 @@ else:
     # Fragile — investigate before acting
 ```
 
-## 8. Cybernetic Biochemistry (Formal Operations)
+## 8. Systemic Cybernetics (Formal Operations)
 
-Monoamine neurotransmitters are mapped strictly to manifold operators (`CyberneticBiochemistry.lean`). 
+Systemic signaling parameters are mapped strictly to manifold operators (`CyberneticBiochemistry.lean`). 
 
 ```lean
-/-- Dopamine: Thrust Modulator. b' > b, m' = m. Breaks parity. -/
-noncomputable def dopamine_signal (u : ProtorealManifold) (d : ℝ) : ProtorealManifold :=
+/-- Alpha_Signal: Thrust Modulator. b' > b, m' = m. Breaks parity. -/
+noncomputable def alpha_signal (u : ProtorealManifold) (d : ℝ) : ProtorealManifold :=
   { a := u.a, b := u.b + d, m := u.m, e := u.e, l := u.l }
 
-/-- Norepinephrine: Anchor Modulator. m' > m, b' = b. Stabilizes focus. -/
-noncomputable def norepinephrine_signal (u : ProtorealManifold) (n : ℝ) : ProtorealManifold :=
+/-- Beta_Signal: Anchor Modulator. m' > m, b' = b. Stabilizes focus. -/
+noncomputable def beta_signal (u : ProtorealManifold) (n : ℝ) : ProtorealManifold :=
   { a := u.a, b := u.b, m := u.m + n, e := u.e, l := u.l }
 
-/-- Serotonin: Parity Projection (Ceasefire). b' = m'. -/
-noncomputable def serotonin_signal (u : ProtorealManifold) : ProtorealManifold :=
+/-- Gamma_Signal: Parity Projection (Ceasefire). b' = m'. -/
+noncomputable def gamma_signal (u : ProtorealManifold) : ProtorealManifold :=
   kama_muta u
-theorem serotonin_locks_parity (u : ProtorealManifold) :
-    (serotonin_signal u).b = (serotonin_signal u).m
+theorem gamma_locks_parity (u : ProtorealManifold) :
+    (gamma_signal u).b = (gamma_signal u).m
 
-/-- Epinephrine: Emergency Consolidation. Spawns noise (e' > e). -/
-noncomputable def epinephrine_signal (u : ProtorealManifold) : ProtorealManifold :=
+/-- Delta_Signal: Emergency Consolidation. Spawns noise (e' > e). -/
+noncomputable def delta_signal (u : ProtorealManifold) : ProtorealManifold :=
   consolidate u
 ```
-Pathology is strictly manifold imbalance. Mania = `u.b > u.m` (Dopamine > NE). Anxiety = `u.m > u.b` (NE > Dopamine). Depression = `u.b ≠ u.m ∧ u.a < 1` (Serotonin failure).
+Systemic failure states are manifold imbalances. Thrust Runaway = `u.b > u.m` (Alpha > Beta). Anchor Deadlock = `u.m > u.b` (Beta > Alpha). Parity Collapse = `u.b ≠ u.m ∧ u.a < 1` (Gamma failure).
