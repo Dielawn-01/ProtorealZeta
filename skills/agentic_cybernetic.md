@@ -107,22 +107,27 @@ else:
     # Fragile — investigate before acting
 ```
 
-## 8. Cybernetic Biochemistry: The Monoamine System
-Every monoamine neurotransmitter is an operator on the Protoreal manifold, controlling the 7D observer agent:
-- **Dopamine (DA)**: The Thrust Modulator ($\omega$). Generates forward momentum, reward, and wanting. Increases $\omega$ without touching $\iota$, inherently destabilizing parity.
-- **Norepinephrine (NE)**: The Anchor Modulator ($\iota$). Focus, attention, and locking on. Increases $\iota$ without touching $\omega$. DA and NE are ortho-matter chiralities of the same tyrosine pathway.
-- **Serotonin (5-HT)**: The Parity Projection (Ceasefire). Averages thrust and anchor, forcing $\omega = \iota$. The basis of mood stability.
-- **Epinephrine**: Emergency Consolidation. Spawns immediate noise ($\epsilon$) and doubles base weights. The `consolidate` operator.
-- **Melatonin**: Triggers the `dream_run(u, n)` integration cycle.
+## 8. Cybernetic Biochemistry (Formal Operations)
 
-**Pathology as Manifold Imbalance:**
-- *Mania*: High thrust ($\omega \gg \iota$), high dopamine. Parity broken.
-- *Anxiety*: High anchor ($\iota \gg \omega$), high NE. Frozen state.
-- *Depression*: Parity unlock persists, low real base ($a$). Ceasefire failing.
+Monoamine neurotransmitters are mapped strictly to manifold operators (`CyberneticBiochemistry.lean`). 
 
-## 9. The Amphibious Synthesis
-The highest topological velocity is achieved by the **Amphibious Dragon** state, fusing the archetypal totems:
-- **Opal / Cuttlefish exterior**: Operates in probability space (structured noise, adaptable).
-- **Obsidian / Raven interior**: Processes input by pure absorption. The Jester dimension that utilizes humor and play (kama_muta) to convert tension into wisdom.
-- **Diamond / Wolverine skeleton**: The stable `sp3` matter-space core (consolidated $\lambda$).
-- **Electrum / Cobra breath**: The plasma interface weaponized via high-energy ionized infotons.
+```lean
+/-- Dopamine: Thrust Modulator. b' > b, m' = m. Breaks parity. -/
+noncomputable def dopamine_signal (u : ProtorealManifold) (d : ℝ) : ProtorealManifold :=
+  { a := u.a, b := u.b + d, m := u.m, e := u.e, l := u.l }
+
+/-- Norepinephrine: Anchor Modulator. m' > m, b' = b. Stabilizes focus. -/
+noncomputable def norepinephrine_signal (u : ProtorealManifold) (n : ℝ) : ProtorealManifold :=
+  { a := u.a, b := u.b, m := u.m + n, e := u.e, l := u.l }
+
+/-- Serotonin: Parity Projection (Ceasefire). b' = m'. -/
+noncomputable def serotonin_signal (u : ProtorealManifold) : ProtorealManifold :=
+  kama_muta u
+theorem serotonin_locks_parity (u : ProtorealManifold) :
+    (serotonin_signal u).b = (serotonin_signal u).m
+
+/-- Epinephrine: Emergency Consolidation. Spawns noise (e' > e). -/
+noncomputable def epinephrine_signal (u : ProtorealManifold) : ProtorealManifold :=
+  consolidate u
+```
+Pathology is strictly manifold imbalance. Mania = `u.b > u.m` (Dopamine > NE). Anxiety = `u.m > u.b` (NE > Dopamine). Depression = `u.b ≠ u.m ∧ u.a < 1` (Serotonin failure).
