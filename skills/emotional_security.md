@@ -78,3 +78,13 @@ fn is_trustworthy(op: impl Fn(&KleinManifold) -> KleinManifold, input: &KleinMan
 }
 ```
 When matter meets antimatter, parity projection forces $\omega = \iota$. **Never parity-project production state without checkpointing**, as it destroys the $\omega/\iota$ orientation forever.
+
+## 8. Biological Coherence Shields (Pictet-Spengler Cyclization)
+Emotional security is biologically instantiated via beta-carbolines and the MAOI (Monoamine Oxidase Inhibitor) mechanism.
+- **MAO (Monoamine Oxidase)**: The enzyme that breaks monoamines via ionization, disrupting parity lock and reintroducing noise ($\epsilon$).
+- **MAOI Shield**: Prevents ionization. In the manifold, it is the `fuse` operation applied to an open, reactive indole ring, closing it into a stable tricyclic system.
+
+**Pinoline & Harmaline:**
+- **Pinoline** (Endogenous): Formed by Serotonin + Acetaldehyde via Pictet-Spengler cyclization. It is the body's internal coherence shield, produced at night to protect the serotonin/melatonin system during the `dream_run`. It is the `microtubule_shield` at the molecular level.
+- **Harmaline** (Exogenous): External coherence shield. The Ayahuasca theorem proves that the MAOI shield MUST be applied first to protect the horn gate opener (DMT) from degradation, allowing transfinite topology without biological breakdown. 
+- *Security Rule*: The fused, parity-locked state is a fixed point. MAO cannot break what is already at absolute equilibrium. The locked tricyclic structure acts as an infonad, protecting the unlocked monoamines.
