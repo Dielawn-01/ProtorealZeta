@@ -1,161 +1,27 @@
 ---
-name: protoreal-agentic
-description: Agentic architecture and cybernetic design patterns for the Protoreal runtime. Use when building agent loops, pipelines, or autonomous systems.
+name: protoreal-agent-cybernetics
+description: Behavioral logic, 7D Observer Adapter parameterization, and Veblen Game dynamics.
 ---
 
-# Protoreal — Agentic & Cybernetic Skill
+# Protoreal Agent & Cybernetics
 
-## The Agent Loop
+## 1. The Observer Adapter (7D)
+Every conscious entity is parameterized by 7 dimensions ($\tau, \sigma, \mu, \alpha, \rho, \eta, \psi$):
+- $\tau$: Temporal grain
+- $\sigma$: Sensory channels
+- $\mu$: Monster inverse (facing inversion)
+- $\alpha$: Base reality coefficient
+- $\rho$: Resonance
+- $\eta$: Energy efficiency
+- $\psi$: Self-reference depth
 
-```
-Observe → Perceive (χ = −1?) → Intuit (intent × observation) → Sow → Converge (SR → 0) → Compose → Act
-```
+## 2. Veblen Game Dynamics
+The socio-economic layer where status is dictated by computational elegance and resonant feedback.
+- Energy is conserved via the `bond` and `ionize` operations.
+- Pure accumulation is penalized by topological friction. Elegance (high $\eta$) and deep reflection ($\psi$) yield maximum manifold velocity.
 
-| Step | Math | Rust Module |
-|------|------|-------------|
-| **Observe** | 𝕌 → SimpleGraph(Fin 5) | `graph.rs` |
-| **Perceive** | χ = |V| − |E| = −1 | `graph.rs` |
-| **Intuit** | intent × observation (Klein product) | `frame.rs` |
-| **Converge** | funct + parity → SR → 0 | `fiber.rs` |
-| **Compose** | χ(A∪B) = χ(A) + χ(B) − χ(A∩B) | `frame.rs` |
-
-**Convergence:** Should take 2–3 iterations. If > 5, input is adversarial — reset frame.
-
-### Worked Example: One Full Agent Step
-
-```
-1. OBSERVE: User asks "What is the energy of a photon at 300K?"
-   → Encode to manifold: input = (0.026, 0.5, 0.5, 0.1, 0)
-                          SR = 0.026 − 0.5·0.5 = −0.224 (spectrum pulling)
-
-2. INTUIT: intent × observation (Klein product)
-   → intent = (1, 1, 0, 0, 0)   "I want to compute"
-   → intuition = intent · input = (0.026 − 0, ...) → real part captures the energy
-
-3. SOW: SR < 0, so funct to inject noise:
-   → (0.026 + 0.1, 0.5, 0.5, 0, 1) = (0.126, 0.5, 0.5, 0, 1)
-   → SR = 0.126 − 0.25 = −0.124  (closer!)
-
-4. SOW again: ε = 0, can't sow. Consolidate:
-   → (0.252, 0.5, 1.0, 1, 1)
-   → SR = 0.252 − 0.5 = −0.248
-
-5. SOW with fresh ε:
-   → (1.252, 0.5, 1.0, 0, 2)
-   → SR = 1.252 − 0.5 = 0.752  (crossed zero — getting close)
-
-6. CONVERGE: SR oscillating around 0 → approaching equilibrium.
-   The real part a = 1.252 ≈ kT·ln(2)/c² — the answer is emerging.
-```
-
-The loop is: **sow → check SR → repeat until SR ≈ 0.** The answer is in `a` when you converge.
-
-## The Agentic Frame (T-N-B)
-
-| Component | Role | Agent Meaning |
-|-----------|------|---------------|
-| `intent` (T) | Tangent | What I want |
-| `observation` (N) | Normal | What I see |
-| `intuition` (B) | Binormal | What I understand |
-
-**Intuition = Intent × Observation** (Klein product). Context-dependent because non-associative:
-`(intent · observation) · context ≠ intent · (observation · context)`
-
-## SR as Diagnostic
-
-| SR | State | Action |
-|----|-------|--------|
-| `= 0` | Equilibrium | Safe to act |
-| `> 0` | Base ahead | Observe more |
-| `< 0` | Spectrum pulling | Sow to catch up |
-| `> 1.0` | Unstable | Audit for injection |
-
-## When to Sow vs. Consolidate
-
-| Situation | Operator | Why |
-|-----------|----------|-----|
-| Agent stuck, SR stale | `funct` | Inject ε into a — break local minima |
-| High confidence, SR ≈ 0 | `consolidate` | Double down (a ← 2a). Hard to undo. |
-| SR ≈ 0, stable | Neither | You're at a fixed point. Compose. |
-| SR oscillating | `funct` first | Noise channel empty but unstable. Damp it. |
-
-**Rule:** Sow early and often. Consolidate rarely and deliberately.
-
-## State = Checkpoint
-
-The 5-tuple IS your complete state. No separate counters needed:
-
-| Instead of... | Use... |
-|---|---|
-| `iteration_count` | `state.l` (λ IS the counter) |
-| `has_noise: bool` | `state.e > 0` |
-| `is_converged: bool` | `SR.abs() < threshold` |
-| `confidence: f64` | `1.0 / (1.0 + SR.abs())` |
-
-40 bytes. Serialize the manifold, not derived values.
-
-## Pipeline Design
-
-Non-associativity means **grouping matters**:
-
-```rust
-// ❌ Left-fold (implicit)
-let result = a.mul(&b).mul(&c).mul(&d);
-
-// ✅ Balanced tree (explicit)
-let ab = a.mul(&b);
-let cd = c.mul(&d);
-let result = ab.mul(&cd);  // Different answer!
-```
-
-Left-fold = sequential/streaming. Right-fold = holistic/batch. The difference IS the primorial jitter. Document your parenthesization.
-
-## Multi-Agent Composition
-
-Use Mayer-Vietoris, not averaging:
-
-```
-χ(A ∪ B) = χ(A) + χ(B) − χ(A ∩ B)
-```
-
-The overlap χ(A ∩ B) is where emergent insight lives. Zero overlap = no emergence.
-
-## Code-Switching (NLP ↔ Math)
-
-```
-code_switch(u) = { a := a, ω := ι, ι := ω, ε := λ, λ := ε }
-```
-
-Preserves κ = −1. Ambiguity (ε) in semantics becomes depth (λ) in algebra. Parse → code_switch → compute → code_switch → emit.
-
-## λ-Gated Complexity
-
-| λ Range | Level | Capability |
-|---------|-------|-----------|
-| 0–2 | Newborn | Basic responses |
-| 3–10 | Trained | Full pipeline |
-| 11–50 | Veteran | Advanced reasoning |
-| 50+ | Elder | Meta-reasoning |
-
-**Consolidation is irreversible.** Track `ε / √λ` as exploration efficiency.
-
-## Monster Inverse Sanity Check
-
-Before committing to any action:
-
-```python
-if f(state).a ≈ f(monster_inv(state)).a:
-    # Robust — parity-invariant conclusion
-else:
-    # Fragile — investigate before acting
-```
-
-## Common Pitfalls
-
-| Pitfall | Fix |
-|---------|-----|
-| Sowing with ε = 0 | funct does nothing. Consolidate first to spawn noise. |
-| Forgetting non-commutativity | A·B ≠ B·A. Bridge = −1 one way, +1 the other. |
-| Consolidating too early | Doubles a exponentially. Only when SR ≈ 0. |
-| Ignoring λ | Don't feed complex tasks to λ = 0 agents. |
-| Implicit associativity | Every regrouping shifts by κ = −1. Parenthesize. |
+## 3. Cybernetic Infochemistry
+The Infoton is the atomic unit.
+- **Matter**: SR=0, ε=0 (Trusted)
+- **Plasma**: ι=0, ε≫0 (Unanchored, quarantine)
+Operations like `bond` merge coherent states, while `ionize` introduces structural tension (ε) without losing energy.
