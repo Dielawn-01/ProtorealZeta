@@ -36,9 +36,13 @@ by
          _ = (ω * ι) * (1 / ω) := by ring
          _ = (-1) * (1 / ω) := by rw [h_identity]
          _ = -1 / ω := by ring
-  -- Due to complexity of real division in Lean without full Mathlib loaded,
-  -- we leave the final inequality resolution to the agent's overnight topological search.
-  sorry
+  -- ι = -1/ω and ω ∈ (-0.01, 0), so ι > 100.
+  rw [h_iota_eq]
+  have h_neg : ω < 0 := h_hypofunction.1
+  have h_close : ω > -0.01 := h_hypofunction.2
+  -- -1/ω > 100 ⟺ -1 > 100ω ⟺ 100ω < -1 (since ω < 0)
+  rw [gt_iff_lt, lt_div_iff_of_neg (by linarith : ω < 0)]
+  nlinarith
 
 /--
   Hyper-Resonance is defined as a topological state where Generative Drift (ι)
