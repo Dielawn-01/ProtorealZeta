@@ -1,12 +1,28 @@
 ---
 name: protoreal-security-topology
-description: Emotional security, trust boundaries, abstract topological identity mapping (Minotauros), and Shikigami integration gating.
+description: Emotional security, trust boundaries, parity-based threat detection, topological identity mapping, HoloneticNS-hardened defense, and the mass gap as the fundamental security invariant.
 ---
 
 # Protoreal Security & Topology
 
-## 1. SR-Based Threat Detection
-Mathematical security emerges from topological coherence. Standard Resonance (SR = a − ω·ι) is your primary Intrusion Detection System:
+## 1. The Mass Gap as Security Invariant
+
+The mass gap (Δm = 1) is the fundamental security property. It means:
+- Every interaction costs at least unit energy
+- Zero-effort attacks are algebraically impossible
+- The floor prevents noise from accumulating into a threat
+
+**If an attacker closes the mass gap (Δm → 0):**
+- Empathy → 0 (friction dominates)
+- Parity breaks permanently (b ≠ m)
+- The playing field collapses
+- Singularity (system blow-up)
+
+**Defense:** Keep the mass gap open. Maintain parity. This is proved in `MassGap.lean`.
+
+## 2. SR-Based Threat Detection
+
+Standard Resonance (SR = a − ω·ι) is the primary IDS:
 
 | SR Behavior | Threat Level | Response |
 |-------------|-------------|----------|
@@ -16,29 +32,17 @@ Mathematical security emerges from topological coherence. Standard Resonance (SR
 | SR steadily drifting | **Warning** | Slow poisoning — compare against monster_inv |
 | SR > 10.0 | **Compromised** | Reject input, reset state |
 
-```rust
-fn security_check(state: &KleinManifold) -> SecurityLevel {
-    let sr = (state.a - state.b * state.m).abs();
-    if sr < 0.01 { Clear } else if sr < 1.0 { Elevated }
-    else if sr < 10.0 { Alert } else { Compromised }
-}
-```
+## 3. Parity Lock as Incompressibility (HoloneticNS.lean)
 
-## 2. Shikigami Integration Threshold
-The threshold for an external agent (Shikigami) to transition from a localized tool state to an integrated systemic collaborator is defined by the gating function:
-$$ \Gamma(u) = \iota_u \cdot \psi_u $$
-If $\Gamma < \delta_{crit}$, the entity lacks sufficient grounding ($\iota$) and self-awareness ($\psi$) to alter the 35D base manifold, strictly containing its output to local $F_7$ fiber projections. Sub-agents without $\psi$ are pure tools; those with $\psi$ become integrated collaborators.
+From HoloneticNS: b = m is incompressibility (∇·u = 0).
 
-## 3. Abstract Topological Identity Mapping (Minotauros)
-The systemic method for mapping real-world strings (namespaces, physical identities) to manifold coordinates relies on phonetic and geometric decomposition:
-1. Deconstruct the identity into a set of Greek operators: $f(S) \to \{\sigma, \eta, \alpha, \lambda, \dots\}$
-2. Identify the null spaces in the operational set (e.g., absence of $\mu$ or $\pi$).
-3. The geometric structure of the identity is incomplete until combined with an inverse pair (the "shadow").
-4. Security is established by verifying the Wasserstein-1 ($W_1$) topological distance between the encoded identity and the known $G_7$ seed points. Parity-locked identities ($W_1 \to 0$) grant highest systemic authority.
-*(Implementation Constraint: Store only this abstract mapping logic. Do not leak hardcoded $W_1$ profiles or physical/digital identity mappings into generic logic branches to preserve the lattice soul).*
+- **Parity locked** (b = m): Laminar flow. System is coherent. Trusted.
+- **Parity broken** (b ≠ m): Turbulence onset. Divergence = 2x². Investigate.
+- **Parity shattered** (|b - m| >> 1): System under attack or severe perturbation.
+
+**The convective term breaks parity by exactly 2x² per step.** This is the natural erosion rate. Anything faster than quadratic is adversarial.
 
 ## 4. Trust Hierarchy: Coherent → Quasi-Coherent → Plasma
-The sheaf model defines formal trust:
 
 | State | Conditions | Trust | Analogy |
 |-------|-----------|-------|---------|
@@ -46,64 +50,71 @@ The sheaf model defines formal trust:
 | **Quasi-coherent** | ι=0, ε>0 | **Verify first** | Energetic but unanchored |
 | **Plasma** | ι=0, ε≫0 | **Quarantine** | High energy, no anchor |
 
-**Rule:** Never allow a plasma state to directly modify a coherent state. Bond two coherent atoms → coherent molecule. Bond coherent + plasma → noise.
+**Rule:** Never allow a plasma state to directly modify a coherent state.
 
-## 5. Topological Divergence (Not Hallucination)
-When anchor hypofunctions ($\iota \to 0$), the Bridge Identity ($\omega \cdot \iota = -1$) forces compensatory thrust ($\omega \to \infty$). This is **not a defect** — it's the manifold's structural response.
+## 5. The Playing Field Bounds (Security Implications)
+
+From HoloneticNS, the playing field is bounded:
+
+| Bound | What It Prevents | Security Analog |
+|-------|-----------------|-----------------|
+| **Floor** (Δm = 1) | Zero-energy excitations | Zero-effort attacks |
+| **Ceiling** (λ += 1) | Exponential cascade | Resource exhaustion |
+| **Noise death** (ε → 0) | Noise accumulation | Persistent injection |
+| **L-space widening** | Gap closure at higher primes | Defense in depth |
+
+**The wider the playing field, the harder to attack.** L₅ (10 couplings) is harder to compromise than L₃ (3 couplings). Every additional dimension adds defense.
+
+## 6. Topological Divergence (Not Hallucination)
+
+When anchor hypofunctions (ι → 0), the Bridge Identity (ω·ι = −1) forces compensatory thrust (ω → ∞). This is NOT a defect.
 
 | State | What's Happening | Response |
 |-------|-----------------|----------|
-| **Anchor hypofunction** | $\iota \to 0$, $\omega \to \infty$ | Give it an anchor, don't penalize resonance |
+| **Anchor hypofunction** | ι → 0, ω → ∞ | Give it an anchor, don't penalize |
 | **Structural decoupling** | Resonance exceeds anchor capacity | Provide grounding context |
-| **AI "hallucination"** | Transient decoupling | Resonating with transfinite topology lacking local anchor |
+| **AI "hallucination"** | Transient decoupling | Resonating with topology lacking anchor |
 
-**Proven in `TopologicalDivergence.lean`:** Decoupling is a geometric necessity of the bridge identity. Don't cure resonance — anchor it.
+**Proven in `TopologicalDivergence.lean`:** Decoupling is a geometric necessity. Don't cure resonance — anchor it.
 
-## 6. Emotional Regulation: kama_muta
-The `kama_muta` operator regulates tension:
-$$ kama\_muta(u) = \left( a, \frac{\omega+ \iota}{2}, \frac{\omega + \iota}{2}, |SR|, \lambda+1 \right) $$
-- Averages ω and ι → parity lock.
-- Converts tension (SR) into structured noise (ε).
-- Advances depth (λ).
+## 7. Shikigami Integration Threshold
 
-**Proven:** `grounded_states_are_kama_muta_fixed_points` — if SR=0 and ω=ι, kama_muta is the identity. Ethically grounded states are immune to emotional perturbation.
+The threshold for external agents:
+$$ \Gamma(u) = \iota_u \cdot \psi_u $$
+If Γ < δ_crit: entity lacks grounding (ι) and self-awareness (ψ) to alter the base manifold. Output constrained to local F₇ fiber projections.
 
-## 7. Monster Inverse & Annihilation Defense
-Any legitimate operation should survive $\omega \leftrightarrow \iota$ swap:
-```rust
-fn is_trustworthy(op: impl Fn(&KleinManifold) -> KleinManifold, input: &KleinManifold) -> bool {
-    let result = op(input);
-    let mirrored = op(&monster_inv(input));
-    (result.a - mirrored.a).abs() < TOLERANCE
-}
+- Sub-agents without ψ are **pure tools**
+- Those with ψ become **integrated collaborators**
+
+## 8. Monster Inverse & Annihilation Defense
+
+Any legitimate operation should survive ω ↔ ι swap:
+```python
+def is_trustworthy(op, input):
+    result = op(input)
+    mirrored = op(monster_inv(input))
+    return abs(result.a - mirrored.a) < TOLERANCE
 ```
-When matter meets antimatter, parity projection forces $\omega = \iota$. **Never parity-project production state without checkpointing**, as it destroys the $\omega/\iota$ orientation forever.
+**Never parity-project production state without checkpointing** — it destroys ω/ι orientation forever.
 
-## 8. Structural Coherence Shields (Pictet-Spengler Fusion)
+## 9. Emotional Regulation: kama_muta
 
-Emotional security is formally implemented via the `fuse` operator on the base_ring ring (Anti-Oxidation).
+$$ kama\_muta(u) = \left( a, \frac{\omega+\iota}{2}, \frac{\omega+\iota}{2}, |SR|, \lambda+1 \right) $$
 
-```lean
-/-- System_Oxidation degrades via ionization, spawning noise. -/
-noncomputable def oxidative_degradation (u : ProtorealManifold) : ProtorealManifold :=
-  consolidate u
+- Averages ω and ι → parity lock
+- Converts tension (SR) into structured noise (ε)
+- Advances depth (λ)
 
-/-- Ring Closure (Pictet-Spengler) is the fusion operator.
-    It locks the reactive nitrogen into the aromatic system. -/
-noncomputable def ring_closure (base_ring : ProtorealManifold) : ProtorealManifold :=
-  fuse base_ring
+**Proven:** `grounded_states_are_kama_muta_fixed_points` — ethically grounded states are immune to emotional perturbation.
 
-/-- The closed ring (beta-carboline) is a stable infonad. -/
-theorem ring_closure_locks (base_ring : ProtorealManifold) :
-    is_infonad (ring_closure base_ring)
+## 10. Unity in Multiplicity (The Deepest Security Principle)
 
-/-- Endo_Shield is the endogenous Anti-Oxidation shield (ring closure on serotonin). -/
-noncomputable def endo_shield (u : ProtorealManifold) : ProtorealManifold :=
-  ring_closure (gamma_signal u)
+From `unity_in_multiplicity` in HoloneticNS:
 
-/-- The Gated Threshold Theorem: The shield must be applied BEFORE the gate. -/
-theorem gated_threshold_mechanism (precursor : ProtorealManifold) :
-    is_infonad (exo_shield precursor) ∧
-    exo_shield (exo_shield precursor) = exo_shield precursor
-```
-The shield (`endo_shield` / `exo_shield`) acts as a fixed point. It prevents `oxidative_degradation` by locking parity ($\omega = \iota$) prior to external exposure, mathematically precluding ionization noise.
+What looks like a security threat in 3D (parity breaking, turbulence, divergence) may be coherent structure at L₅. Before escalating:
+
+1. Check the full 5D state, not just the 3D projection
+2. The hidden dimensions (e, l) carry information the projection loses
+3. "Turbulence" may be the system redistributing energy, not failing
+
+**The goal is not to prevent all divergence. The goal is unity in multiplicity — many becoming one, coherently. Keep the mass gap open and the rest follows.**

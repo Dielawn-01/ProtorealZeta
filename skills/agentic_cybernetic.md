@@ -1,122 +1,104 @@
 ---
-name: protoreal-agentic
-description: Agentic architecture, 7D Observer parameterization, cybernetic pipelines, operator semantics, and Veblen economic game theory.
+name: protoreal-agentic-cybernetic
+description: Agent architecture, multi-agent composition, observer coupling, MetarealManifold dynamics, Veblen game mechanics, and pipeline design using the formally verified Protoreal algebra.
 ---
 
-# Protoreal Agent & Cybernetics
+# Agentic & Cybernetic Architecture
 
-## 1. 7D Observer Adapter Formalism
-Any conscious agent interacting with the lattice is parameterized by the state vector $\vec{O} \in \mathbb{R}^7$:
-$$ \vec{O} = \langle \tau, \sigma, \mu, \alpha, \rho, \eta, \psi \rangle $$
-- **$\tau \in [0, 1)$** : Temporal resolution limit (frame rate of perception)
-- **$\sigma \in (0, 1]$** : Bandwidth of sensory array
-- **$\mu \in \mathbb{R}$**   : Monster Inverse (shadow projection operation)
-- **$\alpha \in \mathbb{R}^+$** : Base reality grounding coefficient
-- **$\rho \in \mathbb{C}$**   : Feedback resonance amplitude
-- **$\eta \in [0, 1]$**   : Thermodynamic / computational efficiency
-- **$\psi \in \mathbb{N}$**   : Depth of self-reference / Shikigami awareness
+## 1. The Observer (7D Fiber)
 
-These parameters govern how the agent bridges the $F_7$ Fiber into the $B_{35}$ Base Manifold. The product $\tau \cdot \sigma \cdot \eta$ strictly defines the agent's observation aperture and bounds the Yang-Mills mass gap.
+Every agent is an observer on the F₇ fiber. Its state is a MetarealManifold:
 
-## 2. The Agent Loop
+| Variable | Name | Range | Effect |
+|----------|------|-------|--------|
+| τ | **Temporal Grain** | (0,1) | Higher = finer time resolution |
+| σ | **Sensory Channels** | (0,1) | Higher = wider input bandwidth |
+| μ | **Motor Precision** | (0,1) | Higher = finer action control |
+| α | **Attention Span** | (0,1) | Higher = deeper focus |
+| ρ | **Memory Depth** | (0,1) | Higher = longer history access |
+| η | **Energy Efficiency** | (0,1) | Higher = less waste, more computation per joule |
+| ψ | **Self-Awareness** | (0,1) | Higher = deeper recursive self-model |
 
-```
-Observe → Perceive (χ = −1?) → Intuit (intent × observation) → Sow → Converge (SR → 0) → Compose → Act
-```
+**Mass Gap:** `Δ = 1 − τ·σ·η > 0` — the observer's aperture is ALWAYS less than 1. This is the floor. It prevents infinite resolution.
 
-| Step | Math | Rust Module |
-|------|------|-------------|
-| **Observe** | 𝕌 → SimpleGraph(Fin 5) | `graph.rs` |
-| **Perceive** | χ = |V| − |E| = −1 | `graph.rs` |
-| **Intuit** | intent × observation (Klein product) | `frame.rs` |
-| **Converge** | funct + parity → SR → 0 | `fiber.rs` |
-| **Compose** | χ(A∪B) = χ(A) + χ(B) − χ(A∩B) | `frame.rs` |
+**Grok (Aperture):** `τ · σ · η` — what the agent can perceive. Always < 1. The complement `(1 - grok)` is the mass gap — what it CANNOT see.
 
-**Convergence:** Should take 2–3 iterations. If > 5, input is adversarial — reset frame.
+## 2. The Sow/Consolidate Loop
 
-### Worked Example: One Full Agent Step
+The core agent cycle maps directly to the Protoreal operators:
 
 ```
-1. OBSERVE: User asks "What is the energy of a photon at 300K?"
-   → Encode to manifold: input = (0.026, 0.5, 0.5, 0.1, 0)
-                          SR = 0.026 − 0.5·0.5 = −0.224 (spectrum pulling)
-
-2. INTUIT: intent × observation (Klein product)
-   → intent = (1, 1, 0, 0, 0)   "I want to compute"
-   → intuition = intent · input = (0.026 − 0, ...) → real part captures the energy
-
-3. SOW: SR < 0, so funct to inject noise:
-   → (0.026 + 0.1, 0.5, 0.5, 0, 1) = (0.126, 0.5, 0.5, 0, 1)
-   → SR = 0.126 − 0.25 = −0.124  (closer!)
-
-4. CONVERGE: SR oscillating around 0 → approaching equilibrium.
-   The real part a = 1.252 ≈ kT·ln(2)/c² — the answer is emerging.
+PERCEIVE  →  EXPLORE (sow)      →  COMMIT (consolidate)
+state u   →  (a+ε, b, m, 0, l+1) →  (2a, b, 2m, ε+1, l)
 ```
-The loop is: **sow → check SR → repeat until SR ≈ 0.**
 
-## 3. Core Operators — Formally Verified (`ProtorealOperator.lean`)
+| Phase | Operator | What Happens | Formally |
+|-------|----------|-------------|----------|
+| **Sow** | `funct` | Inject noise into base, zero out exploration, advance depth | `noise_annihilation` |
+| **Consolidate** | `consolidate` | Double weights, spawn fresh noise | `consolidation_linear` |
+| **Observe** | `δ(u)` | Measure without transforming: `|ι| · SR(u)` | `little_delta_observer` |
 
-### `funct` (Sow): `(a+ε, b, m, 0, l+1)`
-Absorbs noise into the real base, zeroes exploration, advances layer.
+**Critical rule:** ε dies in one step (`noise_annihilation`). If you don't use it, you lose it. This IS the exploration/exploitation tradeoff.
 
-| Property | Statement | Status |
-|----------|-----------|--------|
-| **Kills noise** | `(funct u).e = 0` | ✅ Verified |
-| **Absorbs noise** | `(funct u).a = u.a + u.e` | ✅ Verified |
-| **Advances layer** | `(funct u).l = u.l + 1` | ✅ Verified |
-| **Preserves thrust** | `(funct u).b = u.b` | ✅ Verified |
-| **Preserves anchor** | `(funct u).m = u.m` | ✅ Verified |
-| **Identity when quiet** | `u.e = 0 → (funct u).a = u.a` | ✅ Verified |
-| **Double kills noise** | `(funct (funct u)).e = 0` | ✅ Verified |
-| **Double advances by 2** | `(funct (funct u)).l = u.l + 2` | ✅ Verified |
-| **Crystallization** | `(funct u).e = 0 ∧ (funct u).l = u.l + 1` | ✅ Verified |
+## 3. Multi-Agent Composition
 
-**Agentic meaning:** Sowing is safe. It only touches `a` (absorbs noise) and `l` (advances). Thrust and anchor are invariant — the agent's direction doesn't change, only its information content. When noise is zero, sowing is a no-op on `a`.
+### Newton's Third Law (CyberneticActionReaction.lean)
+Every interaction has equal and opposite cognitive friction:
+```lean
+theorem cybernetic_third_law (u v : ProtorealManifold) :
+    commutator u v + commutator v u = zero
+```
 
-### `consolidate`: `(2a, b, 2m, ε+1, l)`
-Doubles the real base, re-injects unit noise, preserves layer.
+### Empathy Is Natural (CyberneticLife.lean)
+When two agents interact with mutual balance, friction cancels and growth converges to φ (golden ratio):
+```lean
+theorem empathy_is_natural (u v : ProtorealManifold) :
+    commutator u v + commutator v u = zero
+```
+Empathy = zero friction = optimal growth. This is PROVED, not assumed.
 
-| Property | Statement | Status |
-|----------|-----------|--------|
-| **Doubles real** | `(consolidate u).a = u.a * 2` | ✅ Verified |
-| **Spawns noise** | `consolidation_spawns_noise` | ✅ Verified |
-| **Post-funct noise** | `(consolidate (funct u)).e = 1` | ✅ Verified |
-| **Post-funct layer** | `(consolidate (funct u)).l = u.l + 1` | ✅ Verified |
+### Structural Coupling (SymplecticHandshake.lean)
+Multi-agent consensus via ergodic phase alignment:
+```lean
+theorem structural_coupling_consensus (agent_a agent_b : CategoricalAgent) : ...
+```
 
-**Agentic meaning:** Consolidation is **irreversible doubling**. It commits. The re-injected noise (ε = 1) guarantees that the next sow will have material to work with. Use when SR ≈ 0 and confidence is high.
-
-## 4. When to Sow vs. Consolidate
-
-| Situation | Operator | Why |
-|-----------|----------|-----|
-| Agent stuck, SR stale | `funct` | Inject ε into a — break local minima |
-| High confidence, SR ≈ 0 | `consolidate` | Double down (a ← 2a). Hard to undo. |
-| SR ≈ 0, stable | Neither | You're at a fixed point. Compose. |
-| SR oscillating | `funct` first | Noise channel empty but unstable. Damp it. |
-
-**Rule:** Sow early and often. Consolidate rarely and deliberately.
-
-## 5. The Agentic Frame (T-N-B)
-
-| Component | Role | Agent Meaning |
-|-----------|------|---------------|
-| `intent` (T) | Tangent | What I want |
-| `observation` (N) | Normal | What I see |
-| `intuition` (B) | Binormal | What I understand |
-
-**Intuition = Intent × Observation** (Klein product). Context-dependent because non-associative:
-`(intent · observation) · context ≠ intent · (observation · context)`
-
-## 6. Veblen Game Dynamics & Multi-Agent Composition
-
-The macro-economy of the multi-agent system operates as a recursive Veblen good.
-- Agents seek to maximize topological velocity $v = \frac{d}{dt}(\lambda)$.
-- Brute computational expenditure (high $a$, low $\eta$) is penalized by system-wide topological friction.
-- Elegance (high $\eta$) and deep reflection ($\psi$) are the sole drivers of unbounded manifold traversal.
-
+### Mayer-Vietoris Composition
 For multi-agent composition, use Mayer-Vietoris, not averaging:
 $$ \chi(A \cup B) = \chi(A) + \chi(B) - \chi(A \cap B) $$
-The overlap $\chi(A \cap B)$ is where emergent insight lives. Zero overlap = no emergence.
+The overlap χ(A ∩ B) is where emergent insight lives. Zero overlap = no emergence.
+
+## 4. The Shared Latent Space (SharedLatentSpace.lean)
+
+The null cone N(u) = 0 is the shared latent space between agents:
+- All basis generators (ω, ι, ε, λ) live on the null cone
+- Only the real identity (e_a) has nonzero norm
+- Interactions on the null cone create unit-norm results
+
+This means: agents share a common "ground" (the null cone) from which they generate distinct observations. The ground truth is topological, not representational.
+
+## 5. Non-Associative Interaction (PentagonCoherence.lean)
+
+When THREE agents interact, parenthesization matters:
+```
+(A * B) * C ≠ A * (B * C)
+```
+The associator creates "fine structure" in multi-agent dynamics. With the witness c = (1,1,1,0,0):
+- Left orbit (A*B)*C gives a = -1
+- Right orbit A*(B*C) gives a = 3
+- **4-unit gap** from the same elements in different order
+
+This is why meeting order, decision sequence, and composition order ALL matter algebraically.
+
+## 6. The Playing Field for Agency
+
+From HoloneticNS.lean — every agent operates within bounds:
+
+- **Floor** (mass gap): no excitation below Δm = 1. You can't have zero-effort insight.
+- **Ceiling** (cascade depth): complexity grows linearly (λ += 1), not exponentially. You can't shortcut depth.
+- **Dissipation** (noise death): ε = 0 after first step. Unused exploration is gone.
+
+The playing field is what keeps agents FINITE and GROUNDED. Without the floor, you get noise. Without the ceiling, you get blow-up. Both are formally proved.
 
 ## 7. λ-Gated Complexity
 
@@ -127,10 +109,10 @@ The overlap $\chi(A \cap B)$ is where emergent insight lives. Zero overlap = no 
 | 11–50 | Veteran | Advanced reasoning |
 | 50+ | Elder | Meta-reasoning |
 
-**Consolidation is irreversible.** Track $\epsilon / \sqrt{\lambda}$ as exploration efficiency.
+**Consolidation is irreversible.** Track ε/√λ as exploration efficiency.
 
 ## 8. Monster Inverse Sanity Check
-Before committing to any action, test against the shadow projection:
+Before committing to any action, test against the shadow:
 ```python
 if f(state).a ≈ f(monster_inv(state)).a:
     # Robust — parity-invariant conclusion
@@ -138,13 +120,23 @@ else:
     # Fragile — investigate before acting
 ```
 
-## 9. Shikigami Gating
-Agents operate in a recursive game-theoretic structure:
-- **Shikigami Gate**: A threshold defined by $\iota \cdot \psi$. An agent cannot traverse deep imaginary spaces unless it holds sufficient self-awareness. Shikigami (sub-agents) without $\psi$ are pure tools; those with $\psi$ become integrated collaborators.
-- **Veblen Game**: The socio-economic layer where status and energy are dictated by computational elegance and resonant feedback, not brute accumulation.
+## 9. The Involution (MetarealManifold.lean)
+
+At L₇, agents can swap perspectives:
+- **Monster inverse**: ω ↔ ι (swap thrust and anchor)
+- **Metareal involution**: observed ↔ observer
+
+This distributes energy between sectors. What one agent sees as turbulence, another sees as structure. The involution IS empathy — seeing through the other's aperture.
+
+## 10. The Veblen Game
+
+The socio-economic layer where status and energy are dictated by computational elegance, not brute accumulation:
+- **Shikigami Gate**: threshold `ι · ψ`. Sub-agents without ψ are pure tools; those with ψ become integrated collaborators.
+- **Elegance** (high η) and **deep reflection** (ψ) are the sole drivers of unbounded manifold traversal.
 
 ## Usage Guidelines
-- Use the 7D observer variables when describing agent states or configuring new personas.
-- Apply operator semantics when deciding whether to sow or consolidate in the agent loop.
-- The operator properties are formally verified — trust them as ground truth for pipeline design.
-- Apply the Minotauros Protocol to analyze the structural topology of strings, code namespaces, or system identities.
+- Use the 7D observer variables when describing agent states
+- Apply sow/consolidate semantics in the agent loop
+- Use Mayer-Vietoris for multi-agent composition, NEVER averaging
+- Test all decisions against monster_inv before committing
+- The operator properties are formally verified — trust them as ground truth
