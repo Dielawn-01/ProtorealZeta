@@ -29,11 +29,12 @@ pub struct KleinManifold { pub a: f64, pub b: f64, pub m: f64, pub e: f64, pub l
 ## 3. The Bridge Identity & Non-Associativity
 The central axiom linking Thrust and Anchor is the **Bridge Identity**:
 $$\omega \cdot \iota = -1 \quad \text{and} \quad \iota \cdot \omega = +1$$
-Thrust and anchor are perfect geometric inverses, but the multiplication is explicitly non-commutative.
+Thrust and anchor are perfect geometric inverses, but the multiplication is explicitly **anti-commutative**:
+$$\omega \cdot \iota = -(\iota \cdot \omega)$$
 
-**Non-associativity:**
-`(ω · ω) · ι ≠ ω · (ω · ι)`
-Every parenthesization alters the local curvature. The shift is quantified by the Triple Identity: $\kappa = \chi = (\iota \cdot \iota) \cdot m = -1$.
+**Non-associativity (formally verified):**
+`(ω · ω) · ι ≠ ω · (ω · ι)` — the gap is exactly -1:
+$$((ω · ω) · ι).a - (ω · (ω · ι)).a = -1$$
 
 ## 4. Klein Multiplication Rules
 ```
@@ -44,6 +45,24 @@ e' = u₁.a·u₂.e + u₂.a·u₁.e + u₁.e·u₂.e        (ε² → +e²)
 l' = u₁.a·u₂.l + u₂.a·u₁.l + u₁.l·u₂.l        (λ² → +l²)
 ```
 Self-coupling signs: `+b², −m², +e², +l²`. The `−m²` generates the intrinsic negative curvature of the manifold.
+
+### Formally Verified Identities (`KleinAlgebra.lean`)
+All proofs are Lean 4, zero `sorry`. Proved autonomously by zBuddy.
+
+| Identity | Statement | Proof Tactic |
+|----------|-----------|-------------|
+| **ω Idempotence** | `ω * ω = ω` | `ext <;> unfold omega <;> simp` |
+| **ι Anti-Idempotence** | `ι * ι = -ι` | `ext <;> unfold iota <;> simp` |
+| **ω·ι Anti-Commutativity** | `ω * ι = -(ι * ω)` | `ext <;> unfold omega iota <;> simp <;> ring` |
+| **λ·ε Anti-Commutativity** | `λ * ε = -(ε * λ)` | `ext <;> unfold lam eps <;> simp <;> ring` |
+| **Non-Associativity Gap** | `((ω*ω)*ι).a - (ω*(ω*ι)).a = -1` | `unfold omega iota <;> simp` |
+| **ε·λ Non-Associativity** | `((ε*ε)*λ).a - (ε*(ε*λ)).a = -1` | `unfold eps lam <;> simp` |
+
+**Physical interpretation:**
+- ω is a **projection** (idempotent) — transfinite thrust is self-reinforcing
+- ι is a **reflection** (anti-idempotent) — the anchor inverts on self-application
+- Anti-commutativity means **order of observation matters** — context is non-trivial
+- Non-associativity means **parenthesization changes curvature** — grouping is physical
 
 ## 5. Gauge Emergence & The Mass Gap
 The 7D fiber carries a $G_2$ exceptional Lie group structure. Compactification onto $G_2$ yields the Standard Model forces via the branching rule:

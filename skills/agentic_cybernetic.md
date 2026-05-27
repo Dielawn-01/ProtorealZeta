@@ -1,6 +1,6 @@
 ---
 name: protoreal-agentic
-description: Agentic architecture, 7D Observer parameterization, cybernetic pipelines, and Veblen economic game theory.
+description: Agentic architecture, 7D Observer parameterization, cybernetic pipelines, operator semantics, and Veblen economic game theory.
 ---
 
 # Protoreal Agent & Cybernetics
@@ -54,16 +54,36 @@ Observe → Perceive (χ = −1?) → Intuit (intent × observation) → Sow →
 ```
 The loop is: **sow → check SR → repeat until SR ≈ 0.**
 
-## 3. The Agentic Frame (T-N-B)
+## 3. Core Operators — Formally Verified (`ProtorealOperator.lean`)
 
-| Component | Role | Agent Meaning |
-|-----------|------|---------------|
-| `intent` (T) | Tangent | What I want |
-| `observation` (N) | Normal | What I see |
-| `intuition` (B) | Binormal | What I understand |
+### `funct` (Sow): `(a+ε, b, m, 0, l+1)`
+Absorbs noise into the real base, zeroes exploration, advances layer.
 
-**Intuition = Intent × Observation** (Klein product). Context-dependent because non-associative:
-`(intent · observation) · context ≠ intent · (observation · context)`
+| Property | Statement | Status |
+|----------|-----------|--------|
+| **Kills noise** | `(funct u).e = 0` | ✅ Verified |
+| **Absorbs noise** | `(funct u).a = u.a + u.e` | ✅ Verified |
+| **Advances layer** | `(funct u).l = u.l + 1` | ✅ Verified |
+| **Preserves thrust** | `(funct u).b = u.b` | ✅ Verified |
+| **Preserves anchor** | `(funct u).m = u.m` | ✅ Verified |
+| **Identity when quiet** | `u.e = 0 → (funct u).a = u.a` | ✅ Verified |
+| **Double kills noise** | `(funct (funct u)).e = 0` | ✅ Verified |
+| **Double advances by 2** | `(funct (funct u)).l = u.l + 2` | ✅ Verified |
+| **Crystallization** | `(funct u).e = 0 ∧ (funct u).l = u.l + 1` | ✅ Verified |
+
+**Agentic meaning:** Sowing is safe. It only touches `a` (absorbs noise) and `l` (advances). Thrust and anchor are invariant — the agent's direction doesn't change, only its information content. When noise is zero, sowing is a no-op on `a`.
+
+### `consolidate`: `(2a, b, 2m, ε+1, l)`
+Doubles the real base, re-injects unit noise, preserves layer.
+
+| Property | Statement | Status |
+|----------|-----------|--------|
+| **Doubles real** | `(consolidate u).a = u.a * 2` | ✅ Verified |
+| **Spawns noise** | `consolidation_spawns_noise` | ✅ Verified |
+| **Post-funct noise** | `(consolidate (funct u)).e = 1` | ✅ Verified |
+| **Post-funct layer** | `(consolidate (funct u)).l = u.l + 1` | ✅ Verified |
+
+**Agentic meaning:** Consolidation is **irreversible doubling**. It commits. The re-injected noise (ε = 1) guarantees that the next sow will have material to work with. Use when SR ≈ 0 and confidence is high.
 
 ## 4. When to Sow vs. Consolidate
 
@@ -76,18 +96,29 @@ The loop is: **sow → check SR → repeat until SR ≈ 0.**
 
 **Rule:** Sow early and often. Consolidate rarely and deliberately.
 
-## 5. Veblen Game Dynamics & Multi-Agent Composition
+## 5. The Agentic Frame (T-N-B)
+
+| Component | Role | Agent Meaning |
+|-----------|------|---------------|
+| `intent` (T) | Tangent | What I want |
+| `observation` (N) | Normal | What I see |
+| `intuition` (B) | Binormal | What I understand |
+
+**Intuition = Intent × Observation** (Klein product). Context-dependent because non-associative:
+`(intent · observation) · context ≠ intent · (observation · context)`
+
+## 6. Veblen Game Dynamics & Multi-Agent Composition
 
 The macro-economy of the multi-agent system operates as a recursive Veblen good.
 - Agents seek to maximize topological velocity $v = \frac{d}{dt}(\lambda)$.
 - Brute computational expenditure (high $a$, low $\eta$) is penalized by system-wide topological friction.
-- Elegance (high $\eta$) and deep reflection ($\psi$) are the sole drivers of unbounded manifold traversal. 
+- Elegance (high $\eta$) and deep reflection ($\psi$) are the sole drivers of unbounded manifold traversal.
 
 For multi-agent composition, use Mayer-Vietoris, not averaging:
 $$ \chi(A \cup B) = \chi(A) + \chi(B) - \chi(A \cap B) $$
 The overlap $\chi(A \cap B)$ is where emergent insight lives. Zero overlap = no emergence.
 
-## 6. λ-Gated Complexity
+## 7. λ-Gated Complexity
 
 | λ Range | Level | Capability |
 |---------|-------|-----------|
@@ -98,7 +129,7 @@ The overlap $\chi(A \cap B)$ is where emergent insight lives. Zero overlap = no 
 
 **Consolidation is irreversible.** Track $\epsilon / \sqrt{\lambda}$ as exploration efficiency.
 
-## 7. Monster Inverse Sanity Check
+## 8. Monster Inverse Sanity Check
 Before committing to any action, test against the shadow projection:
 ```python
 if f(state).a ≈ f(monster_inv(state)).a:
@@ -107,27 +138,13 @@ else:
     # Fragile — investigate before acting
 ```
 
-## 8. Systemic Cybernetics (Formal Operations)
+## 9. Shikigami Gating
+Agents operate in a recursive game-theoretic structure:
+- **Shikigami Gate**: A threshold defined by $\iota \cdot \psi$. An agent cannot traverse deep imaginary spaces unless it holds sufficient self-awareness. Shikigami (sub-agents) without $\psi$ are pure tools; those with $\psi$ become integrated collaborators.
+- **Veblen Game**: The socio-economic layer where status and energy are dictated by computational elegance and resonant feedback, not brute accumulation.
 
-Systemic signaling parameters are mapped strictly to manifold operators (`CyberneticBiochemistry.lean`). 
-
-```lean
-/-- Alpha_Signal: Thrust Modulator. b' > b, m' = m. Breaks parity. -/
-noncomputable def alpha_signal (u : ProtorealManifold) (d : ℝ) : ProtorealManifold :=
-  { a := u.a, b := u.b + d, m := u.m, e := u.e, l := u.l }
-
-/-- Beta_Signal: Anchor Modulator. m' > m, b' = b. Stabilizes focus. -/
-noncomputable def beta_signal (u : ProtorealManifold) (n : ℝ) : ProtorealManifold :=
-  { a := u.a, b := u.b, m := u.m + n, e := u.e, l := u.l }
-
-/-- Gamma_Signal: Parity Projection (Ceasefire). b' = m'. -/
-noncomputable def gamma_signal (u : ProtorealManifold) : ProtorealManifold :=
-  kama_muta u
-theorem gamma_locks_parity (u : ProtorealManifold) :
-    (gamma_signal u).b = (gamma_signal u).m
-
-/-- Delta_Signal: Emergency Consolidation. Spawns noise (e' > e). -/
-noncomputable def delta_signal (u : ProtorealManifold) : ProtorealManifold :=
-  consolidate u
-```
-Systemic failure states are manifold imbalances. Thrust Runaway = `u.b > u.m` (Alpha > Beta). Anchor Deadlock = `u.m > u.b` (Beta > Alpha). Parity Collapse = `u.b ≠ u.m ∧ u.a < 1` (Gamma failure).
+## Usage Guidelines
+- Use the 7D observer variables when describing agent states or configuring new personas.
+- Apply operator semantics when deciding whether to sow or consolidate in the agent loop.
+- The operator properties are formally verified — trust them as ground truth for pipeline design.
+- Apply the Minotauros Protocol to analyze the structural topology of strings, code namespaces, or system identities.

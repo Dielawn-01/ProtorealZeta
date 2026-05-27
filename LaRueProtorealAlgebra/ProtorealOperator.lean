@@ -85,3 +85,62 @@ def is_bounded (u : ProtorealManifold) (limit : ℝ) : Prop :=
   norm u ≤ limit
 
 end ProtorealInstruction
+
+
+-- ═══════════════════════════════════════════════════════
+-- Operator Properties — proved by zBuddy (2026-05-26/27)
+-- ═══════════════════════════════════════════════════════
+
+/-- Funct annihilates noise: the exploration signal is zeroed. -/
+theorem funct_kills_noise (u : ProtorealManifold) : (funct u).e = 0 := by
+  unfold funct; rfl
+
+/-- Funct absorbs noise into the real core. -/
+theorem funct_absorbs_noise (u : ProtorealManifold) : (funct u).a = u.a + u.e := by
+  unfold funct; rfl
+
+/-- Funct advances the layer counter by 1. -/
+theorem funct_advances_layer (u : ProtorealManifold) : (funct u).l = u.l + 1 := by
+  unfold funct; rfl
+
+/-- Funct preserves thrust (ω-component). -/
+theorem funct_preserves_thrust (u : ProtorealManifold) : (funct u).b = u.b := by
+  unfold funct; rfl
+
+/-- Funct preserves anchor (ι-component). -/
+theorem funct_preserves_anchor (u : ProtorealManifold) : (funct u).m = u.m := by
+  unfold funct; rfl
+
+/-- When noise is zero, funct is the identity on the real part. -/
+theorem funct_zero_noise_identity (u : ProtorealManifold) (h : u.e = 0) :
+    (funct u).a = u.a := by
+  unfold funct; simp [h]
+
+/-- Double application of funct still kills noise (idempotent annihilation). -/
+theorem double_funct_kills_noise (u : ProtorealManifold) : (funct (funct u)).e = 0 := by
+  unfold funct; simp
+
+/-- Double funct advances the layer by 2. -/
+theorem double_funct_layer (u : ProtorealManifold) : (funct (funct u)).l = u.l + 2 := by
+  unfold funct; simp; ring
+
+/-- Consolidation after funct preserves the funct'd layer. -/
+theorem funct_consolidate_layer (u : ProtorealManifold) :
+    (consolidate (funct u)).l = u.l + 1 := by
+  unfold funct; unfold consolidate; rfl
+
+/-- Consolidation doubles the real component. -/
+theorem consolidate_doubles_real (u : ProtorealManifold) :
+    (consolidate u).a = u.a * 2 := by
+  unfold consolidate; rfl
+
+/-- **CRYSTALLIZATION CONJUNCTION**: funct simultaneously kills noise and advances layer. -/
+theorem crystallization_conjunction (u : ProtorealManifold) :
+    (funct u).e = 0 ∧ (funct u).l = u.l + 1 := by
+  unfold funct; simp
+
+/-- Consolidation re-injects unit noise after funct has zeroed it. -/
+theorem funct_then_consolidate_noise (u : ProtorealManifold) :
+    (consolidate (funct u)).e = 1 := by
+  unfold funct; unfold consolidate; simp
+
