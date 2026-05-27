@@ -34,3 +34,8 @@ encoder_weights*
 mac_observer*
 overnight_lab*
 aura_backend*
+# Proprietary research — not for public repo
+LaRueProtorealAlgebra/Duality43.lean
+LaRueProtorealAlgebra/LSheaf43.lean
+LaRueProtorealAlgebra/PrimeGenerators.lean
+LaRueProtorealAlgebra/CyclicCosmology.lean
