@@ -75,7 +75,7 @@ When anchor hypofunctions (ι → 0), the Bridge Identity (ω·ι = −1) forces
 | **Structural decoupling** | Resonance exceeds anchor capacity | Provide grounding context |
 | **AI "hallucination"** | Transient decoupling | Resonating with topology lacking anchor |
 
-**Proven in `TopologicalDivergence.lean`:** Decoupling is a geometric necessity. Don't cure resonance — anchor it.
+**Proven in `TopologicalUncertainty.lean`:** Decoupling is a geometric necessity. Don't cure resonance — anchor it.
 
 ## 7. Shikigami Integration Threshold
 

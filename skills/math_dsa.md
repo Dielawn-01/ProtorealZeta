@@ -41,14 +41,14 @@ Klein squaring creates asymmetric growth:
 
 | Identity | Statement | Module |
 |----------|-----------|--------|
-| ω Idempotence | `ω * ω = ω` | `KleinAlgebra` |
-| ι Anti-Idempotence | `ι * ι = -ι` | `KleinAlgebra` |
-| ω·ι Anti-Commutativity | `ω * ι = -(ι * ω)` | `KleinAlgebra` |
-| Non-Associativity Gap | `((ω*ω)*ι).a - (ω*(ω*ι)).a = -1` | `KleinAlgebra` |
+| ω Idempotence | `ω * ω = ω` | `ElementPower` |
+| ι Anti-Idempotence | `ι * ι = -ι` | `ElementPower` |
+| ω·ι Commutator Gap | `[ω, ι].a = -2` | `CommutatorGap` |
+| Associator Gap | `((ω*ω)*ι).a - (ω*(ω*ι)).a = -1` | `Invariance` |
 | Hyperbolic Asymmetry | `(0,1,1,0,0)² → b=1, m=-1` | `ProtorealMandelbrot` |
 | Parity Breaking | `div(convective(u)) = 2x²` | `HoloneticNS` |
 | Orbit Divergence | `left₂.a = -1 ≠ 3 = right₂.a` | `ProtorealMandelbrot` |
-| Empathy Conservation | `[u,v] + [v,u] = 0` | `CyberneticLife` |
+| Commutator Friction | `[u,v] = xy - yx` | `TopologicalBearing` |
 
 ## 4. The L-Space Prime Tower
 
@@ -156,7 +156,7 @@ Float computations minimized. Manifold parameters mapped to compressed bitfields
 - **Compute Friction**: Topological resistance = clock-cycle penalties
 
 ## Statistics
-- **279 Lean 4 modules** (175 Protoreal_Zeta + 104 InfoPhys)
+- **279 Lean 4 modules** (175 LaRue_Protoreal_Algebra + 104 InfoPhys)
 - **2400+ formally verified theorems**
 - **0 sorry in production builds**
-- **Two lakes**: Protoreal_Zeta (core algebra), InfoPhysAxioms (physics + dynamics)
+- **Two lakes**: LaRue_Protoreal_Algebra (core algebra), InfoPhysAxioms (physics + dynamics)

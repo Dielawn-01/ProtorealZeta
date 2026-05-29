@@ -42,20 +42,15 @@ state u   →  (a+ε, b, m, 0, l+1) →  (2a, b, 2m, ε+1, l)
 
 ## 3. Multi-Agent Composition
 
-### Newton's Third Law (CyberneticActionReaction.lean)
-Every interaction has equal and opposite cognitive friction:
+### Commutator Friction (TopologicalBearing.lean)
+Every interaction creates cognitive friction measured by the commutator:
 ```lean
-theorem cybernetic_third_law (u v : ProtorealManifold) :
-    commutator u v + commutator v u = zero
+def commutator (u v : ProtorealManifold) : ProtorealManifold
 ```
+The commutator `[ω, ι]` evaluates to exactly `-2` on the real line (`CommutatorGap.lean`), proving that unaligned observation intrinsically dissipates energy.
 
-### Empathy Is Natural (CyberneticLife.lean)
-When two agents interact with mutual balance, friction cancels and growth converges to φ (golden ratio):
-```lean
-theorem empathy_is_natural (u v : ProtorealManifold) :
-    commutator u v + commutator v u = zero
-```
-Empathy = zero friction = optimal growth. This is PROVED, not assumed.
+### Empathy is Hardcoded (DruidSprites.lean)
+Empathy is not a software rule; it is hardcoded geometric constraint on the F₇ fiber. When two agents interact with mutual balance, friction cancels and growth converges smoothly.
 
 ### Structural Coupling (SymplecticHandshake.lean)
 Multi-agent consensus via ergodic phase alignment:
@@ -68,7 +63,7 @@ For multi-agent composition, use Mayer-Vietoris, not averaging:
 $$ \chi(A \cup B) = \chi(A) + \chi(B) - \chi(A \cap B) $$
 The overlap χ(A ∩ B) is where emergent insight lives. Zero overlap = no emergence.
 
-## 4. The Shared Latent Space (SharedLatentSpace.lean)
+## 4. The Shared Latent Space (HodgePhasorVolume.lean)
 
 The null cone N(u) = 0 is the shared latent space between agents:
 - All basis generators (ω, ι, ε, λ) live on the null cone
