@@ -1,3 +1,6 @@
+import Mathlib.Data.Real.Basic
+import LaRueProtorealAlgebra.ProtorealManifold
+import LaRueProtorealAlgebra.ProtorealOperator
 import LaRueProtorealAlgebra.NonstandardBridge
 import LaRueProtorealAlgebra.MonsterLattice
 
@@ -20,6 +23,8 @@ We prove that 42 is the unique convergent destination of two independent paths:
 This formalizes **Shayne G. Brown's** foundational 42 conjecture as the **Topological Buffer**
 within the verified Lean 4 framework.
 -/
+
+open ProtorealManifold
 
 namespace OptimalCompute
 
@@ -90,5 +95,20 @@ theorem topological_convergence :
     (2 * leech_key - Fintype.card NonstandardBridge.HyperLevel = topological_buffer) ∧
     (hexation_degree * saeptation = topological_buffer) :=
   ⟨path1_two_keys_minus_succession, path2_hexation_times_saeptation⟩
+
+-- ════════════════════════════════════════════════════
+-- CRYSTALLIZATION AS GRADIENT DESCENT
+-- ════════════════════════════════════════════════════
+
+/-- The Lyapunov function is noise squared: L(u) = ε².
+    This measures how far from crystallization the state is. -/
+noncomputable def lyapunov (u : ProtorealManifold) : ℝ := u.e * u.e
+
+/-- funct kills noise: (funct u).e = 0, so lyapunov(funct u) = 0.
+    One step of crystallization IS gradient descent to the minimum. -/
+theorem funct_kills_lyapunov (u : ProtorealManifold) :
+    lyapunov (funct u) = 0 := by
+  unfold lyapunov funct
+  ring
 
 end OptimalCompute

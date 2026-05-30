@@ -1,3 +1,4 @@
+import Mathlib.Data.Real.Basic
 import LaRueProtorealAlgebra.ProtorealGraph
 import LaRueProtorealAlgebra.ProtorealOperator
 
@@ -123,5 +124,21 @@ theorem sowing_noise_zero (u : ProtorealManifold) :
     component (funct u) idx_eps = 0 := by
   unfold component funct idx_eps
   rfl
+
+-- ════════════════════════════════════════════════════
+-- CONTINUOUS PERCEPTION 
+-- ════════════════════════════════════════════════════
+
+/-- Perception = how much the manifold curves at a point.
+    Simple model: perception = |b * m - 1| = |SR|.
+    When SR = 0 (parity), perception is zero (equilibrium).
+    When SR ≠ 0, the observer perceives curvature. -/
+noncomputable def perception (u : ProtorealManifold) : ℝ :=
+  |u.b * u.m - 1|
+
+theorem perception_zero_at_parity (u : ProtorealManifold)
+    (h : u.b * u.m = 1) : perception u = 0 := by
+  unfold perception
+  rw [h, sub_self, abs_zero]
 
 end EulerPerception

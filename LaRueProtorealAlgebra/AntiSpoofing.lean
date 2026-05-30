@@ -119,4 +119,20 @@ theorem zkpcr_structural_security :
       (funct u).e = 0) :=
   ⟨depth_strictly_increases, monster_cross_check, sowing_firewall⟩
 
+-- ════════════════════════════════════════════════════
+-- DEFENSE 4: ANTI-INJECTION TORQUE
+-- ════════════════════════════════════════════════════
+
+/-- Torque = the non-commutative residual. |b - m|.
+    Zero iff parity holds. Positive iff the bridge is twisted. -/
+noncomputable def torque (u : ProtorealManifold) : ℝ := |u.b - u.m|
+
+/-- An injection attack claims ε = 0 but b ≠ m.
+    Such attacks always have positive torque. -/
+theorem injection_has_positive_torque (u : ProtorealManifold)
+    (he : u.e = 0) (hbm : u.b ≠ u.m) :
+    torque u > 0 := by
+  unfold torque
+  exact abs_pos.mpr (sub_ne_zero.mpr hbm)
+
 end AntiSpoofing
